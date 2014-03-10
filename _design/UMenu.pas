@@ -1,0 +1,47 @@
+unit UMenu;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TFMenu = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FMenu: TFMenu;
+
+implementation
+
+uses ULogin, UMenuPegawai, USuratMasuk, UMenuSurat;
+
+{$R *.dfm}
+
+procedure TFMenu.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FLogin.Show;
+  FMenu.Hide;
+end;
+
+procedure TFMenu.Button1Click(Sender: TObject);
+begin
+  FMenuPegawai.Show;
+end;
+
+procedure TFMenu.Button2Click(Sender: TObject);
+begin
+  FMenuSurat.Show;
+end;
+
+end.
