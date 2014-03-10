@@ -1,0 +1,40 @@
+Modul Master
+- SKPD
+
+Modul Biodata
+- Common CRUD
+
+Modul Absensi
+- Modul Masuk
+  - Absen #1 => jam  7 - 10
+  - Absen #2 => jam 10 - 13
+  - Absen #3 => jam 13 - 15
+  - Absen #4 => jam 15 - 16
+- Modul Tidak Masuk
+- User TU & Admin bisa update waktu
+
+Modul SKP
+- Common CRUD
+  - Table Atas Modul SKP
+  - Table Bawah Modul Kegiatan
+  - Mastering : Table jenis_skp (title & tahun) & jenis_kegiatan (title & tahun)
+
+Modul Surat Masuk
+- Common CRUD
+- Modul Disposisi
+  - Ada perhitungan Hari
+
+Modul Surat Keluar
+- Common CRUD
+
+Modul Nota Dinas
+- Common CRUD
+
+Modul Agenda Rapat
+- Common CRUD
+- Send SMS
+- Export to PDF dan Word
+- support untuk orang banyak
+
+Modul User
+- User Type : Admin / Tata Usaha / Pegawai
