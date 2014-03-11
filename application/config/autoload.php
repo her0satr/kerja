@@ -6,5 +6,5 @@ $autoload['helper'] = array( 'date', 'common', 'url', 'mcrypt' );
 $autoload['config'] = array();
 $autoload['language'] = array();
 $autoload['model'] = array(
-	'user_model', 'user_type_model', 'skpd_model'
+	'user_model', 'user_type_model', 'skpd_model', 'biodata_model'
 );

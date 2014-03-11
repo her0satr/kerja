@@ -1,20 +1,20 @@
 <?php
 
-class skpd extends SYGAAS_Controller {
+class biodata extends SYGAAS_Controller {
 	function __construct() {
 		parent::__construct();
 	}
 	
 	function index() {
-		$this->load->view( 'master/skpd');
+		$this->load->view( 'kepegawaian/biodata');
 	}
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
 		$_POST['column'] = array( 'title' );
 		
-		$array = $this->skpd_model->get_array($_POST);
-		$count = $this->skpd_model->get_count();
+		$array = $this->biodata_model->get_array($_POST);
+		$count = $this->biodata_model->get_count();
 		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
 		
 		echo json_encode($grid);
@@ -26,11 +26,11 @@ class skpd extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'update') {
-			$result = $this->skpd_model->update($_POST);
+			$result = $this->biodata_model->update($_POST);
 		} else if ($action == 'get_by_id') {
-			$result = $this->skpd_model->get_by_id(array( 'id' => $_POST['id'] ));
+			$result = $this->biodata_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'delete') {
-			$result = $this->skpd_model->delete($_POST);
+			$result = $this->biodata_model->delete($_POST);
 		}
 		
 		echo json_encode($result);

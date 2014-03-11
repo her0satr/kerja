@@ -20,6 +20,7 @@ define('USER_ID_ADMINISTRATOR',					1);
 define('USER_ID_TU',							2);
 define('USER_ID_PEGAWAI',						3);
 
+define('BIODATA',								'biodata');
 define('SKPD',									'skpd');
 define('USER',									'user');
 define('USER_TYPE',								'user_type');

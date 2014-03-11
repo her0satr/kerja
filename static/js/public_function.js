@@ -121,7 +121,10 @@ var Func = {
 			if (p.record.hasOwnProperty(form_name)) {
 				var input = $(p.cnt + ' [name="' + form_name + '"]');
 				var value = p.record[form_name];
-				if (input.attr('type') == 'checkbox') {
+				
+				if (input.attr('type') == 'radio') {
+					input.filter('[value=' + value.toString() + ']').prop('checked', true);
+				} else if (input.attr('type') == 'checkbox') {
 					input.prop('checked', false);
 					if (value == 1) {
 						input.prop('checked', true);

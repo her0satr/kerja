@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2014 at 02:58 PM
+-- Generation Time: Mar 11, 2014 at 01:51 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -25,29 +25,61 @@ USE `sygaas_db`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `biodata`
+--
+
+CREATE TABLE IF NOT EXISTS `biodata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(150) NOT NULL,
+  `tempat_lahir` varchar(150) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `skpd`
+--
+
+CREATE TABLE IF NOT EXISTS `skpd` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `skpd`
+--
+
+INSERT INTO `skpd` (`id`, `title`) VALUES
+(9, 'Malang'),
+(10, 'Bandung');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_type_id` int(11) NOT NULL,
-  `koordinator_id` int(11) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `fullname` varchar(100) NOT NULL,
   `passwd` varchar(100) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `thumbnail` varchar(255) NOT NULL,
-  `register_date` datetime NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `user_type_id`, `koordinator_id`, `email`, `fullname`, `passwd`, `address`, `thumbnail`, `register_date`, `is_active`) VALUES
-(2, 1, 0, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '', '2013-10-17 03:17:56', 1);
+INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `address`, `thumbnail`, `is_active`) VALUES
+(2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2014/03/11/20140311_131431_5821.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -57,7 +89,7 @@ INSERT INTO `user` (`id`, `user_type_id`, `koordinator_id`, `email`, `fullname`,
 
 CREATE TABLE IF NOT EXISTS `user_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `title` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -65,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `user_type` (
 -- Dumping data for table `user_type`
 --
 
-INSERT INTO `user_type` (`id`, `name`) VALUES
+INSERT INTO `user_type` (`id`, `title`) VALUES
 (1, 'Administrator'),
 (2, 'Tata Usaha'),
 (3, 'Pegawai');
