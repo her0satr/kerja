@@ -56,7 +56,7 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		var param = Func.form.get_galue('form-login');
+		var param = Func.form.get_value('form-login');
 		Func.ajax({ url: web.host + 'home/action', param: param, callback: function(result) {
 			if (result.success) {
 				window.location = web.host;

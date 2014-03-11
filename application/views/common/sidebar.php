@@ -11,14 +11,24 @@
 	</form>
 	
 	<ul id="nav">
-		<li><a href="<?php echo base_url('panel/home/dashboard'); ?>"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+		<li><a href="<?php echo base_url('home'); ?>"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
 		
 		<?php foreach ($array_menu as $parent) { ?>
 		<li class="has_sub">
 			<a href="#" data-link="<?php echo $parent['name']; ?>"><i class="fa fa-folder"></i><span><?php echo $parent['title']; ?></span><span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
 			<ul>
 				<?php foreach ($parent['children'] as $children) { ?>
-				<li><a data-link="<?php echo $children['name']; ?>" href="<?php echo base_url('panel/'.$parent['name'].'/'.$children['name']); ?>"><?php echo $children['title']; ?></a></li>
+					<?php if (isset($children['children']) && count($children['children']) > 0) { ?>
+					<li class="has_sub"><a href="#" data-link="<?php echo $children['name']; ?>"><i class="fa fa-folder"></i> <?php echo $children['title']; ?> <span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
+						<ul>
+							<?php foreach ($children['children'] as $menu) { ?>
+							<li><a href="<?php echo base_url($parent['name'].'/'.$children['name'].'/'.$menu['name']); ?>"><i class="fa fa-bell"></i> <?php echo $menu['title']; ?></a></li>
+							<?php } ?>
+						</ul>
+					</li>
+					<?php } else { ?>
+					<li><a data-link="<?php echo $children['name']; ?>" href="<?php echo base_url($parent['name'].'/'.$children['name']); ?>"><i class="fa fa-bell"></i> <?php echo $children['title']; ?></a></li>
+					<?php } ?>
 				<?php } ?>
 			</ul>
 		</li>

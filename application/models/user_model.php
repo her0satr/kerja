@@ -149,41 +149,66 @@ class user_model extends CI_Model {
 	function get_menu($param = array()) {
 		$array_menu = array(
 			array(
-				'name' => 'inventory',
-				'title' => 'Inventory',
-				'user_type_id' => array( 1, 2, 3, 4 ),
-				'children' => array(
-					array( 'name' => 'kendaraan_masuk', 'title' => 'Kendaraan Masuk', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'kredit_kendaraan', 'title' => 'Penjualan Kendaraan', 'user_type_id' => array( 1, 2, 3, 4 ) ),
-					array( 'name' => 'invoice', 'title' => 'Kwintansi', 'user_type_id' => array( 1, 3, 4 ) )
-				)
-			),
-			array(
-				'name' => 'report',
-				'title' => 'Laporan',
-				'user_type_id' => array( 1, 2, 3, 4 ),
-				'children' => array(
-					array( 'name' => 'stock_kendaraan', 'title' => 'Stock Kendaraan', 'user_type_id' => array( 1, 2, 3, 4 ) ),
-					array( 'name' => 'rekap_penjualan', 'title' => 'Rekap Penjualan', 'user_type_id' => array( 1, 2, 3, 4 ) ),
-					array( 'name' => 'rekap_sales', 'title' => 'Penjualan Sales', 'user_type_id' => array( 1, 2, 3, 4 ) )
-				)
-			),
-			array(
-				'name' => 'website',
-				'title' => 'Website',
+				'name' => 'kepegawaian',
+				'title' => 'Kepegawaian',
 				'user_type_id' => array( 1 ),
 				'children' => array(
-					array( 'name' => 'event', 'title' => 'Event', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'schedule', 'title' => 'Jadwal', 'user_type_id' => array( 1 ) )
+					array(
+						'name' => 'biodata', 'title' => 'Biodata', 'user_type_id' => array( 1 )
+					),
+					array(
+						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1 ),
+						'children' => array(
+							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'tidak_masuk', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1 ) )
+						)
+					),
+					array(
+						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1 ),
+						'children' => array(
+							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+						)
+					)
 				)
 			),
 			array(
-				'name' => 'member',
-				'title' => 'Member',
+				'name' => 'surat',
+				'title' => 'Persuratan',
 				'user_type_id' => array( 1 ),
 				'children' => array(
-					array( 'name' => 'user', 'title' => 'User', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'koordinator_sales', 'title' => 'Koordinator Sales', 'user_type_id' => array( 1 ) )
+					array(
+						'name' => 'surat_masuk', 'title' => 'Surat Masuk', 'user_type_id' => array( 1 ),
+						'children' => array(
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+						)
+					),
+					array(
+						'name' => 'surat_masuk', 'title' => 'Surat Keluar', 'user_type_id' => array( 1 ),
+						'children' => array(
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+						)
+					),
+					array(
+						'name' => 'nota_dinas', 'title' => 'Nota Dinas', 'user_type_id' => array( 1 ),
+						'children' => array(
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+						)
+					),
+					array(
+						'name' => 'agenda_rapat', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1 ),
+						'children' => array(
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+						)
+					)
+				)
+			),
+			array(
+				'name' => 'user',
+				'title' => 'User',
+				'user_type_id' => array( 1 ),
+				'children' => array(
+					array( 'name' => 'user', 'title' => 'User', 'user_type_id' => array( 1 ) )
 				)
 			),
 			array(
@@ -191,12 +216,7 @@ class user_model extends CI_Model {
 				'title' => 'Master',
 				'user_type_id' => array( 1 ),
 				'children' => array(
-					array( 'name' => 'jenis_unit', 'title' => 'Jenis Unit', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_warna', 'title' => 'Jenis Warna', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_leasing', 'title' => 'Jenis Leasing', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_angsuran', 'title' => 'Jenis Angsuran', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_pembayaran', 'title' => 'Jenis Pembayaran', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_waktu_kredit', 'title' => 'Jenis Waktu Kredit', 'user_type_id' => array( 1 ) )
+					array( 'name' => 'skpd', 'title' => 'SKPD', 'user_type_id' => array( 1 ) ),
 				)
 			)
 		);

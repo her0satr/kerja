@@ -150,7 +150,20 @@ var Func = {
 		return value.replace(/^\s+|\s+$/g,'');
 	},
     form: {
-        get_galue: function(container) {
+		submit: function(p) {
+			Func.ajax({ url: p.url, param: p.param, callback: function(result) {
+				if (result.status == 1) {
+					noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 1500 });
+					
+					if (p.callback != null) {
+						p.callback(result);
+					}
+				} else {
+					noty({ text: result.message, layout: 'topRight', type: 'error', timeout: 1500 });
+				}
+			} });
+		},
+        get_value: function(container) {
 			var PrefixCheck = container.substr(0, 1);
 			if (! Func.in_array(PrefixCheck, ['.', '#'])) {
 				container = '#' + container;
@@ -199,7 +212,42 @@ var Func = {
             }
 			
             return data;
-        }
+        },
+		del: function(p) {
+			var cnt_modal = '';
+			cnt_modal += '<div id="cnt-confirm" class="modal small fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+			cnt_modal += '<div class="modal-dialog">';
+			cnt_modal += '<div class="modal-content">';
+			cnt_modal += '<div class="modal-header">';
+			cnt_modal += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+			cnt_modal += '<h4 class="modal-title">Konfirmasi Penghapusan !!</h4>';
+			cnt_modal += '</div>';
+			cnt_modal += '<div class="modal-body">';
+			cnt_modal += '<p>Apa Anda sudah yakin ?</p>';
+			cnt_modal += '</div>';
+			cnt_modal += '<div class="modal-footer">';
+			cnt_modal += '<button type="button" class="btn btn-close btn-default" data-dismiss="modal" aria-hidden="true">Tidak</button>';
+			cnt_modal += '<button type="button" class="btn btn-primary">Ya</button>';
+			cnt_modal += '</div>';
+			cnt_modal += '</div>';
+			cnt_modal += '</div>';
+			cnt_modal += '</div>';
+			$('#cnt-temp').html(cnt_modal);
+			$('#cnt-confirm').modal();
+			
+			$('#cnt-confirm .btn-primary').click(function() {
+				$.ajax({ type: "POST", url: p.url, data: p.data }).done(function( raw_result ) {
+					eval('var result = ' + raw_result);
+					
+					$('#cnt-confirm .btn-close').click();
+					noty({ text: result.message, layout: 'topRight', type: 'success', timeout: 1500 });
+					
+					if (p.callback != null) {
+						p.callback();
+					}
+				});
+			});
+		}
     }
 }
 
