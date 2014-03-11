@@ -4,7 +4,7 @@ class user_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'user_type_id', 'koordinator_id', 'email', 'fullname', 'passwd', 'address', 'register_date', 'is_active', 'thumbnail' );
+        $this->field = array( 'id', 'user_type_id', 'email', 'fullname', 'passwd', 'address', 'thumbnail', 'is_active' );
     }
 
     function update($param) {
@@ -58,7 +58,7 @@ class user_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['user_type_name'] = 'UserType.name';
+		$param['field_replace']['user_type_title'] = 'UserType.title';
 		
 		$string_namelike = (!empty($param['namelike'])) ? "AND User.email LIKE '%".$param['namelike']."%'" : '';
 		$string_user_type = (!empty($param['user_type_id'])) ? "AND User.user_type_id = '".$param['user_type_id']."'" : '';
@@ -68,7 +68,7 @@ class user_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS User.*, UserType.name user_type_name
+			SELECT SQL_CALC_FOUND_ROWS User.*, UserType.title user_type_title
 			FROM ".USER." User
 			LEFT JOIN ".USER_TYPE." UserType ON UserType.id = User.user_type_id
 			WHERE 1 $string_namelike $string_user_type $string_koordinator $string_filter
@@ -269,7 +269,7 @@ class user_model extends CI_Model {
 	function required_login($param = array()) {
 		$is_login = $this->is_login($param);
 		if (!$is_login) {
-			header("Location: ".base_url('panel'));
+			header("Location: ".base_url());
 			exit;
 		}
 	}

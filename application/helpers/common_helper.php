@@ -41,7 +41,7 @@
             $Param['ArrayID'] = (isset($Param['ArrayID'])) ? $Param['ArrayID'] : 'id';
             $Param['WithEmptySelect'] = (isset($Param['WithEmptySelect'])) ? $Param['WithEmptySelect'] : 1;
             
-            $Param['ArrayTitle'] = (isset($Param['ArrayTitle'])) ? $Param['ArrayTitle'] : 'name';
+            $Param['ArrayTitle'] = (isset($Param['ArrayTitle'])) ? $Param['ArrayTitle'] : 'title';
             $Param['Selected'] = (isset($Param['Selected'])) ? $Param['Selected'] : '';
             
             if ($Param['WithEmptySelect'] == 1) {

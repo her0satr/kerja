@@ -1,3 +1,10 @@
+<?php
+	$array_agama = $this->agama_model->get_array();
+	$array_kelamin = $this->kelamin_model->get_array();
+	$array_jenis_kepegawaian = $this->jenis_kepegawaian_model->get_array();
+	$array_status_perkawinan = $this->status_perkawinan_model->get_array();
+	$array_status_kepegawaian = $this->status_kepegawaian_model->get_array();
+?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Biodata' ) ); ?>
 
 <body>
@@ -5,6 +12,11 @@
 
 <div class="content">
 	<?php $this->load->view( 'common/sidebar'); ?>
+	<div class="hide">
+		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
+		<iframe name="iframe_karpeg" src="<?php echo base_url('upload?callback=set_karpeg'); ?>"></iframe>
+		<iframe name="iframe_kartu_nikah" src="<?php echo base_url('upload?callback=set_kartu_nikah'); ?>"></iframe>
+	</div>
 	
   	<div class="mainbar">
 	    <div class="page-head">
@@ -70,7 +82,80 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">NIP</label>
 								<div class="col-lg-10">
-									<input type="text" name="nip" class="form-control" placeholder="Nama" />
+									<input type="text" name="nip" class="form-control" placeholder="NIP" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Karpeg</label>
+								<div class="col-lg-4">
+									<input type="text" name="karpeg" class="form-control" placeholder="Karpeg" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-karpeg" value="Browse" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Tempat Lahir</label>
+								<div class="col-lg-10">
+									<input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Tanggal Lahir</label>
+								<div class="col-lg-10">
+									<div class="input-append datepicker">
+										<input name="tanggal_lahir" type="text" class="form-control dtpicker" placeholder="Tanggal Lahir" data-format="dd-MM-yyyy" />
+										<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Agama</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="agama_id">
+										<?php echo ShowOption(array( 'Array' => $array_agama )); ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Jenis Kelamin</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="kelamin">
+										<?php echo ShowOption(array( 'Array' => $array_kelamin )); ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Status Kepegawaian</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="status_kepegawaian_id">
+										<?php echo ShowOption(array( 'Array' => $array_status_kepegawaian )); ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Jenis Kepegawaian</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="jenis_kepegawaian_id">
+										<?php echo ShowOption(array( 'Array' => $array_jenis_kepegawaian )); ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Status Perkawinan</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="status_perkawinan_id">
+										<?php echo ShowOption(array( 'Array' => $array_status_perkawinan )); ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Kartu Nikah</label>
+								<div class="col-lg-4">
+									<input type="text" name="kartu_nikah" class="form-control" placeholder="Kartu Nikah" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-kartu-nikah" value="Browse" />
 								</div>
 							</div>
 							
@@ -105,6 +190,10 @@ $(document).ready(function() {
 		show_form: function() {
 			$('.grid-main').hide();
 			$('#form-biodata').show();
+		},
+		show_form_detail: function() {
+			$('.grid-main').hide();
+			$('#form-biodata').show();
 		}
 	}
 	
@@ -112,6 +201,16 @@ $(document).ready(function() {
 	$('.btn-show-grid').click(function() {
 		page.show_grid();
 	});
+	
+	// upload
+	$('.btn-browse-karpeg').click(function() { window.iframe_karpeg.browse() });
+	set_karpeg = function(p) {
+		$('#form-biodata [name="karpeg"]').val(p.file_name);
+	}
+	$('.btn-browse-kartu-nikah').click(function() { window.iframe_kartu_nikah.browse() });
+	set_kartu_nikah = function(p) {
+		$('#form-biodata [name="kartu_nikah"]').val(p.file_name);
+	}
 	
 	// grid
 	var param = {
@@ -126,6 +225,16 @@ $(document).ready(function() {
 				Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					Func.populate({ cnt: '#form-biodata', record: result });
 					page.show_form();
+				} });
+			});
+			
+			$('#datatable .btn-detail').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
+					Func.populate({ cnt: '#biodata-detail', record: result });
+					page.show_form_detail();
 				} });
 			});
 			
@@ -150,7 +259,11 @@ $(document).ready(function() {
 	});
 	$('#form-biodata form').validate({
 		rules: {
-			title: { required: true, minlength: 2 }
+			nama: { required: true, minlength: 5 },
+			tempat_lahir: { required: true },
+			tanggal_lahir: { required: true },
+			agama_id: { required: true },
+			kelamin: { required: true }
 		}
 	});
 	$('#form-biodata form').submit(function(e) {

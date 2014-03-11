@@ -20,7 +20,11 @@ define('USER_ID_ADMINISTRATOR',					1);
 define('USER_ID_TU',							2);
 define('USER_ID_PEGAWAI',						3);
 
+define('AGAMA',									'agama');
 define('BIODATA',								'biodata');
+define('JENIS_KEPEGAWAIAN',						'jenis_kepegawaian');
 define('SKPD',									'skpd');
+define('STATUS_PERKAWINAN',						'status_perkawinan');
+define('STATUS_KEPEGAWAIAN',					'status_kepegawaian');
 define('USER',									'user');
 define('USER_TYPE',								'user_type');

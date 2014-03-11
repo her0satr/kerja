@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class user_type_model extends CI_Model {
+class jenis_kepegawaian_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
@@ -11,14 +11,14 @@ class user_type_model extends CI_Model {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, USER_TYPE);
+            $insert_query  = GenerateInsertQuery($this->field, $param, JENIS_KEPEGAWAIAN);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, USER_TYPE);
+            $update_query  = GenerateUpdateQuery($this->field, $param, JENIS_KEPEGAWAIAN);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -33,9 +33,14 @@ class user_type_model extends CI_Model {
         $array = array();
        
         if (isset($param['id'])) {
-            $select_query  = "SELECT * FROM ".USER_TYPE." WHERE id = '".$param['id']."' LIMIT 1";
-        } 
-       
+            $select_query  = "
+				SELECT jenis_kepegawaian.*
+				FROM ".JENIS_KEPEGAWAIAN." jenis_kepegawaian
+				WHERE jenis_kepegawaian.id = '".$param['id']."'
+				LIMIT 1
+			";
+		}
+		
         $select_result = mysql_query($select_query) or die(mysql_error());
         if (false !== $row = mysql_fetch_assoc($select_result)) {
             $array = $this->sync($row);
@@ -52,15 +57,15 @@ class user_type_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS UserType.*
-			FROM ".USER_TYPE." UserType
+			SELECT SQL_CALC_FOUND_ROWS jenis_kepegawaian.*
+			FROM ".JENIS_KEPEGAWAIAN." jenis_kepegawaian
 			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
         $select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			$array[] = $this->sync($row, @$param['column']);
+			$array[] = $this->sync($row, $param);
 		}
 		
         return $array;
@@ -76,7 +81,7 @@ class user_type_model extends CI_Model {
     }
 	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".USER_TYPE." WHERE id = '".$param['id']."' LIMIT 1";
+		$delete_query  = "DELETE FROM ".JENIS_KEPEGAWAIAN." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';
@@ -85,8 +90,12 @@ class user_type_model extends CI_Model {
         return $result;
     }
 	
-	function sync($row, $column = array()) {
+	function sync($row, $param = array()) {
 		$row = StripArray($row);
+		
+		if (count(@$param['column']) > 0) {
+			$row = dt_view_set($row, $param);
+		}
 		
 		return $row;
 	}

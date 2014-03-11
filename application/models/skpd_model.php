@@ -93,10 +93,6 @@ class skpd_model extends CI_Model {
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
 		
-		if (!empty($row['thumbnail'])) {
-			$row['thumbnail_link'] = base_url('static/upload/'.$row['thumbnail']);
-		}
-		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);
 		}

@@ -11,7 +11,12 @@ class biodata extends SYGAAS_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'title' );
+		$_POST['column'] = array( 'nama', 'nip', 'tanggal_lahir_text', 'tempat_lahir' );
+		
+		// button
+		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
+		$_POST['is_custom'] .= '<button class="btn btn-xs btn-detail btn-success" data-original-title="Hapus"><i class="fa fa-comments"></i></button> ';
+		$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
 		
 		$array = $this->biodata_model->get_array($_POST);
 		$count = $this->biodata_model->get_count();

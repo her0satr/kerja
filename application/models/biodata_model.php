@@ -4,7 +4,10 @@ class biodata_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'title' );
+        $this->field = array(
+			'id', 'agama_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
+			'tanggal_lahir', 'karpeg', 'kartu_nikah'
+		);
     }
 
     function update($param) {
@@ -91,7 +94,11 @@ class biodata_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
-		$row = StripArray($row);
+		$row = StripArray($row, array( 'tanggal_lahir' ));
+		
+		if (isset($row['tanggal_lahir'])) {
+			$row['tanggal_lahir_text'] = GetFormatDate($row['tanggal_lahir']);
+		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

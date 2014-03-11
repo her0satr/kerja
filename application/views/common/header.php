@@ -19,7 +19,6 @@
 					</a>
 					
 					<ul class="dropdown-menu">
-						<li><a href="<?php echo base_url(); ?>"><i class="fa fa-globe"></i> Website</a></li>
 						<li><a href="<?php echo base_url('home/logout'); ?>"><i class="fa fa-key"></i> Logout</a></li>
 					</ul>
 				</li>

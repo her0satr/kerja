@@ -11,7 +11,7 @@ class user extends SYGAAS_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'email', 'fullname', 'user_type_name', 'is_active' );
+		$_POST['column'] = array( 'email', 'fullname', 'user_type_title', 'is_active' );
 		
 		$array = $this->user_model->get_array($_POST);
 		$count = $this->user_model->get_count();

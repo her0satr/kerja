@@ -129,8 +129,8 @@ var Func = {
 					if (value == 1) {
 						input.prop('checked', true);
 					}
-				} else if (input.hasClass('datepicker')) {
-					input.val(Func.SwapDate(value));
+				} else if (input.hasClass('dtpicker')) {
+					input.val(Func.swap_date(value));
 				} else {
 					input.val(value);
 				}
@@ -209,6 +209,8 @@ var Func = {
 				} else if (Input.eq(i).attr('type') == 'radio') {
 					value = $(container + ' [name="' + name + '"]:checked').val();
 					data = set_value(data, name, value);
+				} else if (Input.eq(i).hasClass('dtpicker')) {
+					data = set_value(data, name, Func.swap_date(value));
 				} else {
 					data = set_value(data, name, value);
 				}
