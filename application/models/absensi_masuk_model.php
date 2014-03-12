@@ -1,27 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class biodata_model extends CI_Model {
+class absensi_masuk_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array(
-			'id', 'agama_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
-			'tanggal_lahir', 'karpeg', 'kartu_nikah'
-		);
+        $this->field = array( 'id', 'biodata_id', 'tanggal', 'label', 'waktu_01', 'status_01', 'waktu_02', 'status_02', 'waktu_03', 'status_03', 'waktu_04', 'status_04', 'keterangan' );
     }
 
     function update($param) {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, BIODATA);
+            $insert_query  = GenerateInsertQuery($this->field, $param, ABSENSI_MASUK);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, BIODATA);
+            $update_query  = GenerateUpdateQuery($this->field, $param, ABSENSI_MASUK);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -37,14 +34,18 @@ class biodata_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT
-					biodata.*,
-					biodata_detail.biodata_id, biodata_detail.jabatan, biodata_detail.pangkat, biodata_detail.golongan_ruang, biodata_detail.tmt_pangkat,
-					biodata_detail.tmt_masa_kerja, biodata_detail.tmt_tahun, biodata_detail.tmt_bulan, biodata_detail.hp, biodata_detail.email,
-					biodata_detail.cpns, biodata_detail.pns, biodata_detail.non_pns, biodata_detail.unit_kerja
-				FROM ".BIODATA." biodata
-				LEFT JOIN ".BIODATA_DETAIL." biodata_detail ON biodata_detail.biodata_id = biodata.id
-				WHERE biodata.id = '".$param['id']."'
+				SELECT waktu_masuk.*
+				FROM ".ABSENSI_MASUK." waktu_masuk
+				WHERE waktu_masuk.id = '".$param['id']."'
+				LIMIT 1
+			";
+		} else if (isset($param['biodata_id']) && isset($param['tanggal'])) {
+            $select_query  = "
+				SELECT waktu_masuk.*
+				FROM ".ABSENSI_MASUK." waktu_masuk
+				WHERE
+					waktu_masuk.tanggal = '".$param['tanggal']."'
+					AND waktu_masuk.biodata_id = '".$param['biodata_id']."'
 				LIMIT 1
 			";
 		}
@@ -60,16 +61,17 @@ class biodata_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['tanggal_lahir_text'] = 'biodata.tanggal_lahir';
+		$param['field_replace']['tanggal_text'] = 'waktu_masuk.tanggal';
 		
+		$string_biodata = (isset($param['biodata_id'])) ? "AND waktu_masuk.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'id DESC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'tanggal DESC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS biodata.*
-			FROM ".BIODATA." biodata
-			WHERE 1 $string_filter
+			SELECT SQL_CALC_FOUND_ROWS waktu_masuk.*
+			FROM ".ABSENSI_MASUK." waktu_masuk
+			WHERE 1 $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -91,7 +93,7 @@ class biodata_model extends CI_Model {
     }
 	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".BIODATA." WHERE id = '".$param['id']."' LIMIT 1";
+		$delete_query  = "DELETE FROM ".ABSENSI_MASUK." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';
@@ -101,15 +103,19 @@ class biodata_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
-		$row = StripArray($row, array( 'tanggal_lahir' ));
+		$row = StripArray($row);
 		
-		// link
-		if (isset($row['id'])) {
-			$row['link_riwayat'] = base_url('kepegawaian/riwayat/index/'.$row['id']);
-		}
-		
-		if (isset($row['tanggal_lahir'])) {
-			$row['tanggal_lahir_text'] = GetFormatDate($row['tanggal_lahir']);
+		// grid type
+		if (isset($param['grid_type']) && $param['grid_type'] == 'absensi_pegawai') {
+			if ($row['waktu_02'] == '00:00:00') {
+				$row['waktu_02'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_02" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
+			}
+			if ($row['waktu_03'] == '00:00:00') {
+				$row['waktu_03'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_03" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
+			}
+			if ($row['waktu_04'] == '00:00:00') {
+				$row['waktu_04'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_04" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
+			}
 		}
 		
 		if (count(@$param['column']) > 0) {

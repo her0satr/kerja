@@ -1,3 +1,37 @@
+String.prototype.strpad = function str_pad(pad_length, pad_string, pad_type) {
+	var input = this;
+	if (pad_type == undefined) pad_type = STR_PAD_RIGHT;
+	if (pad_string == undefined) pad_string = ' ';
+	
+	switch(pad_type) {
+		case 'STR_PAD_RIGHT':
+				if(input.length > pad_length) return input;
+				fillnum = pad_length - input.length;
+				fillstring = new Array(fillnum + 1).join(pad_string).substr(0, fillnum);
+				return input + fillstring;
+		break;
+		case 'STR_PAD_LEFT':
+				if(input.length > pad_length) return input;
+				fillnum = pad_length - input.length;
+				fillstring = new Array(fillnum + 1).join(pad_string).substr(0, fillnum);
+				return fillstring + input;
+		break;
+		case 'STR_PAD_BOTH':
+				if(input.length > pad_length) return input;
+				fillnum = pad_length - input.length;
+				fillnum_right = Math.ceil(fillnum / 2);
+				fillnum_left = Math.floor(fillnum / 2);
+				fillstring_left = new Array(fillnum_left + 1).join(pad_string).substr(0, fillnum_left);
+				fillstring_right = new Array(fillnum_right + 1).join(pad_string).substr(0, fillnum_right);
+				return fillstring_left + input + fillstring_right;
+		break;
+	}
+}
+function str_pad(input, pad_length, pad_string, pad_type) {
+	input = input.toString();
+	return input.strpad(pad_length, pad_string, pad_type);
+}
+
 var Func = {
     base: web.base,
 	ajax: function(p) {
@@ -32,8 +66,8 @@ var Func = {
 				"sLengthMenu": "_MENU_ <span>entries per page</span>"
 			},
 			"fnDrawCallback": function (oSettings) {
-				// init tooltips
-				$(cnt_id + ' .tool-tip').tooltip({ placement: 'top' });
+				// tooltip
+				$('.btn-xs').tooltip();
 				
 				if (p.callback != null) {
 					p.callback();

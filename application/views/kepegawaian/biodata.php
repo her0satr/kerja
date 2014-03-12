@@ -16,6 +16,10 @@
 		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
 		<iframe name="iframe_karpeg" src="<?php echo base_url('upload?callback=set_karpeg'); ?>"></iframe>
 		<iframe name="iframe_kartu_nikah" src="<?php echo base_url('upload?callback=set_kartu_nikah'); ?>"></iframe>
+		<iframe name="iframe_cpns" src="<?php echo base_url('upload?callback=set_cpns'); ?>"></iframe>
+		<iframe name="iframe_pns" src="<?php echo base_url('upload?callback=set_pns'); ?>"></iframe>
+		<iframe name="iframe_non_pns" src="<?php echo base_url('upload?callback=set_non_pns'); ?>"></iframe>
+		<iframe name="iframe_unit_kerja" src="<?php echo base_url('upload?callback=set_unit_kerja'); ?>"></iframe>
 	</div>
 	
   	<div class="mainbar">
@@ -170,6 +174,124 @@
 					</div>
 				</div>  
 				
+				<div class="widget hide" id="form-detail">
+					<div class="widget-head">
+						<div class="pull-left">Form Detail Pegawai</div>
+						<div class="widget-icons pull-right">
+							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					
+					<div class="widget-content">
+						<div class="padd"><form class="form-horizontal">
+							<input type="hidden" name="action" value="update_detail" />
+							<input type="hidden" name="id" value="0" />
+							<input type="hidden" name="biodata_id" value="0" />
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">CPNS</label>
+								<div class="col-lg-4">
+									<input type="text" name="cpns" class="form-control" placeholder="CPNS" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-cpns" value="Browse" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">PNS</label>
+								<div class="col-lg-4">
+									<input type="text" name="pns" class="form-control" placeholder="PNS" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-pns" value="Browse" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">Non PNS</label>
+								<div class="col-lg-4">
+									<input type="text" name="non_pns" class="form-control" placeholder="Non PNS" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-non_pns" value="Browse" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">Jabatan</label>
+								<div class="col-lg-10">
+									<input type="text" name="jabatan" class="form-control" placeholder="Jabatan" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">Unit Kerja</label>
+								<div class="col-lg-4">
+									<input type="text" name="unit_kerja" class="form-control" placeholder="Unit Kerja" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-unit_kerja" value="Browse" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">Pangkat</label>
+								<div class="col-lg-10">
+									<input type="text" name="pangkat" class="form-control" placeholder="Pangkat" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">Gol. Ruang</label>
+								<div class="col-lg-10">
+									<input type="text" name="golongan_ruang" class="form-control" placeholder="Gol. Ruang" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">TMT Pangkat</label>
+								<div class="col-lg-10">
+									<input type="text" name="tmt_pangkat" class="form-control" placeholder="TMT Pangkat" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">- Masa Kerja</label>
+								<div class="col-lg-10">
+									<input type="text" name="tmt_masa_kerja" class="form-control" placeholder="Masa Kerja" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">- Tahun</label>
+								<div class="col-lg-10">
+									<input type="text" name="tmt_tahun" class="form-control" placeholder="Tahun" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">- Bulan</label>
+								<div class="col-lg-10">
+									<input type="text" name="tmt_bulan" class="form-control" placeholder="Bulan" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">No HP</label>
+								<div class="col-lg-10">
+									<input type="text" name="hp" class="form-control" placeholder="No HP" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label left">Email</label>
+								<div class="col-lg-10">
+									<input type="text" name="email" class="form-control" placeholder="Email" />
+								</div>
+							</div>
+							
+							<hr />
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-9">
+									<button type="submit" class="btn btn-info">Save</button>
+									<button type="button" class="btn btn-info btn-show-grid">Cancel</button>
+								</div>
+							</div>
+						</form></div>
+					</div>
+				</div>  
+				
 			</div></div>
         </div></div>
     </div>
@@ -186,14 +308,17 @@ $(document).ready(function() {
 		show_grid: function() {
 			$('.grid-main').show();
 			$('#form-biodata').hide();
+			$('#form-detail').hide();
 		},
 		show_form: function() {
 			$('.grid-main').hide();
 			$('#form-biodata').show();
+			$('#form-detail').hide();
 		},
 		show_form_detail: function() {
 			$('.grid-main').hide();
-			$('#form-biodata').show();
+			$('#form-biodata').hide();
+			$('#form-detail').show();
 		}
 	}
 	
@@ -210,6 +335,22 @@ $(document).ready(function() {
 	$('.btn-browse-kartu-nikah').click(function() { window.iframe_kartu_nikah.browse() });
 	set_kartu_nikah = function(p) {
 		$('#form-biodata [name="kartu_nikah"]').val(p.file_name);
+	}
+	$('.btn-browse-cpns').click(function() { window.iframe_cpns.browse() });
+	set_cpns = function(p) {
+		$('#form-detail [name="cpns"]').val(p.file_name);
+	}
+	$('.btn-browse-pns').click(function() { window.iframe_pns.browse() });
+	set_pns = function(p) {
+		$('#form-detail [name="pns"]').val(p.file_name);
+	}
+	$('.btn-browse-non_pns').click(function() { window.iframe_non_pns.browse() });
+	set_non_pns = function(p) {
+		$('#form-detail [name="non_pns"]').val(p.file_name);
+	}
+	$('.btn-browse-unit_kerja').click(function() { window.iframe_unit_kerja.browse() });
+	set_unit_kerja = function(p) {
+		$('#form-detail [name="unit_kerja"]').val(p.file_name);
 	}
 	
 	// grid
@@ -232,10 +373,17 @@ $(document).ready(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);
 				
-				Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
-					Func.populate({ cnt: '#biodata-detail', record: result });
+				Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_biodata_detail_by_id', id: record.id }, callback: function(result) {
+					$('#form-detail form')[0].reset();
+					Func.populate({ cnt: '#form-detail', record: result });
 					page.show_form_detail();
 				} });
+			});
+			
+			$('#datatable .btn-riwayat').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				window.open(record.link_riwayat);
 			});
 			
 			$('#datatable .btn-delete').click(function() {
@@ -251,7 +399,7 @@ $(document).ready(function() {
 	}
 	dt = Func.datatable(param);
 	
-	// form skpd
+	// form biodata
 	$('.btn-add').click(function() {
 		page.show_form();
 		$('#form-biodata form')[0].reset();
@@ -280,6 +428,24 @@ $(document).ready(function() {
 				page.show_grid();
 				$('#form-biodata form')[0].reset();
 			}
+		});
+	});
+	
+	// form detail
+	$('#form-detail form').validate({
+		rules: {
+			hp: { required: true }
+		}
+	});
+	$('#form-detail form').submit(function(e) {
+		e.preventDefault();
+		if (! $('#form-detail form').valid()) {
+			return false;
+		}
+		
+		Func.form.submit({
+			url: web.host + 'kepegawaian/biodata/action',
+			param: Func.form.get_value('form-detail')
 		});
 	});
 });

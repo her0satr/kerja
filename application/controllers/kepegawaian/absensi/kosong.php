@@ -1,14 +1,15 @@
 <?php
 
-class masuk extends SYGAAS_Controller {
+class kosong extends SYGAAS_Controller {
 	function __construct() {
 		parent::__construct();
 	}
 	
 	function index() {
-		$this->load->view( 'kepegawaian/absensi/masuk');
+		$this->load->view( 'kepegawaian/absensi/kosong');
 	}
 	
+	/*
 	function grid() {
 		$_POST['grid_type'] = 'absensi_pegawai';
 		$_POST['column'] = array( 'tanggal', 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' );
@@ -56,4 +57,5 @@ class masuk extends SYGAAS_Controller {
 		
 		echo json_encode($result);
 	}
+	/*	*/
 }

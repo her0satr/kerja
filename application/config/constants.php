@@ -22,9 +22,14 @@ define('USER_ID_PEGAWAI',						3);
 
 define('AGAMA',									'agama');
 define('BIODATA',								'biodata');
+define('BIODATA_DETAIL',						'biodata_detail');
 define('JENIS_KEPEGAWAIAN',						'jenis_kepegawaian');
+define('RIWAYAT_DIKLAT',						'riwayat_diklat');
+define('RIWAYAT_MUTASI',						'riwayat_mutasi');
+define('RIWAYAT_PENDIDIKAN',					'riwayat_pendidikan');
 define('SKPD',									'skpd');
 define('STATUS_PERKAWINAN',						'status_perkawinan');
 define('STATUS_KEPEGAWAIAN',					'status_kepegawaian');
 define('USER',									'user');
 define('USER_TYPE',								'user_type');
+define('ABSENSI_MASUK',							'absensi_masuk');

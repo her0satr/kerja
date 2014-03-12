@@ -160,7 +160,7 @@ class user_model extends CI_Model {
 						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1 ),
 						'children' => array(
 							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'tidak_masuk', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1 ) )
 						)
 					),
 					array(
