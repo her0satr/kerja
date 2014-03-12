@@ -167,7 +167,7 @@ class user_model extends CI_Model {
 						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1 ),
 						'children' => array(
 							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1 ) )
 						)
 					)
 				)
@@ -184,7 +184,7 @@ class user_model extends CI_Model {
 						)
 					),
 					array(
-						'name' => 'surat_masuk', 'title' => 'Surat Keluar', 'user_type_id' => array( 1 ),
+						'name' => 'surat_keluar', 'title' => 'Surat Keluar', 'user_type_id' => array( 1 ),
 						'children' => array(
 							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
 						)

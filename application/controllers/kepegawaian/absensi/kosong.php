@@ -32,7 +32,6 @@ class kosong extends SYGAAS_Controller {
 		if ($action == 'update') {
 			$result = $this->absensi_kosong_model->update($_POST);
 		} else if ($action == 'get_by_id') {
-			
 			$result = $this->absensi_kosong_model->get_by_id($_POST);
 		} else if ($action == 'delete') {
 			$result = $this->absensi_kosong_model->delete($_POST);

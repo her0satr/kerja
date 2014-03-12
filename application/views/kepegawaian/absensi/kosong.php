@@ -22,6 +22,7 @@
 	<?php $this->load->view( 'common/sidebar'); ?>
 	<div class="hide">
 		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
+		<iframe name="iframe_upload_file" src="<?php echo base_url('upload?callback=set_upload_file'); ?>"></iframe>
 	</div>
 	
   	<div class="mainbar">
@@ -106,6 +107,15 @@
 						<input type="text" name="keterangan" class="form-control" placeholder="Keterangan" />
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">File</label>
+					<div class="col-lg-4">
+						<input type="text" name="upload_file" class="form-control" placeholder="File" />
+					</div>
+					<div class="col-lg-2">
+						<input type="button" class="btn btn-primary btn-browse-upload-file" value="Browse" />
+					</div>
+				</div>
 				
 			</div></div>
 		</div></div>
@@ -130,6 +140,12 @@ $(document).ready(function() {
 		}
 	}
 	page.init();
+	
+	// upload
+	$('.btn-browse-upload-file').click(function() { window.iframe_upload_file.browse() });
+	set_upload_file = function(p) {
+		$('#form-absensi [name="upload_file"]').val(p.file_name);
+	}
 	
 	// grid
 	var param = {

@@ -1,26 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class absensi_kosong_model extends CI_Model {
+class jenis_skp_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array(
-			'id', 'biodata_id', 'tanggal', 'status_kosong', 'keterangan', 'upload_file'
-		);
+        $this->field = array( 'id', 'biodata_id', 'title', 'jumlah', 'satuan' );
     }
 
     function update($param) {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, ABSENSI_KOSONG);
+            $insert_query  = GenerateInsertQuery($this->field, $param, JENIS_SKP);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, ABSENSI_KOSONG);
+            $update_query  = GenerateUpdateQuery($this->field, $param, JENIS_SKP);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -36,9 +34,9 @@ class absensi_kosong_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT waktu_kosong.*
-				FROM ".ABSENSI_KOSONG." waktu_kosong
-				WHERE waktu_kosong.id = '".$param['id']."'
+				SELECT jenis_skp.*
+				FROM ".JENIS_SKP." jenis_skp
+				WHERE jenis_skp.id = '".$param['id']."'
 				LIMIT 1
 			";
 		}
@@ -54,17 +52,14 @@ class absensi_kosong_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['tanggal_text'] = 'waktu_kosong.tanggal';
-		
-		$string_biodata = (isset($param['biodata_id'])) ? "AND waktu_kosong.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'tanggal DESC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS waktu_kosong.*
-			FROM ".ABSENSI_KOSONG." waktu_kosong
-			WHERE 1 $string_biodata $string_filter
+			SELECT SQL_CALC_FOUND_ROWS jenis_skp.*
+			FROM ".JENIS_SKP." jenis_skp
+			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -86,7 +81,7 @@ class absensi_kosong_model extends CI_Model {
     }
 	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".ABSENSI_KOSONG." WHERE id = '".$param['id']."' LIMIT 1";
+		$delete_query  = "DELETE FROM ".JENIS_SKP." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';
@@ -97,10 +92,6 @@ class absensi_kosong_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
-		
-		if (!empty($row['upload_file'])) {
-			$row['link_upload'] = base_url('static/upload/'.$row['upload_file']);
-		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

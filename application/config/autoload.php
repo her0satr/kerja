@@ -8,5 +8,5 @@ $autoload['language'] = array();
 $autoload['model'] = array(
 	'user_model', 'user_type_model', 'skpd_model', 'biodata_model', 'agama_model', 'jenis_kepegawaian_model', 'status_perkawinan_model',
 	'status_kepegawaian_model', 'kelamin_model', 'biodata_detail_model', 'riwayat_pendidikan_model', 'riwayat_diklat_model', 'riwayat_mutasi_model',
-	'absensi_masuk_model', 'absensi_kosong_model'
+	'absensi_masuk_model', 'absensi_kosong_model', 'jenis_skp_model', 'jenis_kegiatan_model', 'kegiatan_skp_model'
 );
