@@ -20,6 +20,8 @@ define('USER_ID_ADMINISTRATOR',					1);
 define('USER_ID_TU',							2);
 define('USER_ID_PEGAWAI',						3);
 
+define('ABSENSI_MASUK',							'absensi_masuk');
+define('ABSENSI_KOSONG',						'absensi_kosong');
 define('AGAMA',									'agama');
 define('BIODATA',								'biodata');
 define('BIODATA_DETAIL',						'biodata_detail');
@@ -32,4 +34,3 @@ define('STATUS_PERKAWINAN',						'status_perkawinan');
 define('STATUS_KEPEGAWAIAN',					'status_kepegawaian');
 define('USER',									'user');
 define('USER_TYPE',								'user_type');
-define('ABSENSI_MASUK',							'absensi_masuk');

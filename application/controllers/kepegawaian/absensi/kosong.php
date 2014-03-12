@@ -9,16 +9,16 @@ class kosong extends SYGAAS_Controller {
 		$this->load->view( 'kepegawaian/absensi/kosong');
 	}
 	
-	/*
 	function grid() {
-		$_POST['grid_type'] = 'absensi_pegawai';
-		$_POST['column'] = array( 'tanggal', 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' );
+		$_POST['column'] = array( 'tanggal', 'status_kosong', 'keterangan' );
 		
 		// button
-		$_POST['is_custom']  = '<button class="btn btn-xs btn-detail btn-success" data-original-title="Detail"><i class="fa fa-book"></i></button> ';
+		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
+		$_POST['is_custom'] .= '<button class="btn btn-xs btn-file btn-success" data-original-title="File"><i class="fa fa-file"></i></button> ';
+		$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
 		
-		$array = $this->absensi_masuk_model->get_array($_POST);
-		$count = $this->absensi_masuk_model->get_count();
+		$array = $this->absensi_kosong_model->get_array($_POST);
+		$count = $this->absensi_kosong_model->get_count();
 		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
 		
 		echo json_encode($grid);
@@ -30,32 +30,14 @@ class kosong extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'update') {
-			// make sure only one date every staff
-			$row_check = $this->absensi_masuk_model->get_by_id(array( 'biodata_id' => $_POST['biodata_id'], 'tanggal' => $_POST['tanggal'] ));
-			if (count($row_check) > 0) {
-				$result['status'] = 0;
-				$result['message'] = 'Anda sudah absen hari ini.';
-				echo json_encode($result);
-				exit;
-			}
-			
-			// absensi #1
-			if (empty($_POST['id'])) {
-				$_POST['waktu_01'] = $this->config->item('current_time');
-			}
-			
-			$result = $this->absensi_masuk_model->update($_POST);
-		} else if ($action == 'update_waktu') {
-			if (in_array($_POST['absensi'], array( 'waktu_02', 'waktu_03', 'waktu_04' ))) {
-				$param_update['id'] = $_POST['id'];
-				$param_update[$_POST['absensi']] = $this->config->item('current_time');
-				$result = $this->absensi_masuk_model->update($param_update);
-			}
+			$result = $this->absensi_kosong_model->update($_POST);
 		} else if ($action == 'get_by_id') {
-			$result = $this->absensi_masuk_model->get_by_id($_POST);
+			
+			$result = $this->absensi_kosong_model->get_by_id($_POST);
+		} else if ($action == 'delete') {
+			$result = $this->absensi_kosong_model->delete($_POST);
 		}
 		
 		echo json_encode($result);
 	}
-	/*	*/
 }

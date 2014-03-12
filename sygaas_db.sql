@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2014 at 03:01 PM
+-- Generation Time: Mar 12, 2014 at 04:21 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -36,7 +36,15 @@ CREATE TABLE IF NOT EXISTS `absensi_kosong` (
   `keterangan` varchar(255) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `absensi_kosong`
+--
+
+INSERT INTO `absensi_kosong` (`id`, `biodata_id`, `tanggal`, `status_kosong`, `keterangan`, `upload_file`) VALUES
+(1, 0, '0000-00-00', '', '', ''),
+(3, 3, '2014-03-12', 'Ijin', '123', '');
 
 -- --------------------------------------------------------
 

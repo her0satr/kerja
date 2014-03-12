@@ -13,7 +13,7 @@
 	// page data
 	$page_data['biodata'] = $biodata;
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Absensi Masuk' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Absensi Kosong' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -26,7 +26,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Absensi Masuk</h2>
+			<h2 class="pull-left button-back">Absensi Kosong</h2>
 			<div class="clearfix"></div>
 		</div>
 		
@@ -49,10 +49,8 @@
 							<thead>
 								<tr>
 									<th class="center">Tanggal</th>
-									<th class="center">Absensi #1</th>
-									<th class="center">Absensi #2</th>
-									<th class="center">Absensi #3</th>
-									<th class="center">Absensi #4</th>
+									<th class="center">Status</th>
+									<th class="center">Keterangan</th>
 									<th class="center">Control</th>
 								</tr>
 							</thead>
@@ -91,12 +89,14 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-2 control-label">Informasi</label>
+					<label class="col-lg-2 control-label">Status</label>
 					<div class="col-lg-10">
-						<select class="form-control" name="label">
+						<select class="form-control" name="status_kosong">
 							<option value="">-</option>
-							<option value="Tepat Waktu">Tepat Waktu</option>
-							<option value="Terlambat">Terlambat</option>
+							<option value="Ijin">Ijin</option>
+							<option value="Cuti">Cuti</option>
+							<option value="Sakit">Sakit</option>
+							<option value="Tanpa Keterangan">Tanpa Keterangan</option>
 						</select>
 					</div>
 				</div>
@@ -114,64 +114,6 @@
 			<button type="submit" class="btn btn-primary">Save changes</button>
 		</div>
 	</form></div></div></div>
-	
-	<div id="form-review" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-big"><div class="modal-content"><form>
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h4 class="modal-title">Form Review Absensi</h4>
-		</div>
-		<div class="modal-body"><div class="widget-content">
-			<div class="padd"><div class="form-horizontal">
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Tanggal</label>
-					<div class="col-lg-10">
-						<div class="input-append datepicker">
-							<input name="tanggal" type="text" class="form-control dtpicker" placeholder="Tanggal Lahir" />
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Informasi</label>
-					<div class="col-lg-10">
-						<input type="text" name="label" class="form-control" placeholder="Informasi" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Keterangan</label>
-					<div class="col-lg-10">
-						<input type="text" name="keterangan" class="form-control" placeholder="Keterangan" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Absensi #1</label>
-					<div class="col-lg-4">
-						<input type="text" name="waktu_01" class="form-control" placeholder="Keterangan" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Absensi #2</label>
-					<div class="col-lg-4">
-						<input type="text" name="waktu_02" class="form-control" placeholder="Keterangan" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Absensi #3</label>
-					<div class="col-lg-4">
-						<input type="text" name="waktu_03" class="form-control" placeholder="Keterangan" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Absensi #4</label>
-					<div class="col-lg-4">
-						<input type="text" name="waktu_04" class="form-control" placeholder="Keterangan" />
-					</div>
-				</div>
-			</div></div>
-		</div></div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-		</div>
-	</form></div></div></div>
 </div>
 
 <?php $this->load->view( 'common/footer' ); ?>
@@ -181,10 +123,6 @@
 $(document).ready(function() {
 	var page = {
 		init: function() {
-			// disable change date
-			$('#form-absensi [name="tanggal"]').attr('disabled', true);
-			$('#form-absensi [name="tanggal"]').next().hide();
-			
 			// page data
 			var raw = $('.cnt-data').text();
 			eval('var data = ' + raw);
@@ -196,13 +134,11 @@ $(document).ready(function() {
 	// grid
 	var param = {
 		id: 'datatable',
-		source: web.host + 'kepegawaian/absensi/masuk/grid',
+		source: web.host + 'kepegawaian/absensi/kosong/grid',
 		column: [ {
 					sClass: "center"
 			}, {	sClass: "center"
-			}, {	sClass: "center"
-			}, {	sClass: "center"
-			}, {	sClass: "center"
+			}, {	
 			}, {	bSortable: false, sClass: "center"
 		} ],
 		fnServerParams: function ( aoData ) {
@@ -211,29 +147,34 @@ $(document).ready(function() {
 			)
 		},
 		callback: function() {
-			$('#datatable .btn-absensi').click(function() {
-				var raw_record = $(this).parents('tr').find('span.hide').text();
-				eval('var record = ' + raw_record);
-				
-				Func.form.submit({
-					url: web.host + 'kepegawaian/absensi/masuk/action',
-					param: { action: 'update_waktu', absensi: $(this).data('absensi'), id: record.id },
-					callback: function(result) {
-						dt.reload();
-					}
-				});
-			});
-			
-			$('#datatable .btn-detail').click(function() {
+			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);
 				
-				Func.ajax({ url: web.host + 'kepegawaian/absensi/masuk/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
-					$('#form-review form')[0].reset();
-					$('#form-review input').attr('disabled', true)
-					Func.populate({ cnt: '#form-review', record: result });
-					$('#form-review').modal();
+				Func.ajax({ url: web.host + 'kepegawaian/absensi/kosong/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
+					Func.populate({ cnt: '#form-absensi', record: result });
+					$('#form-absensi').modal();
 				} });
+			});
+			
+			$('#datatable .btn-file').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				if (record.link_upload == null) {
+					noty({ text: 'File upload tidak tersedia.', layout: 'topRight', type: 'error', timeout: 1500 });
+				} else {
+					window.open(record.link_upload);
+				}
+			});
+			
+			$('#datatable .btn-delete').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.form.del({
+					data: { action: 'delete', id: record.id },
+					url: web.host + 'kepegawaian/absensi/kosong/action', callback: function() { dt.reload(); }
+				});
 			});
 		}
 	}
@@ -241,20 +182,15 @@ $(document).ready(function() {
 	
 	// form biodata
 	$('.btn-add').click(function() {
-		var date = str_pad(new Date().getDate(), 2, "0", 'STR_PAD_LEFT');
-		var month = str_pad(new Date().getMonth() + 1, 2, "0", 'STR_PAD_LEFT');
-		var current_date = date + '-' + month + '-' + new Date().getFullYear();
-		
 		$('#form-absensi form')[0].reset();
 		$('#form-absensi [name="id"]').val(0);
-		$('#form-absensi [name="tanggal"]').val(current_date);
 		$('#form-absensi [name="biodata_id"]').val(page.data.biodata.id);
 		$('#form-absensi').modal();
 	});
 	$('#form-absensi form').validate({
 		rules: {
 			tanggal: { required: true },
-			label: { required: true }
+			status_kosong: { required: true }
 		}
 	});
 	$('#form-absensi form').submit(function(e) {
@@ -264,10 +200,11 @@ $(document).ready(function() {
 		}
 		
 		Func.form.submit({
-			url: web.host + 'kepegawaian/absensi/masuk/action',
+			url: web.host + 'kepegawaian/absensi/kosong/action',
 			param: Func.form.get_value('form-absensi'),
 			callback: function(result) {
 				dt.reload();
+				$('#form-absensi').modal('hide');
 				$('#form-absensi form')[0].reset();
 			}
 		});
