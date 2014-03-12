@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 11, 2014 at 07:19 PM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Mar 12, 2014 at 03:01 PM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +19,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `sygaas_db`
 --
+CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -35,11 +38,6 @@ CREATE TABLE IF NOT EXISTS `absensi_kosong` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `absensi_kosong`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -50,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `biodata_id` int(11) NOT NULL,
   `tanggal` date NOT NULL,
+  `label` varchar(50) NOT NULL,
   `waktu_01` time NOT NULL,
   `status_01` varchar(50) NOT NULL,
   `waktu_02` time NOT NULL,
@@ -60,12 +59,15 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `absensi_masuk`
 --
 
+INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`, `status_01`, `waktu_02`, `status_02`, `waktu_03`, `status_03`, `waktu_04`, `status_04`, `keterangan`) VALUES
+(4, 3, '2014-03-12', 'Tepat Waktu', '14:01:33', '', '14:37:56', '', '14:37:58', '', '14:37:59', '', '123'),
+(10, 0, '0000-00-00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -111,14 +113,15 @@ CREATE TABLE IF NOT EXISTS `biodata` (
   `karpeg` varchar(50) NOT NULL,
   `kartu_nikah` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `biodata`
 --
 
 INSERT INTO `biodata` (`id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `tempat_lahir`, `tanggal_lahir`, `karpeg`, `kartu_nikah`) VALUES
-(2, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg');
+(2, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
+(3, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '', '');
 
 -- --------------------------------------------------------
 
@@ -143,12 +146,15 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
   `non_pns` varchar(50) NOT NULL,
   `unit_kerja` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `biodata_detail`
 --
 
+INSERT INTO `biodata_detail` (`id`, `biodata_id`, `jabatan`, `pangkat`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns`, `pns`, `non_pns`, `unit_kerja`) VALUES
+(1, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2, 2, '1', '2', '3', '4', '5', '6', '7', '8', '99', '2014/03/12/20140312_085653_2812.jpg', '2014/03/12/20140312_085655_5830.jpg', '2014/03/12/20140312_085656_1866.jpg', '2014/03/12/20140312_085658_9446.jpg');
 
 -- --------------------------------------------------------
 
@@ -162,11 +168,6 @@ CREATE TABLE IF NOT EXISTS `jenis_kegiatan` (
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `jenis_kegiatan`
---
-
 
 -- --------------------------------------------------------
 
@@ -201,11 +202,6 @@ CREATE TABLE IF NOT EXISTS `jenis_skp` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `jenis_skp`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -219,11 +215,6 @@ CREATE TABLE IF NOT EXISTS `kegiatan_lain` (
   `tanggal` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `kegiatan_lain`
---
-
 
 -- --------------------------------------------------------
 
@@ -239,11 +230,6 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `kegiatan_skp`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -257,12 +243,14 @@ CREATE TABLE IF NOT EXISTS `riwayat_diklat` (
   `tahun` int(11) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `riwayat_diklat`
 --
 
+INSERT INTO `riwayat_diklat` (`id`, `biodata_id`, `no_sertifikat`, `tahun`, `upload_file`) VALUES
+(1, 3, '111', 222, '');
 
 -- --------------------------------------------------------
 
@@ -277,12 +265,7 @@ CREATE TABLE IF NOT EXISTS `riwayat_mutasi` (
   `tahun` int(11) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `riwayat_mutasi`
---
-
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -297,12 +280,7 @@ CREATE TABLE IF NOT EXISTS `riwayat_pendidikan` (
   `no_ijazah` varchar(50) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `riwayat_pendidikan`
---
-
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
