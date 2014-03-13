@@ -1,22 +1,7 @@
-- Admin User TU bisa liat rekap absensi
-- User TU & Admin bisa update waktu
-
-Modul SKP
-- Common CRUD
-  - Table Atas Modul SKP
-  - Table Bawah Modul Kegiatan
-  - Mastering : Table jenis_skp (title & tahun) & jenis_kegiatan (title & tahun)
-
 Modul Surat Masuk
 - Common CRUD
 - Modul Disposisi
   - Ada perhitungan Hari
-
-Modul Surat Keluar
-- Common CRUD
-
-Modul Nota Dinas
-- Common CRUD
 
 Modul Agenda Rapat
 - Common CRUD
@@ -24,5 +9,7 @@ Modul Agenda Rapat
 - Export to PDF dan Word
 - support untuk orang banyak
 
-Modul User
-- User Type : Admin / Tata Usaha / Pegawai
+Pegawai bisa diset jadi user_type
+- test login
+
+Hapus hack di biodata / riwayat / absensi

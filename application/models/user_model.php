@@ -161,7 +161,9 @@ class user_model extends CI_Model {
 						'children' => array(
 							array( 'name' => 'jam_absensi', 'title' => 'Jam Absensi', 'user_type_id' => array( 1 ) ),
 							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'list_masuk', 'title' => 'List Masuk', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'list_kosong', 'title' => 'List Tidak Masuk', 'user_type_id' => array( 1 ) )
 						)
 					),
 					array(

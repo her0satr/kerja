@@ -4,7 +4,9 @@ class absensi_masuk_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'biodata_id', 'tanggal', 'label', 'waktu_01', 'status_01', 'waktu_02', 'status_02', 'waktu_03', 'status_03', 'waktu_04', 'status_04', 'keterangan' );
+        $this->field = array(
+			'id', 'biodata_id', 'tanggal', 'label', 'waktu_01', 'status_01', 'waktu_02', 'status_02', 'waktu_03', 'status_03', 'waktu_04', 'status_04', 'keterangan'
+		);
     }
 
     function update($param) {
@@ -69,8 +71,9 @@ class absensi_masuk_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS waktu_masuk.*
+			SELECT SQL_CALC_FOUND_ROWS waktu_masuk.*, biodata.nama
 			FROM ".ABSENSI_MASUK." waktu_masuk
+			LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_masuk.biodata_id
 			WHERE 1 $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
@@ -103,7 +106,7 @@ class absensi_masuk_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
-		$row = StripArray($row);
+		$row = StripArray($row, array( 'waktu_02', 'waktu_03', 'waktu_04' ));
 		
 		// grid type
 		if (isset($param['grid_type']) && $param['grid_type'] == 'absensi_pegawai') {

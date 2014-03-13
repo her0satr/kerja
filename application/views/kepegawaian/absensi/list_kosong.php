@@ -1,19 +1,4 @@
-<?php
-	$user = $this->user_model->get_session();
-	
-	// hack
-	$user['biodata_id'] = 3;
-	
-	$user['biodata_id'] = (isset($user['biodata_id'])) ? $user['biodata_id'] : 0;
-	$biodata = $this->biodata_model->get_by_id(array( 'id' => $user['biodata_id'] ));
-	if (count($biodata) == 0) {
-		exit;
-	}
-	
-	// page data
-	$page_data['biodata'] = $biodata;
-?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Absensi Kosong' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Absensi Masuk' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -21,13 +6,12 @@
 <div class="content">
 	<?php $this->load->view( 'common/sidebar'); ?>
 	<div class="hide">
-		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
 		<iframe name="iframe_upload_file" src="<?php echo base_url('upload?callback=set_upload_file'); ?>"></iframe>
 	</div>
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Absensi Kosong</h2>
+			<h2 class="pull-left button-back">Rekap Absensi Masuk</h2>
 			<div class="clearfix"></div>
 		</div>
 		
@@ -36,9 +20,7 @@
 				
 				<div class="widget grid-main">
 					<div class="widget-head">
-						<div class="pull-left">
-							<button class="btn btn-info btn-xs btn-add">Tambah</button>
-						</div>
+						<div class="pull-left">&nbsp;</div>
 						<div class="widget-icons pull-right">
 							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
@@ -49,11 +31,11 @@
 						<table id="datatable" class="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
+									<th class="center">Nama</th>
 									<th class="center">Tanggal</th>
 									<th class="center">Status</th>
 									<th class="center">Keterangan</th>
-									<th class="center">Control</th>
-								</tr>
+									<th class="center">Control</th></tr>
 							</thead>
 							<tbody></tbody>
 						</table>
@@ -78,7 +60,6 @@
 			<div class="padd"><div class="form-horizontal">
 				<input type="hidden" name="action" value="update" />
 				<input type="hidden" name="id" value="0" />
-				<input type="hidden" name="biodata_id" value="0" />
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Tanggal</label>
@@ -131,16 +112,6 @@
 
 <script>
 $(document).ready(function() {
-	var page = {
-		init: function() {
-			// page data
-			var raw = $('.cnt-data').text();
-			eval('var data = ' + raw);
-			page.data = data;
-		}
-	}
-	page.init();
-	
 	// upload
 	$('.btn-browse-upload-file').click(function() { window.iframe_upload_file.browse() });
 	set_upload_file = function(p) {
@@ -150,24 +121,14 @@ $(document).ready(function() {
 	// grid
 	var param = {
 		id: 'datatable',
-		source: web.host + 'kepegawaian/absensi/kosong/grid',
-		column: [ {
-					sClass: "center"
-			}, {	sClass: "center"
-			}, {	
-			}, {	bSortable: false, sClass: "center"
-		} ],
-		fnServerParams: function ( aoData ) {
-			aoData.push(
-				{ "name": "biodata_id", "value": page.data.biodata.id }
-			)
-		},
+		source: web.host + 'kepegawaian/absensi/list_kosong/grid',
+		column: [ { }, { sClass: "center" }, { sClass: "center" }, { }, { bSortable: false, sClass: "center" } ],
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);
 				
-				Func.ajax({ url: web.host + 'kepegawaian/absensi/kosong/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
+				Func.ajax({ url: web.host + 'kepegawaian/absensi/list_kosong/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					Func.populate({ cnt: '#form-absensi', record: result });
 					$('#form-absensi').modal();
 				} });
@@ -182,31 +143,16 @@ $(document).ready(function() {
 					window.open(record.link_upload);
 				}
 			});
-			
-			$('#datatable .btn-delete').click(function() {
-				var raw_record = $(this).siblings('.hide').text();
-				eval('var record = ' + raw_record);
-				
-				Func.form.del({
-					data: { action: 'delete', id: record.id },
-					url: web.host + 'kepegawaian/absensi/kosong/action', callback: function() { dt.reload(); }
-				});
-			});
 		}
 	}
 	var dt = Func.datatable(param);
 	
-	// form biodata
-	$('.btn-add').click(function() {
-		$('#form-absensi form')[0].reset();
-		$('#form-absensi [name="id"]').val(0);
-		$('#form-absensi [name="biodata_id"]').val(page.data.biodata.id);
-		$('#form-absensi').modal();
-	});
+	// form jam
 	$('#form-absensi form').validate({
 		rules: {
-			tanggal: { required: true },
-			status_kosong: { required: true }
+			jam_ke: { required: true },
+			jam_awal: { required: true },
+			jam_akhir: { required: true }
 		}
 	});
 	$('#form-absensi form').submit(function(e) {
@@ -216,12 +162,12 @@ $(document).ready(function() {
 		}
 		
 		Func.form.submit({
-			url: web.host + 'kepegawaian/absensi/kosong/action',
+			url: web.host + 'kepegawaian/absensi/list_kosong/action',
 			param: Func.form.get_value('form-absensi'),
 			callback: function(result) {
 				dt.reload();
-				$('#form-absensi').modal('hide');
 				$('#form-absensi form')[0].reset();
+				$('#form-absensi').modal('hide');
 			}
 		});
 	});

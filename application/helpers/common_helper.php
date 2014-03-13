@@ -3,7 +3,7 @@
         function StripArray($Array, $FieldName = array()) {
             $ArrayResult = array();
             foreach($Array as $Key => $Element) {
-                if (in_array($Key, $FieldName) && in_array($Element, array('0', '0000-00-00', '0000-00-00 00:00:00'))) {
+                if (in_array($Key, $FieldName) && in_array($Element, array('0', '0000-00-00', '00:00:00', '0000-00-00 00:00:00'))) {
                     $ArrayResult[$Key] = null;
                     } else {
                     $ArrayResult[$Key] = stripslashes($Element);
