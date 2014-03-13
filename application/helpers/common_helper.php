@@ -697,45 +697,6 @@
         }
     }
     
-    if (! function_exists('dt_view')) {
-        function dt_view($row, $column, $param) {
-            $param['is_edit'] = (isset($param['is_edit'])) ? $param['is_edit'] : 0;
-            $param['is_delete'] = (isset($param['is_delete'])) ? $param['is_delete'] : 0;
-            $param['is_detail'] = (isset($param['is_detail'])) ? $param['is_detail'] : 0;
-            
-			$temp_column = '';
-            if ($param['is_edit'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
-                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
-            }
-            if (isset($param['is_edit_only']) && $param['is_edit_only'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
-            }
-            if ($param['is_delete'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
-            }
-            if ($param['is_detail'] == 1) {
-                $temp_column .= '<img class="button-cursor detail" src="'.base_url('static/img/details_open.png').'"> ';
-            }
-            if (!empty($param['is_custom'])) {
-                $temp_column .= $param['is_custom'];
-            }
-			
-			// populate required data
-			$record = array();
-			foreach ($column as $key) {
-				$record[] = (isset($row[$key])) ? $row[$key] : '';
-			}
-			
-            if (!empty($temp_column)) {
-                $temp_column .= '<span class="hide">'.json_encode($row).'</span>';
-				$record[] = $temp_column;
-            }
-			
-            return $record;
-        }
-    }
-	
     if (! function_exists('dt_view_set')) {
         function dt_view_set($row, $param) {
             $param['is_edit'] = (isset($param['is_edit'])) ? $param['is_edit'] : 0;
@@ -747,10 +708,10 @@
                 $temp_column .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
             }
             if (isset($param['is_edit_only']) && $param['is_edit_only'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-edit btn-success"><i class="fa fa-pencil"></i></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
             }
             if ($param['is_delete'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger"><i class="fa fa-times"></i></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
             }
             if (!empty($param['is_custom'])) {
                 $temp_column = $param['is_custom'];

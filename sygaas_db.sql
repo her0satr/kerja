@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2014 at 07:56 PM
+-- Generation Time: Mar 13, 2014 at 09:45 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -114,14 +114,39 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
   `catatan` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `agenda_rapat`
 --
 
 INSERT INTO `agenda_rapat` (`id`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`) VALUES
-(5, '12', '123', '159', '2014-03-13 20:00:00', '0000-00-00', '', '', '', '');
+(5, '12', '123', '159', '2014-03-13 20:00:00', '0000-00-00', '', '', '', ''),
+(6, '13', '13', '13', '2014-03-13 21:40:57', '0000-00-00', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agenda_skpd`
+--
+
+CREATE TABLE IF NOT EXISTS `agenda_skpd` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `skpd_id` int(11) NOT NULL,
+  `agenda_rapat_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `agenda_skpd`
+--
+
+INSERT INTO `agenda_skpd` (`id`, `skpd_id`, `agenda_rapat_id`) VALUES
+(4, 9, 5),
+(3, 12, 5),
+(7, 9, 6),
+(6, 10, 5),
+(8, 10, 6);
 
 -- --------------------------------------------------------
 
@@ -469,16 +494,20 @@ INSERT INTO `sifat_surat` (`id`, `title`) VALUES
 CREATE TABLE IF NOT EXISTS `skpd` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
+  `kepala` varchar(200) NOT NULL,
+  `instansi` varchar(200) NOT NULL,
+  `hp` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `skpd`
 --
 
-INSERT INTO `skpd` (`id`, `title`) VALUES
-(9, 'Malang'),
-(10, 'Bandung');
+INSERT INTO `skpd` (`id`, `title`, `kepala`, `instansi`, `hp`) VALUES
+(9, 'Malang', 'Alun Alun Bunder', 'Malang Kota', ''),
+(10, 'Bandung', 'Dingin', 'Hujan', '123'),
+(12, 'Surabaya', 'Kepala Surabaya', 'Kota Surabaya', '');
 
 -- --------------------------------------------------------
 

@@ -10,8 +10,14 @@ class skpd extends SYGAAS_Controller {
 	}
 	
 	function grid() {
-		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'title' );
+		// grid type
+		if (isset($_POST['grid_type']) && $_POST['grid_type'] == 'search') {
+			$_POST['column'] = array( 'title', 'kepala', 'instansi' );
+			$_POST['is_custom'] = '<button class="btn btn-xs btn-add btn-success" data-original-title="Tambah"><i class="fa fa-pencil"></i></button> ';
+		} else {
+			$_POST['is_edit'] = 1;
+			$_POST['column'] = array( 'title', 'kepala', 'instansi', 'hp' );
+		}
 		
 		$array = $this->skpd_model->get_array($_POST);
 		$count = $this->skpd_model->get_count();

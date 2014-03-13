@@ -24,6 +24,7 @@ define('ABSENSI_MASUK',							'absensi_masuk');
 define('ABSENSI_KOSONG',						'absensi_kosong');
 define('AGAMA',									'agama');
 define('AGENDA_RAPAT',							'agenda_rapat');
+define('AGENDA_SKPD',							'agenda_skpd');
 define('BIODATA',								'biodata');
 define('BIODATA_DETAIL',						'biodata_detail');
 define('DISPOSISI',								'disposisi');
