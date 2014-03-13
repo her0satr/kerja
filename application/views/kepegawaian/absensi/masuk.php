@@ -268,7 +268,7 @@ $(document).ready(function() {
 			param: Func.form.get_value('form-absensi'),
 			callback: function(result) {
 				dt.reload();
-				$('#form-absensi form')[0].reset();
+				$('#form-absensi').modal('hide');
 			}
 		});
 	});

@@ -1,16 +1,4 @@
-Modul Master
-- SKPD
-
-Modul Biodata
-- Common CRUD
-
-Modul Absensi
-- Modul Masuk
-  - Absen #1 => jam  7 - 10
-  - Absen #2 => jam 10 - 13
-  - Absen #3 => jam 13 - 15
-  - Absen #4 => jam 15 - 16
-- Modul Tidak Masuk
+- Admin User TU bisa liat rekap absensi
 - User TU & Admin bisa update waktu
 
 Modul SKP

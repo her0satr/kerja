@@ -11,6 +11,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 }
 
 $config['current_date'] = date("Y-m-d");
+$config['current_hour'] = date("H");
 $config['current_time'] = date("H:i:s");
 $config['current_datetime'] = date('Y-m-d H:i:s');
 $config['encryption_key'] = 'dota';

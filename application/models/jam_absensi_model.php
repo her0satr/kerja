@@ -39,6 +39,13 @@ class jam_absensi_model extends CI_Model {
 				WHERE jam_absensi.id = '".$param['id']."'
 				LIMIT 1
 			";
+        } else if (isset($param['jam_ke'])) {
+            $select_query  = "
+				SELECT jam_absensi.*
+				FROM ".JAM_ABSENSI." jam_absensi
+				WHERE jam_absensi.jam_ke = '".$param['jam_ke']."'
+				LIMIT 1
+			";
 		}
 		
         $select_result = mysql_query($select_query) or die(mysql_error());
