@@ -6,15 +6,15 @@ class home extends SYGAAS_Controller {
 	}
 	
 	function index() {
-		$this->load->view( 'surat/surat_masuk/home');
+		$this->load->view( 'surat/agenda_rapat/home');
 	}
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'no_surat', 'perihal', 'tanggal_surat' );
+		$_POST['column'] = array( 'leading_sektor', 'no_surat', 'tempat', 'tanggal_ajuan' );
 		
-		$array = $this->surat_masuk_model->get_array($_POST);
-		$count = $this->surat_masuk_model->get_count();
+		$array = $this->agenda_rapat_model->get_array($_POST);
+		$count = $this->agenda_rapat_model->get_count();
 		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
 		
 		echo json_encode($grid);
@@ -26,11 +26,11 @@ class home extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'update') {
-			$result = $this->surat_masuk_model->update($_POST);
+			$result = $this->agenda_rapat_model->update($_POST);
 		} else if ($action == 'get_by_id') {
-			$result = $this->surat_masuk_model->get_by_id(array( 'id' => $_POST['id'] ));
+			$result = $this->agenda_rapat_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'delete') {
-			$result = $this->surat_masuk_model->delete($_POST);
+			$result = $this->agenda_rapat_model->delete($_POST);
 		}
 		
 		echo json_encode($result);

@@ -27,3 +27,8 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 .bootstrap-datetimepicker-widget.dropdown-menu {
 	z-index: 1041;
 }
+
+.datepicker { position: relative; }
+.datepicker label.error { position: absolute; top: 5px; left: 175px; }
+.timepicker { position: relative; }
+.timepicker label.error { position: absolute; top: 5px; left: 175px; }

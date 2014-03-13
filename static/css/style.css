@@ -1702,7 +1702,7 @@ header .nav.nav-pills > li > a:hover, header .nav.nav-pills > li > a:focus{
 
 /* Date & Time Picker */
 
-.dtpicker{
+.dtpicker, .tmpicker{
 	max-width:120px;
 	display:inline-block;
 }
