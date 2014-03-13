@@ -26,7 +26,7 @@ class home extends SYGAAS_Controller {
 			$count = $this->surat_masuk_model->get_count();
 			$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
 		} else if ($action == 'disposisi') {
-			$_POST['is_edit'] = 1;
+			$_POST['grid_type'] = 'validation';
 			$_POST['column'] = array( 'waktu', 'kepada', 'waktu_text' );
 			
 			$array = $this->disposisi_model->get_array($_POST);
@@ -47,6 +47,15 @@ class home extends SYGAAS_Controller {
 		// surat masuk
 		if ($action == 'update') {
 			$result = $this->surat_masuk_model->update($_POST);
+			
+			// create disposisi info
+			if (empty($_POST['id'])) {
+				$param_disposisi['id'] = 0;
+				$param_disposisi['surat_masuk_id'] = $result['id'];
+				$param_disposisi['kepada'] = 'Surat dibuat.';
+				$param_disposisi['waktu'] = $_POST['tanggal_terima'];
+				$this->disposisi_model->update($param_disposisi);
+			}
 		} else if ($action == 'get_by_id') {
 			$result = $this->surat_masuk_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'delete') {
@@ -56,6 +65,14 @@ class home extends SYGAAS_Controller {
 		// disposisi
 		else if ($action == 'disposisi_update') {
 			$result = $this->disposisi_model->update($_POST);
+		} else if ($action == 'disposisi_validasi') {
+			$disposisi_last = $this->disposisi_model->get_last($_POST);
+			$time_diff = get_time_diff($disposisi_last['waktu'], $this->config->item('current_datetime'));
+			
+			$param_update['id'] = $_POST['id'];
+			$param_update['waktu'] = $this->config->item('current_datetime');
+			$param_update['waktu_diff'] = $time_diff;
+			$result = $this->disposisi_model->update($param_update);
 		} else if ($action == 'disposisi_get_by_id') {
 			$result = $this->disposisi_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'disposisi_delete') {

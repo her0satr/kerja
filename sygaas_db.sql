@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 13, 2014 at 04:25 PM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: Mar 13, 2014 at 07:56 PM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,8 +18,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `sygaas_db`
 --
-CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -117,7 +114,14 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
   `catatan` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `agenda_rapat`
+--
+
+INSERT INTO `agenda_rapat` (`id`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`) VALUES
+(5, '12', '123', '159', '2014-03-13 20:00:00', '0000-00-00', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -195,7 +199,19 @@ CREATE TABLE IF NOT EXISTS `disposisi` (
   `waktu` datetime NOT NULL,
   `waktu_diff` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `disposisi`
+--
+
+INSERT INTO `disposisi` (`id`, `surat_masuk_id`, `kepada`, `waktu`, `waktu_diff`) VALUES
+(8, 10, 'Surat dibuat.', '2014-03-06 19:09:00', ''),
+(9, 10, 'Asisten #1', '2014-03-13 18:57:30', '432000'),
+(10, 10, 'Asisten #2', '2014-03-13 19:02:57', '200000'),
+(11, 10, '111111', '2014-03-13 19:06:28', '100000'),
+(12, 10, 'asdasdasd', '2014-03-13 19:06:38', '30000'),
+(13, 10, '159', '2014-03-13 19:28:57', '1339');
 
 -- --------------------------------------------------------
 
@@ -335,6 +351,11 @@ CREATE TABLE IF NOT EXISTS `nota_dinas` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
+--
+-- Dumping data for table `nota_dinas`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -372,6 +393,11 @@ CREATE TABLE IF NOT EXISTS `riwayat_mutasi` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
+--
+-- Dumping data for table `riwayat_mutasi`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -386,6 +412,11 @@ CREATE TABLE IF NOT EXISTS `riwayat_pendidikan` (
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `riwayat_pendidikan`
+--
+
 
 -- --------------------------------------------------------
 
@@ -512,6 +543,11 @@ CREATE TABLE IF NOT EXISTS `surat_keluar` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
+--
+-- Dumping data for table `surat_keluar`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -531,15 +567,14 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `surat_masuk`
 --
 
 INSERT INTO `surat_masuk` (`id`, `sifat_arsip_id`, `sifat_surat_id`, `no_urut`, `no_surat`, `surat_dari`, `perihal`, `tanggal_surat`, `tanggal_terima`, `catatan`, `file_surat`) VALUES
-(9, 0, 1, '123', 'No Surat Asli', '123', 'Isi Perihal', '2014-03-13', '2014-03-13 16:47:00', 'Catatan', ''),
-(8, 0, 2, '11', '22', '3', '454', '2014-03-05', '2014-03-13 10:38:00', '2', '2014/03/13/20140313_093826_1183.jpg');
+(10, 0, 2, '132', '132', '13', '21', '2014-03-13', '2014-03-13 19:09:00', '32', '2014/03/13/20140313_180838_5731.png');
 
 -- --------------------------------------------------------
 

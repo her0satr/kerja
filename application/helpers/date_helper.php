@@ -66,10 +66,10 @@ if (! function_exists('ConvertDateToArray')) {
 
 if (! function_exists('ConvertToUnixTime')) {
 	function ConvertToUnixTime($String) {
-		preg_match('/(\d{4})-(\d{2})-(\d{2})/i', $String, $Match);
+		preg_match('/(\d{4})-(\d{2})-(\d{2})( (\d+):(\d+):(\d+))*/i', $String, $Match);
 		
 		if (count($Match) >= 3) {
-			$UnixTime = mktime (0, 0, 0, $Match[2], $Match[3], $Match[1]);
+			$UnixTime = mktime (@$Match[5], @$Match[6], @$Match[7], $Match[2], $Match[3], $Match[1]);
 		} else {
 			$UnixTime = 0;
 		}
@@ -144,6 +144,59 @@ if (! function_exists('AddDate')) {
 		$temp_date = date_create($date);
 		date_add($temp_date, date_interval_create_from_date_string($date_count));
 		$result = date_format($temp_date, 'Y-m-d');
+		
+		return $result;
+	}
+}
+
+if (! function_exists('get_time_diff')) {
+	function get_time_diff($date1, $date2) {
+		// raw time diff
+		$unix = ConvertToUnixTime($date1);
+		$now = ConvertToUnixTime($date2);
+		$diff_time = $now - $unix;
+		
+		// time reduce by saturday & sunday
+		$weekend_day = 0;
+		$date_check1 = substr($date1, 0, 10);
+		$date_check2 = substr($date2, 0, 10);
+		for ($i = 0; $i < 365; $i++) {
+			if ($date_check1 == $date_check2) {
+				break;
+			}
+			
+			$date_check1 = AddDate($date_check1, '1 days');
+			$string_day = GetFormatDate($date_check1, array( 'FormatDate' => 'l', 'replace_indo' => false ));
+			if (in_array($string_day, array( 'Saturday', 'Sunday' ))) {
+				$weekend_day++;
+			}
+		}
+		$diff_time = $diff_time - ($weekend_day * 24 * 60 * 60);
+		
+		return $diff_time;
+	}
+}
+
+if (! function_exists('show_time_diff')) {
+	function show_time_diff($diff_time) {
+		if ($diff_time < 60) {
+			$result = $diff_time.' detik yang lalu';
+		} else if ($diff_time < (60 * 60)) {
+			$minute = floor($diff_time / 60);
+			$second = $diff_time % 60;
+			$result = $minute.' menit '.$second.' detik yang lalu';
+		} else if ($diff_time < (60 * 60 * 24)) {
+			$hour = floor($diff_time / (60 * 60));
+			$minute = floor(($diff_time / 60) % 60);
+			$string_minute = (empty($minute)) ? '' : $minute.' menit';
+			$result = $hour.' jam '.$string_minute.' yang lalu';
+		} else if ($diff_time <= (60 * 60 * 24 * 30)) {
+			$day = floor($diff_time / (60 * 60 * 24));
+			$hour = floor(($diff_time / (60 * 60)) / 24);
+			$result = $day.' hari yang lalu';
+		} else {
+			$result = 'lebih dari 30 hari yang lalu';
+		}
 		
 		return $result;
 	}

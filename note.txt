@@ -1,8 +1,3 @@
-Modul Surat Masuk
-- Common CRUD
-- Modul Disposisi
-  - Ada perhitungan Hari
-
 Modul Agenda Rapat
 - Common CRUD
 - Send SMS
