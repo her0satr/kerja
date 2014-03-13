@@ -159,6 +159,7 @@ class user_model extends CI_Model {
 					array(
 						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1 ),
 						'children' => array(
+							array( 'name' => 'jam_absensi', 'title' => 'Jam Absensi', 'user_type_id' => array( 1 ) ),
 							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1 ) ),
 							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1 ) )
 						)
@@ -216,7 +217,13 @@ class user_model extends CI_Model {
 				'title' => 'Master',
 				'user_type_id' => array( 1 ),
 				'children' => array(
+					array( 'name' => 'agama', 'title' => 'Agama', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'jenis_kepegawaian', 'title' => 'Jenis Kepegawaian', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'sifat_arsip', 'title' => 'Sifat Arsip', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'sifat_surat', 'title' => 'Sifat Surat', 'user_type_id' => array( 1 ) ),
 					array( 'name' => 'skpd', 'title' => 'SKPD', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'status_kepegawaian', 'title' => 'Status Kepegawaian', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'status_perkawinan', 'title' => 'Status Perkawianan', 'user_type_id' => array( 1 ) )
 				)
 			)
 		);

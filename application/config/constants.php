@@ -26,6 +26,7 @@ define('AGAMA',									'agama');
 define('AGENDA_RAPAT',							'agenda_rapat');
 define('BIODATA',								'biodata');
 define('BIODATA_DETAIL',						'biodata_detail');
+define('JAM_ABSENSI',							'jam_absensi');
 define('JENIS_KEGIATAN',						'jenis_kegiatan');
 define('JENIS_KEPEGAWAIAN',						'jenis_kepegawaian');
 define('JENIS_SKP',								'jenis_skp');
