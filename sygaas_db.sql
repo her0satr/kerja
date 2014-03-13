@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2014 at 11:51 AM
+-- Generation Time: Mar 13, 2014 at 04:18 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `absensi_kosong` (
 --
 
 INSERT INTO `absensi_kosong` (`id`, `biodata_id`, `tanggal`, `status_kosong`, `keterangan`, `upload_file`) VALUES
-(2, 3, '2014-03-12', 'Ijin', '123', '');
+(2, 3, '2014-03-14', 'Cuti', '123 55', '2014/03/13/20140313_134928_8276.png');
 
 -- --------------------------------------------------------
 
@@ -66,15 +66,14 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `absensi_masuk`
 --
 
 INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`, `status_01`, `waktu_02`, `status_02`, `waktu_03`, `status_03`, `waktu_04`, `status_04`, `keterangan`) VALUES
-(4, 3, '2014-03-12', 'Tepat Waktu', '14:01:33', '', '14:37:56', '', '14:37:58', '', '14:37:59', '', '123'),
-(10, 0, '0000-00-00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
+(1, 3, '2014-03-13', 'Tepat Waktu', '11:55:43', '', '12:26:52', '', '13:00:00', '', '15:00:00', '', '--');
 
 -- --------------------------------------------------------
 
@@ -182,6 +181,21 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
 INSERT INTO `biodata_detail` (`id`, `biodata_id`, `jabatan`, `pangkat`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns`, `pns`, `non_pns`, `unit_kerja`) VALUES
 (1, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
 (2, 2, '1', '2', '3', '4', '5', '6', '7', '8', '99', '2014/03/12/20140312_085653_2812.jpg', '2014/03/12/20140312_085655_5830.jpg', '2014/03/12/20140312_085656_1866.jpg', '2014/03/12/20140312_085658_9446.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `disposisi`
+--
+
+CREATE TABLE IF NOT EXISTS `disposisi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `surat_masuk_id` int(11) NOT NULL,
+  `kepada` varchar(100) NOT NULL,
+  `waktu` datetime NOT NULL,
+  `waktu_diff` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -517,14 +531,15 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `surat_masuk`
 --
 
 INSERT INTO `surat_masuk` (`id`, `sifat_arsip_id`, `sifat_surat_id`, `no_urut`, `no_surat`, `surat_dari`, `perihal`, `tanggal_surat`, `tanggal_terima`, `catatan`, `file_surat`) VALUES
-(8, 0, 2, '1', '2', '3', '454', '2014-03-05', '2014-03-13 10:38:00', '2', '2014/03/13/20140313_093826_1183.jpg');
+(9, 0, 1, '123', 'No Surat Asli', '123', 'Isi Perihal', '2014-03-13', '2014-03-13 16:47:00', 'Catatan', ''),
+(8, 0, 2, '11', '22', '3', '454', '2014-03-05', '2014-03-13 10:38:00', '2', '2014/03/13/20140313_093826_1183.jpg');
 
 -- --------------------------------------------------------
 
