@@ -386,6 +386,20 @@ $(document).ready(function() {
 				window.open(record.link_riwayat);
 			});
 			
+			$('#datatable .btn-login').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				record.action = 'create_login';
+				
+				Func.form.submit({
+					url: web.host + 'kepegawaian/biodata/action',
+					param: record,
+					callback: function(result) {
+						dt.reload();
+					}
+				});
+			});
+			
 			$('#datatable .btn-delete').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);

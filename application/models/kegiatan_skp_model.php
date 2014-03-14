@@ -54,6 +54,7 @@ class kegiatan_skp_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$string_biodata = (isset($param['biodata_id'])) ? "AND kegiatan_skp.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = (!empty($param['sSearch'])) ? "AND (jenis_skp.title LIKE '%".$param['sSearch']."%' OR jenis_kegiatan.title LIKE '%".$param['sSearch']."%' OR kegiatan_skp.tanggal LIKE '%".$param['sSearch']."%')" : '';
 		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
 		$string_limit = GetStringLimit($param);
@@ -67,7 +68,7 @@ class kegiatan_skp_model extends CI_Model {
 			FROM ".KEGIATAN_SKP." kegiatan_skp
 			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = kegiatan_skp.jenis_skp_id
 			LEFT JOIN ".JENIS_KEGIATAN." jenis_kegiatan ON jenis_kegiatan.id = kegiatan_skp.kegiatan_lain_id
-			WHERE 1 $string_filter
+			WHERE 1 $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";

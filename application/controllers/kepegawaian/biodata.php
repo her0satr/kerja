@@ -10,13 +10,8 @@ class biodata extends SYGAAS_Controller {
 	}
 	
 	function grid() {
+		$_POST['grid_type'] = 'biodata_view';
 		$_POST['column'] = array( 'nama', 'nip', 'tanggal_lahir_text', 'tempat_lahir' );
-		
-		// button
-		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
-		$_POST['is_custom'] .= '<button class="btn btn-xs btn-detail btn-success" data-original-title="Detail"><i class="fa fa-book"></i></button> ';
-		$_POST['is_custom'] .= '<button class="btn btn-xs btn-riwayat btn-success" data-original-title="Riwayat"><i class="fa fa-folder"></i></button> ';
-		$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
 		
 		$array = $this->biodata_model->get_array($_POST);
 		$count = $this->biodata_model->get_count();
@@ -38,6 +33,37 @@ class biodata extends SYGAAS_Controller {
 			$result = $this->biodata_model->delete($_POST);
 		}
 		
+		// create login
+		else if ($action == 'create_login') {
+			$user_check = $this->user_biodata_model->get_by_id(array( 'biodata_id' => $_POST['id'] ));
+			if (count($user_check) > 0) {
+				$result['status'] = '0';
+				$result['message'] = 'User yang bersangkutan sudah memiliki user.';
+			} else if (empty($_POST['nip'])) {
+				$result['status'] = '0';
+				$result['message'] = 'User belum memiliki NIP.';
+			} else {
+				// create user
+				$param_user = array(
+					'id' => 0,
+					'user_type_id' => USER_ID_PEGAWAI,
+					'email' => $_POST['nip'],
+					'fullname' => $_POST['nama'],
+					'passwd' => EncriptPassword($_POST['nip']),
+					'is_active' => 1
+				);
+				$result_user = $this->user_model->update($param_user);
+				
+				// create user biodata
+				$param_user_biodata = array(
+					'user_id' => $result_user['id'],
+					'biodata_id' => $_POST['id'],
+				);
+				$result = $this->user_biodata_model->update($param_user_biodata);
+			}
+		}
+		
+		// update detail biodata
 		else if ($action == 'update_detail') {
 			// make sure no record for this biodata
 			if (empty($_POST['id'])) {

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 13, 2014 at 09:45 PM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Mar 14, 2014 at 10:34 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +19,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `sygaas_db`
 --
+CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -63,14 +66,15 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `absensi_masuk`
 --
 
 INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`, `status_01`, `waktu_02`, `status_02`, `waktu_03`, `status_03`, `waktu_04`, `status_04`, `keterangan`) VALUES
-(1, 3, '2014-03-13', 'Tepat Waktu', '11:55:43', '', '12:26:52', '', '13:00:00', '', '15:00:00', '', '--');
+(1, 3, '2014-03-13', 'Tepat Waktu', '11:55:43', '', '12:26:52', '', '13:00:00', '', '15:00:00', '', '--'),
+(2, 2, '2014-03-14', 'Tepat Waktu', '09:54:06', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -342,17 +346,15 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
   `tanggal` date NOT NULL,
   `type_row` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `kegiatan_skp`
 --
 
 INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `kegiatan_lain_id`, `tanggal`, `type_row`) VALUES
-(3, 0, 3, 0, '2014-03-01', 1),
-(4, 0, 4, 0, '2014-03-02', 1),
-(5, 0, 0, 2, '2014-03-03', 2),
-(6, 0, 0, 3, '2014-03-04', 2);
+(1, 3, 3, 0, '2014-03-14', 1),
+(2, 3, 0, 2, '2014-03-15', 2);
 
 -- --------------------------------------------------------
 
@@ -375,11 +377,6 @@ CREATE TABLE IF NOT EXISTS `nota_dinas` (
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `nota_dinas`
---
-
 
 -- --------------------------------------------------------
 
@@ -418,11 +415,6 @@ CREATE TABLE IF NOT EXISTS `riwayat_mutasi` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
---
--- Dumping data for table `riwayat_mutasi`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -437,11 +429,6 @@ CREATE TABLE IF NOT EXISTS `riwayat_pendidikan` (
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `riwayat_pendidikan`
---
-
 
 -- --------------------------------------------------------
 
@@ -572,11 +559,6 @@ CREATE TABLE IF NOT EXISTS `surat_keluar` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
---
--- Dumping data for table `surat_keluar`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -621,14 +603,37 @@ CREATE TABLE IF NOT EXISTS `user` (
   `thumbnail` varchar(255) NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `address`, `thumbnail`, `is_active`) VALUES
-(2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2014/03/11/20140311_131431_5821.jpg', 1);
+(2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2014/03/11/20140311_131431_5821.jpg', 1),
+(5, 3, '111', '1asdasd', '5d408d848a029d6d3b333ee32469dda8', '', '', 1),
+(6, 3, '2', 'Namanya 2', 'cb8eed4d556ba533cf5c6941d9eb5991', '', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_biodata`
+--
+
+CREATE TABLE IF NOT EXISTS `user_biodata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `biodata_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `user_biodata`
+--
+
+INSERT INTO `user_biodata` (`id`, `user_id`, `biodata_id`) VALUES
+(1, 5, 3),
+(2, 6, 2);
 
 -- --------------------------------------------------------
 

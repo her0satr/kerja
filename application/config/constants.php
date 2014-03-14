@@ -45,4 +45,5 @@ define('STATUS_KEPEGAWAIAN',					'status_kepegawaian');
 define('SURAT_MASUK',							'surat_masuk');
 define('SURAT_KELUAR',							'surat_keluar');
 define('USER',									'user');
+define('USER_BIODATA',							'user_biodata');
 define('USER_TYPE',								'user_type');

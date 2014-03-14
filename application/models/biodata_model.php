@@ -67,8 +67,9 @@ class biodata_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS biodata.*
+			SELECT SQL_CALC_FOUND_ROWS biodata.*, user_biodata.user_id
 			FROM ".BIODATA." biodata
+			LEFT JOIN ".USER_BIODATA." user_biodata ON user_biodata.biodata_id = biodata.id
 			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
@@ -113,6 +114,19 @@ class biodata_model extends CI_Model {
 		}
 		
 		if (count(@$param['column']) > 0) {
+			if (isset($param['grid_type']) && $param['grid_type'] == 'biodata_view') {
+				$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
+				$param['is_custom'] .= '<button class="btn btn-xs btn-detail btn-success" data-original-title="Detail"><i class="fa fa-book"></i></button> ';
+				$param['is_custom'] .= '<button class="btn btn-xs btn-riwayat btn-success" data-original-title="Riwayat"><i class="fa fa-folder"></i></button> ';
+				
+				// add create button
+				if (empty($row['user_id'])) {
+					$param['is_custom'] .= '<button class="btn btn-xs btn-login btn-success" data-original-title="Login Akses"><i class="fa fa-user"></i></button> ';
+				}
+				
+				$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
+			}
+			
 			$row = dt_view_set($row, $param);
 		}
 		

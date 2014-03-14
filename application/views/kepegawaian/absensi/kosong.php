@@ -1,12 +1,9 @@
 <?php
 	$user = $this->user_model->get_session();
-	
-	// hack
-	$user['biodata_id'] = 3;
-	
 	$user['biodata_id'] = (isset($user['biodata_id'])) ? $user['biodata_id'] : 0;
 	$biodata = $this->biodata_model->get_by_id(array( 'id' => $user['biodata_id'] ));
 	if (count($biodata) == 0) {
+		header('Location: '.base_url());
 		exit;
 	}
 	

@@ -13,6 +13,9 @@ class home extends SYGAAS_Controller {
 		$action = (isset($_POST['action'])) ? $_POST['action'] : '';
 		unset($_POST['action']);
 		
+		// user
+		$user = $this->user_model->get_session();
+		
 		$grid = array();
 		if ($action == 'agenda_rapat') {
 			$_POST['column'] = array( 'leading_sektor', 'no_surat', 'tempat', 'tanggal_ajuan' );
@@ -20,6 +23,12 @@ class home extends SYGAAS_Controller {
 			// button
 			$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
 			$_POST['is_custom'] .= '<button class="btn btn-xs btn-skpd btn-success" data-original-title="Undangan"><i class="fa fa-book"></i></button> ';
+			
+			// button sms
+			if ($user['user_type_id'] == USER_ID_ADMINISTRATOR) {
+				$_POST['is_custom'] .= '<button class="btn btn-xs btn-sms btn-success" data-original-title="SMS"><i class="fa fa-envelope"></i></button> ';
+			}
+			
 			$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
 			
 			$array = $this->agenda_rapat_model->get_array($_POST);
@@ -66,6 +75,13 @@ class home extends SYGAAS_Controller {
 			$result = $this->agenda_skpd_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'skpd_delete') {
 			$result = $this->agenda_skpd_model->delete($_POST);
+		}
+		
+		// sent sms
+		else if ($action == 'sent_sms') {
+			// insert to table sms here
+            $result['status'] = '1';
+            $result['message'] = 'Pesan anda berhasil disimpan dan akan segera dikirim.';
 		}
 		
 		echo json_encode($result);

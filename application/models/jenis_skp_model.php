@@ -52,6 +52,7 @@ class jenis_skp_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$string_biodata = (isset($param['biodata_id'])) ? "AND jenis_skp.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
 		$string_limit = GetStringLimit($param);
@@ -59,7 +60,7 @@ class jenis_skp_model extends CI_Model {
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS jenis_skp.*
 			FROM ".JENIS_SKP." jenis_skp
-			WHERE 1 $string_filter
+			WHERE 1 $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";

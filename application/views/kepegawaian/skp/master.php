@@ -1,10 +1,8 @@
 <?php
-	// hack code
-	$this->uri->segments['4'] = 3;
-	
-	$biodata_id = $this->uri->segments['4'];
-	$biodata = $this->biodata_model->get_by_id(array( 'id' => $biodata_id ));
+	$user = $this->user_model->get_session();
+	$biodata = $this->biodata_model->get_by_id(array( 'id' => $user['biodata_id'] ));
 	if (count($biodata) == 0) {
+		header('Location: '.base_url());
 		exit;
 	}
 	
@@ -308,34 +306,6 @@ $(document).ready(function() {
 			callback: function(result) {
 				dt_kegiatan.reload();
 				$('#form-kegiatan').modal('hide');
-			}
-		});
-	});
-	
-	// form diklat
-	$('.btn-add-diklat').click(function() {
-		$('#form-diklat form')[0].reset();
-		$('#form-diklat [name="biodata_id"]').val(page.data.biodata.id);
-		$('#form-diklat').modal();
-	});
-	$('#form-diklat form').validate({
-		rules: {
-			tahun: { required: true },
-			no_sertifikat: { required: true }
-		}
-	});
-	$('#form-diklat form').submit(function(e) {
-		e.preventDefault();
-		if (! $('#form-diklat form').valid()) {
-			return false;
-		}
-		
-		Func.form.submit({
-			url: web.host + 'kepegawaian/skp/master/action',
-			param: Func.form.get_value('form-diklat'),
-			callback: function(result) {
-				dt_diklat.reload();
-				$('#form-diklat').modal('hide');
 			}
 		});
 	});

@@ -39,7 +39,13 @@ class user_model extends CI_Model {
         if (isset($param['id'])) {
             $select_query  = "SELECT * FROM ".USER." WHERE id = '".$param['id']."' LIMIT 1";
         } else if (isset($param['email'])) {
-            $select_query  = "SELECT * FROM ".USER." WHERE email = '".$param['email']."' LIMIT 1";
+            $select_query  = "
+				SELECT user.*, user_biodata.biodata_id
+				FROM ".USER." user
+				LEFT JOIN ".USER_BIODATA." user_biodata ON user_biodata.user_id = user.id
+				WHERE user.email = '".$param['email']."'
+				LIMIT 1
+			";
         } 
        
         $select_result = mysql_query($select_query) or die(mysql_error());
@@ -151,26 +157,26 @@ class user_model extends CI_Model {
 			array(
 				'name' => 'kepegawaian',
 				'title' => 'Kepegawaian',
-				'user_type_id' => array( 1 ),
+				'user_type_id' => array( 1, 3 ),
 				'children' => array(
 					array(
 						'name' => 'biodata', 'title' => 'Biodata', 'user_type_id' => array( 1 )
 					),
 					array(
-						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1 ),
+						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1, 3 ),
 						'children' => array(
 							array( 'name' => 'jam_absensi', 'title' => 'Jam Absensi', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1, 3 ) ),
+							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1, 3 ) ),
 							array( 'name' => 'list_masuk', 'title' => 'List Masuk', 'user_type_id' => array( 1 ) ),
 							array( 'name' => 'list_kosong', 'title' => 'List Tidak Masuk', 'user_type_id' => array( 1 ) )
 						)
 					),
 					array(
-						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1 ),
+						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1, 3 ),
 						'children' => array(
-							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 3 ) ),
+							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1, 3 ) )
 						)
 					)
 				)
@@ -246,6 +252,19 @@ class user_model extends CI_Model {
 					// set childen
 					foreach ($parent['children'] as $children) {
 						if (in_array($param['user_type_id'], $children['user_type_id'])) {
+							
+							// set sub child
+							if (isset($children['children']) && count($children['children']) > 0) {
+								$temp = array();
+								foreach ($children['children'] as $children_sub) {
+									if (in_array($param['user_type_id'], $children_sub['user_type_id'])) {
+										$temp[] = $children_sub;
+									}
+								}
+								$children['children'] = $temp;
+							}
+							
+							// set menu
 							$result_temp['children'][] = $children;
 						}
 					}

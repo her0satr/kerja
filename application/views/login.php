@@ -16,9 +16,9 @@
 						<div class="center"><img src="<?php echo base_url('static/img/logo.png'); ?>" /></div>
 						<form class="form-horizontal" method="post">
 							<div class="form-group">
-								<label class="control-label col-lg-3">Email</label>
+								<label class="control-label col-lg-3">Email / NIP</label>
 								<div class="col-lg-9">
-									<input type="text" name="email" class="form-control" placeholder="Email" />
+									<input type="text" name="email" class="form-control" placeholder="Email / NIP" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -47,7 +47,7 @@
 $(document).ready(function() {
 	$('#form-login form').validate({
 		rules: {
-			email: { required: true, email: true },
+			email: { required: true },
 			passwd: { required: true }
 		}
 	});

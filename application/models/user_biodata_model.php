@@ -1,24 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class jenis_kegiatan_model extends CI_Model {
+class user_biodata_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'biodata_id', 'title', 'jumlah', 'satuan' );
+        $this->field = array( 'id', 'user_id', 'biodata_id' );
     }
 
     function update($param) {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, JENIS_KEGIATAN);
+            $insert_query  = GenerateInsertQuery($this->field, $param, USER_BIODATA);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, JENIS_KEGIATAN);
+            $update_query  = GenerateUpdateQuery($this->field, $param, USER_BIODATA);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -31,12 +31,19 @@ class jenis_kegiatan_model extends CI_Model {
 
     function get_by_id($param) {
         $array = array();
-       
+		
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT jenis_kegiatan.*
-				FROM ".JENIS_KEGIATAN." jenis_kegiatan
-				WHERE jenis_kegiatan.id = '".$param['id']."'
+				SELECT user_biodata.*
+				FROM ".USER_BIODATA." user_biodata
+				WHERE user_biodata.id = '".$param['id']."'
+				LIMIT 1
+			";
+		} else if (isset($param['biodata_id'])) {
+            $select_query  = "
+				SELECT user_biodata.*
+				FROM ".USER_BIODATA." user_biodata
+				WHERE user_biodata.biodata_id = '".$param['biodata_id']."'
 				LIMIT 1
 			";
 		}
@@ -52,15 +59,14 @@ class jenis_kegiatan_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$string_biodata = (isset($param['biodata_id'])) ? "AND jenis_kegiatan.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'user_id ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS jenis_kegiatan.*
-			FROM ".JENIS_KEGIATAN." jenis_kegiatan
-			WHERE 1 $string_biodata $string_filter
+			SELECT SQL_CALC_FOUND_ROWS user_biodata.*
+			FROM ".USER_BIODATA." user_biodata
+			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -82,7 +88,7 @@ class jenis_kegiatan_model extends CI_Model {
     }
 	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".JENIS_KEGIATAN." WHERE id = '".$param['id']."' LIMIT 1";
+		$delete_query  = "DELETE FROM ".USER_BIODATA." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';
