@@ -93,7 +93,7 @@ class agenda_rapat_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
-		$row = StripArray($row);
+		$row = StripArray($row, array( 'tanggal_ajuan', 'tanggal_undangan' ));
 		
 		if (isset($row['tanggal_ajuan'])) {
 			$array_temp = explode(' ', $row['tanggal_ajuan']);

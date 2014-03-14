@@ -86,4 +86,10 @@ class home extends SYGAAS_Controller {
 		
 		echo json_encode($result);
 	}
+	
+	function convert() {
+		$this->load->library('mpdf');
+		$this->mpdf->WriteHTML('Cetak di PDF');
+		$this->mpdf->Output();
+	}
 }

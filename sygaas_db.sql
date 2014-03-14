@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2014 at 10:34 AM
+-- Generation Time: Mar 14, 2014 at 11:14 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `disposisi` (
   `waktu` datetime NOT NULL,
   `waktu_diff` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `disposisi`
@@ -240,7 +240,13 @@ INSERT INTO `disposisi` (`id`, `surat_masuk_id`, `kepada`, `waktu`, `waktu_diff`
 (10, 10, 'Asisten #2', '2014-03-13 19:02:57', '200000'),
 (11, 10, '111111', '2014-03-13 19:06:28', '100000'),
 (12, 10, 'asdasdasd', '2014-03-13 19:06:38', '30000'),
-(13, 10, '159', '2014-03-13 19:28:57', '1339');
+(13, 10, '159', '2014-03-13 19:28:57', '1339'),
+(14, 11, 'Surat dibuat.', '2014-03-14 11:53:00', ''),
+(16, 11, 'Kurir #1', '2014-03-14 10:54:19', '-3521'),
+(17, 11, 'Kurir #2', '2014-03-14 10:54:41', '-3499'),
+(18, 12, 'Surat dibuat.', '2014-03-14 10:56:00', ''),
+(19, 12, 'Kurir #1', '2014-03-14 10:57:23', '83'),
+(20, 12, 'Kurir #2', '2014-03-14 10:57:33', '10');
 
 -- --------------------------------------------------------
 
@@ -578,14 +584,16 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `surat_masuk`
 --
 
 INSERT INTO `surat_masuk` (`id`, `sifat_arsip_id`, `sifat_surat_id`, `no_urut`, `no_surat`, `surat_dari`, `perihal`, `tanggal_surat`, `tanggal_terima`, `catatan`, `file_surat`) VALUES
-(10, 0, 2, '132', '132', '13', '21', '2014-03-13', '2014-03-13 19:09:00', '32', '2014/03/13/20140313_180838_5731.png');
+(10, 0, 2, '132', '132', '13', '21', '2014-03-13', '2014-03-13 19:09:00', '32', '2014/03/13/20140313_180838_5731.png'),
+(11, 0, 0, '133', '133', 'Kementrian', 'Pengumuman', '2014-03-14', '2014-03-14 11:53:00', '', ''),
+(12, 0, 0, '134', '134', '134', '134', '2014-03-14', '2014-03-14 10:56:00', '', '');
 
 -- --------------------------------------------------------
 
