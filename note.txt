@@ -1,3 +1,6 @@
+Record yang sudah dipakai tidak bisa dihapus
+
+
 Modul Agenda Rapat
 - Export to PDF dan Word
 
