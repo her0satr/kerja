@@ -3,8 +3,12 @@
 	
 	$summary_total = array(
 		'pegawai' => $this->biodata_model->get_count( array( 'is_query' => true ) ),
+		'skp' => $this->kegiatan_skp_model->get_count( array( 'is_query' => true ) ),
+		'absensi_masuk' => $this->absensi_masuk_model->get_count( array( 'is_query' => true ) ),
 		'surat_masuk' => $this->surat_masuk_model->get_count( array( 'is_query' => true ) ),
-		'surat_keluar' => $this->surat_keluar_model->get_count( array( 'is_query' => true ) )
+		'surat_keluar' => $this->surat_keluar_model->get_count( array( 'is_query' => true ) ),
+		'nota_dinas' => $this->nota_dinas_model->get_count( array( 'is_query' => true ) ),
+		'agenda_rapat' => $this->agenda_rapat_model->get_count( array( 'is_query' => true ) )
 	);
 	
 	$page_data['user_type_id'] = $user['user_type_id'];
@@ -36,35 +40,64 @@
             <div class="row"><div class="col-md-12">
 				
 				<div class="widget">
-					<div class="widget-head">
-						<div class="pull-left">Summary</div>
-						<div class="widget-icons pull-right">
-							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="widget-content">
-						<div class="padd statement">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="well">
-										<h2><?php echo $summary_total['pegawai']; ?><br /><span>Total Pegawai</span></h2>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="well">
-										<h2><?php echo $summary_total['surat_masuk']; ?><br /><span>Total Surat Masuk</span></h2>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="well">
-										<h2><?php echo $summary_total['surat_keluar']; ?><br /><span>Total Surat Keluar</span></h2>
-									</div>
-								</div>
+					<ul class="info-blocks">
+						<li class="bg-primary">
+							<div class="top-info">
+								<a href="<?php echo base_url('kepegawaian/biodata'); ?>">Tambah Pegawai</a>
+								<small>Management</small>
 							</div>
-						</div>
-					</div>
+							<a href="<?php echo base_url('kepegawaian/biodata'); ?>"><i class="fa fa-user"></i></a>
+							<span class="bottom-info bg-danger"><?php echo $summary_total['pegawai']; ?> total Pegawai</span>
+						</li>
+						<li class="bg-success">
+							<div class="top-info">
+								<a href="<?php echo base_url('kepegawaian/skp/home'); ?>">Tambah SKP</a>
+								<small>Management</small>
+							</div>
+							<a href="<?php echo base_url('kepegawaian/skp/home'); ?>"><i class="fa fa-book"></i></a>
+							<span class="bottom-info bg-primary"><?php echo $summary_total['pegawai']; ?> total SKP</span>
+						</li>
+						<li class="bg-danger">
+							<div class="top-info">
+								<a href="<?php echo base_url('kepegawaian/absensi/masuk'); ?>">Tambah Absensi</a>
+								<small>Management</small>
+							</div>
+							<a href="<?php echo base_url('kepegawaian/absensi/masuk'); ?>"><i class="fa fa-list-ol"></i></a>
+							<span class="bottom-info bg-primary"><?php echo $summary_total['absensi_masuk']; ?> total Absensi Masuk</span>
+						</li>
+						<li class="bg-info">
+							<div class="top-info">
+								<a href="<?php echo base_url('surat/surat_masuk/home'); ?>">Surat Masuk</a>
+								<small>Management</small>
+							</div>
+							<a href="<?php echo base_url('surat/surat_masuk/home'); ?>"><i class="fa fa-file-text"></i></a>
+							<span class="bottom-info bg-primary"><?php echo $summary_total['surat_masuk']; ?> total Surat Masuk</span>
+						</li>
+						<li class="bg-warning">
+							<div class="top-info">
+								<a href="<?php echo base_url('surat/surat_keluar/home'); ?>">Surat Keluar</a>
+								<small>Management</small>
+							</div>
+							<a href="<?php echo base_url('surat/surat_keluar/home'); ?>"><i class="fa fa-file-text"></i></a>
+							<span class="bottom-info bg-primary"><?php echo $summary_total['surat_keluar']; ?> total Surat Keluar</span>
+						</li>
+						<li class="bg-primary">
+							<div class="top-info">
+								<a href="<?php echo base_url('surat/nota_dinas/home'); ?>">Nota Dinas</a>
+								<small>Management</small>
+							</div>
+							<a href="<?php echo base_url('surat/nota_dinas/home'); ?>"><i class="fa fa-ticket"></i></a>
+							<span class="bottom-info bg-danger"><?php echo $summary_total['nota_dinas']; ?> total Nota Dinas</span>
+						</li>
+						<li class="bg-success">
+							<div class="top-info">
+								<a href="<?php echo base_url('surat/agenda_rapat/home'); ?>">Agenda Rapat</a>
+								<small>Management</small>
+							</div>
+							<a href="<?php echo base_url('surat/agenda_rapat/home'); ?>"><i class="fa fa-tasks"></i></a>
+							<span class="bottom-info bg-primary"><?php echo $summary_total['agenda_rapat']; ?> total Agenda Rapat</span>
+						</li>
+					</ul>
 				</div>
 				
 				<div class="widget">

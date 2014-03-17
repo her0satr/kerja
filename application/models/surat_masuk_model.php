@@ -140,6 +140,11 @@ class surat_masuk_model extends CI_Model {
 	}
 	
     function delete($param) {
+		// delete disposisi
+		$delete_query  = "DELETE FROM ".DISPOSISI." WHERE surat_masuk_id = '".$param['id']."'";
+		$delete_result = mysql_query($delete_query) or die(mysql_error());
+		
+		// delete surat masuk
 		$delete_query  = "DELETE FROM ".SURAT_MASUK." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		

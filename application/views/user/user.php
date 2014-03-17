@@ -38,7 +38,7 @@
 						<table id="datatable" class="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
-									<th>Email</th>
+									<th>Email / NIP</th>
 									<th>Fullname</th>
 									<th>Jenis User</th>
 									<th>Active</th>
@@ -77,7 +77,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Email</label>
+								<label class="col-lg-2 control-label">Email / NIP</label>
 								<div class="col-lg-10">
 									<input type="text" name="email" class="form-control" placeholder="Email" />
 								</div>
@@ -218,7 +218,7 @@ $(document).ready(function() {
 		rules: {
 			user_type_id: { required: true },
 			fullname: { required: true, minlength: 5 },
-			email: { required: true, email: true },
+			email: { required: true },
 			passwd_confirm: { equalTo: '[name="passwd"]' }
 		}
 	});

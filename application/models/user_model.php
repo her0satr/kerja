@@ -157,26 +157,26 @@ class user_model extends CI_Model {
 			array(
 				'name' => 'kepegawaian',
 				'title' => 'Kepegawaian',
-				'user_type_id' => array( 1, 3 ),
+				'user_type_id' => array( 1, 2, 3 ),
 				'children' => array(
 					array(
-						'name' => 'biodata', 'title' => 'Biodata', 'user_type_id' => array( 1 )
+						'name' => 'biodata', 'title' => 'Biodata', 'user_type_id' => array( 1, 2 )
 					),
 					array(
-						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1, 3 ),
+						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1, 2, 3 ),
 						'children' => array(
-							array( 'name' => 'jam_absensi', 'title' => 'Jam Absensi', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1, 3 ) ),
-							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1, 3 ) ),
-							array( 'name' => 'list_masuk', 'title' => 'List Masuk', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'list_kosong', 'title' => 'List Tidak Masuk', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'jam_absensi', 'title' => 'Jam Absensi', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1, 2, 3 ) ),
+							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1, 2, 3 ) ),
+							array( 'name' => 'list_masuk', 'title' => 'List Masuk', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'list_kosong', 'title' => 'List Tidak Masuk', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
-						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1, 3 ),
+						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1, 2, 3 ),
 						'children' => array(
-							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 3 ) ),
-							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1, 3 ) )
+							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 2, 3 ) ),
+							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1, 2, 3 ) )
 						)
 					)
 				)
@@ -184,34 +184,34 @@ class user_model extends CI_Model {
 			array(
 				'name' => 'surat',
 				'title' => 'Persuratan',
-				'user_type_id' => array( 1 ),
+				'user_type_id' => array( 1, 2 ),
 				'children' => array(
 					array(
-						'name' => 'surat_masuk', 'title' => 'Surat Masuk', 'user_type_id' => array( 1 ),
+						'name' => 'surat_masuk', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
-						'name' => 'surat_keluar', 'title' => 'Surat Keluar', 'user_type_id' => array( 1 ),
+						'name' => 'surat_keluar', 'title' => 'Surat Keluar', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
-						'name' => 'nota_dinas', 'title' => 'Nota Dinas', 'user_type_id' => array( 1 ),
+						'name' => 'nota_dinas', 'title' => 'Nota Dinas', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
-						'name' => 'agenda_rapat', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1 ),
+						'name' => 'agenda_rapat', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					)
 				)
@@ -227,15 +227,15 @@ class user_model extends CI_Model {
 			array(
 				'name' => 'master',
 				'title' => 'Master',
-				'user_type_id' => array( 1 ),
+				'user_type_id' => array( 1, 2 ),
 				'children' => array(
-					array( 'name' => 'agama', 'title' => 'Agama', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'jenis_kepegawaian', 'title' => 'Jenis Kepegawaian', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'sifat_arsip', 'title' => 'Sifat Arsip', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'sifat_surat', 'title' => 'Sifat Surat', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'skpd', 'title' => 'SKPD', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'status_kepegawaian', 'title' => 'Status Kepegawaian', 'user_type_id' => array( 1 ) ),
-					array( 'name' => 'status_perkawinan', 'title' => 'Status Perkawianan', 'user_type_id' => array( 1 ) )
+					array( 'name' => 'agama', 'title' => 'Agama', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'jenis_kepegawaian', 'title' => 'Jenis Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'sifat_arsip', 'title' => 'Sifat Arsip', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'sifat_surat', 'title' => 'Sifat Surat', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'skpd', 'title' => 'SKPD', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'status_kepegawaian', 'title' => 'Status Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'status_perkawinan', 'title' => 'Status Perkawianan', 'user_type_id' => array( 1, 2 ) )
 				)
 			)
 		);

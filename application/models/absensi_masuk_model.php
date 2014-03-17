@@ -87,7 +87,12 @@ class absensi_masuk_model extends CI_Model {
     }
 
     function get_count($param = array()) {
-		$select_query = "SELECT FOUND_ROWS() TotalRecord";
+		if (isset($param['is_query'])) {
+			$select_query = "SELECT COUNT(*) TotalRecord FROM ".ABSENSI_MASUK;
+		} else {
+			$select_query = "SELECT FOUND_ROWS() TotalRecord";
+		}
+		
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		$row = mysql_fetch_assoc($select_result);
 		$TotalRecord = $row['TotalRecord'];
@@ -110,13 +115,13 @@ class absensi_masuk_model extends CI_Model {
 		
 		// grid type
 		if (isset($param['grid_type']) && $param['grid_type'] == 'absensi_pegawai') {
-			if ($row['waktu_02'] == '00:00:00') {
+			if (empty($row['waktu_02'])) {
 				$row['waktu_02'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_02" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
 			}
-			if ($row['waktu_03'] == '00:00:00') {
+			if (empty($row['waktu_03'])) {
 				$row['waktu_03'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_03" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
 			}
-			if ($row['waktu_04'] == '00:00:00') {
+			if (empty($row['waktu_04'])) {
 				$row['waktu_04'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_04" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
 			}
 		}

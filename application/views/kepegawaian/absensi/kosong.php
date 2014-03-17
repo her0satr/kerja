@@ -81,7 +81,7 @@
 					<label class="col-lg-2 control-label">Tanggal</label>
 					<div class="col-lg-10">
 						<div class="input-append datepicker">
-							<input name="tanggal" type="text" class="form-control dtpicker" placeholder="Tanggal Lahir" data-format="dd-MM-yyyy" />
+							<input name="tanggal" type="text" class="form-control dtpicker" placeholder="Tanggal" data-format="dd-MM-yyyy" />
 							<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
 						</div>
 					</div>

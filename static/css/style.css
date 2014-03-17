@@ -2151,3 +2151,24 @@ footer .copy{
 /* CUSTOM */
 #datatable_processing { display: none; }
 form label.error { color: #FF0000; font-size: 10px; }
+
+/*	DASHBOARD */
+.info-blocks{list-style:none;width:100%;text-align:center;margin:0;padding: 20px 0; }
+.info-blocks>li{display:inline-block;text-align:center;min-width:150px;white-space:nowrap;margin:0 10px 5px; border-radius: 5px; }
+.info-blocks>li>a>i{font-size:48px;display:inline-block;margin-bottom:20px}
+.info-blocks>li>a:hover{opacity:.8;filter:alpha(Opacity=80);color:#fff}
+.info-blocks .bottom-info { border-radius: 5px; }
+.top-info{margin:16px 14px 14px}
+.top-info>a{display:block;font-weight:600;text-transform:uppercase}
+.top-info>a:hover{opacity:.8;filter:alpha(Opacity=80);color:#fff}
+.top-info>small{font-size:11px;display:block;margin-top:-2px}
+.bottom-info{display:block;font-size:11px;padding:4px 8px 5px;font-weight:600;border-radius:0 0 2px 2px;-webkit-border-radius:0 0 2px 2px;-moz-border-radius:0 0 2px 2px}
+.info-blocks { list-style: none outside none; }
+@media (max-width:478px){
+	.info-blocks>li{width:100%;margin:10px 0}
+}
+.bg-primary,.bg-primary a{color:#fff;background-color:#32434D}
+.bg-success,.bg-success a{color:#fff;background-color:#65B688}
+.bg-info,.bg-info a{color:#fff;background-color:#3CA2BB}
+.bg-warning,.bg-warning a{color:#fff;background-color:#EE8366}
+.bg-danger,.bg-danger a{color:#fff;background-color:#D65C4F}

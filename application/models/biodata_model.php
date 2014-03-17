@@ -97,6 +97,18 @@ class biodata_model extends CI_Model {
     }
 	
     function delete($param) {
+		// get data
+		$user_biodata = $this->user_biodata_model->get_by_id(array( 'biodata_id' => $param['id'] ));
+		
+		// delete user biodata
+		$delete_query  = "DELETE FROM ".USER_BIODATA." WHERE id = '".$user_biodata['id']."' LIMIT 1";
+		$delete_result = mysql_query($delete_query) or die(mysql_error());
+		
+		// delete user
+		$delete_query  = "DELETE FROM ".USER." WHERE id = '".$user_biodata['user_id']."' LIMIT 1";
+		$delete_result = mysql_query($delete_query) or die(mysql_error());
+		
+		// delete biodata
 		$delete_query  = "DELETE FROM ".BIODATA." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
