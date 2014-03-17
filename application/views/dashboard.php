@@ -1,13 +1,24 @@
 <?php
 	$user = $this->user_model->get_session();
-	$page_data['user_type_id'] = $user['user_type_id'];
 	
+	$summary_total = array(
+		'pegawai' => $this->biodata_model->get_count( array( 'is_query' => true ) ),
+		'surat_masuk' => $this->surat_masuk_model->get_count( array( 'is_query' => true ) ),
+		'surat_keluar' => $this->surat_keluar_model->get_count( array( 'is_query' => true ) )
+	);
+	
+	$page_data['user_type_id'] = $user['user_type_id'];
 	$page_data['array_rekap_yearly'] = $this->surat_masuk_model->get_rekap_yearly();
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Selamat Datang' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
+
+<style>
+.well h2 { padding: 0px; margin: 0px; line-height: 20px; }
+.well h2 span { font-size: 20px; }
+</style>
 
 <div class="content">
 	<?php $this->load->view( 'common/sidebar'); ?>
@@ -23,6 +34,38 @@
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
+				
+				<div class="widget">
+					<div class="widget-head">
+						<div class="pull-left">Summary</div>
+						<div class="widget-icons pull-right">
+							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="widget-content">
+						<div class="padd statement">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="well">
+										<h2><?php echo $summary_total['pegawai']; ?><br /><span>Total Pegawai</span></h2>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="well">
+										<h2><?php echo $summary_total['surat_masuk']; ?><br /><span>Total Surat Masuk</span></h2>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="well">
+										<h2><?php echo $summary_total['surat_keluar']; ?><br /><span>Total Surat Keluar</span></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				
 				<div class="widget">
 					<div class="widget-head">
