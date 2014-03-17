@@ -82,6 +82,24 @@ class surat_keluar_model extends CI_Model {
 		return $TotalRecord;
     }
 	
+	function get_rekap_filter($param = array()) {
+		$array = array();
+		
+		$select_query = "
+			SELECT 'Surat Keluar' label, COUNT(*) total
+			FROM ".SURAT_KELUAR." surat_keluar
+			WHERE
+				surat_keluar.tanggal_surat >= '".$param['date_start']."'
+				AND surat_keluar.tanggal_surat <= '".$param['date_end']."'
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$array[] = $row;
+		}
+		
+        return $array;
+	}
+	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".SURAT_KELUAR." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());

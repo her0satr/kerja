@@ -1,6 +1,8 @@
 <?php
 	$user = $this->user_model->get_session();
 	$page_data['user_type_id'] = $user['user_type_id'];
+	
+	$page_data['array_rekap_yearly'] = $this->surat_masuk_model->get_rekap_yearly();
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Selamat Datang' ) ); ?>
 
@@ -21,7 +23,23 @@
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
-				-
+				
+				<div class="widget">
+					<div class="widget-head">
+						<div class="pull-left">Rekap Surat Masuk 12 Bulan Terakhir</div>
+						<div class="widget-icons pull-right">
+							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+						</div>  
+						<div class="clearfix"></div>
+					</div>
+					<div class="widget-content">
+						<div class="padd">
+							<div id="chart-summary"></div>
+						</div>
+					</div>
+				</div>
+				
 			</div></div>
         </div></div>
     </div>
@@ -41,6 +59,17 @@ $(document).ready(function() {
 		}
 	}
 	page.init();
+	
+	Morris.Bar({
+		element: 'chart-summary',
+		data: page.data.array_rekap_yearly,
+		xkey: 'label',
+		ykeys: ['total'],
+		labels: ['label'],
+		barRatio: 0.4,
+		xLabelAngle: 35,
+		hideHover: 'auto'
+	});
 });
 </script>
 </body>

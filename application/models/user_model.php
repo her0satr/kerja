@@ -189,25 +189,29 @@ class user_model extends CI_Model {
 					array(
 						'name' => 'surat_masuk', 'title' => 'Surat Masuk', 'user_type_id' => array( 1 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
 						)
 					),
 					array(
 						'name' => 'surat_keluar', 'title' => 'Surat Keluar', 'user_type_id' => array( 1 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
 						)
 					),
 					array(
 						'name' => 'nota_dinas', 'title' => 'Nota Dinas', 'user_type_id' => array( 1 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
 						)
 					),
 					array(
 						'name' => 'agenda_rapat', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) )
+							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1 ) ),
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1 ) )
 						)
 					)
 				)

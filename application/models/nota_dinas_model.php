@@ -82,6 +82,24 @@ class nota_dinas_model extends CI_Model {
 		return $TotalRecord;
     }
 	
+	function get_rekap_filter($param = array()) {
+		$array = array();
+		
+		$select_query = "
+			SELECT 'Nota Dinas' label, COUNT(*) total
+			FROM ".NOTA_DINAS." nota_dinas
+			WHERE
+				nota_dinas.tanggal_surat >= '".$param['date_start']."'
+				AND nota_dinas.tanggal_surat <= '".$param['date_end']."'
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$array[] = $row;
+		}
+		
+        return $array;
+	}
+	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".NOTA_DINAS." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());

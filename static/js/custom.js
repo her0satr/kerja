@@ -386,3 +386,14 @@ if ($('.mainbar .button-back').length == 1) {
 		window.history.back()
 	});
 }
+
+/*	check upload file */
+$('.btn-check-file').click(function() {
+	var filename = $(this).parents('.form-group').find('input[type="text"]').val();
+	if (filename.length > 0) {
+		var file_link = web.host + 'static/upload/' + filename;
+		window.open(file_link);
+	} else {
+		noty({ text: 'File tidak tersedia.', layout: 'topRight', type: 'error', timeout: 1500 });
+	}
+});

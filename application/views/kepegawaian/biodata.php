@@ -96,6 +96,7 @@
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-karpeg" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -160,6 +161,7 @@
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-kartu-nikah" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
 							
@@ -197,6 +199,7 @@
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-cpns" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -206,6 +209,7 @@
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-pns" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -215,6 +219,7 @@
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-non_pns" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -230,6 +235,7 @@
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-unit_kerja" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
 							<div class="form-group">

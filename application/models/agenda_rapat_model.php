@@ -82,6 +82,24 @@ class agenda_rapat_model extends CI_Model {
 		return $TotalRecord;
     }
 	
+	function get_rekap_filter($param = array()) {
+		$array = array();
+		
+		$select_query = "
+			SELECT 'Agenda Rapat' label, COUNT(*) total
+			FROM ".AGENDA_RAPAT." agenda_rapat
+			WHERE
+				agenda_rapat.tanggal_ajuan >= '".$param['date_start']."'
+				AND agenda_rapat.tanggal_ajuan <= '".$param['date_end']."'
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$array[] = $row;
+		}
+		
+        return $array;
+	}
+	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".AGENDA_RAPAT." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());

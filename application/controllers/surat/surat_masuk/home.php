@@ -20,6 +20,7 @@ class home extends SYGAAS_Controller {
 			// button
 			$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
 			$_POST['is_custom'] .= '<button class="btn btn-xs btn-disposisi btn-success" data-original-title="Disposisi"><i class="fa fa-book"></i></button> ';
+			$_POST['is_custom'] .= '<button class="btn btn-xs btn-print btn-success" data-original-title="Print Disposisi"><i class="fa fa-print"></i></button> ';
 			$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
 			
 			$array = $this->surat_masuk_model->get_array($_POST);
@@ -80,5 +81,13 @@ class home extends SYGAAS_Controller {
 		}
 		
 		echo json_encode($result);
+	}
+	
+	function disposisi() {
+		header("Content-type: application/vnd.ms-word");
+		header("Content-Disposition: attachment;Filename=disposisi.doc");
+		
+		$content = $this->load->view( 'surat/surat_masuk/disposisi', array(), true );
+		echo $content;
 	}
 }

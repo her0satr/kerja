@@ -1,14 +1,6 @@
-Check Upload File
-- buka window baru untuk pengecekan file
-
 Modul Agenda Rapat
 - Export to PDF dan Word
-
-Print Disposisi
-- Format sudah ada di folder
 
 Agenda Rapat
 - Print Daftar Hadir
 - Print Undangan
-
-Rekap di Dashboard

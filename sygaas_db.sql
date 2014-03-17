@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2014 at 11:14 AM
+-- Generation Time: Mar 17, 2014 at 10:09 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
   `catatan` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `agenda_rapat`
@@ -126,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
 
 INSERT INTO `agenda_rapat` (`id`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`) VALUES
 (5, '12', '123', '159', '2014-03-13 20:00:00', '0000-00-00', '', '', '', ''),
-(6, '13', '13', '13', '2014-03-13 21:40:57', '0000-00-00', '', '', '', '');
+(6, '13', '13', '13', '2014-03-13 21:40:57', '0000-00-00', '', '', '', ''),
+(7, '1', '1', '1', '2014-03-17 10:06:52', '2014-03-17', '1', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -180,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `biodata` (
 
 INSERT INTO `biodata` (`id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `tempat_lahir`, `tanggal_lahir`, `karpeg`, `kartu_nikah`) VALUES
 (2, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
-(3, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '', '');
+(3, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg');
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `disposisi` (
   `waktu` datetime NOT NULL,
   `waktu_diff` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `disposisi`
@@ -246,7 +247,8 @@ INSERT INTO `disposisi` (`id`, `surat_masuk_id`, `kepada`, `waktu`, `waktu_diff`
 (17, 11, 'Kurir #2', '2014-03-14 10:54:41', '-3499'),
 (18, 12, 'Surat dibuat.', '2014-03-14 10:56:00', ''),
 (19, 12, 'Kurir #1', '2014-03-14 10:57:23', '83'),
-(20, 12, 'Kurir #2', '2014-03-14 10:57:33', '10');
+(20, 12, 'Kurir #2', '2014-03-14 10:57:33', '10'),
+(21, 13, 'Surat dibuat.', '2014-03-17 09:27:00', '');
 
 -- --------------------------------------------------------
 
@@ -382,7 +384,15 @@ CREATE TABLE IF NOT EXISTS `nota_dinas` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `nota_dinas`
+--
+
+INSERT INTO `nota_dinas` (`id`, `no_urut`, `no_surat`, `surat_dari`, `disposisi_kepada`, `perihal`, `posisi`, `tanggal_disposisi`, `tanggal_surat`, `tanggal_terima`, `catatan`, `file_surat`) VALUES
+(5, '1', '2', '3', '4', '5', '6', '0000-00-00', '2014-03-17', '0000-00-00 00:00:00', '', '2014/03/17/20140317_082031_2967.jpg'),
+(6, '1', '1', '1', '1', '1', '1', '2014-03-17', '2014-03-17', '2014-03-17 10:06:36', '', '');
 
 -- --------------------------------------------------------
 
@@ -419,7 +429,14 @@ CREATE TABLE IF NOT EXISTS `riwayat_mutasi` (
   `tahun` int(11) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `riwayat_mutasi`
+--
+
+INSERT INTO `riwayat_mutasi` (`id`, `biodata_id`, `no_sk`, `tahun`, `upload_file`) VALUES
+(3, 3, 'dsf', 0, '');
 
 -- --------------------------------------------------------
 
@@ -434,7 +451,14 @@ CREATE TABLE IF NOT EXISTS `riwayat_pendidikan` (
   `no_ijazah` varchar(50) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `riwayat_pendidikan`
+--
+
+INSERT INTO `riwayat_pendidikan` (`id`, `biodata_id`, `tahun`, `no_ijazah`, `upload_file`) VALUES
+(7, 3, 13, '112', '');
 
 -- --------------------------------------------------------
 
@@ -446,7 +470,7 @@ CREATE TABLE IF NOT EXISTS `sifat_arsip` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `sifat_arsip`
@@ -466,7 +490,7 @@ CREATE TABLE IF NOT EXISTS `sifat_surat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `sifat_surat`
@@ -563,7 +587,15 @@ CREATE TABLE IF NOT EXISTS `surat_keluar` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `surat_keluar`
+--
+
+INSERT INTO `surat_keluar` (`id`, `no_urut`, `index_surat`, `no_surat`, `pengolah`, `tujuan`, `tanggal_surat`, `lampiran`, `perihal`, `catatan`, `file_surat`) VALUES
+(4, '1', '2', '3', '4', '', '2014-03-17', '', '11', '', '2014/03/17/20140317_081952_4904.jpg'),
+(5, '1', '2', '2', '2', '', '2014-03-17', '2', '88', '', '');
 
 -- --------------------------------------------------------
 
@@ -577,6 +609,7 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
   `sifat_surat_id` int(11) NOT NULL,
   `no_urut` varchar(50) NOT NULL,
   `no_surat` varchar(50) NOT NULL,
+  `no_agenda` varchar(50) NOT NULL,
   `surat_dari` varchar(50) NOT NULL,
   `perihal` varchar(255) NOT NULL,
   `tanggal_surat` date NOT NULL,
@@ -584,16 +617,17 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `surat_masuk`
 --
 
-INSERT INTO `surat_masuk` (`id`, `sifat_arsip_id`, `sifat_surat_id`, `no_urut`, `no_surat`, `surat_dari`, `perihal`, `tanggal_surat`, `tanggal_terima`, `catatan`, `file_surat`) VALUES
-(10, 0, 2, '132', '132', '13', '21', '2014-03-13', '2014-03-13 19:09:00', '32', '2014/03/13/20140313_180838_5731.png'),
-(11, 0, 0, '133', '133', 'Kementrian', 'Pengumuman', '2014-03-14', '2014-03-14 11:53:00', '', ''),
-(12, 0, 0, '134', '134', '134', '134', '2014-03-14', '2014-03-14 10:56:00', '', '');
+INSERT INTO `surat_masuk` (`id`, `sifat_arsip_id`, `sifat_surat_id`, `no_urut`, `no_surat`, `no_agenda`, `surat_dari`, `perihal`, `tanggal_surat`, `tanggal_terima`, `catatan`, `file_surat`) VALUES
+(10, 0, 2, '132', '132', '', '13', '21', '2014-03-13', '2014-03-13 19:09:00', '32', '2014/03/13/20140313_180838_5731.png'),
+(11, 0, 0, '133', '133', '', 'Kementrian', 'Pengumuman', '2014-03-14', '2014-03-14 11:53:00', '', ''),
+(12, 0, 2, '123456', 'No Surat', 'No Agenda', 'Surat Dari', 'Perihal', '2014-03-17', '2014-03-14 10:56:00', 'Catatannya', '2014/03/17/20140317_081917_5920.jpg'),
+(13, 0, 0, '1', '2', '3', '45', '6', '2014-03-17', '2014-03-17 09:27:00', '', '');
 
 -- --------------------------------------------------------
 
