@@ -81,6 +81,23 @@ class sifat_surat_model extends CI_Model {
     }
 	
     function delete($param) {
+        $record_count = 0;
+        $select_query = array();
+        if (isset($param['id'])) {
+            $select_query[] = "SELECT COUNT(*) total FROM ".SURAT_MASUK." WHERE sifat_surat_id = '".$param['id']."'";
+        }
+        foreach ($select_query as $query) {
+            $select_result = mysql_query($query) or die(mysql_error());
+            if (false !== $Row = mysql_fetch_assoc($select_result)) {
+                $record_count += $Row['total'];
+            }
+        }
+		if ($record_count > 0) {
+            $result['status'] = '0';
+            $result['message'] = 'Data tidak bisa dihapus karena sudah terpakai.';
+			return $result;
+		}
+		
 		$delete_query  = "DELETE FROM ".SIFAT_SURAT." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		

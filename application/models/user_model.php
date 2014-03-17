@@ -235,7 +235,7 @@ class user_model extends CI_Model {
 					array( 'name' => 'sifat_surat', 'title' => 'Sifat Surat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'skpd', 'title' => 'SKPD', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'status_kepegawaian', 'title' => 'Status Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
-					array( 'name' => 'status_perkawinan', 'title' => 'Status Perkawianan', 'user_type_id' => array( 1, 2 ) )
+					array( 'name' => 'status_perkawinan', 'title' => 'Status Perkawinan', 'user_type_id' => array( 1, 2 ) )
 				)
 			)
 		);
