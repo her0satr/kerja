@@ -1898,6 +1898,10 @@ border:1px solid #eee;
 	max-width: 500px;
 	margin: 50px auto;
 }
+.admin-form.big{
+	max-width: 900px;
+	margin: 0px auto;
+}
 
 .admin-form form{
 	padding: 10px 0px;

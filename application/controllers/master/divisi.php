@@ -1,20 +1,20 @@
 <?php
 
-class home extends SYGAAS_Controller {
+class divisi extends SYGAAS_Controller {
 	function __construct() {
 		parent::__construct();
 	}
 	
 	function index() {
-		$this->load->view( 'kepegawaian/skp/home');
+		$this->load->view( 'master/divisi');
 	}
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'tanggal', 'title', 'keterangan' );
+		$_POST['column'] = array( 'title' );
 		
-		$array = $this->kegiatan_skp_model->get_array($_POST);
-		$count = $this->kegiatan_skp_model->get_count();
+		$array = $this->divisi_model->get_array($_POST);
+		$count = $this->divisi_model->get_count();
 		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
 		
 		echo json_encode($grid);
@@ -26,11 +26,11 @@ class home extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'update') {
-			$result = $this->kegiatan_skp_model->update($_POST);
+			$result = $this->divisi_model->update($_POST);
 		} else if ($action == 'get_by_id') {
-			$result = $this->kegiatan_skp_model->get_by_id(array( 'id' => $_POST['id'] ));
+			$result = $this->divisi_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'delete') {
-			$result = $this->kegiatan_skp_model->delete($_POST);
+			$result = $this->divisi_model->delete($_POST);
 		}
 		
 		echo json_encode($result);

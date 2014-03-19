@@ -13,7 +13,7 @@
 				
 				<div class="widget-content" id="form-login">
 					<div class="padd">
-						<div class="center"><img src="<?php echo base_url('static/img/logo.png'); ?>" /></div>
+						<div class="center"><img src="<?php echo base_url('static/img/logo.png'); ?>" style="width: 75%;" /></div>
 						<form class="form-horizontal" method="post">
 							<div class="form-group">
 								<label class="control-label col-lg-3">Email / NIP</label>
@@ -35,7 +35,9 @@
 						</form>
 					</div>
                 </div>
-                <div class="widget-foot">&nbsp;</div>
+                <div class="widget-foot">
+					- <a href="<?php echo base_url('rekap/absensi'); ?>">Rekap Absensi</a>
+				</div>
             </div>  
 		</div>
     </div>

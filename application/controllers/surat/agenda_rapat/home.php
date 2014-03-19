@@ -26,7 +26,7 @@ class home extends SYGAAS_Controller {
 			
 			// button sms
 			if ($user['user_type_id'] == USER_ID_ADMINISTRATOR) {
-				$_POST['is_custom'] .= '<button class="btn btn-xs btn-sms btn-success" data-original-title="SMS"><i class="fa fa-envelope"></i></button> ';
+				$_POST['is_custom'] .= '<button class="btn btn-xs btn-sms btn-success" data-original-title="SMS / Email"><i class="fa fa-envelope"></i></button> ';
 			}
 			
 			$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
@@ -79,6 +79,24 @@ class home extends SYGAAS_Controller {
 		
 		// sent sms
 		else if ($action == 'sent_sms') {
+			// sent via media
+			$array_skpd = $this->agenda_skpd_model->get_array(array( 'agenda_rapat_id' => $_POST['agenda_rapat_id'] ));
+			foreach ($array_skpd as $row) {
+				if ($_POST['media'] == 'Email') {
+					if (empty($row['email'])) {
+						continue;
+					}
+					
+					$param_mail = array(
+						'to' => $row['email'],
+						'subject' => 'Undangan Rapat',
+						'message' => $_POST['message']
+					);
+					sent_mail($param_mail);
+				} else if ($_POST['media'] == 'SMS') {
+				}
+			}
+			
 			// insert to table sms here
             $result['status'] = '1';
             $result['message'] = 'Pesan anda berhasil disimpan dan akan segera dikirim.';

@@ -5,7 +5,7 @@ class biodata_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'agama_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
+			'id', 'agama_id', 'divisi_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
 			'tanggal_lahir', 'karpeg', 'kartu_nikah'
 		);
     }
@@ -60,6 +60,7 @@ class biodata_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['divisi_title'] = 'divisi.title';
 		$param['field_replace']['tanggal_lahir_text'] = 'biodata.tanggal_lahir';
 		
 		$string_filter = GetStringFilter($param, @$param['column']);
@@ -67,8 +68,9 @@ class biodata_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS biodata.*, user_biodata.user_id
+			SELECT SQL_CALC_FOUND_ROWS biodata.*, user_biodata.user_id, divisi.title divisi_title
 			FROM ".BIODATA." biodata
+			LEFT JOIN ".DIVISI." divisi ON divisi.id = biodata.divisi_id
 			LEFT JOIN ".USER_BIODATA." user_biodata ON user_biodata.biodata_id = biodata.id
 			WHERE 1 $string_filter
 			ORDER BY $string_sorting

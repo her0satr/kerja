@@ -1,8 +1,41 @@
-Record yang sudah dipakai tidak bisa dihapus
+----------------------------------------------------------------------------------------------
+Status Sudah Selesai
+----------------------------------------------------------------------------------------------
+Rekap Absensi
+- rekap ini untuk per divisi
+- rekap absen harian / divisi (masuk, tidak masuk, ijin, sakit, dkk)
+- di akses tanpa perlu login
 
+Dashboard
+- Pembagian Link Shortcut menjadi 2
 
+Menu
+- link menu saat tampilan dengan lebar yang kecil tidak jalan
+
+Biodata
+- Setiap Pegawai punya divisi sendiri2
+
+SKP Master
+- Kegiatan SKP default hari ini
+- Kegiatan Lain itu tidak ada nilai & satuan
+
+Kegiatan SKP
+- Kegiatan SKP untuk entry (Kegiatan Lain) itu dimunculkan dan ditambah keterangan
+
+Master SKPD
+- Master SKPD ditambah email
+
+Agenda Rapat
+- Agenda Surat ada fasilitas kirim email
+
+Change Password
+- Penambahan fitur ubah password
+
+----------------------------------------------------------------------------------------------
+Status Pending
+----------------------------------------------------------------------------------------------
 Modul Agenda Rapat
-- Export to PDF dan Word
+- Export PDF atau Word
 
 Agenda Rapat
 - Print Daftar Hadir

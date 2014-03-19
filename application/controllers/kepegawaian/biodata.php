@@ -11,7 +11,7 @@ class biodata extends SYGAAS_Controller {
 	
 	function grid() {
 		$_POST['grid_type'] = 'biodata_view';
-		$_POST['column'] = array( 'nama', 'nip', 'tanggal_lahir_text', 'tempat_lahir' );
+		$_POST['column'] = array( 'nama', 'nip', 'divisi_title', 'tanggal_lahir_text', 'tempat_lahir' );
 		
 		$array = $this->biodata_model->get_array($_POST);
 		$count = $this->biodata_model->get_count();

@@ -230,6 +230,7 @@ class user_model extends CI_Model {
 				'user_type_id' => array( 1, 2 ),
 				'children' => array(
 					array( 'name' => 'agama', 'title' => 'Agama', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'divisi', 'title' => 'Divisi', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'jenis_kepegawaian', 'title' => 'Jenis Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'sifat_arsip', 'title' => 'Sifat Arsip', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'sifat_surat', 'title' => 'Sifat Surat', 'user_type_id' => array( 1, 2 ) ),

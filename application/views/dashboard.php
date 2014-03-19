@@ -41,6 +41,7 @@
 				
 				<div class="widget">
 					<ul class="info-blocks">
+						<?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
 						<li class="bg-primary">
 							<div class="top-info">
 								<a href="<?php echo base_url('kepegawaian/biodata'); ?>">Tambah Pegawai</a>
@@ -49,6 +50,7 @@
 							<a href="<?php echo base_url('kepegawaian/biodata'); ?>"><i class="fa fa-user"></i></a>
 							<span class="bottom-info bg-danger"><?php echo $summary_total['pegawai']; ?> total Pegawai</span>
 						</li>
+						<?php } ?>
 						<li class="bg-success">
 							<div class="top-info">
 								<a href="<?php echo base_url('kepegawaian/skp/home'); ?>">Tambah SKP</a>
@@ -65,6 +67,12 @@
 							<a href="<?php echo base_url('kepegawaian/absensi/masuk'); ?>"><i class="fa fa-list-ol"></i></a>
 							<span class="bottom-info bg-primary"><?php echo $summary_total['absensi_masuk']; ?> total Absensi Masuk</span>
 						</li>
+					</ul>
+				</div>
+				
+				<?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
+				<div class="widget">
+					<ul class="info-blocks">
 						<li class="bg-info">
 							<div class="top-info">
 								<a href="<?php echo base_url('surat/surat_masuk/home'); ?>">Surat Masuk</a>
@@ -99,6 +107,7 @@
 						</li>
 					</ul>
 				</div>
+				<?php } ?>
 				
 				<div class="widget">
 					<div class="widget-head">

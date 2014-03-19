@@ -5,7 +5,7 @@ class kegiatan_skp_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'biodata_id', 'jenis_skp_id', 'kegiatan_lain_id', 'tanggal', 'type_row'
+			'id', 'biodata_id', 'jenis_skp_id', 'kegiatan_lain_id', 'tanggal', 'type_row', 'keterangan'
 		);
     }
 

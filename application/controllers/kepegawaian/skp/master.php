@@ -20,7 +20,7 @@ class master extends SYGAAS_Controller {
 			$array = $this->jenis_skp_model->get_array($_POST);
 			$count = $this->jenis_skp_model->get_count();
 		} else if ($action == 'jenis_kegiatan') {
-			$_POST['column'] = array( 'title', 'jumlah', 'satuan' );
+			$_POST['column'] = array( 'title' );
 			
 			$array = $this->jenis_kegiatan_model->get_array($_POST);
 			$count = $this->jenis_kegiatan_model->get_count();

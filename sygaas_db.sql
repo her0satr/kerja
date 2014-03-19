@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2014 at 03:57 PM
+-- Generation Time: Mar 19, 2014 at 02:38 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -36,15 +36,7 @@ CREATE TABLE IF NOT EXISTS `absensi_kosong` (
   `keterangan` varchar(255) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `absensi_kosong`
---
-
-INSERT INTO `absensi_kosong` (`id`, `biodata_id`, `tanggal`, `status_kosong`, `keterangan`, `upload_file`) VALUES
-(2, 3, '2014-03-14', 'Cuti', '123 55', '2014/03/13/20140313_134928_8276.png'),
-(4, 4, '2014-03-18', 'Ijin', 'Ijin saja', '');
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -67,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `absensi_masuk`
@@ -77,7 +69,8 @@ INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`,
 (1, 3, '2014-03-13', 'Tepat Waktu', '11:55:43', '', '12:26:52', '', '13:00:00', '', '15:00:00', '', '--'),
 (2, 2, '2014-03-14', 'Tepat Waktu', '09:54:06', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
 (3, 4, '2014-03-17', 'Tepat Waktu', '15:01:14', '', '00:00:00', '', '15:19:09', '', '15:19:07', '', ''),
-(4, 4, '2014-03-18', 'Tepat Waktu', '08:01:46', '', '00:00:00', '', '15:19:10', '', '15:19:08', '', '');
+(4, 4, '2014-03-18', 'Tepat Waktu', '08:01:46', '', '00:00:00', '', '15:19:10', '', '15:19:08', '', ''),
+(6, 3, '2014-03-19', 'Tepat Waktu', '13:56:36', '', '13:56:40', '', '13:56:37', '', '00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -164,6 +157,7 @@ INSERT INTO `agenda_skpd` (`id`, `skpd_id`, `agenda_rapat_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `biodata` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `divisi_id` int(11) NOT NULL,
   `agama_id` int(11) NOT NULL,
   `status_perkawinan_id` int(11) NOT NULL,
   `jenis_kepegawaian_id` int(11) NOT NULL,
@@ -176,16 +170,16 @@ CREATE TABLE IF NOT EXISTS `biodata` (
   `karpeg` varchar(50) NOT NULL,
   `kartu_nikah` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `biodata`
 --
 
-INSERT INTO `biodata` (`id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `tempat_lahir`, `tanggal_lahir`, `karpeg`, `kartu_nikah`) VALUES
-(2, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
-(3, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
-(4, 1, 1, 1, 1, '0123456789', 'Herry Satrio', 'Laki Laki', 'Malang', '1984-10-15', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg');
+INSERT INTO `biodata` (`id`, `divisi_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `tempat_lahir`, `tanggal_lahir`, `karpeg`, `kartu_nikah`) VALUES
+(2, 2, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
+(3, 3, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
+(4, 2, 1, 1, 1, 1, '0123456789', 'Herry Satrio', 'Laki Laki', 'Malang', '1984-10-15', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg');
 
 -- --------------------------------------------------------
 
@@ -248,6 +242,28 @@ INSERT INTO `disposisi` (`id`, `surat_masuk_id`, `kepada`, `waktu`, `waktu_diff`
 (32, 18, 'Surat dibuat.', '2014-03-17 15:38:00', ''),
 (33, 18, 'Kurir #1', '2014-03-17 15:38:44', '44'),
 (34, 18, 'Kurir #2', '2014-03-17 15:38:45', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `divisi`
+--
+
+CREATE TABLE IF NOT EXISTS `divisi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `divisi`
+--
+
+INSERT INTO `divisi` (`id`, `title`) VALUES
+(1, 'Tata Usaha'),
+(2, 'Kepegawaian'),
+(3, 'Divisi 1'),
+(4, 'Divisi 2');
 
 -- --------------------------------------------------------
 
@@ -354,18 +370,21 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
   `kegiatan_lain_id` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `type_row` int(11) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `kegiatan_skp`
 --
 
-INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `kegiatan_lain_id`, `tanggal`, `type_row`) VALUES
-(1, 3, 3, 0, '2014-03-14', 1),
-(2, 3, 0, 2, '2014-03-15', 2),
-(3, 4, 5, 0, '2014-03-17', 1),
-(4, 4, 0, 4, '2014-03-19', 2);
+INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `kegiatan_lain_id`, `tanggal`, `type_row`, `keterangan`) VALUES
+(1, 3, 3, 0, '2014-03-14', 1, ''),
+(2, 3, 0, 2, '2014-03-15', 2, ''),
+(3, 4, 5, 0, '2014-03-17', 1, ''),
+(4, 4, 0, 4, '2014-03-19', 2, ''),
+(5, 3, 3, 0, '2014-03-16', 1, 'Keterangan 01'),
+(7, 3, 4, 0, '2014-03-19', 1, 'as');
 
 -- --------------------------------------------------------
 
@@ -518,17 +537,18 @@ CREATE TABLE IF NOT EXISTS `skpd` (
   `kepala` varchar(200) NOT NULL,
   `instansi` varchar(200) NOT NULL,
   `hp` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `skpd`
 --
 
-INSERT INTO `skpd` (`id`, `title`, `kepala`, `instansi`, `hp`) VALUES
-(9, 'Malang', 'Alun Alun Bunder', 'Malang Kota', ''),
-(10, 'Bandung', 'Dingin', 'Hujan', '123'),
-(12, 'Surabaya', 'Kepala Surabaya', 'Kota Surabaya', '');
+INSERT INTO `skpd` (`id`, `title`, `kepala`, `instansi`, `hp`, `email`) VALUES
+(9, 'Malang', 'Alun Alun Bunder', 'Malang Kota', '', ''),
+(10, 'Bandung', 'Dingin', 'Hujan', '123', 'her0satr@gmail.com'),
+(12, 'Surabaya', 'Kepala Surabaya', 'Kota Surabaya', '', '');
 
 -- --------------------------------------------------------
 
@@ -671,7 +691,7 @@ CREATE TABLE IF NOT EXISTS `user_biodata` (
   `user_id` int(11) NOT NULL,
   `biodata_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `user_biodata`

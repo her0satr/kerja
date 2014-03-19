@@ -77,8 +77,6 @@
 							<thead>
 								<tr>
 									<th>Nama</th>
-									<th>Jumlah</th>
-									<th>Satuan</th>
 									<th class="center">Control</th>
 								</tr>
 							</thead>
@@ -150,13 +148,13 @@
 						<input type="text" name="title" class="form-control" placeholder="Nama" />
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group hide">
 					<label class="col-lg-2 control-label">Jumlah</label>
 					<div class="col-lg-10">
 						<input type="text" name="jumlah" class="form-control" placeholder="Jumlah" />
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group hide">
 					<label class="col-lg-2 control-label">Satuan</label>
 					<div class="col-lg-10">
 						<input type="text" name="satuan" class="form-control" placeholder="Satuan" />
@@ -223,7 +221,7 @@ $(document).ready(function() {
 	var kegiatan_param = {
 		id: 'dt-kegiatan',
 		source: web.host + 'kepegawaian/skp/master/grid',
-		column: [ { }, { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'jenis_kegiatan' },
@@ -262,8 +260,7 @@ $(document).ready(function() {
 	});
 	$('#form-skp form').validate({
 		rules: {
-			tahun: { required: true },
-			no_ijazah: { required: true }
+			title: { required: true }
 		}
 	});
 	$('#form-skp form').submit(function(e) {
@@ -290,8 +287,7 @@ $(document).ready(function() {
 	});
 	$('#form-kegiatan form').validate({
 		rules: {
-			tahun: { required: true },
-			no_sk: { required: true }
+			title: { required: true }
 		}
 	});
 	$('#form-kegiatan form').submit(function(e) {

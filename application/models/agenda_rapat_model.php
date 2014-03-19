@@ -55,7 +55,7 @@ class agenda_rapat_model extends CI_Model {
         $array = array();
 		
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'leading_sektor ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "

@@ -4,7 +4,7 @@ class skpd_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'title', 'kepala', 'instansi', 'hp' );
+        $this->field = array( 'id', 'title', 'kepala', 'instansi', 'hp', 'email' );
     }
 
     function update($param) {

@@ -1,5 +1,6 @@
 <?php
 	$array_agama = $this->agama_model->get_array();
+	$array_divisi = $this->divisi_model->get_array();
 	$array_kelamin = $this->kelamin_model->get_array();
 	$array_jenis_kepegawaian = $this->jenis_kepegawaian_model->get_array();
 	$array_status_perkawinan = $this->status_perkawinan_model->get_array();
@@ -48,6 +49,7 @@
 								<tr>
 									<th>Nama</th>
 									<th>NIP</th>
+									<th>Divisi</th>
 									<th>Tanggal Lahir</th>
 									<th>Tempat Lahir</th>
 									<th class="center">Control</th>
@@ -87,6 +89,14 @@
 								<label class="col-lg-2 control-label">NIP</label>
 								<div class="col-lg-10">
 									<input type="text" name="nip" class="form-control" placeholder="NIP" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Divisi</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="divisi_id">
+										<?php echo ShowOption(array( 'Array' => $array_divisi )); ?>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -363,7 +373,7 @@ $(document).ready(function() {
 	var param = {
 		id: 'datatable',
 		source: web.host + 'kepegawaian/biodata/grid',
-		column: [ { }, { }, { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { }, { }, { }, { }, { bSortable: false, sClass: "center" } ],
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();

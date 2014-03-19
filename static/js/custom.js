@@ -46,14 +46,18 @@ $(document).ready(function(){
   pagesize();
   $(window).resize(debounce(pagesize,100));
 
-  $(".content #nav a").on('click',function(e){
-      if($(this).parents(".content:first").hasClass("enlarged")){
-        e.preventDefault();
-        return false;
-      }
-      if($(this).parent().hasClass("has_sub")) {
-        e.preventDefault();
-      }   
+	$(".content #nav a").on('click',function(e) {
+		var href = $(this).attr('href');
+		
+		if (href != '#') {
+			return true;
+		} else if ($(this).parents(".content:first").hasClass("enlarged")) {
+			e.preventDefault();
+			return false;
+		}
+		if ($(this).parent().hasClass("has_sub")) {
+			e.preventDefault();
+		}
 
       if(!$(this).hasClass("subdrop")) {
         // hide any open menus and remove all other classes

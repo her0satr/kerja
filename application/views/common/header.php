@@ -19,6 +19,7 @@
 					</a>
 					
 					<ul class="dropdown-menu">
+						<li><a class="cursor btn-password"><i class="fa fa-key"></i> Change Password</a></li>
 						<li><a href="<?php echo base_url('home/logout'); ?>"><i class="fa fa-key"></i> Logout</a></li>
 					</ul>
 				</li>

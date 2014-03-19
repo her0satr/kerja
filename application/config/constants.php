@@ -1,5 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if ($_SERVER['SERVER_NAME'] == 'localhost') {
+	define('IS_DEVEL',							true);
+} else {
+	define('IS_DEVEL',							false);
+}
+
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
@@ -28,6 +34,7 @@ define('AGENDA_SKPD',							'agenda_skpd');
 define('BIODATA',								'biodata');
 define('BIODATA_DETAIL',						'biodata_detail');
 define('DISPOSISI',								'disposisi');
+define('DIVISI',								'divisi');
 define('JAM_ABSENSI',							'jam_absensi');
 define('JENIS_KEGIATAN',						'jenis_kegiatan');
 define('JENIS_KEPEGAWAIAN',						'jenis_kepegawaian');

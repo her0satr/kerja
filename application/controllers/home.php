@@ -34,6 +34,23 @@ class home extends CI_Controller {
 		exit;
 	}
 	
+	function change_password() {
+		$user = $this->user_model->get_session();
+		$user = $this->user_model->get_by_id(array( 'id' => $user['id'] ));
+		
+		$result = array( 'success' => false, 'message' => '' );
+		if (EncriptPassword($_POST['password_old']) == $user['passwd']) {
+			$param_user['id'] = $user['id'];
+			$param_user['passwd'] = EncriptPassword($_POST['password_new']);
+			$result = $this->user_model->update($param_user);
+		} else {
+			$result = array( 'message' => 'Maaf, password lama anda tidak cocok.' );
+		}
+		
+		echo json_encode($result);
+		exit;
+	}
+	
 	function logout() {
 		$this->user_model->del_session();
 		header("Location: ".base_url());

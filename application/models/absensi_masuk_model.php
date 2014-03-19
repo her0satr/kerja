@@ -100,6 +100,110 @@ class absensi_masuk_model extends CI_Model {
 		return $TotalRecord;
     }
 	
+    function get_rekap_by_date($param = array()) {
+		$array_divisi = array();
+		
+		// get total pegawai
+		$select_query = "
+			SELECT
+				divisi.id, divisi.title,
+				(SELECT COUNT(*) FROM ".BIODATA." WHERE divisi_id = divisi.id) total
+			FROM ".DIVISI." divisi
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			// set default value
+			$row['masuk'] = 0;
+			$row['ijin'] = 0;
+			$row['cuti'] = 0;
+			$row['sakit'] = 0;
+			
+			$array_divisi[$row['id']] = $row;
+		}
+		
+		// get absensi masuk
+		$select_query = "
+			SELECT biodata.divisi_id, COUNT(*) masuk
+			FROM ".ABSENSI_MASUK." absensi_masuk
+			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_masuk.biodata_id
+			WHERE absensi_masuk.tanggal = '".$param['tanggal']."'
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			if (empty($row['divisi_id'])) {
+				continue;
+			}
+			
+			$array_divisi[$row['divisi_id']]['masuk'] = $row['masuk'];
+		}
+		
+		// get absensi ijin
+		$select_query = "
+			SELECT biodata.divisi_id, COUNT(*) ijin
+			FROM ".ABSENSI_KOSONG." absensi_kosong
+			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_kosong.biodata_id
+			WHERE
+				absensi_kosong.status_kosong = 'Ijin'
+				AND absensi_kosong.tanggal = '".$param['tanggal']."'
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			if (empty($row['divisi_id'])) {
+				continue;
+			}
+			
+			$array_divisi[$row['divisi_id']]['ijin'] = $row['ijin'];
+		}
+		
+		// get absensi cuti
+		$select_query = "
+			SELECT biodata.divisi_id, COUNT(*) cuti
+			FROM ".ABSENSI_KOSONG." absensi_kosong
+			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_kosong.biodata_id
+			WHERE
+				absensi_kosong.status_kosong = 'Cuti'
+				AND absensi_kosong.tanggal = '".$param['tanggal']."'
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			if (empty($row['divisi_id'])) {
+				continue;
+			}
+			
+			$array_divisi[$row['divisi_id']]['cuti'] = $row['cuti'];
+		}
+		
+		// get absensi sakit
+		$select_query = "
+			SELECT biodata.divisi_id, COUNT(*) sakit
+			FROM ".ABSENSI_KOSONG." absensi_kosong
+			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_kosong.biodata_id
+			WHERE
+				absensi_kosong.status_kosong = 'Sakit'
+				AND absensi_kosong.tanggal = '".$param['tanggal']."'
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			if (empty($row['divisi_id'])) {
+				continue;
+			}
+			
+			$array_divisi[$row['divisi_id']]['sakit'] = $row['sakit'];
+		}
+		
+		// get absensi kosong & tanpa keterangan
+		foreach ($array_divisi as $key => $row) {
+			$tidak_masuk = $row['total'] - $row['masuk'];
+			$tanpa_keterangan = $row['total'] - $row['masuk'] - $row['ijin'] - $row['cuti'];
+			$tanpa_keterangan = ($tanpa_keterangan < 0) ? 0 : $tanpa_keterangan;
+			
+			$array_divisi[$key]['tidak_masuk'] = $tidak_masuk;
+			$array_divisi[$key]['tanpa_keterangan'] = $tanpa_keterangan;
+		}
+		
+		return $array_divisi;
+    }
+	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".ABSENSI_MASUK." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
