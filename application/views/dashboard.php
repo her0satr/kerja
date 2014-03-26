@@ -39,7 +39,27 @@
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
 				
-				<div class="widget">
+				<div class="page-head">
+					<h4 class="pull-left">Management Pegawai</h4>
+					<div class="clearfix"></div>
+				</div>
+				<div class="widget" style="min-width: 920px; padding: 10px;">
+					<div style="width: 920px; height: 250px; margin: 0px auto;">
+						<iframe src="<?php echo base_url('home/frame/01'); ?>" scrolling="no" frameBorder="0" style="width: 920px; height: 250px;"></iframe>
+					</div>
+				</div>
+				
+				<div class="page-head">
+					<h4 class="pull-left">Management Surat</h4>
+					<div class="clearfix"></div>
+				</div>
+				<div class="widget" style="min-width: 920px; padding: 10px;">
+					<div style="width: 920px; height: 250px; margin: 0px auto;">
+						<iframe src="<?php echo base_url('home/frame/02'); ?>" scrolling="no" frameBorder="0" style="width: 920px; height: 250px;"></iframe>
+					</div>
+				</div>
+				
+				<div class="widget hide">
 					<ul class="info-blocks">
 						<?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
 						<li class="bg-primary">
@@ -71,7 +91,7 @@
 				</div>
 				
 				<?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
-				<div class="widget">
+				<div class="widget hide">
 					<ul class="info-blocks">
 						<li class="bg-info">
 							<div class="top-info">
@@ -109,7 +129,7 @@
 				</div>
 				<?php } ?>
 				
-				<div class="widget">
+				<div class="widget hide">
 					<div class="widget-head">
 						<div class="pull-left">Rekap Surat Masuk 12 Bulan Terakhir</div>
 						<div class="widget-icons pull-right">

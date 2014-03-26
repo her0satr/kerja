@@ -36,7 +36,8 @@
 					</div>
                 </div>
                 <div class="widget-foot">
-					- <a href="<?php echo base_url('rekap/absensi'); ?>">Rekap Absensi</a>
+					<div>- <a href="<?php echo base_url('rekap/absensi'); ?>">Rekap Absensi</a></div>
+					<div>- <a href="<?php echo base_url('rekap/agenda'); ?>">Rekap Agenda</a></div>
 				</div>
             </div>  
 		</div>

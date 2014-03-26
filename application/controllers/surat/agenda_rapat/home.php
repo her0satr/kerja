@@ -18,11 +18,11 @@ class home extends SYGAAS_Controller {
 		
 		$grid = array();
 		if ($action == 'agenda_rapat') {
-			$_POST['column'] = array( 'leading_sektor', 'no_surat', 'tempat', 'tanggal_ajuan' );
+			$_POST['column'] = array( 'acara', 'leading_sektor', 'no_surat', 'tempat', 'tanggal_ajuan' );
 			
 			// button
 			$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
-			$_POST['is_custom'] .= '<button class="btn btn-xs btn-skpd btn-success" data-original-title="Undangan"><i class="fa fa-book"></i></button> ';
+			$_POST['is_custom'] .= '<button class="btn btn-xs btn-skpd btn-success" data-original-title="Daftar Undangan"><i class="fa fa-book"></i></button> ';
 			
 			// button sms
 			if ($user['user_type_id'] == USER_ID_ADMINISTRATOR) {

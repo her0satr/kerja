@@ -54,3 +54,4 @@ define('SURAT_KELUAR',							'surat_keluar');
 define('USER',									'user');
 define('USER_BIODATA',							'user_biodata');
 define('USER_TYPE',								'user_type');
+define('WIDGET',								'widget');

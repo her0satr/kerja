@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2014 at 02:38 PM
+-- Generation Time: Mar 26, 2014 at 01:25 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -37,6 +37,14 @@ CREATE TABLE IF NOT EXISTS `absensi_kosong` (
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `absensi_kosong`
+--
+
+INSERT INTO `absensi_kosong` (`id`, `biodata_id`, `tanggal`, `status_kosong`, `keterangan`, `upload_file`) VALUES
+(2, 3, '2014-03-14', 'Cuti', '123 55', '2014/03/13/20140313_134928_8276.png'),
+(4, 4, '2014-03-18', 'Ijin', 'Ijin saja', '');
 
 -- --------------------------------------------------------
 
@@ -104,6 +112,7 @@ INSERT INTO `agama` (`id`, `title`) VALUES
 
 CREATE TABLE IF NOT EXISTS `agenda_rapat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `acara` varchar(255) NOT NULL,
   `leading_sektor` varchar(255) NOT NULL,
   `no_surat` varchar(50) NOT NULL,
   `tempat` varchar(255) NOT NULL,
@@ -113,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
   `pakaian` varchar(50) NOT NULL,
   `catatan` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
+  `rahasia` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
@@ -120,10 +130,10 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
 -- Dumping data for table `agenda_rapat`
 --
 
-INSERT INTO `agenda_rapat` (`id`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`) VALUES
-(5, '12', '123', '159', '2014-03-13 20:00:00', '0000-00-00', '', '', '', ''),
-(6, '13', '13', '13', '2014-03-13 21:40:57', '0000-00-00', '', '', '', ''),
-(7, '11', '12', '13', '2014-03-17 10:06:52', '2014-03-17', '1', '', '', '');
+INSERT INTO `agenda_rapat` (`id`, `acara`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`, `rahasia`) VALUES
+(5, 'Peringatan Acara', 'Sektor', 'No 001', 'Balai RW', '2014-03-13 20:00:00', '2014-03-30', '', '', 'Catatan', '', 0),
+(6, 'Acara Umum', '13', '13', '13', '2014-03-13 21:40:57', '2014-03-28', '', '', '', '', 1),
+(7, 'Acara Kementrian', '11', '12', '13', '2014-03-17 10:06:52', '2014-03-31', '1', '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -203,6 +213,7 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
   `pns` varchar(50) NOT NULL,
   `non_pns` varchar(50) NOT NULL,
   `unit_kerja` varchar(50) NOT NULL,
+  `gaji` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -210,11 +221,11 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
 -- Dumping data for table `biodata_detail`
 --
 
-INSERT INTO `biodata_detail` (`id`, `biodata_id`, `jabatan`, `pangkat`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns`, `pns`, `non_pns`, `unit_kerja`) VALUES
-(1, 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(2, 2, '1', '2', '3', '4', '5', '6', '7', '8', '99', '2014/03/12/20140312_085653_2812.jpg', '2014/03/12/20140312_085655_5830.jpg', '2014/03/12/20140312_085656_1866.jpg', '2014/03/12/20140312_085658_9446.jpg'),
-(3, 4, 'Programmer', 'Senior', 'III/A', '-', '5 Tahun 2 Bulan', '5 Tahun', '2 Bulan', '0856355402', 'her0satr@yahoo.com', '2014/03/17/20140317_144553_8586.jpg', '2014/03/17/20140317_144555_4644.jpg', '2014/03/17/20140317_144557_7781.jpg', '2014/03/17/20140317_144559_5025.jpg'),
-(4, 5, '', '', '', '', '', '', '', '111111', '', '', '', '', '');
+INSERT INTO `biodata_detail` (`id`, `biodata_id`, `jabatan`, `pangkat`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns`, `pns`, `non_pns`, `unit_kerja`, `gaji`) VALUES
+(1, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
+(2, 3, '', '', '', '', '', '', '', '-', '', '', '', '', '', 123456),
+(3, 4, 'Programmer', 'Senior', 'III/A', '-', '5 Tahun 2 Bulan', '5 Tahun', '2 Bulan', '0856355402', 'her0satr@yahoo.com', '2014/03/17/20140317_144553_8586.jpg', '2014/03/17/20140317_144555_4644.jpg', '2014/03/17/20140317_144557_7781.jpg', '2014/03/17/20140317_144559_5025.jpg', 1500000),
+(4, 5, '', '', '', '', '', '', '', '111111', '', '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -253,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `divisi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `divisi`
@@ -539,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `skpd` (
   `hp` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `skpd`
@@ -721,6 +732,34 @@ INSERT INTO `user_type` (`id`, `title`) VALUES
 (1, 'Administrator'),
 (2, 'Tata Usaha'),
 (3, 'Pegawai');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `widget`
+--
+
+CREATE TABLE IF NOT EXISTS `widget` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `alias` varchar(255) NOT NULL,
+  `content` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `widget`
+--
+
+INSERT INTO `widget` (`id`, `title`, `alias`, `content`) VALUES
+(1, 'Pegawai', 'pegawai', 'Isi Pegawai'),
+(2, 'SKP', 'skp', 'Isi SKP'),
+(3, 'Absensi', 'absensi', 'Isi Absensi'),
+(4, 'Laporan Pegawai', 'laporan-pegawai', 'Isi Laporan Pegawai'),
+(5, 'Surat Masuk', 'surat-masuk', 'Isi Surat Masuk'),
+(6, 'Surat Keluar', 'surat-keluar', 'Isi Surat Keluar'),
+(7, 'Nota Dinas', 'nota-dinas', 'Isi Nota Dinas'),
+(8, 'Agenda Rapat', 'agenda-rapat', 'Isi Agenda Rapat');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

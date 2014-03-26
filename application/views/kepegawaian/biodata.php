@@ -249,6 +249,12 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-2 control-label left">Gaji</label>
+								<div class="col-lg-10">
+									<input type="text" name="gaji" class="form-control" placeholder="Gaji" />
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-2 control-label left">Pangkat</label>
 								<div class="col-lg-10">
 									<input type="text" name="pangkat" class="form-control" placeholder="Pangkat" />

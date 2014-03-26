@@ -56,4 +56,8 @@ class home extends CI_Controller {
 		header("Location: ".base_url());
 		exit;
 	}
+	
+	function frame($frame_no = '01') {
+		$this->load->view( 'home_frame_'.$frame_no );
+	}
 }
