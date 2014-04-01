@@ -62,7 +62,7 @@ class absensi_kosong_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS waktu_kosong.*, biodata.nama
+			SELECT SQL_CALC_FOUND_ROWS waktu_kosong.*, biodata.nama, biodata.nip
 			FROM ".ABSENSI_KOSONG." waktu_kosong
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_kosong.biodata_id
 			WHERE 1 $string_biodata $string_filter

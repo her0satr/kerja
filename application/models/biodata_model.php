@@ -68,9 +68,13 @@ class biodata_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS biodata.*, user_biodata.user_id, divisi.title divisi_title
+			SELECT SQL_CALC_FOUND_ROWS biodata.*, user_biodata.user_id, divisi.title divisi_title, agama.title agama_title,
+				biodata_detail.golongan_ruang, biodata_detail.tmt_pangkat, biodata_detail.gaji, biodata_detail.tmt_masa_kerja, biodata_detail.tmt_tahun, biodata_detail.tmt_bulan,
+				biodata_detail.jabatan, biodata_detail.unit_kerja
 			FROM ".BIODATA." biodata
 			LEFT JOIN ".DIVISI." divisi ON divisi.id = biodata.divisi_id
+			LEFT JOIN ".DIVISI." agama ON agama.id = biodata.agama_id
+			LEFT JOIN ".BIODATA_DETAIL." biodata_detail ON biodata_detail.biodata_id = biodata.id
 			LEFT JOIN ".USER_BIODATA." user_biodata ON user_biodata.biodata_id = biodata.id
 			WHERE 1 $string_filter
 			ORDER BY $string_sorting

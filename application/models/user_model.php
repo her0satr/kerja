@@ -159,9 +159,8 @@ class user_model extends CI_Model {
 				'title' => 'Kepegawaian',
 				'user_type_id' => array( 1, 2, 3 ),
 				'children' => array(
-					array(
-						'name' => 'biodata', 'title' => 'Biodata', 'user_type_id' => array( 1, 2 )
-					),
+					array( 'name' => 'biodata', 'title' => 'Biodata', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'report', 'title' => 'Report', 'user_type_id' => array( 1, 2 ) ),
 					array(
 						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1, 2, 3 ),
 						'children' => array(
