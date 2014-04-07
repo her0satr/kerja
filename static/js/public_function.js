@@ -318,5 +318,47 @@ var combo = {
 			}
 		}
 		Func.ajax(ajax_param);
+	},
+	jenis_kegiatan: function(p) {
+		p.biodata_id = (p.biodata_id == null) ? 0 : p.biodata_id;
+		
+		var ajax_param = {
+			is_json: 0, url: web.host + 'combo',
+			param: { action: 'jenis_kegiatan', biodata_id: p.biodata_id },
+			callback: function(option) {
+				p.target.html(option);
+				
+				// set value
+				if (typeof(p.value) != 'undefined') {
+					p.target.val(p.value);
+				}
+				
+				if (p.callback != null) {
+					p.callback();
+				}
+			}
+		}
+		Func.ajax(ajax_param);
+	},
+	jenis_skp: function(p) {
+		p.biodata_id = (p.biodata_id == null) ? 0 : p.biodata_id;
+		
+		var ajax_param = {
+			is_json: 0, url: web.host + 'combo',
+			param: { action: 'jenis_skp', biodata_id: p.biodata_id },
+			callback: function(option) {
+				p.target.html(option);
+				
+				// set value
+				if (typeof(p.value) != 'undefined') {
+					p.target.val(p.value);
+				}
+				
+				if (p.callback != null) {
+					p.callback();
+				}
+			}
+		}
+		Func.ajax(ajax_param);
 	}
 }

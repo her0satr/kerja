@@ -180,22 +180,22 @@ if (! function_exists('get_time_diff')) {
 if (! function_exists('show_time_diff')) {
 	function show_time_diff($diff_time) {
 		if ($diff_time < 60) {
-			$result = $diff_time.' detik yang lalu';
+			$result = $diff_time.' detik';
 		} else if ($diff_time < (60 * 60)) {
 			$minute = floor($diff_time / 60);
 			$second = $diff_time % 60;
-			$result = $minute.' menit '.$second.' detik yang lalu';
+			$result = $minute.' menit '.$second.' detik';
 		} else if ($diff_time < (60 * 60 * 24)) {
 			$hour = floor($diff_time / (60 * 60));
 			$minute = floor(($diff_time / 60) % 60);
 			$string_minute = (empty($minute)) ? '' : $minute.' menit';
-			$result = $hour.' jam '.$string_minute.' yang lalu';
+			$result = $hour.' jam '.$string_minute.'';
 		} else if ($diff_time <= (60 * 60 * 24 * 30)) {
 			$day = floor($diff_time / (60 * 60 * 24));
 			$hour = floor(($diff_time / (60 * 60)) / 24);
-			$result = $day.' hari yang lalu';
+			$result = $day.' hari';
 		} else {
-			$result = 'lebih dari 30 hari yang lalu';
+			$result = 'lebih dari 30 hari';
 		}
 		
 		return $result;

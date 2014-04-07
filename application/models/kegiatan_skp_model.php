@@ -5,7 +5,7 @@ class kegiatan_skp_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'biodata_id', 'jenis_skp_id', 'kegiatan_lain_id', 'tanggal', 'waktu', 'type_row', 'keterangan'
+			'id', 'biodata_id', 'jenis_skp_id', 'jenis_kegiatan_id', 'tanggal', 'waktu', 'type_row', 'keterangan'
 		);
     }
 
@@ -36,8 +36,9 @@ class kegiatan_skp_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT kegiatan_skp.*
+				SELECT kegiatan_skp.*, biodata.nama biodata_text
 				FROM ".KEGIATAN_SKP." kegiatan_skp
+				LEFT JOIN ".BIODATA." biodata ON biodata.id = kegiatan_skp.biodata_id
 				WHERE kegiatan_skp.id = '".$param['id']."'
 				LIMIT 1
 			";
@@ -54,20 +55,23 @@ class kegiatan_skp_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['biodata_text'] = 'biodata.nama';
+		
 		$string_biodata = (isset($param['biodata_id'])) ? "AND kegiatan_skp.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = (!empty($param['sSearch'])) ? "AND (jenis_skp.title LIKE '%".$param['sSearch']."%' OR jenis_kegiatan.title LIKE '%".$param['sSearch']."%' OR kegiatan_skp.tanggal LIKE '%".$param['sSearch']."%')" : '';
 		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS kegiatan_skp.*,
+			SELECT SQL_CALC_FOUND_ROWS kegiatan_skp.*, biodata.nama biodata_text,
 				CASE
 					WHEN kegiatan_skp.type_row = '1' THEN jenis_skp.title
 					WHEN kegiatan_skp.type_row = '2' THEN jenis_kegiatan.title
-					END AS title
+				END AS title
 			FROM ".KEGIATAN_SKP." kegiatan_skp
+			LEFT JOIN ".BIODATA." biodata ON biodata.id = kegiatan_skp.biodata_id
 			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = kegiatan_skp.jenis_skp_id
-			LEFT JOIN ".JENIS_KEGIATAN." jenis_kegiatan ON jenis_kegiatan.id = kegiatan_skp.kegiatan_lain_id
+			LEFT JOIN ".JENIS_KEGIATAN." jenis_kegiatan ON jenis_kegiatan.id = kegiatan_skp.jenis_kegiatan_id
 			WHERE 1 $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit

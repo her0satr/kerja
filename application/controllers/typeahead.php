@@ -14,7 +14,9 @@ class typeahead extends CI_Controller {
 		}
 		
 		$array = array();
-		if ($action == 'skpd') {
+		if ($action == 'biodata') {
+			$array = $this->biodata_model->get_array($_GET);
+		} else if ($action == 'skpd') {
 			$array = $this->skpd_model->get_array($_GET);
 		}
 		

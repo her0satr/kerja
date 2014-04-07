@@ -35,7 +35,16 @@ class surat_masuk_model extends CI_Model {
     function get_by_id($param) {
         $array = array();
        
-        if (isset($param['id'])) {
+        if (isset($param['no_surat']) && isset($param['surat_dari'])) {
+            $select_query  = "
+				SELECT surat_masuk.*
+				FROM ".SURAT_MASUK." surat_masuk
+				WHERE
+					surat_masuk.no_surat = '".$param['no_surat']."'
+					AND surat_masuk.surat_dari = '".$param['surat_dari']."'
+				LIMIT 1
+			";
+        } else if (isset($param['id'])) {
             $select_query  = "
 				SELECT surat_masuk.*
 				FROM ".SURAT_MASUK." surat_masuk
@@ -86,6 +95,21 @@ class surat_masuk_model extends CI_Model {
 		$TotalRecord = $row['TotalRecord'];
 		
 		return $TotalRecord;
+    }
+	
+    function get_next_no($param = array()) {
+        $result = array( 'status' => true, 'next_no' => 1 );
+		
+		$select_query  = "
+			SELECT MAX(no_urut) next_no
+			FROM ".SURAT_MASUK." surat_masuk
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+        if (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result['next_no'] = $row['next_no'] + 1;
+        }
+		
+        return $result;
     }
 	
 	function get_rekap_yearly() {

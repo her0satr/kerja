@@ -22,6 +22,9 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 define('SHA_SECRET',							'OraNgerti');
 
+/*   SURAT DESTINATION CREATED   */
+define('SURAT_DESTINATION_CREATED',				1);
+
 define('USER_ID_ADMINISTRATOR',					1);
 define('USER_ID_TU',							2);
 define('USER_ID_PEGAWAI',						3);
@@ -50,6 +53,7 @@ define('SIFAT_SURAT',							'sifat_surat');
 define('SKPD',									'skpd');
 define('STATUS_PERKAWINAN',						'status_perkawinan');
 define('STATUS_KEPEGAWAIAN',					'status_kepegawaian');
+define('SURAT_DESTINATION',						'surat_destination');
 define('SURAT_MASUK',							'surat_masuk');
 define('SURAT_KELUAR',							'surat_keluar');
 define('USER',									'user');

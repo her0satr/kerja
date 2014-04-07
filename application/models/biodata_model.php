@@ -65,6 +65,7 @@ class biodata_model extends CI_Model {
 		$param['field_replace']['skpd_title'] = 'skpd.title';
 		$param['field_replace']['tanggal_lahir_text'] = 'biodata.tanggal_lahir';
 		
+		$string_namelike = (isset($param['namelike'])) ? "AND nama LIKE '%".$param['namelike']."%'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'id DESC');
 		$string_limit = GetStringLimit($param);
@@ -79,7 +80,7 @@ class biodata_model extends CI_Model {
 			LEFT JOIN ".SKPD." skpd ON skpd.id = biodata.skpd_id
 			LEFT JOIN ".SKPD." unit_kerja ON unit_kerja.id = biodata_detail.unit_kerja_id
 			LEFT JOIN ".USER_BIODATA." user_biodata ON user_biodata.biodata_id = biodata.id
-			WHERE 1 $string_filter
+			WHERE 1 $string_namelike $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";

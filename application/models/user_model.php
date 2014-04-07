@@ -175,7 +175,8 @@ class user_model extends CI_Model {
 						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1, 2, 3 ),
 						'children' => array(
 							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 2, 3 ) ),
-							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1, 2, 3 ) )
+							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1, 2, 3 ) ),
+							array( 'name' => 'list_skp', 'title' => 'List SKP', 'user_type_id' => array( 1, 2 ) )
 						)
 					)
 				)
@@ -188,28 +189,28 @@ class user_model extends CI_Model {
 					array(
 						'name' => 'surat_masuk', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'home', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
 						'name' => 'surat_keluar', 'title' => 'Surat Keluar', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'home', 'title' => 'Surat Keluar', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
 						'name' => 'nota_dinas', 'title' => 'Nota Dinas', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'home', 'title' => 'Nota Dinas', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
 						'name' => 'agenda_rapat', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
-							array( 'name' => 'home', 'title' => 'Index', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'home', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
 						)
 					)
@@ -237,6 +238,7 @@ class user_model extends CI_Model {
 					array( 'name' => 'skpd', 'title' => 'SKPD', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'status_kepegawaian', 'title' => 'Status Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'status_perkawinan', 'title' => 'Status Perkawinan', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'surat_destination', 'title' => 'Tujuan Surat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'widget', 'title' => 'Widget', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'export', 'title' => 'Export', 'user_type_id' => array( 1 ) )
 				)
