@@ -15,6 +15,25 @@
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
 				
+				<div class="widget">
+					<div class="widget-content" style="padding: 20px 20px 0 20px;">
+						<form class="form-horizontal" method="post" id="form-search">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Tanggal</label>
+								<div class="col-lg-5">
+									<div class="input-append datepicker">
+										<input name="tanggal" type="text" class="form-control dtpicker" placeholder="Tanggal" data-format="dd-MM-yyyy" />
+										<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<button type="submit" class="btn btn-info">Cari</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
 				<div class="widget grid-main">
 					<div class="widget-head">
 						<div class="pull-left">&nbsp;</div>
@@ -141,6 +160,14 @@ $(document).ready(function() {
 		id: 'datatable',
 		source: web.host + 'kepegawaian/absensi/list_masuk/grid',
 		column: [ { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { bSortable: false, sClass: "center" } ],
+		fnServerParams: function ( aoData ) {
+			var search = Func.form.get_value('form-search');
+			if (search.tanggal.length > 0) {
+				aoData.push(
+					{ "name": "tanggal", "value": search.tanggal }
+				)
+			}
+		},
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
@@ -151,9 +178,25 @@ $(document).ready(function() {
 					$('#form-absensi').modal();
 				} });
 			});
+			
+			$('#datatable .btn-delete').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.form.del({
+					data: { action: 'delete', id: record.id },
+					url: web.host + 'kepegawaian/absensi/list_masuk/action', callback: function() { dt.reload(); }
+				});
+			});
 		}
 	}
 	var dt = Func.datatable(param);
+	
+	// form search
+	$('#form-search').submit(function(e) {
+		e.preventDefault();
+		dt.reload();
+	});
 	
 	// form jam
 	$('#form-absensi form').validate({

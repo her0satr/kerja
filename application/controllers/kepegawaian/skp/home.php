@@ -11,7 +11,7 @@ class home extends SYGAAS_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'tanggal', 'title', 'keterangan' );
+		$_POST['column'] = array( 'tanggal', 'waktu', 'title', 'keterangan' );
 		
 		$array = $this->kegiatan_skp_model->get_array($_POST);
 		$count = $this->kegiatan_skp_model->get_count();

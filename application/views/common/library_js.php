@@ -26,6 +26,11 @@
 <script src="<?php echo base_url('static/js/raphael-min.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/morris.min.js'); ?>"></script>
 
+<!-- typeahead -->
+<script src="<?php echo base_url('static/js/typeahead/handlebars.js'); ?>"></script>
+<script src="<?php echo base_url('static/js/typeahead/typeahead.bundle.js'); ?>"></script>
+<script src="<?php echo base_url('static/js/typeahead/examples.js'); ?>"></script>
+
 <script src="<?php echo base_url('static/js/datatables/js/jquery.dataTables.js'); ?>"></script>
 <script src="<?php echo base_url('static/js/sparklines.js'); ?>"></script> <!-- Sparklines -->
 <script src="<?php echo base_url('static/js/jquery.cleditor.min.js'); ?>"></script> <!-- CLEditor -->

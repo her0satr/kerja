@@ -1,27 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class agenda_rapat_model extends CI_Model {
+class pangkat_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array(
-			'id', 'acara', 'leading_sektor', 'no_surat', 'tempat', 'tanggal_ajuan', 'tanggal_undangan', 'pimpinan_rapat', 'pakaian', 'catatan', 'keterangan', 'rahasia',
-			'skpd_id'
-		);
+        $this->field = array( 'id', 'pangkat', 'golongan', 'ruang', 'urutan' );
     }
 
     function update($param) {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, AGENDA_RAPAT);
+            $insert_query  = GenerateInsertQuery($this->field, $param, PANGKAT);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, AGENDA_RAPAT);
+            $update_query  = GenerateUpdateQuery($this->field, $param, PANGKAT);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -37,9 +34,9 @@ class agenda_rapat_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT agenda_rapat.*
-				FROM ".AGENDA_RAPAT." agenda_rapat
-				WHERE agenda_rapat.id = '".$param['id']."'
+				SELECT pangkat.*
+				FROM ".PANGKAT." pangkat
+				WHERE pangkat.id = '".$param['id']."'
 				LIMIT 1
 			";
 		}
@@ -55,17 +52,14 @@ class agenda_rapat_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$string_skpd = (isset($param['skpd_id'])) ? "AND agenda_rapat.skpd_id = '".$param['skpd_id']."'" : '';
-		$string_today = (isset($param['today'])) ? "AND agenda_rapat.tanggal_undangan >= DATE('".$param['today']."')" : '';
-		$string_rahasia = (isset($param['rahasia'])) ? "AND agenda_rapat.rahasia = '".$param['rahasia']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'leading_sektor ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'urutan ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS agenda_rapat.*
-			FROM ".AGENDA_RAPAT." agenda_rapat
-			WHERE 1 $string_skpd $string_rahasia $string_today $string_filter
+			SELECT SQL_CALC_FOUND_ROWS pangkat.*
+			FROM ".PANGKAT." pangkat
+			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -78,12 +72,7 @@ class agenda_rapat_model extends CI_Model {
     }
 
     function get_count($param = array()) {
-		if (isset($param['is_query'])) {
-			$select_query = "SELECT COUNT(*) TotalRecord FROM ".AGENDA_RAPAT;
-		} else {
-			$select_query = "SELECT FOUND_ROWS() TotalRecord";
-		}
-		
+		$select_query = "SELECT FOUND_ROWS() TotalRecord";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		$row = mysql_fetch_assoc($select_result);
 		$TotalRecord = $row['TotalRecord'];
@@ -91,26 +80,25 @@ class agenda_rapat_model extends CI_Model {
 		return $TotalRecord;
     }
 	
-	function get_rekap_filter($param = array()) {
-		$array = array();
-		
-		$select_query = "
-			SELECT 'Agenda Rapat' label, COUNT(*) total
-			FROM ".AGENDA_RAPAT." agenda_rapat
-			WHERE
-				agenda_rapat.tanggal_ajuan >= '".$param['date_start']."'
-				AND agenda_rapat.tanggal_ajuan <= '".$param['date_end']."'
-		";
-        $select_result = mysql_query($select_query) or die(mysql_error());
-		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			$array[] = $row;
+    function delete($param) {
+        $record_count = 0;
+        $select_query = array();
+        if (isset($param['id'])) {
+            $select_query[] = "SELECT COUNT(*) total FROM ".BIODATA_DETAIL." WHERE pangkat_id = '".$param['id']."'";
+        }
+        foreach ($select_query as $query) {
+            $select_result = mysql_query($query) or die(mysql_error());
+            if (false !== $Row = mysql_fetch_assoc($select_result)) {
+                $record_count += $Row['total'];
+            }
+        }
+		if ($record_count > 0) {
+            $result['status'] = '0';
+            $result['message'] = 'Data tidak bisa dihapus karena sudah terpakai.';
+			return $result;
 		}
 		
-        return $array;
-	}
-	
-    function delete($param) {
-		$delete_query  = "DELETE FROM ".AGENDA_RAPAT." WHERE id = '".$param['id']."' LIMIT 1";
+		$delete_query  = "DELETE FROM ".PANGKAT." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';
@@ -120,12 +108,10 @@ class agenda_rapat_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
-		$row = StripArray($row, array( 'tanggal_ajuan', 'tanggal_undangan' ));
+		$row = StripArray($row);
 		
-		if (isset($row['tanggal_ajuan'])) {
-			$array_temp = explode(' ', $row['tanggal_ajuan']);
-			$row['tanggal_ajuan_date'] = $array_temp[0];
-			$row['tanggal_ajuan_time'] = $array_temp[1];
+		if (isset($row['pangkat']) && isset($row['golongan']) && isset($row['ruang'])) {
+			$row['title'] = $row['pangkat'].' / '.$row['golongan'].' '.$row['ruang'];
 		}
 		
 		if (count(@$param['column']) > 0) {

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2014 at 11:22 AM
+-- Generation Time: Apr 07, 2014 at 03:52 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -75,10 +75,8 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
 
 INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`, `status_01`, `waktu_02`, `status_02`, `waktu_03`, `status_03`, `waktu_04`, `status_04`, `keterangan`) VALUES
 (1, 3, '2014-03-13', 'Tepat Waktu', '11:55:43', '', '12:26:52', '', '13:00:00', '', '15:00:00', '', '--'),
-(2, 2, '2014-03-14', 'Tepat Waktu', '09:54:06', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
-(3, 4, '2014-03-17', 'Tepat Waktu', '15:01:14', '', '00:00:00', '', '15:19:09', '', '15:19:07', '', ''),
-(4, 4, '2014-03-18', 'Tepat Waktu', '08:01:46', '', '00:00:00', '', '15:19:10', '', '15:19:08', '', ''),
-(6, 3, '2014-03-19', 'Tepat Waktu', '13:56:36', '', '13:56:40', '', '13:56:37', '', '00:00:00', '', '');
+(3, 4, '2014-03-17', 'Tepat Waktu', '15:01:14', '', '15:31:05', '', '15:19:09', '', '15:19:07', '', ''),
+(4, 4, '2014-03-18', 'Tepat Waktu', '08:01:46', '', '15:31:05', '', '15:19:10', '', '15:19:08', '', '');
 
 -- --------------------------------------------------------
 
@@ -112,6 +110,7 @@ INSERT INTO `agama` (`id`, `title`) VALUES
 
 CREATE TABLE IF NOT EXISTS `agenda_rapat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `skpd_id` int(11) NOT NULL,
   `acara` varchar(255) NOT NULL,
   `leading_sektor` varchar(255) NOT NULL,
   `no_surat` varchar(50) NOT NULL,
@@ -130,10 +129,10 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
 -- Dumping data for table `agenda_rapat`
 --
 
-INSERT INTO `agenda_rapat` (`id`, `acara`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`, `rahasia`) VALUES
-(5, 'Peringatan Acara', 'Sektor', 'No 001', 'Balai RW', '2014-03-13 20:00:00', '2014-03-30', '', '', 'Catatan', '', 0),
-(6, 'Acara Umum', '13', '13', '13', '2014-03-13 21:40:57', '2014-03-28', '', '', '', '', 1),
-(7, 'Acara Kementrian', '11', '12', '13', '2014-03-17 10:06:52', '2014-03-31', '1', '', '', '', 1);
+INSERT INTO `agenda_rapat` (`id`, `skpd_id`, `acara`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`, `rahasia`) VALUES
+(5, 0, 'Peringatan Acara', 'Sektor', 'No 001', 'Balai RW', '2014-03-13 20:00:00', '2014-03-30', '', '', 'Catatan', '', 0),
+(6, 0, 'Acara Umum', '13', '13', '13', '2014-03-13 21:40:57', '2014-03-28', '', '', '', '', 1),
+(7, 0, 'Acara Kementrian', '11', '12', '13', '2014-03-17 10:06:52', '2014-03-31', '1', '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -167,7 +166,7 @@ INSERT INTO `agenda_skpd` (`id`, `skpd_id`, `agenda_rapat_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `biodata` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `divisi_id` int(11) NOT NULL,
+  `skpd_id` int(11) NOT NULL,
   `agama_id` int(11) NOT NULL,
   `status_perkawinan_id` int(11) NOT NULL,
   `jenis_kepegawaian_id` int(11) NOT NULL,
@@ -186,10 +185,10 @@ CREATE TABLE IF NOT EXISTS `biodata` (
 -- Dumping data for table `biodata`
 --
 
-INSERT INTO `biodata` (`id`, `divisi_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `tempat_lahir`, `tanggal_lahir`, `karpeg`, `kartu_nikah`) VALUES
-(2, 2, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
-(3, 3, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
-(4, 2, 1, 1, 1, 1, '0123456789', 'Herry Satrio', 'Laki Laki', 'Malang', '1984-10-15', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg');
+INSERT INTO `biodata` (`id`, `skpd_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `tempat_lahir`, `tanggal_lahir`, `karpeg`, `kartu_nikah`) VALUES
+(2, 10, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
+(3, 9, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
+(4, 12, 1, 1, 1, 1, '0123456789', 'Herry Satrio', 'Laki Laki', 'Malang', '1984-10-15', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg');
 
 -- --------------------------------------------------------
 
@@ -200,8 +199,9 @@ INSERT INTO `biodata` (`id`, `divisi_id`, `agama_id`, `status_perkawinan_id`, `j
 CREATE TABLE IF NOT EXISTS `biodata_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `biodata_id` int(11) NOT NULL,
+  `pangkat_id` int(11) NOT NULL,
+  `unit_kerja_id` int(50) NOT NULL,
   `jabatan` varchar(50) NOT NULL,
-  `pangkat` varchar(50) NOT NULL,
   `golongan_ruang` varchar(50) NOT NULL,
   `tmt_pangkat` varchar(50) NOT NULL,
   `tmt_masa_kerja` varchar(50) NOT NULL,
@@ -212,7 +212,6 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
   `cpns` varchar(50) NOT NULL,
   `pns` varchar(50) NOT NULL,
   `non_pns` varchar(50) NOT NULL,
-  `unit_kerja` varchar(50) NOT NULL,
   `gaji` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
@@ -221,11 +220,11 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
 -- Dumping data for table `biodata_detail`
 --
 
-INSERT INTO `biodata_detail` (`id`, `biodata_id`, `jabatan`, `pangkat`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns`, `pns`, `non_pns`, `unit_kerja`, `gaji`) VALUES
-(1, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
-(2, 3, '', '', '', '', '', '', '', '-', '', '', '', '', '', 123456),
-(3, 4, 'Programmer', 'Senior', 'III/A', '-', '5 Tahun 2 Bulan', '5 Tahun', '2 Bulan', '0856355402', 'her0satr@yahoo.com', '2014/03/17/20140317_144553_8586.jpg', '2014/03/17/20140317_144555_4644.jpg', '2014/03/17/20140317_144557_7781.jpg', '2014/03/17/20140317_144559_5025.jpg', 1500000),
-(4, 5, '', '', '', '', '', '', '', '111111', '', '', '', '', '', 0);
+INSERT INTO `biodata_detail` (`id`, `biodata_id`, `pangkat_id`, `unit_kerja_id`, `jabatan`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns`, `pns`, `non_pns`, `gaji`) VALUES
+(1, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', 0),
+(2, 3, 1, 9, '', '', '', '', '', '', '-', '', '', '', '', 123456),
+(3, 4, 0, 2014, 'Programmer', 'III/A', '-', '5 Tahun 2 Bulan', '5 Tahun', '2 Bulan', '0856355402', 'her0satr@yahoo.com', '2014/03/17/20140317_144553_8586.jpg', '2014/03/17/20140317_144555_4644.jpg', '2014/03/17/20140317_144557_7781.jpg', 1500000),
+(4, 5, 0, 0, '', '', '', '', '', '', '111111', '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -380,6 +379,7 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
   `jenis_skp_id` int(11) NOT NULL,
   `kegiatan_lain_id` int(11) NOT NULL,
   `tanggal` date NOT NULL,
+  `waktu` time NOT NULL,
   `type_row` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
@@ -389,13 +389,13 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
 -- Dumping data for table `kegiatan_skp`
 --
 
-INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `kegiatan_lain_id`, `tanggal`, `type_row`, `keterangan`) VALUES
-(1, 3, 3, 0, '2014-03-14', 1, ''),
-(2, 3, 0, 2, '2014-03-15', 2, ''),
-(3, 4, 5, 0, '2014-03-17', 1, ''),
-(4, 4, 0, 4, '2014-03-19', 2, ''),
-(5, 3, 3, 0, '2014-03-16', 1, 'Keterangan 01'),
-(7, 3, 4, 0, '2014-03-19', 1, 'as');
+INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `kegiatan_lain_id`, `tanggal`, `waktu`, `type_row`, `keterangan`) VALUES
+(1, 3, 3, 0, '2014-03-14', '00:00:00', 1, ''),
+(2, 3, 0, 2, '2014-03-15', '00:00:00', 2, ''),
+(3, 4, 5, 0, '2014-03-17', '16:00:00', 1, ''),
+(4, 4, 0, 4, '2014-03-19', '10:00:00', 2, ''),
+(5, 3, 3, 0, '2014-03-16', '00:00:00', 1, 'Keterangan 01'),
+(7, 3, 4, 0, '2014-03-19', '00:00:00', 1, 'as');
 
 -- --------------------------------------------------------
 
@@ -427,6 +427,32 @@ INSERT INTO `nota_dinas` (`id`, `no_urut`, `no_surat`, `surat_dari`, `disposisi_
 (5, '1', '2', '3', '4', '5', '6', '0000-00-00', '2014-03-17', '0000-00-00 00:00:00', '', '2014/03/17/20140317_082031_2967.jpg'),
 (6, '1', '1', '1', '1', '1', '1', '2014-03-17', '2014-03-17', '2014-03-17 10:06:36', '', ''),
 (7, '11111', '11111', '11111', '11111', '11111', '11111', '2014-03-17', '2014-03-17', '0000-00-00 00:00:00', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pangkat`
+--
+
+CREATE TABLE IF NOT EXISTS `pangkat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pangkat` varchar(255) NOT NULL,
+  `golongan` varchar(255) NOT NULL,
+  `ruang` varchar(50) NOT NULL,
+  `urutan` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `pangkat`
+--
+
+INSERT INTO `pangkat` (`id`, `pangkat`, `golongan`, `ruang`, `urutan`) VALUES
+(1, 'Pembina', 'IV', 'A', 40),
+(2, 'Pembina Tingkat I', 'IV', 'B', 41),
+(3, 'Pembina Utama Muda', 'IV', 'C', 42),
+(4, 'Pembina Utama Madya', 'IV', 'D', 43),
+(5, 'Pembina Utama', 'IV', 'E', 44);
 
 -- --------------------------------------------------------
 
@@ -679,7 +705,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `thumbnail` varchar(255) NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `user`
@@ -689,7 +715,7 @@ INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `addres
 (2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2014/03/11/20140311_131431_5821.jpg', 1),
 (5, 3, '111', '1asdasd', '5d408d848a029d6d3b333ee32469dda8', '', '', 1),
 (6, 3, '2', 'Namanya 2', 'cb8eed4d556ba533cf5c6941d9eb5991', '', '', 1),
-(7, 2, '0123456789', 'Herry Satrio', '705f973c251b7e26e40f855739de2d87', '', '', 1);
+(9, 1, '0123456789', 'Herry Satrio', '705f973c251b7e26e40f855739de2d87', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -702,7 +728,7 @@ CREATE TABLE IF NOT EXISTS `user_biodata` (
   `user_id` int(11) NOT NULL,
   `biodata_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user_biodata`
@@ -710,7 +736,8 @@ CREATE TABLE IF NOT EXISTS `user_biodata` (
 
 INSERT INTO `user_biodata` (`id`, `user_id`, `biodata_id`) VALUES
 (1, 5, 3),
-(2, 6, 2);
+(2, 6, 2),
+(3, 9, 4);
 
 -- --------------------------------------------------------
 

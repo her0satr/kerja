@@ -65,6 +65,7 @@ class absensi_masuk_model extends CI_Model {
 		
 		$param['field_replace']['tanggal_text'] = 'waktu_masuk.tanggal';
 		
+		$string_tanggal = (isset($param['tanggal'])) ? "AND waktu_masuk.tanggal = '".$param['tanggal']."'" : '';
 		$string_biodata = (isset($param['biodata_id'])) ? "AND waktu_masuk.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'tanggal DESC');
@@ -74,7 +75,7 @@ class absensi_masuk_model extends CI_Model {
 			SELECT SQL_CALC_FOUND_ROWS waktu_masuk.*, biodata.nama
 			FROM ".ABSENSI_MASUK." waktu_masuk
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_masuk.biodata_id
-			WHERE 1 $string_biodata $string_filter
+			WHERE 1 $string_tanggal $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -101,14 +102,15 @@ class absensi_masuk_model extends CI_Model {
     }
 	
     function get_rekap_by_date($param = array()) {
-		$array_divisi = array();
+		$array_skpd = array();
 		
 		// get total pegawai
 		$select_query = "
 			SELECT
-				divisi.id, divisi.title,
-				(SELECT COUNT(*) FROM ".BIODATA." WHERE divisi_id = divisi.id) total
-			FROM ".DIVISI." divisi
+				skpd.id, skpd.title,
+				(SELECT COUNT(*) FROM ".BIODATA." WHERE skpd_id = skpd.id) total
+			FROM ".SKPD." skpd
+			WHERE skpd.id = '".$param['skpd_id']."'
 		";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
@@ -118,90 +120,95 @@ class absensi_masuk_model extends CI_Model {
 			$row['cuti'] = 0;
 			$row['sakit'] = 0;
 			
-			$array_divisi[$row['id']] = $row;
+			$array_skpd[$row['id']] = $row;
 		}
 		
 		// get absensi masuk
 		$select_query = "
-			SELECT biodata.divisi_id, COUNT(*) masuk
+			SELECT biodata.skpd_id, COUNT(*) masuk
 			FROM ".ABSENSI_MASUK." absensi_masuk
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_masuk.biodata_id
-			WHERE absensi_masuk.tanggal = '".$param['tanggal']."'
+			WHERE
+				absensi_masuk.tanggal = '".$param['tanggal']."'
+				AND biodata.skpd_id = '".$param['skpd_id']."'
 		";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			if (empty($row['divisi_id'])) {
+			if (empty($row['skpd_id'])) {
 				continue;
 			}
 			
-			$array_divisi[$row['divisi_id']]['masuk'] = $row['masuk'];
+			$array_skpd[$row['skpd_id']]['masuk'] = $row['masuk'];
 		}
 		
 		// get absensi ijin
 		$select_query = "
-			SELECT biodata.divisi_id, COUNT(*) ijin
+			SELECT biodata.skpd_id, COUNT(*) ijin
 			FROM ".ABSENSI_KOSONG." absensi_kosong
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_kosong.biodata_id
 			WHERE
 				absensi_kosong.status_kosong = 'Ijin'
+				AND biodata.skpd_id = '".$param['skpd_id']."'
 				AND absensi_kosong.tanggal = '".$param['tanggal']."'
 		";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			if (empty($row['divisi_id'])) {
+			if (empty($row['skpd_id'])) {
 				continue;
 			}
 			
-			$array_divisi[$row['divisi_id']]['ijin'] = $row['ijin'];
+			$array_skpd[$row['skpd_id']]['ijin'] = $row['ijin'];
 		}
 		
 		// get absensi cuti
 		$select_query = "
-			SELECT biodata.divisi_id, COUNT(*) cuti
+			SELECT biodata.skpd_id, COUNT(*) cuti
 			FROM ".ABSENSI_KOSONG." absensi_kosong
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_kosong.biodata_id
 			WHERE
 				absensi_kosong.status_kosong = 'Cuti'
+				AND biodata.skpd_id = '".$param['skpd_id']."'
 				AND absensi_kosong.tanggal = '".$param['tanggal']."'
 		";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			if (empty($row['divisi_id'])) {
+			if (empty($row['skpd_id'])) {
 				continue;
 			}
 			
-			$array_divisi[$row['divisi_id']]['cuti'] = $row['cuti'];
+			$array_skpd[$row['skpd_id']]['cuti'] = $row['cuti'];
 		}
 		
 		// get absensi sakit
 		$select_query = "
-			SELECT biodata.divisi_id, COUNT(*) sakit
+			SELECT biodata.skpd_id, COUNT(*) sakit
 			FROM ".ABSENSI_KOSONG." absensi_kosong
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = absensi_kosong.biodata_id
 			WHERE
 				absensi_kosong.status_kosong = 'Sakit'
+				AND biodata.skpd_id = '".$param['skpd_id']."'
 				AND absensi_kosong.tanggal = '".$param['tanggal']."'
 		";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			if (empty($row['divisi_id'])) {
+			if (empty($row['skpd_id'])) {
 				continue;
 			}
 			
-			$array_divisi[$row['divisi_id']]['sakit'] = $row['sakit'];
+			$array_skpd[$row['skpd_id']]['sakit'] = $row['sakit'];
 		}
 		
 		// get absensi kosong & tanpa keterangan
-		foreach ($array_divisi as $key => $row) {
+		foreach ($array_skpd as $key => $row) {
 			$tidak_masuk = $row['total'] - $row['masuk'];
 			$tanpa_keterangan = $row['total'] - $row['masuk'] - $row['ijin'] - $row['cuti'];
 			$tanpa_keterangan = ($tanpa_keterangan < 0) ? 0 : $tanpa_keterangan;
 			
-			$array_divisi[$key]['tidak_masuk'] = $tidak_masuk;
-			$array_divisi[$key]['tanpa_keterangan'] = $tanpa_keterangan;
+			$array_skpd[$key]['tidak_masuk'] = $tidak_masuk;
+			$array_skpd[$key]['tanpa_keterangan'] = $tanpa_keterangan;
 		}
 		
-		return $array_divisi;
+		return $array_skpd;
     }
 	
     function delete($param) {

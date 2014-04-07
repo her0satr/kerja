@@ -1,10 +1,12 @@
 <?php
 	$array_agama = $this->agama_model->get_array();
+	$array_divisi = $this->divisi_model->get_array();
 	$array_kelamin = $this->kelamin_model->get_array();
-	$array_pangkat = $this->pangkat_model->get_array(array( 'limit' => 100 ));
 	$array_jenis_kepegawaian = $this->jenis_kepegawaian_model->get_array();
 	$array_status_perkawinan = $this->status_perkawinan_model->get_array();
 	$array_status_kepegawaian = $this->status_kepegawaian_model->get_array();
+	
+	$page_data['user'] = $this->user_model->get_session();
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Biodata' ) ); ?>
 
@@ -15,11 +17,6 @@
 	<?php $this->load->view( 'common/sidebar'); ?>
 	<div class="hide">
 		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
-		<iframe name="iframe_karpeg" src="<?php echo base_url('upload?callback=set_karpeg'); ?>"></iframe>
-		<iframe name="iframe_kartu_nikah" src="<?php echo base_url('upload?callback=set_kartu_nikah'); ?>"></iframe>
-		<iframe name="iframe_cpns" src="<?php echo base_url('upload?callback=set_cpns'); ?>"></iframe>
-		<iframe name="iframe_pns" src="<?php echo base_url('upload?callback=set_pns'); ?>"></iframe>
-		<iframe name="iframe_non_pns" src="<?php echo base_url('upload?callback=set_non_pns'); ?>"></iframe>
 	</div>
 	
   	<div class="mainbar">
@@ -30,40 +27,7 @@
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
-				
-				<div class="widget grid-main">
-					<div class="widget-head">
-						<div class="pull-left">
-							<button class="btn btn-info btn-xs btn-add">Tambah</button>
-						</div>
-						<div class="widget-icons pull-right">
-							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="widget-content">
-						<table id="datatable" class="table table-striped table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>Nama</th>
-									<th>NIP</th>
-									<th>SKPD</th>
-									<th>Tanggal Lahir</th>
-									<th>Tempat Lahir</th>
-									<th class="center">Control</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
-						<div class="widget-foot">
-							<br /><br />
-							<div class="clearfix"></div> 
-						</div>
-					</div>
-				</div>
-				
-				<div class="widget hide" id="form-biodata">
+				<div class="widget" id="form-biodata">
 					<div class="widget-head">
 						<div class="pull-left">Form Biodata</div>
 						<div class="widget-icons pull-right">
@@ -77,7 +41,6 @@
 						<div class="padd"><form class="form-horizontal">
 							<input type="hidden" name="action" value="update" />
 							<input type="hidden" name="id" value="0" />
-							<input type="hidden" name="skpd_id" value="0" />
 							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Nama</label>
@@ -92,9 +55,11 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">SKPD</label>
-								<div class="col-lg-10 cnt-typeahead">
-									<input type="text" name="skpd_title" class="form-control typeahead-skpd" placeholder="SKPD" />
+								<label class="col-lg-2 control-label">Divisi</label>
+								<div class="col-lg-10">
+									<select class="form-control" name="divisi_id">
+										<?php echo ShowOption(array( 'Array' => $array_divisi )); ?>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -184,7 +149,7 @@
 					</div>
 				</div>  
 				
-				<div class="widget hide" id="form-detail">
+				<div class="widget" id="form-detail">
 					<div class="widget-head">
 						<div class="pull-left">Form Detail Pegawai</div>
 						<div class="widget-icons pull-right">
@@ -199,7 +164,6 @@
 							<input type="hidden" name="action" value="update_detail" />
 							<input type="hidden" name="id" value="0" />
 							<input type="hidden" name="biodata_id" value="0" />
-							<input type="hidden" name="unit_kerja_id" value="0" />
 							
 							<div class="form-group">
 								<label class="col-lg-2 control-label left">CPNS</label>
@@ -239,8 +203,12 @@
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label left">Unit Kerja</label>
-								<div class="col-lg-10 cnt-typeahead">
-									<input type="text" name="unit_kerja_text" class="form-control typeahead-unit_kerja" placeholder="Unit Kerja" />
+								<div class="col-lg-4">
+									<input type="text" name="unit_kerja" class="form-control" placeholder="Unit Kerja" />
+								</div>
+								<div class="col-lg-2">
+									<input type="button" class="btn btn-primary btn-browse-unit_kerja" value="Browse" />
+									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -250,11 +218,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label left">Pangkat / Golongan</label>
+								<label class="col-lg-2 control-label left">Pangkat</label>
 								<div class="col-lg-10">
-									<select class="form-control" name="pangkat_id">
-										<?php echo ShowOption(array( 'Array' => $array_pangkat )); ?>
-									</select>
+									<input type="text" name="pangkat" class="form-control" placeholder="Pangkat" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -324,203 +290,27 @@
 $(document).ready(function() {
 	var dt = null;
 	var page = {
-		show_grid: function() {
-			$('.grid-main').show();
-			$('#form-biodata').hide();
-			$('#form-detail').hide();
-		},
-		show_form: function() {
-			$('.grid-main').hide();
-			$('#form-biodata').show();
-			$('#form-detail').hide();
-		},
-		show_form_detail: function() {
-			$('.grid-main').hide();
-			$('#form-biodata').hide();
-			$('#form-detail').show();
-		}
-	}
-	
-	// global
-	$('.btn-show-grid').click(function() {
-		page.show_grid();
-	});
-	
-	// skpd
-	var skpd_store = new Bloodhound({
-		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
-		queryTokenizer: Bloodhound.tokenizers.whitespace,
-		prefetch: web.host + 'typeahead?action=skpd',
-		remote: web.host + 'typeahead?action=skpd&namelike=%QUERY'
-	});
-	skpd_store.initialize();
-	var unit_kerja = $('.typeahead-unit_kerja').typeahead(null, {
-		name: 'unit-kerja',
-		displayKey: 'title',
-		source: skpd_store.ttAdapter(),
-		templates: {
-			empty: [
-				'<div class="empty-message">',
-				'no result found.',
-				'</div>'
-			].join('\n'),
-			suggestion: Handlebars.compile('<p><strong>{{title}}</strong></p>')
-		}
-	});
-	unit_kerja.on('typeahead:selected', function(evt, data) {
-		$('#form-detail [name="unit_kerja_id"]').val(data.id);
-	});
-	var skpd = $('.typeahead-skpd').typeahead(null, {
-		name: 'skpd',
-		displayKey: 'title',
-		source: skpd_store.ttAdapter(),
-		templates: {
-			empty: [
-				'<div class="empty-message">',
-				'no result found.',
-				'</div>'
-			].join('\n'),
-			suggestion: Handlebars.compile('<p><strong>{{title}}</strong></p>')
-		}
-	});
-	skpd.on('typeahead:selected', function(evt, data) {
-		$('#form-biodata [name="skpd_id"]').val(data.id);
-	});
-	
-	// upload
-	$('.btn-browse-karpeg').click(function() { window.iframe_karpeg.browse() });
-	set_karpeg = function(p) {
-		$('#form-biodata [name="karpeg"]').val(p.file_name);
-	}
-	$('.btn-browse-kartu-nikah').click(function() { window.iframe_kartu_nikah.browse() });
-	set_kartu_nikah = function(p) {
-		$('#form-biodata [name="kartu_nikah"]').val(p.file_name);
-	}
-	$('.btn-browse-cpns').click(function() { window.iframe_cpns.browse() });
-	set_cpns = function(p) {
-		$('#form-detail [name="cpns"]').val(p.file_name);
-	}
-	$('.btn-browse-pns').click(function() { window.iframe_pns.browse() });
-	set_pns = function(p) {
-		$('#form-detail [name="pns"]').val(p.file_name);
-	}
-	$('.btn-browse-non_pns').click(function() { window.iframe_non_pns.browse() });
-	set_non_pns = function(p) {
-		$('#form-detail [name="non_pns"]').val(p.file_name);
-	}
-	
-	// grid
-	var param = {
-		id: 'datatable',
-		source: web.host + 'kepegawaian/biodata/grid',
-		column: [ { }, { }, { }, { }, { }, { bSortable: false, sClass: "center" } ],
-		callback: function() {
-			$('#datatable .btn-edit').click(function() {
-				var raw_record = $(this).siblings('.hide').text();
-				eval('var record = ' + raw_record);
-				
-				Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
-					Func.populate({ cnt: '#form-biodata', record: result });
-					page.show_form();
-				} });
-			});
+		init: function() {
+			var temp = $('.cnt-data').html();
+			eval('var data = ' + temp);
+			page.data = data;
 			
-			$('#datatable .btn-detail').click(function() {
-				var raw_record = $(this).siblings('.hide').text();
-				eval('var record = ' + raw_record);
-				
-				Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_biodata_detail_by_id', id: record.id }, callback: function(result) {
-					$('#form-detail form')[0].reset();
-					Func.populate({ cnt: '#form-detail', record: result });
-					page.show_form_detail();
-				} });
-			});
+			// load data pegawai
+			Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
+				Func.populate({ cnt: '#form-biodata', record: result });
+				page.show_form();
+			} });
 			
-			$('#datatable .btn-riwayat').click(function() {
-				var raw_record = $(this).siblings('.hide').text();
-				eval('var record = ' + raw_record);
-				window.open(record.link_riwayat);
-			});
-			
-			$('#datatable .btn-login').click(function() {
-				var raw_record = $(this).siblings('.hide').text();
-				eval('var record = ' + raw_record);
-				record.action = 'create_login';
-				
-				Func.form.submit({
-					url: web.host + 'kepegawaian/biodata/action',
-					param: record,
-					callback: function(result) {
-						dt.reload();
-					}
-				});
-			});
-			
-			$('#datatable .btn-delete').click(function() {
-				var raw_record = $(this).siblings('.hide').text();
-				eval('var record = ' + raw_record);
-				
-				Func.form.del({
-					data: { action: 'delete', id: record.id },
-					url: web.host + 'kepegawaian/biodata/action', callback: function() { dt.reload(); }
-				});
-			});
+			// load detail pegawai
+			Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_biodata_detail_by_id', id: record.id }, callback: function(result) {
+				$('#form-detail form')[0].reset();
+				Func.populate({ cnt: '#form-detail', record: result });
+				page.show_form_detail();
+			} });
 		}
 	}
-	dt = Func.datatable(param);
 	
-	// form biodata
-	$('.btn-add').click(function() {
-		page.show_form();
-		$('#form-biodata form')[0].reset();
-		$('#form-biodata [name="id"]').val(0);
-	});
-	$('#form-biodata form').validate({
-		rules: {
-			nama: { required: true, minlength: 5 },
-			tempat_lahir: { required: true },
-			tanggal_lahir: { required: true },
-			agama_id: { required: true },
-			kelamin: { required: true }
-		}
-	});
-	$('#form-biodata form').submit(function(e) {
-		e.preventDefault();
-		if (! $('#form-biodata form').valid()) {
-			return false;
-		}
-		
-		Func.form.submit({
-			url: web.host + 'kepegawaian/biodata/action',
-			param: Func.form.get_value('form-biodata'),
-			callback: function(result) {
-				dt.reload();
-				page.show_grid();
-				$('#form-biodata form')[0].reset();
-			}
-		});
-	});
-	
-	// form detail
-	$('#form-detail form').validate({
-		rules: {
-			hp: { required: true }
-		}
-	});
-	$('#form-detail form').submit(function(e) {
-		e.preventDefault();
-		if (! $('#form-detail form').valid()) {
-			return false;
-		}
-		
-		Func.form.submit({
-			url: web.host + 'kepegawaian/biodata/action',
-			param: Func.form.get_value('form-detail'),
-			callback: function(result) {
-				page.show_grid();
-			}
-		});
-	});
+	page.init();
 });
 </script>
 </body>

@@ -5,7 +5,7 @@ class biodata_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'agama_id', 'divisi_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
+			'id', 'agama_id', 'skpd_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
 			'tanggal_lahir', 'karpeg', 'kartu_nikah'
 		);
     }
@@ -38,12 +38,14 @@ class biodata_model extends CI_Model {
         if (isset($param['id'])) {
             $select_query  = "
 				SELECT
-					biodata.*,
-					biodata_detail.biodata_id, biodata_detail.jabatan, biodata_detail.pangkat, biodata_detail.golongan_ruang, biodata_detail.tmt_pangkat,
+					biodata.*, skpd.title skpd_title,
+					biodata_detail.biodata_id, biodata_detail.jabatan, biodata_detail.golongan_ruang, biodata_detail.tmt_pangkat,
 					biodata_detail.tmt_masa_kerja, biodata_detail.tmt_tahun, biodata_detail.tmt_bulan, biodata_detail.hp, biodata_detail.email,
-					biodata_detail.cpns, biodata_detail.pns, biodata_detail.non_pns, biodata_detail.unit_kerja
+					biodata_detail.cpns, biodata_detail.pns, biodata_detail.non_pns, biodata_detail.unit_kerja_id unit_kerja
 				FROM ".BIODATA." biodata
 				LEFT JOIN ".BIODATA_DETAIL." biodata_detail ON biodata_detail.biodata_id = biodata.id
+				LEFT JOIN ".SKPD." skpd ON skpd.id = biodata.skpd_id
+				LEFT JOIN ".SKPD." unit_kerja ON unit_kerja.id = biodata_detail.unit_kerja_id
 				WHERE biodata.id = '".$param['id']."'
 				LIMIT 1
 			";
@@ -60,7 +62,7 @@ class biodata_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['divisi_title'] = 'divisi.title';
+		$param['field_replace']['skpd_title'] = 'skpd.title';
 		$param['field_replace']['tanggal_lahir_text'] = 'biodata.tanggal_lahir';
 		
 		$string_filter = GetStringFilter($param, @$param['column']);
@@ -68,13 +70,14 @@ class biodata_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS biodata.*, user_biodata.user_id, divisi.title divisi_title, agama.title agama_title,
+			SELECT SQL_CALC_FOUND_ROWS biodata.*, user_biodata.user_id, skpd.title skpd_title, agama.title agama_title,
 				biodata_detail.golongan_ruang, biodata_detail.tmt_pangkat, biodata_detail.gaji, biodata_detail.tmt_masa_kerja, biodata_detail.tmt_tahun, biodata_detail.tmt_bulan,
-				biodata_detail.jabatan, biodata_detail.unit_kerja
+				biodata_detail.jabatan, unit_kerja.title unit_kerja
 			FROM ".BIODATA." biodata
-			LEFT JOIN ".DIVISI." divisi ON divisi.id = biodata.divisi_id
-			LEFT JOIN ".DIVISI." agama ON agama.id = biodata.agama_id
+			LEFT JOIN ".AGAMA." agama ON agama.id = biodata.agama_id
 			LEFT JOIN ".BIODATA_DETAIL." biodata_detail ON biodata_detail.biodata_id = biodata.id
+			LEFT JOIN ".SKPD." skpd ON skpd.id = biodata.skpd_id
+			LEFT JOIN ".SKPD." unit_kerja ON unit_kerja.id = biodata_detail.unit_kerja_id
 			LEFT JOIN ".USER_BIODATA." user_biodata ON user_biodata.biodata_id = biodata.id
 			WHERE 1 $string_filter
 			ORDER BY $string_sorting

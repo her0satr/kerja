@@ -36,8 +36,21 @@
 					</div>
                 </div>
                 <div class="widget-foot">
-					<div>- <a href="<?php echo base_url('rekap/absensi'); ?>">Rekap Absensi</a></div>
-					<div>- <a href="<?php echo base_url('rekap/agenda'); ?>">Rekap Agenda</a></div>
+					<div style="margin: 0 auto; width: 75%;">
+						<div style="float: left; width: 50%; text-align: center;">
+							<a href="<?php echo base_url('rekap/absensi'); ?>">
+								<img src="<?php echo base_url('static/img/icons/icon-absensi.png'); ?>" />
+							</a><br />
+							<a href="<?php echo base_url('rekap/absensi'); ?>">Rekap Absensi</a>
+						</div>
+						<div style="float: left; width: 50%; text-align: center;">
+							<a href="<?php echo base_url('rekap/agenda'); ?>">
+								<img src="<?php echo base_url('static/img/icons/icon-agenda-rapat.png'); ?>" />
+							</a><br />
+							<a href="<?php echo base_url('rekap/agenda'); ?>">Rekap Agenda</a>
+						</div>
+						<div class="clear"></div>
+					</div>
 				</div>
             </div>  
 		</div>

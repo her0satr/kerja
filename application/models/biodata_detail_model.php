@@ -5,8 +5,8 @@ class biodata_detail_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'biodata_id', 'jabatan', 'pangkat', 'golongan_ruang', 'tmt_pangkat', 'tmt_masa_kerja', 'tmt_tahun', 'tmt_bulan', 'hp', 'email',
-			'cpns', 'pns', 'non_pns', 'unit_kerja', 'gaji'
+			'id', 'biodata_id', 'jabatan', 'pangkat_id', 'golongan_ruang', 'tmt_pangkat', 'tmt_masa_kerja', 'tmt_tahun', 'tmt_bulan', 'hp', 'email',
+			'cpns', 'pns', 'non_pns', 'unit_kerja_id', 'gaji'
 		);
     }
 
@@ -45,9 +45,10 @@ class biodata_detail_model extends CI_Model {
 			";
         } else if (isset($param['biodata_id'])) {
             $select_query  = "
-				SELECT biodata_detail.*
+				SELECT biodata_detail.*, unit_kerja.title unit_kerja_text
 				FROM ".BIODATA_DETAIL." biodata_detail
 				LEFT JOIN ".BIODATA." biodata ON biodata.id = biodata_detail.biodata_id
+				LEFT JOIN ".SKPD." unit_kerja ON unit_kerja.id = biodata_detail.unit_kerja_id
 				WHERE biodata_detail.biodata_id = '".$param['biodata_id']."'
 				LIMIT 1
 			";
@@ -57,7 +58,7 @@ class biodata_detail_model extends CI_Model {
         if (false !== $row = mysql_fetch_assoc($select_result)) {
             $array = $this->sync($row);
         }
-       
+		
         return $array;
     }
 	

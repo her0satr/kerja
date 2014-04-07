@@ -32,3 +32,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 .datepicker label.error { position: absolute; top: 5px; left: 175px; }
 .timepicker { position: relative; }
 .timepicker label.error { position: absolute; top: 5px; left: 175px; }
+
+/*   typeahead   */
+.cnt-typeahead span { width: 100%; }
+.cnt-typeahead .empty-message { padding: 0 0 0 15px; }

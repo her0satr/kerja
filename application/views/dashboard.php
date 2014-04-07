@@ -11,6 +11,10 @@
 		'agenda_rapat' => $this->agenda_rapat_model->get_count( array( 'is_query' => true ) )
 	);
 	
+	// user type
+	$page_data['USER_ID_TU'] = USER_ID_TU;
+	$page_data['USER_ID_ADMINISTRATOR'] = USER_ID_ADMINISTRATOR;
+	
 	$page_data['user_type_id'] = $user['user_type_id'];
 	$page_data['array_rekap_yearly'] = $this->surat_masuk_model->get_rekap_yearly();
 ?>
@@ -22,6 +26,8 @@
 <style>
 .well h2 { padding: 0px; margin: 0px; line-height: 20px; }
 .well h2 span { font-size: 20px; }
+
+#main-menu .bg-info a img { margin: 0 10px 10px 10px; }
 </style>
 
 <div class="content">
@@ -39,6 +45,87 @@
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
 				
+				<div class="widget" id="main-menu">
+					<ul class="info-blocks">
+						<li class="bg-info cnt-administrasi-kepegawaian" style="display: none;">
+							<div class="top-info">
+								<a>Administrasi</a>
+							</div>
+							<a class="cursor show-kepegawaian"><img src="<?php echo base_url('static/img/icons/icon-pegawai.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Kepegawaian</span>
+						</li>
+						<li class="bg-info cnt-administrasi-persuratan" style="display: none;">
+							<div class="top-info">
+								<a>Administrasi</a>
+							</div>
+							<a class="cursor show-persuratan"><img src="<?php echo base_url('static/img/icons/icon-surat.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Persuratan</span>
+						</li>
+						<li class="bg-info cnt-biodata" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('kepegawaian/biodata'); ?>"><img src="<?php echo base_url('static/img/icons/icon-pegawai.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Biodata</span>
+						</li>
+						<li class="bg-info cnt-absensi" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('kepegawaian/absensi/masuk'); ?>"><img src="<?php echo base_url('static/img/icons/icon-absensi.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Absensi</span>
+						</li>
+						<li class="bg-info cnt-skp" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('kepegawaian/skp/home'); ?>"><img src="<?php echo base_url('static/img/icons/icon-skp.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Kegiatan Harian / SKP</span>
+						</li>
+						<li class="bg-info cnt-report" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('kepegawaian/report'); ?>"><img src="<?php echo base_url('static/img/icons/icon-report.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Report</span>
+						</li>
+						<li class="bg-info cnt-surat-masuk" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('surat/surat_masuk/home'); ?>"><img src="<?php echo base_url('static/img/icons/icon-surat-masuk.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Surat Masuk</span>
+						</li>
+						<li class="bg-info cnt-surat-keluar" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('surat/surat_keluar/home'); ?>"><img src="<?php echo base_url('static/img/icons/icon-surat-keluar.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Surat Keluar</span>
+						</li>
+						<li class="bg-info cnt-nota-dinas" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('surat/nota_dinas/home'); ?>"><img src="<?php echo base_url('static/img/icons/icon-nota-dinas.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Nota Dinas</span>
+						</li>
+						<li class="bg-info cnt-agenda-rapat" style="display: none;">
+							<div class="top-info">
+								<a>Management</a>
+							</div>
+							<a href="<?php echo base_url('surat/agenda_rapat/home'); ?>"><img src="<?php echo base_url('static/img/icons/icon-agenda-rapat.png'); ?>" /></a>
+							<span class="bottom-info bg-primary">Agenda Rapat</span>
+						</li>
+					</ul>
+					<div class="center cnt-action" style="padding: 0 0 20px 0;">
+						<a class="cursor btn-reload">
+							<i class="fa fa-refresh" style="font-size: 35px;"></i><br />
+							Refresh
+						</a>
+					</div>
+				</div>
+				
 				<div class="page-head">
 					<h4 class="pull-left">Management Pegawai</h4>
 					<div class="clearfix"></div>
@@ -49,6 +136,7 @@
 					</div>
 				</div>
 				
+				<?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
 				<div class="page-head">
 					<h4 class="pull-left">Management Surat</h4>
 					<div class="clearfix"></div>
@@ -58,6 +146,7 @@
 						<iframe src="<?php echo base_url('home/frame/02'); ?>" scrolling="no" frameBorder="0" style="width: 920px; height: 250px;"></iframe>
 					</div>
 				</div>
+				<?php } ?>
 				
 				<div class="widget hide">
 					<ul class="info-blocks">
@@ -161,10 +250,47 @@ $(document).ready(function() {
 			var temp = $('.cnt-data').html();
 			eval('var data = ' + temp);
 			page.data = data;
+			
+			// load main menu
+			page.menu.reload();
+		},
+		menu: {
+			reload: function() {
+				$('#main-menu li').hide();
+				if (Func.in_array(page.data.user_type_id, [page.data.USER_ID_TU, page.data.USER_ID_ADMINISTRATOR])) {
+					$('#main-menu .cnt-administrasi-kepegawaian').show();
+					$('#main-menu .cnt-administrasi-persuratan').show();
+				} else {
+					$('#main-menu .cnt-biodata').show();
+					$('#main-menu .cnt-absensi').show();
+					$('#main-menu .cnt-skp').show();
+					$('#main-menu .cnt-action').hide();
+				}
+			}
 		}
 	}
 	page.init();
 	
+	// main menu
+	$('#main-menu .btn-reload').click(function() {
+		page.menu.reload();
+	});
+	$('#main-menu .show-kepegawaian').click(function() {
+		$('#main-menu li').hide();
+		$('#main-menu .cnt-biodata').show();
+		$('#main-menu .cnt-absensi').show();
+		$('#main-menu .cnt-skp').show();
+		$('#main-menu .cnt-report').show();
+	});
+	$('#main-menu .show-persuratan').click(function() {
+		$('#main-menu li').hide();
+		$('#main-menu .cnt-surat-masuk').show();
+		$('#main-menu .cnt-surat-keluar').show();
+		$('#main-menu .cnt-nota-dinas').show();
+		$('#main-menu .cnt-agenda-rapat').show();
+	});
+	
+	// chart
 	Morris.Bar({
 		element: 'chart-summary',
 		data: page.data.array_rekap_yearly,

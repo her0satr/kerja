@@ -385,7 +385,7 @@ overlay_gallery: false, social_tools: false
 
 /*	back to previous page */
 if ($('.mainbar .button-back').length == 1) {
-	$('.mainbar .button-back').prepend('<a class="cursor">&lt;&lt;</a> | ');
+	$('.mainbar .button-back').prepend('<a class="cursor">Kembali</a> | ');
 	$('.mainbar .button-back a').click(function() {
 		window.history.back()
 	});

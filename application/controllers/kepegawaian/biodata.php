@@ -6,12 +6,18 @@ class biodata extends SYGAAS_Controller {
 	}
 	
 	function index() {
-		$this->load->view( 'kepegawaian/biodata');
+		$user = $this->user_model->get_session();
+		
+		if ($user['user_type_id'] == USER_ID_PEGAWAI) {
+			$this->load->view( 'kepegawaian/biodata_detail');
+		} else {
+			$this->load->view( 'kepegawaian/biodata');
+		}
 	}
 	
 	function grid() {
 		$_POST['grid_type'] = 'biodata_view';
-		$_POST['column'] = array( 'nama', 'nip', 'divisi_title', 'tanggal_lahir_text', 'tempat_lahir' );
+		$_POST['column'] = array( 'nama', 'nip', 'skpd_title', 'tanggal_lahir_text', 'tempat_lahir' );
 		
 		$array = $this->biodata_model->get_array($_POST);
 		$count = $this->biodata_model->get_count();
