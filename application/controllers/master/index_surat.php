@@ -1,20 +1,20 @@
 <?php
 
-class home extends SYGAAS_Controller {
+class index_surat extends SYGAAS_Controller {
 	function __construct() {
 		parent::__construct();
 	}
 	
 	function index() {
-		$this->load->view( 'surat/surat_keluar/home');
+		$this->load->view( 'master/index_surat');
 	}
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'no_urut', 'no_surat', 'pengolah', 'tujuan', 'tanggal_surat' );
+		$_POST['column'] = array( 'code', 'title' );
 		
-		$array = $this->surat_keluar_model->get_array($_POST);
-		$count = $this->surat_keluar_model->get_count();
+		$array = $this->index_surat_model->get_array($_POST);
+		$count = $this->index_surat_model->get_count();
 		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
 		
 		echo json_encode($grid);
@@ -26,13 +26,11 @@ class home extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'update') {
-			$result = $this->surat_keluar_model->update($_POST);
+			$result = $this->index_surat_model->update($_POST);
 		} else if ($action == 'get_by_id') {
-			$result = $this->surat_keluar_model->get_by_id(array( 'id' => $_POST['id'] ));
-		} else if ($action == 'get_next_no') {
-			$result = $this->surat_keluar_model->get_next_no();
+			$result = $this->index_surat_model->get_by_id(array( 'id' => $_POST['id'] ));
 		} else if ($action == 'delete') {
-			$result = $this->surat_keluar_model->delete($_POST);
+			$result = $this->index_surat_model->delete($_POST);
 		}
 		
 		echo json_encode($result);

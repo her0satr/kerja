@@ -38,6 +38,7 @@ define('BIODATA',								'biodata');
 define('BIODATA_DETAIL',						'biodata_detail');
 define('DISPOSISI',								'disposisi');
 define('DIVISI',								'divisi');
+define('INDEX_SURAT',							'index_surat');
 define('JAM_ABSENSI',							'jam_absensi');
 define('JENIS_KEGIATAN',						'jenis_kegiatan');
 define('JENIS_KEPEGAWAIAN',						'jenis_kepegawaian');

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Apr 07, 2014 at 09:31 PM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Apr 08, 2014 at 10:24 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +19,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `sygaas_db`
 --
+CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -268,6 +271,28 @@ INSERT INTO `divisi` (`id`, `title`) VALUES
 (2, 'Kepegawaian'),
 (3, 'Divisi 1'),
 (4, 'Divisi 2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `index_surat`
+--
+
+CREATE TABLE IF NOT EXISTS `index_surat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `index_surat`
+--
+
+INSERT INTO `index_surat` (`id`, `code`, `title`) VALUES
+(2, '001', 'Organisasi'),
+(3, '002', 'Pengumuman'),
+(4, '003', 'Agenda Rapat');
 
 -- --------------------------------------------------------
 
@@ -654,8 +679,8 @@ INSERT INTO `surat_destination` (`id`, `title`, `hidden`) VALUES
 
 CREATE TABLE IF NOT EXISTS `surat_keluar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `no_urut` varchar(50) NOT NULL,
-  `index_surat` varchar(50) NOT NULL,
+  `index_surat_id` int(11) NOT NULL,
+  `no_urut` int(11) NOT NULL,
   `no_surat` varchar(50) NOT NULL,
   `pengolah` varchar(255) NOT NULL,
   `tujuan` varchar(255) NOT NULL,
@@ -671,10 +696,9 @@ CREATE TABLE IF NOT EXISTS `surat_keluar` (
 -- Dumping data for table `surat_keluar`
 --
 
-INSERT INTO `surat_keluar` (`id`, `no_urut`, `index_surat`, `no_surat`, `pengolah`, `tujuan`, `tanggal_surat`, `lampiran`, `perihal`, `catatan`, `file_surat`) VALUES
-(4, '1', '2', '3', '4', '', '2014-03-17', '', '11', '', '2014/03/17/20140317_081952_4904.jpg'),
-(5, '1', '2', '2', '2', '', '2014-03-17', '2', '88', '', ''),
-(6, '11111', '11111', '11111', '11111', '11111', '2014-03-17', '', '11111', '', '');
+INSERT INTO `surat_keluar` (`id`, `index_surat_id`, `no_urut`, `no_surat`, `pengolah`, `tujuan`, `tanggal_surat`, `lampiran`, `perihal`, `catatan`, `file_surat`) VALUES
+(4, 2, 1, '3', '4', '', '2014-03-17', '', '11', '', '2014/03/17/20140317_081952_4904.jpg'),
+(5, 3, 2, '2', '2', '', '2014-03-17', '2', '88', '', '');
 
 -- --------------------------------------------------------
 

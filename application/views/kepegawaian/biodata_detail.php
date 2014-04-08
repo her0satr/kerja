@@ -1,6 +1,5 @@
 <?php
 	$array_agama = $this->agama_model->get_array();
-	$array_divisi = $this->divisi_model->get_array();
 	$array_kelamin = $this->kelamin_model->get_array();
 	$array_jenis_kepegawaian = $this->jenis_kepegawaian_model->get_array();
 	$array_status_perkawinan = $this->status_perkawinan_model->get_array();
@@ -27,6 +26,7 @@
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
+				
 				<div class="widget" id="form-biodata">
 					<div class="widget-head">
 						<div class="pull-left">Form Biodata</div>
@@ -41,6 +41,7 @@
 						<div class="padd"><form class="form-horizontal">
 							<input type="hidden" name="action" value="update" />
 							<input type="hidden" name="id" value="0" />
+							<input type="hidden" name="skpd_id" value="0" />
 							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Nama</label>
@@ -55,11 +56,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Divisi</label>
-								<div class="col-lg-10">
-									<select class="form-control" name="divisi_id">
-										<?php echo ShowOption(array( 'Array' => $array_divisi )); ?>
-									</select>
+								<label class="col-lg-2 control-label">SKPD</label>
+								<div class="col-lg-10 cnt-typeahead">
+									<input type="text" name="skpd_title" class="form-control typeahead-skpd" placeholder="SKPD" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -68,7 +67,6 @@
 									<input type="text" name="karpeg" class="form-control" placeholder="Karpeg" />
 								</div>
 								<div class="col-lg-2">
-									<input type="button" class="btn btn-primary btn-browse-karpeg" value="Browse" />
 									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
@@ -133,16 +131,7 @@
 									<input type="text" name="kartu_nikah" class="form-control" placeholder="Kartu Nikah" />
 								</div>
 								<div class="col-lg-2">
-									<input type="button" class="btn btn-primary btn-browse-kartu-nikah" value="Browse" />
 									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
-								</div>
-							</div>
-							
-							<hr />
-							<div class="form-group">
-								<div class="col-lg-offset-2 col-lg-9">
-									<button type="submit" class="btn btn-info">Save</button>
-									<button type="button" class="btn btn-info btn-show-grid">Cancel</button>
 								</div>
 							</div>
 						</form></div>
@@ -164,6 +153,7 @@
 							<input type="hidden" name="action" value="update_detail" />
 							<input type="hidden" name="id" value="0" />
 							<input type="hidden" name="biodata_id" value="0" />
+							<input type="hidden" name="unit_kerja_id" value="0" />
 							
 							<div class="form-group">
 								<label class="col-lg-2 control-label left">CPNS</label>
@@ -171,7 +161,6 @@
 									<input type="text" name="cpns" class="form-control" placeholder="CPNS" />
 								</div>
 								<div class="col-lg-2">
-									<input type="button" class="btn btn-primary btn-browse-cpns" value="Browse" />
 									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
@@ -181,7 +170,6 @@
 									<input type="text" name="pns" class="form-control" placeholder="PNS" />
 								</div>
 								<div class="col-lg-2">
-									<input type="button" class="btn btn-primary btn-browse-pns" value="Browse" />
 									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
@@ -191,7 +179,6 @@
 									<input type="text" name="non_pns" class="form-control" placeholder="Non PNS" />
 								</div>
 								<div class="col-lg-2">
-									<input type="button" class="btn btn-primary btn-browse-non_pns" value="Browse" />
 									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
 								</div>
 							</div>
@@ -203,12 +190,8 @@
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label left">Unit Kerja</label>
-								<div class="col-lg-4">
-									<input type="text" name="unit_kerja" class="form-control" placeholder="Unit Kerja" />
-								</div>
-								<div class="col-lg-2">
-									<input type="button" class="btn btn-primary btn-browse-unit_kerja" value="Browse" />
-									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
+								<div class="col-lg-10 cnt-typeahead">
+									<input type="text" name="unit_kerja_text" class="form-control typeahead-unit_kerja" placeholder="Unit Kerja" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -218,9 +201,11 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label left">Pangkat</label>
+								<label class="col-lg-2 control-label left">Pangkat / Golongan</label>
 								<div class="col-lg-10">
-									<input type="text" name="pangkat" class="form-control" placeholder="Pangkat" />
+									<select class="form-control" name="pangkat_id">
+										<?php echo ShowOption(array( 'Array' => $array_pangkat )); ?>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -265,14 +250,6 @@
 									<input type="text" name="email" class="form-control" placeholder="Email" />
 								</div>
 							</div>
-							
-							<hr />
-							<div class="form-group">
-								<div class="col-lg-offset-2 col-lg-9">
-									<button type="submit" class="btn btn-info">Save</button>
-									<button type="button" class="btn btn-info btn-show-grid">Cancel</button>
-								</div>
-							</div>
 						</form></div>
 					</div>
 				</div>  
@@ -296,17 +273,18 @@ $(document).ready(function() {
 			page.data = data;
 			
 			// load data pegawai
-			Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
+			Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: page.data.user.biodata_id }, callback: function(result) {
 				Func.populate({ cnt: '#form-biodata', record: result });
-				page.show_form();
 			} });
 			
 			// load detail pegawai
-			Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_biodata_detail_by_id', id: record.id }, callback: function(result) {
+			Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_biodata_detail_by_id', id: page.data.user.biodata_id }, callback: function(result) {
 				$('#form-detail form')[0].reset();
 				Func.populate({ cnt: '#form-detail', record: result });
-				page.show_form_detail();
 			} });
+			
+			$('#form-biodata, #form-detail').find('[type="text"]').attr('disabled', 'disabled');
+			$('#form-biodata, #form-detail').find('select').attr('disabled', 'disabled');
 		}
 	}
 	

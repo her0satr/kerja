@@ -190,7 +190,8 @@ class user_model extends CI_Model {
 						'name' => 'surat_masuk', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
 							array( 'name' => 'home', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_posisi', 'title' => 'Rekap Posisi', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
@@ -231,6 +232,7 @@ class user_model extends CI_Model {
 				'children' => array(
 					array( 'name' => 'agama', 'title' => 'Agama', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'divisi', 'title' => 'Divisi', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'index_surat', 'title' => 'Index Surat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'jenis_kepegawaian', 'title' => 'Jenis Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'pangkat', 'title' => 'Pangkat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'sifat_arsip', 'title' => 'Sifat Arsip', 'user_type_id' => array( 1, 2 ) ),
