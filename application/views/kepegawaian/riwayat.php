@@ -49,6 +49,7 @@
 								<tr>
 									<th>No Ijazah</th>
 									<th>Tahun</th>
+									<th>Keterangan</th>
 									<th class="center">Control</th>
 								</tr>
 							</thead>
@@ -79,6 +80,7 @@
 								<tr>
 									<th>No SK</th>
 									<th>Tahun</th>
+									<th>Keterangan</th>
 									<th class="center">Control</th>
 								</tr>
 							</thead>
@@ -109,6 +111,7 @@
 								<tr>
 									<th>No Sertifikat</th>
 									<th>Tahun</th>
+									<th>Keterangan</th>
 									<th class="center">Control</th>
 								</tr>
 							</thead>
@@ -158,6 +161,12 @@
 						<input type="button" class="btn btn-primary btn-browse-pendidikan" value="Browse" />
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Keterangan</label>
+					<div class="col-lg-10">
+						<input type="text" name="keterangan" class="form-control" placeholder="Keterangan" />
+					</div>
+				</div>
 			</div></div>
 		</div></div>
 		<div class="modal-footer">
@@ -198,6 +207,12 @@
 						<input type="button" class="btn btn-primary btn-browse-mutasi" value="Browse" />
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Keterangan</label>
+					<div class="col-lg-10">
+						<input type="text" name="keterangan" class="form-control" placeholder="Keterangan" />
+					</div>
+				</div>
 			</div></div>
 		</div></div>
 		<div class="modal-footer">
@@ -236,6 +251,12 @@
 					</div>
 					<div class="col-lg-2">
 						<input type="button" class="btn btn-primary btn-browse-diklat" value="Browse" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Keterangan</label>
+					<div class="col-lg-10">
+						<input type="text" name="keterangan" class="form-control" placeholder="Keterangan" />
 					</div>
 				</div>
 			</div></div>
@@ -279,7 +300,7 @@ $(document).ready(function() {
 	var pendidikan_param = {
 		id: 'dt-pendidikan',
 		source: web.host + 'kepegawaian/riwayat/grid',
-		column: [ { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { }, { }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'riwayat_pendidikan' },
@@ -322,7 +343,7 @@ $(document).ready(function() {
 	var mutasi_param = {
 		id: 'dt-mutasi',
 		source: web.host + 'kepegawaian/riwayat/grid',
-		column: [ { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { }, { }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'riwayat_mutasi' },
@@ -365,7 +386,7 @@ $(document).ready(function() {
 	var diklat_param = {
 		id: 'dt-diklat',
 		source: web.host + 'kepegawaian/riwayat/grid',
-		column: [ { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { }, { }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'riwayat_diklat' },

@@ -125,14 +125,14 @@ class disposisi_model extends CI_Model {
 		}
 		
 		if (isset($param['grid_type']) && $param['grid_type'] == 'validation') {
-			$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
+			$param['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
 			
 			// add validation
 			if (empty($row['waktu'])) {
-				$param['is_custom'] .= '<button class="btn btn-xs btn-validasi btn-success" data-original-title="Validasi"><i class="fa fa-check"></i></button> ';
+				$param['is_custom'] .= '<button class="btn btn-xs btn-validasi" data-original-title="Validasi"><img src="'.base_url('static/img/icons/icon-check.png').'" /></button> ';
 			}
 			
-			$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
+			$param['is_custom'] .= '<button class="btn btn-xs btn-delete" data-original-title="Hapus"><img src="'.base_url('static/img/icons/icon-delete.png').'" /></button> ';
 		}
 		
 		if (count(@$param['column']) > 0) {

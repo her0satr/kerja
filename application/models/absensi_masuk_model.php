@@ -101,6 +101,34 @@ class absensi_masuk_model extends CI_Model {
 		return $TotalRecord;
     }
 	
+	function set_absensi_today($param = array()) {
+		$record = array();
+		$tanggal = $this->config->item('current_date');
+		
+		// check record
+		$select_query  = "
+			SELECT waktu_masuk.*
+			FROM ".ABSENSI_MASUK." waktu_masuk
+			WHERE waktu_masuk.tanggal = '".$tanggal."'
+				AND waktu_masuk.biodata_id = '".$param['biodata_id']."'
+			LIMIT 1
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+        if (false !== $row = mysql_fetch_assoc($select_result)) {
+            $record = $row;
+        }
+		
+		// insert if user do not have record
+		if (count($record) == 0) {
+			$param_update = array(
+				'tanggal' => $tanggal,
+				'biodata_id' => $param['biodata_id'],
+				'waktu_01' => $this->config->item('current_time')
+			);
+			$this->update($param_update);
+		}
+	}
+	
     function get_rekap_by_date($param = array()) {
 		$array_skpd = array();
 		
@@ -227,13 +255,13 @@ class absensi_masuk_model extends CI_Model {
 		// grid type
 		if (isset($param['grid_type']) && $param['grid_type'] == 'absensi_pegawai') {
 			if (empty($row['waktu_02'])) {
-				$row['waktu_02'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_02" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
+				$row['waktu_02'] = '<button class="btn btn-xs btn-absensi" data-absensi="waktu_02" data-original-title="Cek Absen"><img src="'.base_url('static/img/icons/icon-clock.png').'" /></button>';
 			}
 			if (empty($row['waktu_03'])) {
-				$row['waktu_03'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_03" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
+				$row['waktu_03'] = '<button class="btn btn-xs btn-absensi" data-absensi="waktu_03" data-original-title="Cek Absen"><img src="'.base_url('static/img/icons/icon-clock.png').'" /></button>';
 			}
 			if (empty($row['waktu_04'])) {
-				$row['waktu_04'] = '<button class="btn btn-xs btn-absensi btn-success" data-absensi="waktu_04" data-original-title="Cek Absen"><i class="fa fa-clock-o"></i></button>';
+				$row['waktu_04'] = '<button class="btn btn-xs btn-absensi" data-absensi="waktu_04" data-original-title="Cek Absen"><img src="'.base_url('static/img/icons/icon-clock.png').'" /></button>';
 			}
 		}
 		

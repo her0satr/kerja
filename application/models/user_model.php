@@ -165,8 +165,8 @@ class user_model extends CI_Model {
 						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1, 2, 3 ),
 						'children' => array(
 							array( 'name' => 'jam_absensi', 'title' => 'Jam Absensi', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1, 2, 3 ) ),
-							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1, 2, 3 ) ),
+							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1, 2, 3 ), 'biodata' => true ),
+							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1, 2, 3 ), 'biodata' => true ),
 							array( 'name' => 'list_masuk', 'title' => 'List Masuk', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'list_kosong', 'title' => 'List Tidak Masuk', 'user_type_id' => array( 1, 2 ) )
 						)
@@ -231,7 +231,7 @@ class user_model extends CI_Model {
 				'user_type_id' => array( 1, 2 ),
 				'children' => array(
 					array( 'name' => 'agama', 'title' => 'Agama', 'user_type_id' => array( 1, 2 ) ),
-					array( 'name' => 'divisi', 'title' => 'Divisi', 'user_type_id' => array( 1, 2 ) ),
+//					array( 'name' => 'divisi', 'title' => 'Divisi', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'index_surat', 'title' => 'Index Surat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'jenis_kepegawaian', 'title' => 'Jenis Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'pangkat', 'title' => 'Pangkat', 'user_type_id' => array( 1, 2 ) ),

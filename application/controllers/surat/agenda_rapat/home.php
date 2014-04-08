@@ -21,15 +21,15 @@ class home extends SYGAAS_Controller {
 			$_POST['column'] = array( 'acara', 'leading_sektor', 'no_surat', 'tempat', 'tanggal_ajuan' );
 			
 			// button
-			$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
-			$_POST['is_custom'] .= '<button class="btn btn-xs btn-skpd btn-success" data-original-title="Daftar Undangan"><i class="fa fa-book"></i></button> ';
+			$_POST['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
+			$_POST['is_custom'] .= '<button class="btn btn-xs btn-skpd" data-original-title="Daftar Undangan"><img src="'.base_url('static/img/icons/icon-detail.png').'" /></button> ';
 			
 			// button sms
 			if ($user['user_type_id'] == USER_ID_ADMINISTRATOR) {
-				$_POST['is_custom'] .= '<button class="btn btn-xs btn-sms btn-success" data-original-title="SMS / Email"><i class="fa fa-envelope"></i></button> ';
+				$_POST['is_custom'] .= '<button class="btn btn-xs btn-sms" data-original-title="SMS / Email"><img src="'.base_url('static/img/icons/icon-mail.png').'" /></button> ';
 			}
 			
-			$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
+			$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete" data-original-title="Hapus"><img src="'.base_url('static/img/icons/icon-delete.png').'" /></i></button> ';
 			
 			$array = $this->agenda_rapat_model->get_array($_POST);
 			$count = $this->agenda_rapat_model->get_count();

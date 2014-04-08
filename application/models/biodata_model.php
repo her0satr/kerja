@@ -6,7 +6,7 @@ class biodata_model extends CI_Model {
 		
         $this->field = array(
 			'id', 'agama_id', 'skpd_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
-			'tanggal_lahir', 'karpeg', 'kartu_nikah'
+			'tanggal_lahir', 'karpeg', 'kartu_nikah', 'gelar_depan', 'gelar_belakang', 'photo'
 		);
     }
 
@@ -135,6 +135,11 @@ class biodata_model extends CI_Model {
 		if (isset($row['id'])) {
 			$row['link_riwayat'] = base_url('kepegawaian/riwayat/index/'.$row['id']);
 		}
+		if (!empty($row['photo'])) {
+			$row['link_photo'] = base_url('static/upload/'.$row['photo']);
+		} else {
+			$row['link_photo'] = base_url('static/img/user1.png');
+		}
 		
 		if (isset($row['tanggal_lahir'])) {
 			$row['tanggal_lahir_text'] = GetFormatDate($row['tanggal_lahir']);
@@ -142,16 +147,16 @@ class biodata_model extends CI_Model {
 		
 		if (count(@$param['column']) > 0) {
 			if (isset($param['grid_type']) && $param['grid_type'] == 'biodata_view') {
-				$param['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
-				$param['is_custom'] .= '<button class="btn btn-xs btn-detail btn-success" data-original-title="Detail"><i class="fa fa-book"></i></button> ';
-				$param['is_custom'] .= '<button class="btn btn-xs btn-riwayat btn-success" data-original-title="Riwayat"><i class="fa fa-folder"></i></button> ';
+				$param['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
+				$param['is_custom'] .= '<button class="btn btn-xs btn-detail" data-original-title="Riwayat Kepegawaian"><img src="'.base_url('static/img/icons/icon-detail.png').'" /></button> ';
+				$param['is_custom'] .= '<button class="btn btn-xs btn-riwayat" data-original-title="Riwayat"><img src="'.base_url('static/img/icons/icon-book.png').'" /></button> ';
 				
 				// add create button
 				if (empty($row['user_id'])) {
-					$param['is_custom'] .= '<button class="btn btn-xs btn-login btn-success" data-original-title="Login Akses"><i class="fa fa-user"></i></button> ';
+					$param['is_custom'] .= '<button class="btn btn-xs btn-login" data-original-title="Login Akses"><img src="'.base_url('static/img/icons/icon-user.png').'" /></button> ';
 				}
 				
-				$param['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
+				$param['is_custom'] .= '<button class="btn btn-xs btn-delete" data-original-title="Hapus"><img src="'.base_url('static/img/icons/icon-delete.png').'" /></button> ';
 			}
 			
 			$row = dt_view_set($row, $param);

@@ -15,6 +15,7 @@
 	<?php $this->load->view( 'common/sidebar'); ?>
 	<div class="hide">
 		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
+		<iframe name="iframe_photo" src="<?php echo base_url('upload?callback=set_photo'); ?>"></iframe>
 		<iframe name="iframe_karpeg" src="<?php echo base_url('upload?callback=set_karpeg'); ?>"></iframe>
 		<iframe name="iframe_kartu_nikah" src="<?php echo base_url('upload?callback=set_kartu_nikah'); ?>"></iframe>
 		<iframe name="iframe_cpns" src="<?php echo base_url('upload?callback=set_cpns'); ?>"></iframe>
@@ -77,23 +78,41 @@
 						<div class="padd"><form class="form-horizontal">
 							<input type="hidden" name="action" value="update" />
 							<input type="hidden" name="id" value="0" />
+							<input type="hidden" name="photo" value="" />
 							<input type="hidden" name="skpd_id" value="0" />
+							
+							<div class="center" style="position: absolute; right: 0px; width: 175px; z-index: 10; background: #FFFFFF; padding: 10px;">
+								<div style="padding: 0 0 10px 0;"><img class="biodata_photo" src="<?php echo base_url('static/img/user1.png'); ?>" style="width: 100%;" /></div>
+								<div><input type="button" class="btn btn-primary btn-browse-photo" value="Browse" /></div>
+							</div>
 							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Nama</label>
-								<div class="col-lg-10">
+								<div class="col-lg-8">
 									<input type="text" name="nama" class="form-control" placeholder="Nama" />
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-2 control-label">Gelar Depan</label>
+								<div class="col-lg-8">
+									<input type="text" name="gelar_depan" class="form-control" placeholder="Gelar Depan" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Gelar Belakang</label>
+								<div class="col-lg-8">
+									<input type="text" name="gelar_belakang" class="form-control" placeholder="Gelar Belakang" />
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-2 control-label">NIP</label>
-								<div class="col-lg-10">
+								<div class="col-lg-8">
 									<input type="text" name="nip" class="form-control" placeholder="NIP" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">SKPD</label>
-								<div class="col-lg-10 cnt-typeahead">
+								<div class="col-lg-8 cnt-typeahead">
 									<input type="text" name="skpd_title" class="form-control typeahead-skpd" placeholder="SKPD" />
 								</div>
 							</div>
@@ -163,9 +182,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Kartu Nikah</label>
+								<label class="col-lg-2 control-label">Karis/Karsu</label>
 								<div class="col-lg-4">
-									<input type="text" name="kartu_nikah" class="form-control" placeholder="Kartu Nikah" />
+									<input type="text" name="kartu_nikah" class="form-control" placeholder="Karis/Karsu" />
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-kartu-nikah" value="Browse" />
@@ -388,6 +407,11 @@ $(document).ready(function() {
 	});
 	
 	// upload
+	$('.btn-browse-photo').click(function() { window.iframe_photo.browse() });
+	set_photo = function(p) {
+		$('#form-biodata [name="photo"]').val(p.file_name);
+		$('#form-biodata .biodata_photo').attr('src', p.file_link);
+	}
 	$('.btn-browse-karpeg').click(function() { window.iframe_karpeg.browse() });
 	set_karpeg = function(p) {
 		$('#form-biodata [name="karpeg"]').val(p.file_name);
@@ -421,6 +445,7 @@ $(document).ready(function() {
 				
 				Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
 					Func.populate({ cnt: '#form-biodata', record: result });
+					$('#form-biodata .biodata_photo').attr('src', result.link_photo);
 					page.show_form();
 				} });
 			});
@@ -474,6 +499,7 @@ $(document).ready(function() {
 		page.show_form();
 		$('#form-biodata form')[0].reset();
 		$('#form-biodata [name="id"]').val(0);
+		$('#form-biodata .biodata_photo').attr('src', web.host + 'static/img/user1.png');
 	});
 	$('#form-biodata form').validate({
 		rules: {

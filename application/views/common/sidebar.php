@@ -1,6 +1,8 @@
 <?php
 	$user = $this->user_model->get_session();
 	$array_menu = $this->user_model->get_menu(array( 'user_type_id' => $user['user_type_id'] ));
+	
+	$having_biodata = (!empty($user['biodata_id'])) ? true : false;
 ?>
 
 <div class="sidebar" id="cnt-sidebar">
@@ -22,6 +24,12 @@
 					<li class="has_sub"><a href="#" data-link="<?php echo $children['name']; ?>"><i class="fa fa-folder"></i> <?php echo $children['title']; ?> <span class="pull-right"><i class="fa fa-chevron-left"></i></span></a>
 						<ul>
 							<?php foreach ($children['children'] as $menu) { ?>
+							<?php
+								if (isset($menu['biodata']) && $menu['biodata'] && !$having_biodata) {
+									continue;
+								}
+							?>
+							
 							<li><a href="<?php echo base_url($parent['name'].'/'.$children['name'].'/'.$menu['name']); ?>" data-link="<?php echo $menu['name']; ?>"><i class="fa fa-desktop"></i> <?php echo $menu['title']; ?></a></li>
 							<?php } ?>
 						</ul>

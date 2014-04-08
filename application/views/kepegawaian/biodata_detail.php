@@ -43,21 +43,37 @@
 							<input type="hidden" name="id" value="0" />
 							<input type="hidden" name="skpd_id" value="0" />
 							
+							<div class="center" style="position: absolute; right: 0px; width: 175px; z-index: 10; background: #FFFFFF; padding: 10px;">
+								<div style="padding: 0 0 10px 0;"><img class="biodata_photo" src="<?php echo base_url('static/img/user1.png'); ?>" style="width: 100%;" /></div>
+							</div>
+							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Nama</label>
-								<div class="col-lg-10">
+								<div class="col-lg-8">
 									<input type="text" name="nama" class="form-control" placeholder="Nama" />
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-2 control-label">Gelar Depan</label>
+								<div class="col-lg-8">
+									<input type="text" name="gelar_depan" class="form-control" placeholder="Gelar Depan" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Gelar Belakang</label>
+								<div class="col-lg-8">
+									<input type="text" name="gelar_belakang" class="form-control" placeholder="Gelar Belakang" />
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-2 control-label">NIP</label>
-								<div class="col-lg-10">
+								<div class="col-lg-8">
 									<input type="text" name="nip" class="form-control" placeholder="NIP" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">SKPD</label>
-								<div class="col-lg-10 cnt-typeahead">
+								<div class="col-lg-8 cnt-typeahead">
 									<input type="text" name="skpd_title" class="form-control typeahead-skpd" placeholder="SKPD" />
 								</div>
 							</div>
@@ -126,9 +142,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Kartu Nikah</label>
+								<label class="col-lg-2 control-label">Karis/Karsu</label>
 								<div class="col-lg-4">
-									<input type="text" name="kartu_nikah" class="form-control" placeholder="Kartu Nikah" />
+									<input type="text" name="kartu_nikah" class="form-control" placeholder="Karis/Karsu" />
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-check-file" value="Check" />
@@ -275,6 +291,7 @@ $(document).ready(function() {
 			// load data pegawai
 			Func.ajax({ url: web.host + 'kepegawaian/biodata/action', param: { action: 'get_by_id', id: page.data.user.biodata_id }, callback: function(result) {
 				Func.populate({ cnt: '#form-biodata', record: result });
+				$('#form-biodata .biodata_photo').attr('src', result.link_photo);
 			} });
 			
 			// load detail pegawai

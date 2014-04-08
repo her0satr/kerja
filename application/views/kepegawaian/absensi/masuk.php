@@ -7,6 +7,9 @@
 		exit;
 	}
 	
+	// make sure user having absense today
+	$this->absensi_masuk_model->set_absensi_today(array( 'biodata_id' => $user['biodata_id'] ));
+	
 	// page data
 	$page_data['biodata'] = $biodata;
 ?>
@@ -113,6 +116,8 @@
 	</form></div></div></div>
 	
 	<div id="form-review" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-big"><div class="modal-content"><form>
+		<input type="hidden" name="id" value="" />
+		
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			<h4 class="modal-title">Form Review Absensi</h4>
@@ -130,7 +135,11 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Informasi</label>
 					<div class="col-lg-10">
-						<input type="text" name="label" class="form-control" placeholder="Informasi" />
+						<select class="form-control" name="label">
+							<option value="">-</option>
+							<option value="Tepat Waktu">Tepat Waktu</option>
+							<option value="Terlambat">Terlambat</option>
+						</select>
 					</div>
 				</div>
 				<div class="form-group">
@@ -166,6 +175,7 @@
 			</div></div>
 		</div></div>
 		<div class="modal-footer">
+			<button type="submit" class="btn btn-info">Save</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</form></div></div></div>
@@ -192,7 +202,7 @@ $(document).ready(function() {
 	
 	// grid
 	var param = {
-		id: 'datatable',
+		id: 'datatable', aaSorting: [[0, 'desc']],
 		source: web.host + 'kepegawaian/absensi/masuk/grid',
 		column: [ {
 					sClass: "center"
@@ -208,6 +218,20 @@ $(document).ready(function() {
 			)
 		},
 		callback: function() {
+			$('#datatable .btn-edit').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.ajax({ url: web.host + 'kepegawaian/absensi/masuk/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
+					$('#form-review form')[0].reset();
+					$('#form-review input').attr('disabled', true)
+					$('#form-review [name="label"]').attr('disabled', false)
+					$('#form-review [name="keterangan"]').attr('disabled', false)
+					Func.populate({ cnt: '#form-review', record: result });
+					$('#form-review').modal();
+				} });
+			});
+			
 			$('#datatable .btn-absensi').click(function() {
 				var raw_record = $(this).parents('tr').find('span.hide').text();
 				eval('var record = ' + raw_record);
@@ -219,18 +243,6 @@ $(document).ready(function() {
 						dt.reload();
 					}
 				});
-			});
-			
-			$('#datatable .btn-detail').click(function() {
-				var raw_record = $(this).siblings('.hide').text();
-				eval('var record = ' + raw_record);
-				
-				Func.ajax({ url: web.host + 'kepegawaian/absensi/masuk/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
-					$('#form-review form')[0].reset();
-					$('#form-review input').attr('disabled', true)
-					Func.populate({ cnt: '#form-review', record: result });
-					$('#form-review').modal();
-				} });
 			});
 		}
 	}
@@ -266,6 +278,26 @@ $(document).ready(function() {
 			callback: function(result) {
 				dt.reload();
 				$('#form-absensi').modal('hide');
+			}
+		});
+	});
+	
+	// form agama
+	$('#form-review form').submit(function(e) {
+		e.preventDefault();
+		if (! $('#form-review form').valid()) {
+			return false;
+		}
+		
+		var record = Func.form.get_value('form-review');
+		var param = { action: 'update_keterangan', id: record.id, label: record.label, keterangan: record.keterangan }
+		Func.form.submit({
+			url: web.host + 'kepegawaian/absensi/masuk/action',
+			param: param,
+			callback: function(result) {
+				dt.reload();
+				$('#form-review').modal('hide');
+				$('#form-review form')[0].reset();
 			}
 		});
 	});

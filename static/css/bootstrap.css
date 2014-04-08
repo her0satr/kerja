@@ -36,3 +36,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 /*   typeahead   */
 .cnt-typeahead span { width: 100%; }
 .cnt-typeahead .empty-message { padding: 0 0 0 15px; }
+
+/*   button image   */
+.btn-xs img { width: 25px; }

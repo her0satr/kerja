@@ -10,11 +10,9 @@ class masuk extends SYGAAS_Controller {
 	}
 	
 	function grid() {
+		$_POST['is_edit_only']  = 1;
 		$_POST['grid_type'] = 'absensi_pegawai';
 		$_POST['column'] = array( 'tanggal', 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' );
-		
-		// button
-		$_POST['is_custom']  = '<button class="btn btn-xs btn-detail btn-success" data-original-title="Detail"><i class="fa fa-book"></i></button> ';
 		
 		$array = $this->absensi_masuk_model->get_array($_POST);
 		$count = $this->absensi_masuk_model->get_count();
@@ -63,6 +61,8 @@ class masuk extends SYGAAS_Controller {
 					exit;
 				}
 			}
+		} else if ($action == 'update_keterangan') {
+			$result = $this->absensi_masuk_model->update($_POST);
 		} else if ($action == 'get_by_id') {
 			$result = $this->absensi_masuk_model->get_by_id($_POST);
 		}

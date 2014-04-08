@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2014 at 10:24 AM
+-- Generation Time: Apr 08, 2014 at 03:18 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `absensi_masuk`
@@ -76,7 +76,9 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
 INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`, `status_01`, `waktu_02`, `status_02`, `waktu_03`, `status_03`, `waktu_04`, `status_04`, `keterangan`) VALUES
 (1, 3, '2014-03-13', 'Tepat Waktu', '11:55:43', '', '12:26:52', '', '13:00:00', '', '15:00:00', '', '--'),
 (3, 4, '2014-03-17', 'Tepat Waktu', '15:01:14', '', '15:31:05', '', '15:19:09', '', '15:19:07', '', ''),
-(4, 4, '2014-03-18', 'Tepat Waktu', '08:01:46', '', '15:31:05', '', '15:19:10', '', '15:19:08', '', '');
+(4, 4, '2014-03-18', 'Tepat Waktu', '08:01:46', '', '15:31:05', '', '15:19:10', '', '15:19:08', '', ''),
+(7, 4, '2014-04-08', 'Tepat Waktu', '14:32:31', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '456'),
+(8, 0, '0000-00-00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -174,8 +176,11 @@ CREATE TABLE IF NOT EXISTS `biodata` (
   `nip` varchar(50) NOT NULL,
   `nama` varchar(150) NOT NULL,
   `kelamin` varchar(50) NOT NULL,
+  `gelar_depan` varchar(50) NOT NULL,
+  `gelar_belakang` varchar(50) NOT NULL,
   `tempat_lahir` varchar(150) NOT NULL,
   `tanggal_lahir` date NOT NULL,
+  `photo` varchar(50) NOT NULL,
   `karpeg` varchar(50) NOT NULL,
   `kartu_nikah` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
@@ -185,10 +190,10 @@ CREATE TABLE IF NOT EXISTS `biodata` (
 -- Dumping data for table `biodata`
 --
 
-INSERT INTO `biodata` (`id`, `skpd_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `tempat_lahir`, `tanggal_lahir`, `karpeg`, `kartu_nikah`) VALUES
-(2, 10, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '4', '2014-03-05', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
-(3, 9, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', 'asdasd', '2014-03-12', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
-(4, 12, 1, 1, 1, 1, '0123456789', 'Herry Satrio', 'Laki Laki', 'Malang', '1984-10-15', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg');
+INSERT INTO `biodata` (`id`, `skpd_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `gelar_depan`, `gelar_belakang`, `tempat_lahir`, `tanggal_lahir`, `photo`, `karpeg`, `kartu_nikah`) VALUES
+(2, 10, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '', '', '4', '2014-03-05', '', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
+(3, 9, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', '123', '987', 'asdasd', '2014-03-12', '2014/04/08/20140408_140727_6639.png', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
+(4, 12, 1, 1, 1, 1, '0123456789', 'Herry Satrio', 'Laki Laki', '', '', 'Malang', '1984-10-15', '2014/04/08/20140408_140926_2002.jpg', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg');
 
 -- --------------------------------------------------------
 
@@ -486,6 +491,7 @@ CREATE TABLE IF NOT EXISTS `riwayat_diklat` (
   `no_sertifikat` varchar(50) NOT NULL,
   `tahun` int(11) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -493,8 +499,8 @@ CREATE TABLE IF NOT EXISTS `riwayat_diklat` (
 -- Dumping data for table `riwayat_diklat`
 --
 
-INSERT INTO `riwayat_diklat` (`id`, `biodata_id`, `no_sertifikat`, `tahun`, `upload_file`) VALUES
-(1, 3, '111', 222, '');
+INSERT INTO `riwayat_diklat` (`id`, `biodata_id`, `no_sertifikat`, `tahun`, `upload_file`, `keterangan`) VALUES
+(1, 3, '111', 222, '', 'wqe');
 
 -- --------------------------------------------------------
 
@@ -508,6 +514,7 @@ CREATE TABLE IF NOT EXISTS `riwayat_mutasi` (
   `no_sk` varchar(50) NOT NULL,
   `tahun` int(11) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -515,8 +522,8 @@ CREATE TABLE IF NOT EXISTS `riwayat_mutasi` (
 -- Dumping data for table `riwayat_mutasi`
 --
 
-INSERT INTO `riwayat_mutasi` (`id`, `biodata_id`, `no_sk`, `tahun`, `upload_file`) VALUES
-(3, 3, 'dsf', 0, '');
+INSERT INTO `riwayat_mutasi` (`id`, `biodata_id`, `no_sk`, `tahun`, `upload_file`, `keterangan`) VALUES
+(3, 3, 'dsf', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -530,6 +537,7 @@ CREATE TABLE IF NOT EXISTS `riwayat_pendidikan` (
   `tahun` int(11) NOT NULL,
   `no_ijazah` varchar(50) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
@@ -537,8 +545,8 @@ CREATE TABLE IF NOT EXISTS `riwayat_pendidikan` (
 -- Dumping data for table `riwayat_pendidikan`
 --
 
-INSERT INTO `riwayat_pendidikan` (`id`, `biodata_id`, `tahun`, `no_ijazah`, `upload_file`) VALUES
-(7, 3, 13, '112', '');
+INSERT INTO `riwayat_pendidikan` (`id`, `biodata_id`, `tahun`, `no_ijazah`, `upload_file`, `keterangan`) VALUES
+(7, 3, 13, '112', '', '12355');
 
 -- --------------------------------------------------------
 
@@ -821,10 +829,10 @@ CREATE TABLE IF NOT EXISTS `widget` (
 --
 
 INSERT INTO `widget` (`id`, `title`, `alias`, `content`) VALUES
-(1, 'Pegawai', 'pegawai', 'Isi Pegawai'),
+(1, 'Kepegawaian', 'pegawai', 'Isi Kepegawaian'),
 (2, 'SKP', 'skp', 'Isi SKP'),
 (3, 'Absensi', 'absensi', 'Isi Absensi'),
-(4, 'Laporan Pegawai', 'laporan-pegawai', 'Isi Laporan Pegawai'),
+(4, 'Laporan Kepegawaian', 'laporan-pegawai', 'Isi Laporan Kepegawaian'),
 (5, 'Surat Masuk', 'surat-masuk', 'Isi Surat Masuk'),
 (6, 'Surat Keluar', 'surat-keluar', 'Isi Surat Keluar'),
 (7, 'Nota Dinas', 'nota-dinas', 'Isi Nota Dinas'),

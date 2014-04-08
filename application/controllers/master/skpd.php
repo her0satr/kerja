@@ -13,7 +13,7 @@ class skpd extends SYGAAS_Controller {
 		// grid type
 		if (isset($_POST['grid_type']) && $_POST['grid_type'] == 'search') {
 			$_POST['column'] = array( 'title', 'kepala', 'instansi' );
-			$_POST['is_custom'] = '<button class="btn btn-xs btn-add btn-success" data-original-title="Tambah"><i class="fa fa-pencil"></i></button> ';
+			$_POST['is_custom'] = '<button class="btn btn-xs btn-add" data-original-title="Tambah"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
 		} else {
 			$_POST['is_edit'] = 1;
 			$_POST['column'] = array( 'title', 'kepala', 'instansi', 'hp' );

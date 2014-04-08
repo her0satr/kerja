@@ -4,7 +4,7 @@ class riwayat_pendidikan_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'biodata_id', 'tahun', 'no_ijazah', 'upload_file' );
+        $this->field = array( 'id', 'biodata_id', 'tahun', 'no_ijazah', 'upload_file', 'keterangan' );
     }
 
     function update($param) {

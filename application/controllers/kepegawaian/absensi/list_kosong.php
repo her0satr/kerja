@@ -13,8 +13,8 @@ class list_kosong extends SYGAAS_Controller {
 		$_POST['grid_type'] = 'rekap_pegawai';
 		$_POST['column'] = array( 'nama', 'tanggal', 'status_kosong', 'keterangan' );
 		
-		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
-		$_POST['is_custom'] .= '<button class="btn btn-xs btn-file btn-success" data-original-title="File"><i class="fa fa-file"></i></button> ';
+		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
+		$_POST['is_custom'] .= '<button class="btn btn-xs btn-file" data-original-title="File"><img src="'.base_url('static/img/icons/icon-detail.png').'" /></button> ';
 		
 		$array = $this->absensi_kosong_model->get_array($_POST);
 		$count = $this->absensi_kosong_model->get_count();

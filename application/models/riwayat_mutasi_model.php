@@ -4,7 +4,7 @@ class riwayat_mutasi_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'biodata_id', 'no_sk', 'tahun', 'upload_file' );
+        $this->field = array( 'id', 'biodata_id', 'no_sk', 'tahun', 'upload_file', 'keterangan' );
     }
 
     function update($param) {

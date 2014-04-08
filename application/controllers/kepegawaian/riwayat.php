@@ -13,22 +13,22 @@ class riwayat extends SYGAAS_Controller {
 		$action = (isset($_POST['action'])) ? $_POST['action'] : '';
 		unset($_POST['action']);
 		
-		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
-		$_POST['is_custom'] .= '<button class="btn btn-xs btn-file btn-success" data-original-title="File"><i class="fa fa-file"></i></button> ';
-		$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
+		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
+		$_POST['is_custom'] .= '<button class="btn btn-xs btn-file" data-original-title="File"><img src="'.base_url('static/img/icons/icon-detail.png').'" /></button> ';
+		$_POST['is_custom'] .= '<button class="btn btn-xs btn-delete" data-original-title="Hapus"><img src="'.base_url('static/img/icons/icon-delete.png').'" /></button> ';
 		
 		if ($action == 'riwayat_pendidikan') {
-			$_POST['column'] = array( 'no_ijazah', 'tahun' );
+			$_POST['column'] = array( 'no_ijazah', 'tahun', 'keterangan' );
 			
 			$array = $this->riwayat_pendidikan_model->get_array($_POST);
 			$count = $this->riwayat_pendidikan_model->get_count();
 		} else if ($action == 'riwayat_mutasi') {
-			$_POST['column'] = array( 'no_sk', 'tahun' );
+			$_POST['column'] = array( 'no_sk', 'tahun', 'keterangan' );
 			
 			$array = $this->riwayat_mutasi_model->get_array($_POST);
 			$count = $this->riwayat_mutasi_model->get_count();
 		} else if ($action == 'riwayat_diklat') {
-			$_POST['column'] = array( 'no_sertifikat', 'tahun' );
+			$_POST['column'] = array( 'no_sertifikat', 'tahun', 'keterangan' );
 			
 			$array = $this->riwayat_diklat_model->get_array($_POST);
 			$count = $this->riwayat_diklat_model->get_count();

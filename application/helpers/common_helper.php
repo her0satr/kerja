@@ -704,14 +704,14 @@
             
 			$temp_column = '';
             if ($param['is_edit'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
-                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-delete" data-original-title="Hapus"><img src="'.base_url('static/img/icons/icon-delete.png').'" /></button> ';
             }
             if (isset($param['is_edit_only']) && $param['is_edit_only'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-edit btn-success" data-original-title="Edit"><i class="fa fa-pencil"></i></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
             }
             if ($param['is_delete'] == 1) {
-                $temp_column .= '<button class="btn btn-xs btn-delete btn-danger" data-original-title="Hapus"><i class="fa fa-times"></i></button> ';
+                $temp_column .= '<button class="btn btn-xs btn-delete" data-original-title="Hapus"><img src="'.base_url('static/img/icons/icon-delete.png').'" /></button> ';
             }
             if (!empty($param['is_custom'])) {
                 $temp_column = $param['is_custom'];
