@@ -1,26 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class surat_keluar_model extends CI_Model {
+class kop_surat_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array(
-			'id', 'no_urut', 'index_surat_id', 'no_surat', 'pengolah', 'tujuan', 'tanggal_surat', 'lampiran', 'perihal', 'catatan', 'file_surat'
-		);
+        $this->field = array( 'id', 'content' );
     }
 
     function update($param) {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, SURAT_KELUAR);
+            $insert_query  = GenerateInsertQuery($this->field, $param, KOP_SURAT);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, SURAT_KELUAR);
+            $update_query  = GenerateUpdateQuery($this->field, $param, KOP_SURAT);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -36,11 +34,9 @@ class surat_keluar_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT surat_keluar.*,
-					index_surat.code index_surat_code, index_surat.title index_surat_title
-				FROM ".SURAT_KELUAR." surat_keluar
-				LEFT JOIN ".INDEX_SURAT." index_surat ON index_surat.id = surat_keluar.index_surat_id
-				WHERE surat_keluar.id = '".$param['id']."'
+				SELECT kop_surat.*
+				FROM ".KOP_SURAT." kop_surat
+				WHERE kop_surat.id = '".$param['id']."'
 				LIMIT 1
 			";
 		}
@@ -57,12 +53,12 @@ class surat_keluar_model extends CI_Model {
         $array = array();
 		
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'content ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS surat_keluar.*
-			FROM ".SURAT_KELUAR." surat_keluar
+			SELECT SQL_CALC_FOUND_ROWS kop_surat.*
+			FROM ".KOP_SURAT." kop_surat
 			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
@@ -76,12 +72,7 @@ class surat_keluar_model extends CI_Model {
     }
 
     function get_count($param = array()) {
-		if (isset($param['is_query'])) {
-			$select_query = "SELECT COUNT(*) TotalRecord FROM ".SURAT_KELUAR;
-		} else {
-			$select_query = "SELECT FOUND_ROWS() TotalRecord";
-		}
-		
+		$select_query = "SELECT FOUND_ROWS() TotalRecord";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		$row = mysql_fetch_assoc($select_result);
 		$TotalRecord = $row['TotalRecord'];
@@ -89,41 +80,8 @@ class surat_keluar_model extends CI_Model {
 		return $TotalRecord;
     }
 	
-    function get_next_no($param = array()) {
-        $result = array( 'status' => true, 'next_no' => 1 );
-		
-		$select_query  = "
-			SELECT MAX(no_urut) next_no
-			FROM ".SURAT_KELUAR." surat_keluar
-		";
-        $select_result = mysql_query($select_query) or die(mysql_error());
-        if (false !== $row = mysql_fetch_assoc($select_result)) {
-			$result['next_no'] = $row['next_no'] + 1;
-        }
-		
-        return $result;
-    }
-	
-	function get_rekap_filter($param = array()) {
-		$array = array();
-		
-		$select_query = "
-			SELECT 'Surat Keluar' label, COUNT(*) total
-			FROM ".SURAT_KELUAR." surat_keluar
-			WHERE
-				surat_keluar.tanggal_surat >= '".$param['date_start']."'
-				AND surat_keluar.tanggal_surat <= '".$param['date_end']."'
-		";
-        $select_result = mysql_query($select_query) or die(mysql_error());
-		while ( $row = mysql_fetch_assoc( $select_result ) ) {
-			$array[] = $row;
-		}
-		
-        return $array;
-	}
-	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".SURAT_KELUAR." WHERE id = '".$param['id']."' LIMIT 1";
+		$delete_query  = "DELETE FROM ".KOP_SURAT." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';
@@ -133,12 +91,7 @@ class surat_keluar_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
-		$row = StripArray($row, array( 'tanggal_surat' ));
-		
-		// link
-		if (isset($row['id'])) {
-			$row['link_print'] = base_url('surat/surat_keluar/home/cetak/?id='.$row['id']);
-		}
+		$row = StripArray($row);
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

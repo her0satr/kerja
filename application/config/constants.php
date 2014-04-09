@@ -44,6 +44,7 @@ define('JENIS_KEGIATAN',						'jenis_kegiatan');
 define('JENIS_KEPEGAWAIAN',						'jenis_kepegawaian');
 define('JENIS_SKP',								'jenis_skp');
 define('KEGIATAN_SKP',							'kegiatan_skp');
+define('KOP_SURAT',								'kop_surat');
 define('NOTA_DINAS',							'nota_dinas');
 define('PANGKAT',								'pangkat');
 define('RIWAYAT_DIKLAT',						'riwayat_diklat');

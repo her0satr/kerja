@@ -60,11 +60,12 @@ class disposisi_model extends CI_Model {
 		
 		$string_surat_masuk = (isset($param['surat_masuk_id'])) ? "AND disposisi.surat_masuk_id = '".$param['surat_masuk_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'waktu ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS disposisi.*, surat_destination.title surat_destination_title
+			SELECT SQL_CALC_FOUND_ROWS disposisi.*,
+				surat_destination.title surat_destination_title, surat_destination.hidden surat_destination_hidden
 			FROM ".DISPOSISI." disposisi
 			LEFT JOIN ".SURAT_DESTINATION." surat_destination ON surat_destination.id = disposisi.surat_destination_id
 			WHERE 1 $string_surat_masuk $string_filter

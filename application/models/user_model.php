@@ -191,7 +191,9 @@ class user_model extends CI_Model {
 						'children' => array(
 							array( 'name' => 'home', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap_posisi', 'title' => 'Rekap Posisi', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'rekap_posisi', 'title' => 'Rekap Posisi', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_harian', 'title' => 'Rekap Harian', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_bulanan', 'title' => 'Rekap Bulanan', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(

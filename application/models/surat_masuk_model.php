@@ -46,8 +46,9 @@ class surat_masuk_model extends CI_Model {
 			";
         } else if (isset($param['id'])) {
             $select_query  = "
-				SELECT surat_masuk.*
+				SELECT surat_masuk.*, sifat_surat.title sifat_surat_title
 				FROM ".SURAT_MASUK." surat_masuk
+				LEFT JOIN ".SIFAT_SURAT." sifat_surat ON sifat_surat.id = surat_masuk.sifat_surat_id
 				WHERE surat_masuk.id = '".$param['id']."'
 				LIMIT 1
 			";
@@ -111,6 +112,71 @@ class surat_masuk_model extends CI_Model {
 		
         return $result;
     }
+	
+	function get_select_monthly($param = array()) {
+		// prepare result
+		$result = array( );
+		for ($i = 1; $i <= 31; $i++) {
+			$result[$i] = array( 'date' => $i, 'total' => 0 );
+		}
+		
+		// get value
+		$select_query = "
+			SELECT DAY(surat_masuk.tanggal_terima) tanggal, COUNT(*) total
+			FROM ".SURAT_MASUK." surat_masuk
+			WHERE
+				MONTH(surat_masuk.tanggal_terima) = '".$param['month']."'
+				AND YEAR(surat_masuk.tanggal_terima) = '".$param['year']."'
+			GROUP BY tanggal
+			LIMIT 50
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result[$row['tanggal']]['total'] = $row['total'];
+		}
+		
+		// fix data
+		$result_temp = $result;
+		$result = array();
+		foreach ($result_temp as $row) {
+			$result[] = $row;
+		}
+		
+		return $result;
+	}
+	
+	function get_select_yearly($param = array()) {
+		// prepare result
+		$result = array( );
+		for ($i = 1; $i <= 12; $i++) {
+			$result[$i] = array(
+				'month_no' => $i,
+				'total' => 0,
+				'label' => GetFormatDate($param['year'].'-'.$i.'-01', array( 'FormatDate' => 'F', 'replace_indo' => true ))
+			);
+		}
+		
+		// get value
+		$select_query = "
+			SELECT MONTH( surat_masuk.tanggal_terima ) month, COUNT(*) total
+			FROM ".SURAT_MASUK." surat_masuk
+			WHERE YEAR(surat_masuk.tanggal_terima) = '".$param['year']."'
+			GROUP BY month
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result[$row['month']]['total'] = $row['total'];
+		}
+		
+		// fix data
+		$result_temp = $result;
+		$result = array();
+		foreach ($result_temp as $row) {
+			$result[] = $row;
+		}
+		
+		return $result;
+	}
 	
 	function get_rekap_yearly() {
 		// prepare result
@@ -248,7 +314,7 @@ class surat_masuk_model extends CI_Model {
 		if (!empty($row['tanggal_terima'])) {
 			$array_temp = explode(' ', $row['tanggal_terima']);
 			$row['tanggal_terima_date'] = $array_temp[0];
-			$row['tanggal_terima_time'] = substr($array_temp[1], 0, 5);
+			$row['tanggal_terima_time'] = $array_temp[1];
 		}
 		
 		if (count(@$param['column']) > 0) {

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 08, 2014 at 03:18 PM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: Apr 09, 2014 at 12:19 PM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,8 +18,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `sygaas_db`
 --
-CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -244,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `disposisi` (
   `waktu` datetime NOT NULL,
   `waktu_diff` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `disposisi`
@@ -253,7 +250,10 @@ CREATE TABLE IF NOT EXISTS `disposisi` (
 INSERT INTO `disposisi` (`id`, `surat_masuk_id`, `surat_destination_id`, `waktu`, `waktu_diff`) VALUES
 (1, 19, 1, '2014-04-07 21:19:00', ''),
 (3, 19, 2, '2014-04-07 21:28:16', '556'),
-(4, 19, 3, '2014-04-07 21:28:25', '9');
+(4, 19, 3, '2014-04-07 21:28:25', '9'),
+(5, 20, 1, '2014-04-09 07:12:31', ''),
+(6, 21, 1, '2014-04-09 11:56:40', ''),
+(7, 22, 1, '2014-04-09 11:56:40', '');
 
 -- --------------------------------------------------------
 
@@ -421,6 +421,25 @@ INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `jenis_kegiatan_
 (8, 4, 6, 0, '2014-04-07', '20:00:00', 1, 'Isi SKP'),
 (5, 3, 3, 0, '2014-03-16', '00:00:00', 1, 'Keterangan 01'),
 (9, 4, 0, 5, '2014-04-07', '10:00:00', 2, 'Isi Kegiatan Lain 01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kop_surat`
+--
+
+CREATE TABLE IF NOT EXISTS `kop_surat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `kop_surat`
+--
+
+INSERT INTO `kop_surat` (`id`, `content`) VALUES
+(1, '<div style="text-align: center;"><font size="4"><span style="font-weight: bold;">PEMERINTAH KABUPATEN MALANG</span></font><br>BAGIAN TATA USAHA SETDA KAB. MALANG<br>Jl. Merdeka Timur No. 3 Malang Telp. (0341) 362209<br>Email : bag-tu@malangkab.go.id<br><span style="text-decoration: underline;">MALANG</span><br></div>');
 
 -- --------------------------------------------------------
 
@@ -728,7 +747,7 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `surat_masuk`
@@ -737,7 +756,10 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
 INSERT INTO `surat_masuk` (`id`, `sifat_arsip_id`, `sifat_surat_id`, `no_urut`, `no_surat`, `no_agenda`, `surat_dari`, `perihal`, `tanggal_surat`, `tanggal_terima`, `catatan`, `file_surat`) VALUES
 (12, 0, 2, 2, 'No Surat', 'No Agenda', 'Surat Dari', 'Perihal', '2014-03-17', '2014-03-14 10:56:00', 'Catatannya', '2014/03/17/20140317_081917_5920.jpg'),
 (18, 0, 0, 1, '11111', '11111', '11111', '11111', '2014-03-17', '2014-03-17 15:38:00', '', ''),
-(19, 2, 4, 3, 'XX-03-2014', 'No Agenda', '13', '21', '2014-04-07', '2014-04-07 21:19:00', '', '');
+(19, 2, 4, 3, 'XX-03-2014', 'No Agenda', '13', '21', '2014-04-07', '2014-04-07 21:19:00', 'Catatannya Kosong', ''),
+(20, 2, 4, 4, 'No Surat 1', 'No Agenda', 'Surat Dari 2', 'Perihal', '2014-04-09', '2014-04-09 08:00:00', 'Catatan', '2014/04/09/20140409_071316_7455.jpg'),
+(21, 2, 4, 5, 'No Surat', 'No Agenda', 'Surat Dari 2', 'Perihal', '2014-04-09', '2014-04-09 11:56:40', 'Catatan', ''),
+(22, 0, 0, 6, 'No Surat 1', 'No Agenda 2', 'Surat Dari 2 2', 'Perihal', '2014-04-09', '2014-04-09 11:56:40', '', '');
 
 -- --------------------------------------------------------
 
@@ -822,7 +844,7 @@ CREATE TABLE IF NOT EXISTS `widget` (
   `alias` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `widget`

@@ -29,15 +29,16 @@ if (! function_exists('GetArrayMonth')) {
 	}
 }
 
-if (! function_exists('GetArrayYear')) {
-	function GetArrayYear($Param) {
+if (! function_exists('get_array_year')) {
+	function get_array_year($Param) {
 		$Param['YearMin'] = (isset($Param['YearMin'])) ? $Param['YearMin'] : 1900;
 		$Param['YearMax'] = (isset($Param['YearMax'])) ? $Param['YearMax'] : date("Y");
 		
 		$ArrayYear = array();
 		for ($i = $Param['YearMin']; $i <= $Param['YearMax']; $i++) {
-			$ArrayYear[$i] = $i;
+			$ArrayYear[] = array( 'id' => $i, 'title' => $i );
 		}
+		
 		return $ArrayYear;
 	}
 }

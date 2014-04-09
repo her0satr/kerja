@@ -244,7 +244,11 @@ var Func = {
 					value = $(container + ' [name="' + name + '"]:checked').val();
 					data = set_value(data, name, value);
 				} else if (Input.eq(i).hasClass('dtpicker')) {
-					data = set_value(data, name, Func.swap_date(value));
+					if (value.length < 10) {
+						data = set_value(data, name, value);
+					} else {
+						data = set_value(data, name, Func.swap_date(value));
+					}
 				} else {
 					data = set_value(data, name, value);
 				}

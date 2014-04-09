@@ -94,6 +94,13 @@ class home extends SYGAAS_Controller {
 			$result = $this->disposisi_model->delete($_POST);
 		}
 		
+		// kop surat
+		else if ($action == 'update_kop_surat') {
+			$result = $this->kop_surat_model->update($_POST);
+		} else if ($action == 'get_kop_surat') {
+			$result = $this->kop_surat_model->get_by_id($_POST);
+		}
+		
 		echo json_encode($result);
 	}
 	
