@@ -1,24 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class jenis_kegiatan_model extends CI_Model {
+class nota_dinas_kepada_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'biodata_id', 'title', 'jumlah', 'satuan', 'point' );
+        $this->field = array( 'id', 'title' );
     }
 
     function update($param) {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, JENIS_KEGIATAN);
+            $insert_query  = GenerateInsertQuery($this->field, $param, NOTA_DINAS_KEPADA);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, JENIS_KEGIATAN);
+            $update_query  = GenerateUpdateQuery($this->field, $param, NOTA_DINAS_KEPADA);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -34,9 +34,9 @@ class jenis_kegiatan_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT jenis_kegiatan.*
-				FROM ".JENIS_KEGIATAN." jenis_kegiatan
-				WHERE jenis_kegiatan.id = '".$param['id']."'
+				SELECT nota_dinas_kepada.*
+				FROM ".NOTA_DINAS_KEPADA." nota_dinas_kepada
+				WHERE nota_dinas_kepada.id = '".$param['id']."'
 				LIMIT 1
 			";
 		}
@@ -52,15 +52,17 @@ class jenis_kegiatan_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$string_biodata = (isset($param['biodata_id'])) ? "AND jenis_kegiatan.biodata_id = '".$param['biodata_id']."'" : '';
+		$param['hidden'] = (isset($param['hidden'])) ? $param['hidden'] : '0';
+		
+		$string_hidden = "AND (nota_dinas_kepada.hidden = '".$param['hidden']."' OR '".$param['hidden']."' = 'x')";
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS jenis_kegiatan.*
-			FROM ".JENIS_KEGIATAN." jenis_kegiatan
-			WHERE 1 $string_biodata $string_filter
+			SELECT SQL_CALC_FOUND_ROWS nota_dinas_kepada.*
+			FROM ".NOTA_DINAS_KEPADA." nota_dinas_kepada
+			WHERE 1 $string_hidden $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -82,7 +84,24 @@ class jenis_kegiatan_model extends CI_Model {
     }
 	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".JENIS_KEGIATAN." WHERE id = '".$param['id']."' LIMIT 1";
+        $record_count = 0;
+        $select_query = array();
+        if (isset($param['id'])) {
+            $select_query[] = "SELECT COUNT(*) total FROM ".NOTA_DINAS_DISPOSISI." WHERE nota_dinas_kepada_id = '".$param['id']."'";
+        }
+        foreach ($select_query as $query) {
+            $select_result = mysql_query($query) or die(mysql_error());
+            if (false !== $Row = mysql_fetch_assoc($select_result)) {
+                $record_count += $Row['total'];
+            }
+        }
+		if ($record_count > 0) {
+            $result['status'] = '0';
+            $result['message'] = 'Data tidak bisa dihapus karena sudah terpakai.';
+			return $result;
+		}
+		
+		$delete_query  = "DELETE FROM ".NOTA_DINAS_KEPADA." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';

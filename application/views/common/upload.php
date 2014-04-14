@@ -2,7 +2,14 @@
 	$func_callback = (!empty($_GET['callback'])) ? $_GET['callback'] : 'callback';
 	$filetype = (!empty($_GET['filetype'])) ? $_GET['filetype'] : '';
 	
-	$param_update = ($filetype == 'document') ? array( 'AllowedExtention' => array( 'doc', 'docx', 'pdf' ), 'max_size' => 250000 ) : array();
+	// param upload
+	if ($func_callback == 'set_file_restore') {
+		$param_update = array( 'AllowedExtention' => array( 'sql' ), 'max_size' => 4000000 );
+	} else {
+		$param_update = ($filetype == 'document') ? array( 'AllowedExtention' => array( 'doc', 'docx', 'pdf' ), 'max_size' => 250000 ) : array();
+	}
+	
+	// do upload
 	$file_upload = Upload('document', $this->config->item('base_path') . '/static/upload', $param_update);
 	
 	$file_name = $file_link = $message = '';

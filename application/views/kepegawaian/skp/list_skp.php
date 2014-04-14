@@ -5,7 +5,7 @@
 	$page_data['current_date'] = $this->config->item('current_date');
 	$page_data['current_time'] = $this->config->item('current_time');
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'List Kegiatan SKP' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'List Agenda Kerja' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -18,7 +18,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">List Kegiatan SKP</h2>
+			<h2 class="pull-left button-back">List Agenda Kerja</h2>
 			<div class="clearfix"></div>
 		</div>
 		

@@ -4,7 +4,7 @@ class jenis_skp_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'biodata_id', 'title', 'jumlah', 'satuan' );
+        $this->field = array( 'id', 'biodata_id', 'title', 'jumlah', 'satuan', 'point' );
     }
 
     function update($param) {

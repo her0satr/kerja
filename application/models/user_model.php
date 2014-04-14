@@ -172,11 +172,11 @@ class user_model extends CI_Model {
 						)
 					),
 					array(
-						'name' => 'skp', 'title' => 'SKP', 'user_type_id' => array( 1, 2, 3 ),
+						'name' => 'skp', 'title' => 'Agenda Kerja', 'user_type_id' => array( 1, 2, 3 ),
 						'children' => array(
 							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 2, 3 ) ),
-							array( 'name' => 'home', 'title' => 'Kegiatan SKP', 'user_type_id' => array( 1, 2, 3 ) ),
-							array( 'name' => 'list_skp', 'title' => 'List SKP', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'home', 'title' => 'Agenda Kerja Harian', 'user_type_id' => array( 1, 2, 3 ) ),
+							array( 'name' => 'list_skp', 'title' => 'List Agenda Kerja', 'user_type_id' => array( 1, 2 ) )
 						)
 					)
 				)
@@ -244,7 +244,8 @@ class user_model extends CI_Model {
 					array( 'name' => 'status_perkawinan', 'title' => 'Status Perkawinan', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'surat_destination', 'title' => 'Tujuan Surat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'widget', 'title' => 'Widget', 'user_type_id' => array( 1, 2 ) ),
-					array( 'name' => 'export', 'title' => 'Export', 'user_type_id' => array( 1 ) )
+					array( 'name' => 'export', 'title' => 'Export DB', 'user_type_id' => array( 1 ) ),
+					array( 'name' => 'restore', 'title' => 'Restore DB', 'user_type_id' => array( 1 ) )
 				)
 			)
 		);

@@ -87,6 +87,21 @@ class nota_dinas_model extends CI_Model {
 		return $TotalRecord;
     }
 	
+    function get_next_no($param = array()) {
+        $result = array( 'status' => true, 'next_no' => 1 );
+		
+		$select_query  = "
+			SELECT MAX(no_urut) next_no
+			FROM ".NOTA_DINAS." nota_dinas
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+        if (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result['next_no'] = $row['next_no'] + 1;
+        }
+		
+        return $result;
+    }
+	
 	function get_rekap_filter($param = array()) {
 		$array = array();
 		

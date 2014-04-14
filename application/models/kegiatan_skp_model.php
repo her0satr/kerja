@@ -5,7 +5,7 @@ class kegiatan_skp_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'biodata_id', 'jenis_skp_id', 'jenis_kegiatan_id', 'tanggal', 'waktu', 'type_row', 'keterangan'
+			'id', 'biodata_id', 'jenis_skp_id', 'jenis_kegiatan_id', 'no_urut', 'tanggal', 'waktu', 'type_row', 'kendala', 'keterangan'
 		);
     }
 
@@ -57,8 +57,9 @@ class kegiatan_skp_model extends CI_Model {
 		
 		$param['field_replace']['biodata_text'] = 'biodata.nama';
 		
+		$string_tanggal = (isset($param['tanggal'])) ? "AND kegiatan_skp.tanggal = '".$param['tanggal']."'" : '';
 		$string_biodata = (isset($param['biodata_id'])) ? "AND kegiatan_skp.biodata_id = '".$param['biodata_id']."'" : '';
-		$string_filter = (!empty($param['sSearch'])) ? "AND (jenis_skp.title LIKE '%".$param['sSearch']."%' OR jenis_kegiatan.title LIKE '%".$param['sSearch']."%' OR kegiatan_skp.tanggal LIKE '%".$param['sSearch']."%')" : '';
+		$string_filter = (!empty($param['sSearch'])) ? "AND (jenis_skp.title LIKE '%".$param['sSearch']."%' OR jenis_kegiatan.title LIKE '%".$param['sSearch']."%' OR kegiatan_skp.tanggal LIKE '%".$param['sSearch']."%' OR kegiatan_skp.keterangan LIKE '%".$param['sSearch']."%')" : '';
 		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
 		$string_limit = GetStringLimit($param);
 		
@@ -72,7 +73,7 @@ class kegiatan_skp_model extends CI_Model {
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = kegiatan_skp.biodata_id
 			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = kegiatan_skp.jenis_skp_id
 			LEFT JOIN ".JENIS_KEGIATAN." jenis_kegiatan ON jenis_kegiatan.id = kegiatan_skp.jenis_kegiatan_id
-			WHERE 1 $string_biodata $string_filter
+			WHERE 1 $string_tanggal $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -96,6 +97,22 @@ class kegiatan_skp_model extends CI_Model {
 		$TotalRecord = $row['TotalRecord'];
 		
 		return $TotalRecord;
+    }
+	
+    function get_next_no($param = array()) {
+        $result = array( 'status' => true, 'next_no' => 1 );
+		
+		$select_query  = "
+			SELECT MAX(no_urut) next_no
+			FROM ".KEGIATAN_SKP." kegiatan_skp
+			WHERE tanggal = '".$param['tanggal']."'
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+        if (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result['next_no'] = $row['next_no'] + 1;
+        }
+		
+        return $result;
     }
 	
     function delete($param) {

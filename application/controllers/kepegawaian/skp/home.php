@@ -11,7 +11,7 @@ class home extends SYGAAS_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'tanggal', 'waktu', 'title', 'keterangan' );
+		$_POST['column'] = array( 'tanggal', 'waktu', 'no_urut', 'title', 'keterangan' );
 		
 		$array = $this->kegiatan_skp_model->get_array($_POST);
 		$count = $this->kegiatan_skp_model->get_count();
@@ -27,12 +27,21 @@ class home extends SYGAAS_Controller {
 		$result = array();
 		if ($action == 'update') {
 			$result = $this->kegiatan_skp_model->update($_POST);
+		} else if ($action == 'get_next_no') {
+			$result = $this->kegiatan_skp_model->get_next_no($_POST);
 		} else if ($action == 'get_by_id') {
 			$result = $this->kegiatan_skp_model->get_by_id(array( 'id' => $_POST['id'] ));
+		} else if ($action == 'get_string_day') {
+			$result['status'] = 1;
+			$result['hari'] = GetFormatDate($_POST['tanggal'], array( 'FormatDate' => 'l', 'replace_indo' => true ));
 		} else if ($action == 'delete') {
 			$result = $this->kegiatan_skp_model->delete($_POST);
 		}
 		
 		echo json_encode($result);
+	}
+	
+	function cetak() {
+		echo "Menunggu desain.";
 	}
 }

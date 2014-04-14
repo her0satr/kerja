@@ -87,12 +87,25 @@ class home extends SYGAAS_Controller {
 						continue;
 					}
 					
-					$param_mail = array(
-						'to' => $row['email'],
-						'subject' => 'Undangan Rapat',
-						'message' => $_POST['message']
+					// load library
+					$this->load->library('phpmailer');
+					
+					// file attachment
+					$array_attachment = array();
+					if (!empty($_POST['file_attachment'])) {
+						$array_attachment[] = $this->config->item('base_path').'/static/upload/'.$_POST['file_attachment'];
+					}
+					
+					// sent mail
+					$mail_param = array(
+						'EmailTo' => $row['email'],
+						'EmailFrom' => 'no-reply@sygaas.com',
+						'EmailFromName' => 'Aplikasi Sygaas',
+						'EmailSubject' => 'Undangan Rapat',
+						'EmailBody' => $_POST['message'],
+						'Attachment' => $array_attachment
 					);
-					sent_mail($param_mail);
+					$mail_result = SmtpMailer($mail_param);
 				} else if ($_POST['media'] == 'SMS') {
 				}
 			}

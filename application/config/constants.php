@@ -25,6 +25,12 @@ define('SHA_SECRET',							'OraNgerti');
 /*   SURAT DESTINATION CREATED   */
 define('SURAT_DESTINATION_CREATED',				1);
 
+/*   NOTA DINAS CREATED   */
+define('NOTA_DINAS_CREATED',					1);
+
+/*   ALLOW EXTENTION   */
+define('ALLOW_EXTENTION',						'jpg,jpeg,gif,png,bmp,pdf,zip,doc,docx,xls,xlsx');
+
 define('USER_ID_ADMINISTRATOR',					1);
 define('USER_ID_TU',							2);
 define('USER_ID_PEGAWAI',						3);
@@ -46,6 +52,8 @@ define('JENIS_SKP',								'jenis_skp');
 define('KEGIATAN_SKP',							'kegiatan_skp');
 define('KOP_SURAT',								'kop_surat');
 define('NOTA_DINAS',							'nota_dinas');
+define('NOTA_DINAS_DISPOSISI',					'nota_dinas_disposisi');
+define('NOTA_DINAS_KEPADA',						'nota_dinas_kepada');
 define('PANGKAT',								'pangkat');
 define('RIWAYAT_DIKLAT',						'riwayat_diklat');
 define('RIWAYAT_MUTASI',						'riwayat_mutasi');

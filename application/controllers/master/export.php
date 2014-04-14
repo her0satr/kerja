@@ -10,8 +10,11 @@ class export extends SYGAAS_Controller {
 		$link_bakcup = base_url('static/_temp/backup.sql');
 		$this->make_sql_backup($file_backup);
 		
-		header('Location: '.$link_bakcup);
-		exit;
+		// force download
+		header('Content-Type: application/octet-stream');
+		header("Content-Transfer-Encoding: Binary"); 
+		header("Content-disposition: attachment; filename=\"" . basename($link_bakcup) . "\""); 
+		readfile($link_bakcup); // do the double-download-dance (dirty but worky)
 	}
 	
 	function make_sql_backup($backupFile) {

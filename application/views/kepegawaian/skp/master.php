@@ -123,6 +123,12 @@
 						<input type="text" name="satuan" class="form-control" placeholder="Satuan" />
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Point</label>
+					<div class="col-lg-10">
+						<input type="text" name="point" class="form-control" placeholder="Point" />
+					</div>
+				</div>
 			</div></div>
 		</div></div>
 		<div class="modal-footer">
@@ -148,16 +154,22 @@
 						<input type="text" name="title" class="form-control" placeholder="Nama" />
 					</div>
 				</div>
-				<div class="form-group hide">
+				<div class="form-group">
 					<label class="col-lg-2 control-label">Jumlah</label>
 					<div class="col-lg-10">
 						<input type="text" name="jumlah" class="form-control" placeholder="Jumlah" />
 					</div>
 				</div>
-				<div class="form-group hide">
+				<div class="form-group">
 					<label class="col-lg-2 control-label">Satuan</label>
 					<div class="col-lg-10">
 						<input type="text" name="satuan" class="form-control" placeholder="Satuan" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Point</label>
+					<div class="col-lg-10">
+						<input type="text" name="point" class="form-control" placeholder="Point" />
 					</div>
 				</div>
 			</div></div>
