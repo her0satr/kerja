@@ -33,7 +33,7 @@ class surat_keluar_model extends CI_Model {
 
     function get_by_id($param) {
         $array = array();
-       
+		
         if (isset($param['id'])) {
             $select_query  = "
 				SELECT surat_keluar.*,

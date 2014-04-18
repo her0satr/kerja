@@ -43,7 +43,7 @@ class home extends SYGAAS_Controller {
 	}
 	
 	function cetak() {
-		/*   */
+		/*  */
 		header("Content-type: application/vnd.ms-word");
 		header("Content-Disposition: attachment;Filename=surat_keluar.doc");
 		/*	*/

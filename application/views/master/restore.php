@@ -3,7 +3,7 @@
 <body>
 <?php $this->load->view( 'common/header'); ?>
 
-<div class="content">
+<div class="content enlarged">
 	<?php $this->load->view( 'common/sidebar'); ?>
 	<div class="hide">
 		<iframe name="iframe_file_restore" src="<?php echo base_url('upload?callback=set_file_restore'); ?>"></iframe>

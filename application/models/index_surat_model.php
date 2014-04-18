@@ -52,6 +52,7 @@ class index_surat_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$string_namelike = (isset($param['namelike'])) ? "AND (code LIKE '%".$param['namelike']."%' OR title LIKE '%".$param['namelike']."%')" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'code ASC');
 		$string_limit = GetStringLimit($param);
@@ -59,7 +60,7 @@ class index_surat_model extends CI_Model {
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS index_surat.*
 			FROM ".INDEX_SURAT." index_surat
-			WHERE 1 $string_filter
+			WHERE 1 $string_namelike $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";

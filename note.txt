@@ -1,0 +1,15 @@
+Main
+- Menu sebelah kiri selalu minumize
+
+Dashboard
+- Menu disesuaikan dengan setiap klik akan barganti halaman (no ajax)
+
+Surat Masuk
+- Format print perlu disesuaikan
+
+Surat Keluar
+- Index Surat diganti dengan auto complete
+- Format print perlu disesuaikan
+  - tidak ada garis pinggir
+  - title dijadikan huruf tebal
+

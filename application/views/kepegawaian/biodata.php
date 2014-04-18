@@ -11,7 +11,7 @@
 <body>
 <?php $this->load->view( 'common/header'); ?>
 
-<div class="content">
+<div class="content enlarged">
 	<?php $this->load->view( 'common/sidebar'); ?>
 	<div class="hide">
 		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>

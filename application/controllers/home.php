@@ -15,6 +15,14 @@ class home extends CI_Controller {
 		}
 	}
 	
+	function pegawai() {
+		$this->load->view( 'dashboard');
+	}
+	
+	function surat() {
+		$this->load->view( 'dashboard');
+	}
+	
 	function action() {
 		$user = $this->user_model->get_by_id(array( 'email' => $_POST['email'] ));
 		

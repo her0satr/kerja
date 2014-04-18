@@ -111,7 +111,9 @@ $(document).ready(function(){
   });
   $('.sscroll').slimScroll({wheelStep: 1,opacity:0.3});
   $(".slimScrollBar").hide();
-  
+	
+	// set style
+	$('#nav ul').attr('style', '');
 });
 
 /* Widget close */

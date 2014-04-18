@@ -20,7 +20,6 @@
 			<div class="featured_box">
 				<h2><?php echo $surat_masuk['title']; ?></h2>
 				<p><?php echo $surat_masuk['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('surat/surat_masuk/home'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/1.png'); ?>" alt="" />
 				<p><?php echo $surat_masuk['title']; ?></p>
@@ -30,7 +29,6 @@
 			<div class="featured_box">
 				<h2><?php echo $surat_keluar['title']; ?></h2>
 				<p><?php echo $surat_keluar['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('surat/surat_keluar/home'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/2.png'); ?>" alt="" />
 				<p><?php echo $surat_keluar['title']; ?></p>
@@ -40,7 +38,6 @@
 			<div class="featured_box">
 				<h2><?php echo $nota_dinas['title']; ?></h2>
 				<p><?php echo $nota_dinas['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('surat/nota_dinas/home'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/3.png'); ?>" alt="" />
 				<p><?php echo $nota_dinas['title']; ?></p>
@@ -50,7 +47,6 @@
 			<div class="featured_box">
 				<h2><?php echo $agenda_rapat['title']; ?></h2>
 				<p><?php echo $agenda_rapat['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('surat/agenda_rapat/home'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/4.png'); ?>" alt="" />
 				<p><?php echo $agenda_rapat['title']; ?></p>
@@ -59,6 +55,7 @@
 	</ul>
 </div></div></div>
 <script>
+// set accordion
 $('#accordion').hSlides({
 	totalWidth: 920,
 	totalHeight: 250,
@@ -67,6 +64,9 @@ $('#accordion').hSlides({
 	easing: "easeOutBack",
 	activeClass: 'current'
 });
+
+// set link
+$('a').attr('target', '_parent');
 </script>
 </body>
 </html>

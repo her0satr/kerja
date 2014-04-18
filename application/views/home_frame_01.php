@@ -20,7 +20,6 @@
 			<div class="featured_box">
 				<h2><?php echo $pegawai['title']; ?></h2>
 				<p><?php echo $pegawai['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('kepegawaian/biodata'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/1.png'); ?>" alt="" />
 				<p><?php echo $pegawai['title']; ?></p>
@@ -30,7 +29,6 @@
 			<div class="featured_box">
 				<h2><?php echo $skp['title']; ?></h2>
 				<p><?php echo $skp['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('kepegawaian/skp/home'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/3.png'); ?>" alt="" />
 				<p><?php echo $skp['title']; ?></p>
@@ -40,7 +38,6 @@
 			<div class="featured_box">
 				<h2><?php echo $absensi['title']; ?></h2>
 				<p><?php echo $absensi['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('kepegawaian/absensi/masuk'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/2.png'); ?>" alt="" />
 				<p><?php echo $absensi['title']; ?></p>
@@ -50,7 +47,6 @@
 			<div class="featured_box">
 				<h2><?php echo $laporan_pegawai['title']; ?></h2>
 				<p><?php echo $laporan_pegawai['content']; ?></p>
-				<p class="readmore"><a target="_parent" href="<?php echo base_url('kepegawaian/report'); ?>">Link Modul &raquo;</a></p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/4.png'); ?>" alt="" />
 				<p><?php echo $laporan_pegawai['title']; ?></p>
@@ -59,6 +55,7 @@
 	</ul>
 </div></div></div>
 <script>
+// set accordion
 $('#accordion').hSlides({
 	totalWidth: 920,
 	totalHeight: 250,
@@ -67,6 +64,9 @@ $('#accordion').hSlides({
 	easing: "easeOutBack",
 	activeClass: 'current'
 });
+
+// set link
+$('a').attr('target', '_parent');
 </script>
 </body>
 </html>
