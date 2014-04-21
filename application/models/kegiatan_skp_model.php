@@ -115,6 +115,74 @@ class kegiatan_skp_model extends CI_Model {
         return $result;
     }
 	
+    function get_summary_skp($param = array()) {
+        $array = array();
+		
+		$string_biodata = (isset($param['biodata_id'])) ? "AND kegiatan_skp.biodata_id = '".$param['biodata_id']."'" : '';
+		$string_date_start = (isset($param['date_start'])) ? "AND kegiatan_skp.tanggal >= '".$param['date_start']."'" : '';
+		$string_date_end = (isset($param['date_end'])) ? "AND kegiatan_skp.tanggal <= '".$param['date_end']."'" : '';
+		$string_sorting = GetStringSorting($param, @$param['column'], 'jenis_skp.title ASC');
+		$string_limit = GetStringLimit($param);
+		
+		$select_query = "
+			SELECT jenis_skp.title, jenis_skp.jumlah, jenis_skp.point, COUNT(jenis_skp.jumlah) total_jumlah
+			FROM ".KEGIATAN_SKP." kegiatan_skp
+			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = kegiatan_skp.jenis_skp_id
+			WHERE 1
+				$string_biodata $string_date_start $string_date_end
+				AND jenis_skp.title IS NOT NULL
+			GROUP BY jenis_skp.title, jenis_skp.jumlah, jenis_skp.point
+			ORDER BY $string_sorting
+			LIMIT $string_limit
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			// total point
+			$row['total_point'] = 0;
+			if (!empty($row['jumlah']) && !empty($row['point'])) {
+				$row['total_point'] = $row['total_jumlah'] * $row['point'];
+			}
+			
+			$array[] = $row;
+		}
+		
+        return $array;
+    }
+	
+    function get_summary_kegiatan($param = array()) {
+        $array = array();
+		
+		$string_biodata = (isset($param['biodata_id'])) ? "AND kegiatan_skp.biodata_id = '".$param['biodata_id']."'" : '';
+		$string_date_start = (isset($param['date_start'])) ? "AND kegiatan_skp.tanggal >= '".$param['date_start']."'" : '';
+		$string_date_end = (isset($param['date_end'])) ? "AND kegiatan_skp.tanggal <= '".$param['date_end']."'" : '';
+		$string_sorting = GetStringSorting($param, @$param['column'], 'jenis_kegiatan.title ASC');
+		$string_limit = GetStringLimit($param);
+		
+		$select_query = "
+			SELECT jenis_kegiatan.title, jenis_kegiatan.jumlah, jenis_kegiatan.point, COUNT(jenis_kegiatan.jumlah) total_jumlah
+			FROM ".KEGIATAN_SKP." kegiatan_skp
+			LEFT JOIN ".JENIS_KEGIATAN." jenis_kegiatan ON jenis_kegiatan.id = kegiatan_skp.jenis_kegiatan_id
+			WHERE 1
+				$string_biodata $string_date_start $string_date_end
+				AND jenis_kegiatan.title IS NOT NULL
+			GROUP BY jenis_kegiatan.title, jenis_kegiatan.jumlah, jenis_kegiatan.point
+			ORDER BY $string_sorting
+			LIMIT $string_limit
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			// total point
+			$row['total_point'] = 0;
+			if (!empty($row['jumlah']) && !empty($row['point'])) {
+				$row['total_point'] = $row['total_jumlah'] * $row['point'];
+			}
+			
+			$array[] = $row;
+		}
+		
+        return $array;
+    }
+
     function delete($param) {
 		$delete_query  = "DELETE FROM ".KEGIATAN_SKP." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());

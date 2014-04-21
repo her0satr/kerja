@@ -1,16 +1,19 @@
 <?php
 	// data
-	$_POST['date_select'] = (empty($_POST['date_select'])) ? date("m-Y") : $_POST['date_select'];
+	$_POST['year'] = (empty($_POST['year'])) ? date("Y") : $_POST['year'];
+	
+	// generate tahun
+	$array_tahun = get_array_year(array( 'YearMin' => 2013 ));
 	
 	// array surat
-	list($param_surat['month'], $param_surat['year']) = explode('-', $_POST['date_select']);
+	$param_surat['year'] = $_POST['year'];
 	$param_surat['limit'] = 100000;
-	$array_surat = $this->surat_masuk_model->get_array($param_surat);
+	$array_surat = $this->surat_keluar_model->get_array($param_surat);
 	
-	// page
-	$page_data['date_select'] = $_POST['date_select'];
+	// page data
+	$page_data = array();
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Bulanan' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Tahunan' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -21,7 +24,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Rekap Bulanan</h2>
+			<h2 class="pull-left button-back">Rekap Tahunan</h2>
 			<div class="clearfix"></div>
 		</div>
 		
@@ -43,12 +46,11 @@
 							<input type="hidden" name="action" value="chart_data" />
 							
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Bulan Tahun</label>
+								<label class="col-lg-2 control-label">Tahun</label>
 								<div class="col-lg-10">
-									<div class="input-append datepicker">
-										<input name="date_select" type="text" class="form-control dtpicker" placeholder="Bulan Tahun" data-format="MM-yyyy" />
-										<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
-									</div>
+									<select class="form-control" name="year">
+										<?php echo ShowOption(array( 'Array' => $array_tahun, 'Selected' => $_POST['year'] )); ?>
+									</select>
 								</div>
 							</div>
 							<hr />
@@ -79,9 +81,9 @@
 								<tr>
 									<th>No Urut</th>
 									<th>No Surat</th>
-									<th>Perihal</th>
+									<th>Pengolah</th>
+									<th>Tujuan</th>
 									<th>Tanggal Surat</th>
-									<th>Tanggal Terima</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -89,9 +91,9 @@
 								<tr>
 									<td><?php echo $row['no_urut']; ?></td>
 									<td><?php echo $row['no_surat']; ?></td>
-									<td><?php echo $row['perihal']; ?></td>
+									<td><?php echo $row['pengolah']; ?></td>
+									<td><?php echo $row['tujuan']; ?></td>
 									<td class="center"><?php echo GetFormatDate($row['tanggal_surat']); ?></td>
-									<td class="center"><?php echo GetFormatDate($row['tanggal_terima']); ?></td>
 								</tr>
 								<?php } ?>
 							</tbody>
@@ -120,9 +122,6 @@ $(document).ready(function() {
 			eval('var data = ' + temp);
 			page.data = data;
 			
-			// set date
-			$('[name="date_select"]').val(page.data.date_select);
-			
 			// render chart
 			page.render_chart();
 		},
@@ -131,12 +130,12 @@ $(document).ready(function() {
 			$('#cnt-chart').html('');
 			
 			// get data
-			Func.ajax({ url: web.host + 'surat/surat_masuk/rekap_bulanan/action', param: Func.form.get_value('form-search'), callback: function(result) {
+			Func.ajax({ url: web.host + 'surat/surat_keluar/rekap_tahunan/action', param: Func.form.get_value('form-search'), callback: function(result) {
 				Morris.Line({
 					parseTime: false,
 					element: 'cnt-chart',
 					data: result,
-					xkey: 'date',
+					xkey: 'label',
 					ykeys: [ 'total' ],
 					labels: [ 'Jumlah' ]
 				});
@@ -148,7 +147,7 @@ $(document).ready(function() {
 	// search
 	$('#form-search form').validate({
 		rules: {
-			date_select: { required: true }
+			year: { required: true }
 		}
 	});
 	

@@ -5,7 +5,7 @@
 	// array surat
 	list($param_surat['month'], $param_surat['year']) = explode('-', $_POST['date_select']);
 	$param_surat['limit'] = 100000;
-	$array_surat = $this->surat_masuk_model->get_array($param_surat);
+	$array_surat = $this->surat_keluar_model->get_array($param_surat);
 	
 	// page
 	$page_data['date_select'] = $_POST['date_select'];
@@ -79,9 +79,9 @@
 								<tr>
 									<th>No Urut</th>
 									<th>No Surat</th>
-									<th>Perihal</th>
+									<th>Pengolah</th>
+									<th>Tujuan</th>
 									<th>Tanggal Surat</th>
-									<th>Tanggal Terima</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -89,9 +89,9 @@
 								<tr>
 									<td><?php echo $row['no_urut']; ?></td>
 									<td><?php echo $row['no_surat']; ?></td>
-									<td><?php echo $row['perihal']; ?></td>
+									<td><?php echo $row['pengolah']; ?></td>
+									<td><?php echo $row['tujuan']; ?></td>
 									<td class="center"><?php echo GetFormatDate($row['tanggal_surat']); ?></td>
-									<td class="center"><?php echo GetFormatDate($row['tanggal_terima']); ?></td>
 								</tr>
 								<?php } ?>
 							</tbody>
@@ -131,7 +131,7 @@ $(document).ready(function() {
 			$('#cnt-chart').html('');
 			
 			// get data
-			Func.ajax({ url: web.host + 'surat/surat_masuk/rekap_bulanan/action', param: Func.form.get_value('form-search'), callback: function(result) {
+			Func.ajax({ url: web.host + 'surat/surat_keluar/rekap_bulanan/action', param: Func.form.get_value('form-search'), callback: function(result) {
 				Morris.Line({
 					parseTime: false,
 					element: 'cnt-chart',

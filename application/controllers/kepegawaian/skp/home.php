@@ -42,6 +42,10 @@ class home extends SYGAAS_Controller {
 	}
 	
 	function cetak() {
-		echo "Menunggu desain.";
+		header("Content-type: application/vnd.ms-word");
+		header("Content-Disposition: attachment;Filename=kegiatan_harian.doc");
+	
+		$content = $this->load->view( 'kepegawaian/skp/kegiatan_harian', array(), true );
+		echo $content;
 	}
 }

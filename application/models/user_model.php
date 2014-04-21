@@ -176,7 +176,8 @@ class user_model extends CI_Model {
 						'children' => array(
 							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 2, 3 ) ),
 							array( 'name' => 'home', 'title' => 'Agenda Kerja Harian', 'user_type_id' => array( 1, 2, 3 ) ),
-							array( 'name' => 'list_skp', 'title' => 'List Agenda Kerja', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'list_skp', 'title' => 'List Agenda Kerja', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_agenda', 'title' => 'Rekap Agenda Kerja', 'user_type_id' => array( 1, 2 ) )
 						)
 					)
 				)
@@ -190,24 +191,30 @@ class user_model extends CI_Model {
 						'name' => 'surat_masuk', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
 							array( 'name' => 'home', 'title' => 'Surat Masuk', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'rekap_posisi', 'title' => 'Rekap Posisi', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'rekap_harian', 'title' => 'Rekap Harian', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap_bulanan', 'title' => 'Rekap Bulanan', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'rekap_bulanan', 'title' => 'Rekap Bulanan', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_tahunan', 'title' => 'Rekap Tahunan', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
 						'name' => 'surat_keluar', 'title' => 'Surat Keluar', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
 							array( 'name' => 'home', 'title' => 'Surat Keluar', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_harian', 'title' => 'Rekap Harian', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_bulanan', 'title' => 'Rekap Bulanan', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_tahunan', 'title' => 'Rekap Tahunan', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
 						'name' => 'nota_dinas', 'title' => 'Nota Dinas', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
 							array( 'name' => 'home', 'title' => 'Nota Dinas', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_harian', 'title' => 'Rekap Harian', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_bulanan', 'title' => 'Rekap Bulanan', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_tahunan', 'title' => 'Rekap Tahunan', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(

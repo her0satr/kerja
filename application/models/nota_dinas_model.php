@@ -54,14 +54,19 @@ class nota_dinas_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$string_date_start = (isset($param['date_start'])) ? "AND nota_dinas.tanggal_surat >= '".$param['date_start']."'" : '';
+		$string_date_end = (isset($param['date_end'])) ? "AND nota_dinas.tanggal_surat <= '".$param['date_end']."'" : '';
+		$string_year = (isset($param['year'])) ? "AND YEAR(nota_dinas.tanggal_surat) = '".$param['year']."'" : '';
+		$string_month = (isset($param['month'])) ? "AND MONTH(nota_dinas.tanggal_surat) = '".$param['month']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'no_urut ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS nota_dinas.*
 			FROM ".NOTA_DINAS." nota_dinas
-			WHERE 1 $string_filter
+			WHERE 1 $string_date_start $string_date_end
+				$string_year $string_month $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -101,6 +106,71 @@ class nota_dinas_model extends CI_Model {
 		
         return $result;
     }
+	
+	function get_select_monthly($param = array()) {
+		// prepare result
+		$result = array( );
+		for ($i = 1; $i <= 31; $i++) {
+			$result[$i] = array( 'date' => $i, 'total' => 0 );
+		}
+		
+		// get value
+		$select_query = "
+			SELECT DAY(nota_dinas.tanggal_surat) tanggal, COUNT(*) total
+			FROM ".NOTA_DINAS." nota_dinas
+			WHERE
+				MONTH(nota_dinas.tanggal_surat) = '".$param['month']."'
+				AND YEAR(nota_dinas.tanggal_surat) = '".$param['year']."'
+			GROUP BY tanggal
+			LIMIT 50
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result[$row['tanggal']]['total'] = $row['total'];
+		}
+		
+		// fix data
+		$result_temp = $result;
+		$result = array();
+		foreach ($result_temp as $row) {
+			$result[] = $row;
+		}
+		
+		return $result;
+	}
+	
+	function get_select_yearly($param = array()) {
+		// prepare result
+		$result = array( );
+		for ($i = 1; $i <= 12; $i++) {
+			$result[$i] = array(
+				'month_no' => $i,
+				'total' => 0,
+				'label' => GetFormatDate($param['year'].'-'.$i.'-01', array( 'FormatDate' => 'F', 'replace_indo' => true ))
+			);
+		}
+		
+		// get value
+		$select_query = "
+			SELECT MONTH(nota_dinas.tanggal_surat) month, COUNT(*) total
+			FROM ".NOTA_DINAS." nota_dinas
+			WHERE YEAR(nota_dinas.tanggal_surat) = '".$param['year']."'
+			GROUP BY month
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result[$row['month']]['total'] = $row['total'];
+		}
+		
+		// fix data
+		$result_temp = $result;
+		$result = array();
+		foreach ($result_temp as $row) {
+			$result[] = $row;
+		}
+		
+		return $result;
+	}
 	
 	function get_rekap_filter($param = array()) {
 		$array = array();

@@ -9,7 +9,7 @@
 	// page data
 	$page_data['biodata'] = $biodata;
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Riwayat' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Jenis SKP & Kegiatan Lain' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -48,6 +48,7 @@
 									<th>Nama</th>
 									<th>Jumlah</th>
 									<th>Satuan</th>
+									<th>Point</th>
 									<th class="center">Control</th>
 								</tr>
 							</thead>
@@ -77,6 +78,9 @@
 							<thead>
 								<tr>
 									<th>Nama</th>
+									<th>Jumlah</th>
+									<th>Satuan</th>
+									<th>Point</th>
 									<th class="center">Control</th>
 								</tr>
 							</thead>
@@ -200,7 +204,7 @@ $(document).ready(function() {
 	var skp_param = {
 		id: 'dt-skp',
 		source: web.host + 'kepegawaian/skp/master/grid',
-		column: [ { }, { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { sClass: 'center' }, { sClass: 'center' }, { sClass: 'center' }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'jenis_skp' },
@@ -233,7 +237,7 @@ $(document).ready(function() {
 	var kegiatan_param = {
 		id: 'dt-kegiatan',
 		source: web.host + 'kepegawaian/skp/master/grid',
-		column: [ { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { sClass: 'center' }, { sClass: 'center' }, { sClass: 'center' }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'jenis_kegiatan' },
@@ -267,6 +271,7 @@ $(document).ready(function() {
 	// form skp
 	$('.btn-add-jenis-skp').click(function() {
 		$('#form-skp form')[0].reset();
+		$('#form-skp [name="id"]').val(0);
 		$('#form-skp [name="biodata_id"]').val(page.data.biodata.id);
 		$('#form-skp').modal();
 	});
@@ -294,6 +299,7 @@ $(document).ready(function() {
 	// form kegiatan
 	$('.btn-add-jenis-kegiatan').click(function() {
 		$('#form-kegiatan form')[0].reset();
+		$('#form-kegiatan [name="id"]').val(0);
 		$('#form-kegiatan [name="biodata_id"]').val(page.data.biodata.id);
 		$('#form-kegiatan').modal();
 	});

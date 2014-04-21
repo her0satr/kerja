@@ -1,19 +1,9 @@
 <?php
-	// data
-	$_POST['date_start'] = (empty($_POST['date_start'])) ? date("01-m-Y") : $_POST['date_start'];
-	$_POST['date_end'] = (empty($_POST['date_end'])) ? date("t-m-Y") : $_POST['date_end'];
-	
-	// array surat
-	$param_surat['date_start'] = ExchangeFormatDate($_POST['date_start']);
-	$param_surat['date_end'] = ExchangeFormatDate($_POST['date_end']);
-	$param_surat['limit'] = 100000;
-	$array_surat = $this->surat_masuk_model->get_array($param_surat);
-	
 	// page
-	$page_data['date_start'] = $_POST['date_start'];
-	$page_data['date_end'] = $_POST['date_end'];
+	$page_data['date_start'] = date("01-m-Y");
+	$page_data['date_end'] = date("t-m-Y");
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Harian' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Agenda Kerja' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -24,13 +14,13 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Rekap Harian</h2>
+			<h2 class="pull-left button-back">Rekap Agenda Kerja</h2>
 			<div class="clearfix"></div>
 		</div>
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
-
+				
 				<div class="widget" id="form-chart">
 					<div class="widget-head">
 						<div class="pull-left">Pencarian</div>
@@ -42,7 +32,15 @@
 					</div>
 					
 					<div class="widget-content">
-						<div class="padd"><form class="form-horizontal" method="post">
+						<div class="padd"><form class="form-horizontal" method="post" action="<?php echo base_url('kepegawaian/skp/rekap_agenda/download'); ?>">
+							<input type="hidden" name="biodata_id" value="0" />
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Nama Pegawai</label>
+								<div class="col-lg-4 cnt-typeahead">
+									<input type="text" name="biodata_title" class="form-control typeahead-biodata" placeholder="Nama Pegawai" />
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Tanggal Mulai</label>
 								<div class="col-lg-10">
@@ -64,48 +62,13 @@
 							<hr />
 							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-9">
-									<button type="submit" class="btn btn-info">Cari</button>
+									<button type="submit" class="btn btn-info">Download</button>
 								</div>
 							</div>
 						</form></div>
 					</div>
 				</div>
 				
-				<div class="widget grid-main">
-					<div class="widget-head">
-						<div class="pull-left">&nbsp;</div>
-						<div class="widget-icons pull-right">&nbsp;</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="widget-content">
-						<table id="datatable" class="table table-striped table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>No Urut</th>
-									<th>No Surat</th>
-									<th>Perihal</th>
-									<th>Tanggal Surat</th>
-									<th>Tanggal Terima</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php foreach($array_surat as $row) { ?>
-								<tr>
-									<td><?php echo $row['no_urut']; ?></td>
-									<td><?php echo $row['no_surat']; ?></td>
-									<td><?php echo $row['perihal']; ?></td>
-									<td class="center"><?php echo GetFormatDate($row['tanggal_surat']); ?></td>
-									<td class="center"><?php echo GetFormatDate($row['tanggal_terima']); ?></td>
-								</tr>
-								<?php } ?>
-							</tbody>
-						</table>
-						<div class="widget-foot">
-							<br /><br />
-							<div class="clearfix"></div> 
-						</div>
-					</div>
-				</div>
 			</div></div>
         </div></div>
     </div>
@@ -130,8 +93,46 @@ $(document).ready(function() {
 	}
 	page.init();
 	
-	// datatable
-	$('#datatable').dataTable({ 'sPaginationType': 'full_numbers' });
+	// typeahead
+	var biodata_store = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nama'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: web.host + 'typeahead?action=biodata',
+		remote: web.host + 'typeahead?action=biodata&namelike=%QUERY'
+	});
+	biodata_store.initialize();
+	var biodata = $('.typeahead-biodata').typeahead(null, {
+		name: 'biodata',
+		displayKey: 'nama',
+		source: biodata_store.ttAdapter(),
+		templates: {
+			empty: [
+				'<div class="empty-message">',
+				'no result found.',
+				'</div>'
+			].join('\n'),
+			suggestion: Handlebars.compile('<p><strong>{{nama}}</strong></p>')
+		}
+	});
+	biodata.on('typeahead:selected', function(evt, data) {
+		$('#form-chart [name="biodata_id"]').val(data.id);
+	});
+	
+	// form
+	$('#form-chart form').validate({
+		rules: {
+			biodata_title: { required: true },
+			date_start: { required: true },
+			date_end: { required: true }
+		}
+	});
+	$('#form-chart form').submit(function(e) {
+		e.preventDefault();
+		
+		var param = Func.form.get_value('#form-chart');
+		var link = web.host + 'kepegawaian/skp/rekap_agenda/download?biodata_id=' + param.biodata_id + '&date_start=' + param.date_start + '&date_end=' + param.date_end;
+		window.open(link);
+	});
 });
 </script>
 </body>

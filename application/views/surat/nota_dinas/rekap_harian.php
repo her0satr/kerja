@@ -1,16 +1,19 @@
 <?php
 	// data
-	$_POST['date_select'] = (empty($_POST['date_select'])) ? date("m-Y") : $_POST['date_select'];
+	$_POST['date_start'] = (empty($_POST['date_start'])) ? date("01-m-Y") : $_POST['date_start'];
+	$_POST['date_end'] = (empty($_POST['date_end'])) ? date("t-m-Y") : $_POST['date_end'];
 	
 	// array surat
-	list($param_surat['month'], $param_surat['year']) = explode('-', $_POST['date_select']);
+	$param_surat['date_start'] = ExchangeFormatDate($_POST['date_start']);
+	$param_surat['date_end'] = ExchangeFormatDate($_POST['date_end']);
 	$param_surat['limit'] = 100000;
-	$array_surat = $this->surat_masuk_model->get_array($param_surat);
+	$array_surat = $this->nota_dinas_model->get_array($param_surat);
 	
 	// page
-	$page_data['date_select'] = $_POST['date_select'];
+	$page_data['date_start'] = $_POST['date_start'];
+	$page_data['date_end'] = $_POST['date_end'];
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Bulanan' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Harian' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -21,14 +24,14 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Rekap Bulanan</h2>
+			<h2 class="pull-left button-back">Rekap Harian</h2>
 			<div class="clearfix"></div>
 		</div>
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
-				
-				<div class="widget" id="form-search">
+
+				<div class="widget" id="form-chart">
 					<div class="widget-head">
 						<div class="pull-left">Pencarian</div>
 						<div class="widget-icons pull-right">
@@ -40,13 +43,20 @@
 					
 					<div class="widget-content">
 						<div class="padd"><form class="form-horizontal" method="post">
-							<input type="hidden" name="action" value="chart_data" />
-							
 							<div class="form-group">
-								<label class="col-lg-2 control-label">Bulan Tahun</label>
+								<label class="col-lg-2 control-label">Tanggal Mulai</label>
 								<div class="col-lg-10">
 									<div class="input-append datepicker">
-										<input name="date_select" type="text" class="form-control dtpicker" placeholder="Bulan Tahun" data-format="MM-yyyy" />
+										<input name="date_start" type="text" class="form-control dtpicker" placeholder="Tanggal Mulai" data-format="dd-MM-yyyy" />
+										<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Tanggal Selesai</label>
+								<div class="col-lg-10">
+									<div class="input-append datepicker">
+										<input name="date_end" type="text" class="form-control dtpicker" placeholder="Tanggal Selesai" data-format="dd-MM-yyyy" />
 										<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
 									</div>
 								</div>
@@ -61,12 +71,6 @@
 					</div>
 				</div>
 				
-				<div class="widget">
-					<div class="widget-content"><div class="padd">
-						<div id="cnt-chart"></div>
-					</div></div>
-				</div>
-				
 				<div class="widget grid-main">
 					<div class="widget-head">
 						<div class="pull-left">&nbsp;</div>
@@ -79,9 +83,9 @@
 								<tr>
 									<th>No Urut</th>
 									<th>No Surat</th>
+									<th>Surat Dari</th>
 									<th>Perihal</th>
 									<th>Tanggal Surat</th>
-									<th>Tanggal Terima</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -89,9 +93,9 @@
 								<tr>
 									<td><?php echo $row['no_urut']; ?></td>
 									<td><?php echo $row['no_surat']; ?></td>
+									<td><?php echo $row['surat_dari']; ?></td>
 									<td><?php echo $row['perihal']; ?></td>
 									<td class="center"><?php echo GetFormatDate($row['tanggal_surat']); ?></td>
-									<td class="center"><?php echo GetFormatDate($row['tanggal_terima']); ?></td>
 								</tr>
 								<?php } ?>
 							</tbody>
@@ -102,7 +106,6 @@
 						</div>
 					</div>
 				</div>
-				
 			</div></div>
         </div></div>
     </div>
@@ -121,36 +124,11 @@ $(document).ready(function() {
 			page.data = data;
 			
 			// set date
-			$('[name="date_select"]').val(page.data.date_select);
-			
-			// render chart
-			page.render_chart();
-		},
-		render_chart: function() {
-			// clean container
-			$('#cnt-chart').html('');
-			
-			// get data
-			Func.ajax({ url: web.host + 'surat/surat_masuk/rekap_bulanan/action', param: Func.form.get_value('form-search'), callback: function(result) {
-				Morris.Line({
-					parseTime: false,
-					element: 'cnt-chart',
-					data: result,
-					xkey: 'date',
-					ykeys: [ 'total' ],
-					labels: [ 'Jumlah' ]
-				});
-			} });
+			$('[name="date_start"]').val(page.data.date_start);
+			$('[name="date_end"]').val(page.data.date_end);
 		}
 	}
 	page.init();
-	
-	// search
-	$('#form-search form').validate({
-		rules: {
-			date_select: { required: true }
-		}
-	});
 	
 	// datatable
 	$('#datatable').dataTable({ 'sPaginationType': 'full_numbers' });

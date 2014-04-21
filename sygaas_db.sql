@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2014 at 01:59 PM
+-- Generation Time: Apr 21, 2014 at 03:04 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `biodata` (
   `karpeg` varchar(50) NOT NULL,
   `kartu_nikah` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `biodata`
@@ -196,7 +196,8 @@ CREATE TABLE IF NOT EXISTS `biodata` (
 INSERT INTO `biodata` (`id`, `skpd_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `gelar_depan`, `gelar_belakang`, `tempat_lahir`, `tanggal_lahir`, `photo`, `karpeg`, `kartu_nikah`) VALUES
 (2, 10, 1, 2, 2, 2, '2', 'Namanya 2', 'Laki Laki', '', '', '4', '2014-03-05', '', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
 (3, 9, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', '123', '987', 'asdasd', '2014-03-12', '2014/04/08/20140408_140727_6639.png', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
-(4, 12, 1, 1, 1, 1, '123456789', 'Herry Satrio', 'Laki Laki', '', '', 'Malang', '1984-10-15', '2014/04/08/20140408_140926_2002.jpg', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg');
+(4, 12, 1, 1, 1, 1, '123456789', 'User Test', 'Laki Laki', '', '', 'Malang', '1984-10-15', '2014/04/08/20140408_140926_2002.jpg', '2014/03/17/20140317_144509_1322.jpg', '2014/03/17/20140317_144542_7033.jpg'),
+(5, 12, 1, 0, 0, 0, '0123456789', 'Herry Satrio', 'Laki Laki', '', '', '-', '2014-04-21', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -346,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `jenis_kegiatan` (
   `satuan` varchar(10) NOT NULL,
   `point` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `jenis_kegiatan`
@@ -356,7 +357,9 @@ INSERT INTO `jenis_kegiatan` (`id`, `biodata_id`, `title`, `jumlah`, `satuan`, `
 (2, 3, 'Lain 01', 1, 'm', ''),
 (3, 3, 'Lain 02', 2, 'm', ''),
 (5, 4, 'Kegiatan Lain 01', 1, '2', '3'),
-(6, 4, 'Kegiatan Lain 02', 11, '22', '33');
+(6, 4, 'Kegiatan Lain 02', 11, '22', '33'),
+(7, 5, 'Kegiatan Lain 01', 1, 'lembar', '1'),
+(8, 5, 'Kegiatan Lain 02', 1, 'lembar', '1');
 
 -- --------------------------------------------------------
 
@@ -390,19 +393,21 @@ CREATE TABLE IF NOT EXISTS `jenis_skp` (
   `title` varchar(255) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `satuan` varchar(10) NOT NULL,
-  `point` varchar(50) NOT NULL,
+  `point` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `jenis_skp`
 --
 
 INSERT INTO `jenis_skp` (`id`, `biodata_id`, `title`, `jumlah`, `satuan`, `point`) VALUES
-(3, 3, 'Jenis SKP 1', 1, 'cm', ''),
-(4, 3, 'Jenis SKP 2', 2, 'cm', ''),
-(6, 4, 'Herry Jenis SKP 01', 1, 'unit', ''),
-(7, 4, 'Herry Jenis SKP 02', 2, 'unit', '');
+(3, 3, 'Jenis SKP 1', 1, 'cm', 0),
+(4, 3, 'Jenis SKP 2', 2, 'cm', 0),
+(6, 4, 'Herry Jenis SKP 01', 1, 'unit', 0),
+(7, 4, 'Herry Jenis SKP 02', 2, 'unit', 0),
+(8, 5, 'Jenis SKP 01', 1, 'unit', 1),
+(9, 5, 'Jenis SKP 02', 1, 'unit', 1);
 
 -- --------------------------------------------------------
 
@@ -422,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
   `kendala` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `kegiatan_skp`
@@ -435,7 +440,13 @@ INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `jenis_kegiatan_
 (5, 3, 3, 0, 0, '2014-03-16', '00:00:00', 1, '', 'Keterangan 01'),
 (9, 4, 0, 5, 0, '2014-04-07', '10:00:00', 2, '', 'Isi Kegiatan Lain 01'),
 (10, 4, 6, 0, 1, '2014-04-14', '08:00:00', 1, 'Kendala 1', 'No urut 1 Jam 8'),
-(11, 4, 7, 0, 2, '2014-04-14', '09:00:00', 1, 'Kendala 2', 'No urut 2 Jam 9');
+(11, 4, 7, 0, 2, '2014-04-14', '09:00:00', 1, 'Kendala 2', 'No urut 2 Jam 9'),
+(12, 5, 8, 0, 1, '2014-04-21', '08:00:00', 1, 'Kendala 1', '-'),
+(13, 5, 9, 0, 2, '2014-04-21', '09:00:00', 1, 'Kendala 2', '-'),
+(14, 5, 0, 7, 3, '2014-04-21', '10:00:00', 2, 'kendala Kegiatan lain 1', ''),
+(15, 5, 0, 8, 4, '2014-04-21', '12:58:46', 2, 'kendala Kegiatan lain 2', '-'),
+(16, 5, 8, 0, 5, '2014-04-21', '14:40:30', 1, '', ''),
+(17, 5, 0, 8, 6, '2014-04-21', '14:40:30', 2, '', '');
 
 -- --------------------------------------------------------
 
@@ -843,7 +854,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `thumbnail` varchar(255) NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `user`
@@ -853,7 +864,8 @@ INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `addres
 (2, 1, 'her0satr@yahoo.com', 'Herry', 'fe30fa79056939db8cbe99c8d601de74', '-', '2014/03/11/20140311_131431_5821.jpg', 1),
 (5, 3, '111', '1asdasd', '5d408d848a029d6d3b333ee32469dda8', '', '', 1),
 (6, 3, '2', 'Namanya 2', 'cb8eed4d556ba533cf5c6941d9eb5991', '', '', 1),
-(9, 1, '123456789', 'Herry Satrio', '705f973c251b7e26e40f855739de2d87', '', '', 1);
+(9, 1, '123456789', 'Herry Satrio', '705f973c251b7e26e40f855739de2d87', '', '', 1),
+(10, 1, '0123456789', 'Herry Satrio', '705f973c251b7e26e40f855739de2d87', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -866,7 +878,7 @@ CREATE TABLE IF NOT EXISTS `user_biodata` (
   `user_id` int(11) NOT NULL,
   `biodata_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `user_biodata`
@@ -875,7 +887,8 @@ CREATE TABLE IF NOT EXISTS `user_biodata` (
 INSERT INTO `user_biodata` (`id`, `user_id`, `biodata_id`) VALUES
 (1, 5, 3),
 (2, 6, 2),
-(3, 9, 4);
+(3, 9, 4),
+(4, 10, 5);
 
 -- --------------------------------------------------------
 
@@ -910,7 +923,7 @@ CREATE TABLE IF NOT EXISTS `widget` (
   `alias` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `widget`
@@ -924,7 +937,8 @@ INSERT INTO `widget` (`id`, `title`, `alias`, `content`) VALUES
 (5, 'Surat Masuk', 'surat-masuk', 'Isi Surat Masuk'),
 (6, 'Surat Keluar', 'surat-keluar', 'Isi Surat Keluar'),
 (7, 'Nota Dinas', 'nota-dinas', 'Isi Nota Dinas'),
-(8, 'Agenda Rapat', 'agenda-rapat', 'Isi Agenda Rapat');
+(8, 'Agenda Rapat', 'agenda-rapat', 'Isi Agenda Rapat'),
+(9, 'Tambahan Surat', 'tambahan-surat', 'Silahkan update disini<br>');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

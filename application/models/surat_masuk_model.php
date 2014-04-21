@@ -65,14 +65,19 @@ class surat_masuk_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$string_date_start = (isset($param['date_start'])) ? "AND surat_masuk.tanggal_terima >= '".$param['date_start']."'" : '';
+		$string_date_end = (isset($param['date_end'])) ? "AND surat_masuk.tanggal_terima <= '".$param['date_end']."'" : '';
+		$string_year = (isset($param['year'])) ? "AND YEAR(surat_masuk.tanggal_terima) = '".$param['year']."'" : '';
+		$string_month = (isset($param['month'])) ? "AND MONTH(surat_masuk.tanggal_terima) = '".$param['month']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'no_urut ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS surat_masuk.*
 			FROM ".SURAT_MASUK." surat_masuk
-			WHERE 1 $string_filter
+			WHERE 1 $string_date_start $string_date_end
+				$string_year $string_month $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -158,7 +163,7 @@ class surat_masuk_model extends CI_Model {
 		
 		// get value
 		$select_query = "
-			SELECT MONTH( surat_masuk.tanggal_terima ) month, COUNT(*) total
+			SELECT MONTH(surat_masuk.tanggal_terima) month, COUNT(*) total
 			FROM ".SURAT_MASUK." surat_masuk
 			WHERE YEAR(surat_masuk.tanggal_terima) = '".$param['year']."'
 			GROUP BY month

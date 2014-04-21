@@ -1,12 +1,12 @@
 <?php
 
-class rekap_bulanan extends SYGAAS_Controller {
+class rekap_tahunan extends SYGAAS_Controller {
 	function __construct() {
 		parent::__construct();
 	}
 	
 	function index() {
-		$this->load->view( 'surat/surat_masuk/rekap_bulanan');
+		$this->load->view( 'surat/surat_keluar/rekap_tahunan');
 	}
 	
 	function action() {
@@ -15,8 +15,7 @@ class rekap_bulanan extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'chart_data') {
-			list($month, $year) = explode('-', $_POST['date_select']);
-			$result = $this->surat_masuk_model->get_select_monthly(array( 'year' => $year, 'month' => $month ));
+			$result = $this->surat_keluar_model->get_select_yearly(array( 'year' => $_POST['year'] ));
 		}
 		
 		echo json_encode($result);

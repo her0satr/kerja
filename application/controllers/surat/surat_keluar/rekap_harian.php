@@ -6,6 +6,6 @@ class rekap_harian extends SYGAAS_Controller {
 	}
 	
 	function index() {
-		$this->load->view( 'surat/surat_masuk/rekap_harian');
+		$this->load->view( 'surat/surat_keluar/rekap_harian');
 	}
 }

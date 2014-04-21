@@ -1,16 +1,19 @@
 <?php
+	// data
 	$_POST['date_start'] = (empty($_POST['date_start'])) ? date("01-m-Y") : $_POST['date_start'];
 	$_POST['date_end'] = (empty($_POST['date_end'])) ? date("t-m-Y") : $_POST['date_end'];
 	
-	$param_rekap_penjualan['date_start'] = ExchangeFormatDate($_POST['date_start']);
-	$param_rekap_penjualan['date_end'] = ExchangeFormatDate($_POST['date_end']);
-	$array_rekap_penjualan = $this->surat_masuk_model->get_rekap_filter($param_rekap_penjualan);
+	// array surat
+	$param_surat['date_start'] = ExchangeFormatDate($_POST['date_start']);
+	$param_surat['date_end'] = ExchangeFormatDate($_POST['date_end']);
+	$param_surat['limit'] = 100000;
+	$array_surat = $this->surat_keluar_model->get_array($param_surat);
 	
+	// page
 	$page_data['date_start'] = $_POST['date_start'];
 	$page_data['date_end'] = $_POST['date_end'];
-	$page_data['chart_data'] = $array_rekap_penjualan;
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Surat Masuk' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Harian' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -21,7 +24,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Rekap Surat Masuk</h2>
+			<h2 class="pull-left button-back">Rekap Harian</h2>
 			<div class="clearfix"></div>
 		</div>
 		
@@ -68,19 +71,38 @@
 					</div>
 				</div>
 				
-				<div class="widget">
+				<div class="widget grid-main">
 					<div class="widget-head">
-						<div class="pull-left">Chart Rekap Surat Masuk</div>
-						<div class="widget-icons pull-right">
-							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-						</div>  
+						<div class="pull-left">&nbsp;</div>
+						<div class="widget-icons pull-right">&nbsp;</div>
 						<div class="clearfix"></div>
 					</div>
-					
 					<div class="widget-content">
-						<div class="padd">
-							<div id="chart-bar"></div>
+						<table id="datatable" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>No Urut</th>
+									<th>No Surat</th>
+									<th>Pengolah</th>
+									<th>Tujuan</th>
+									<th>Tanggal Surat</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($array_surat as $row) { ?>
+								<tr>
+									<td><?php echo $row['no_urut']; ?></td>
+									<td><?php echo $row['no_surat']; ?></td>
+									<td><?php echo $row['pengolah']; ?></td>
+									<td><?php echo $row['tujuan']; ?></td>
+									<td class="center"><?php echo GetFormatDate($row['tanggal_surat']); ?></td>
+								</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+						<div class="widget-foot">
+							<br /><br />
+							<div class="clearfix"></div> 
 						</div>
 					</div>
 				</div>
@@ -108,17 +130,8 @@ $(document).ready(function() {
 	}
 	page.init();
 	
-	if (page.data.chart_data.length > 0) {
-		Morris.Bar({
-			element: 'chart-bar',
-			data: page.data.chart_data,
-			xkey: 'label',
-			ykeys: [ 'total' ],
-			labels: [ 'Total' ]
-		});
-	} else {
-		noty({ text: 'Tidak ada penjualan yang ditemukan', layout: 'topRight', type: 'warning', timeout: 1500 });
-	}
+	// datatable
+	$('#datatable').dataTable({ 'sPaginationType': 'full_numbers' });
 });
 </script>
 </body>

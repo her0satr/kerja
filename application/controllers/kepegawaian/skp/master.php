@@ -15,12 +15,12 @@ class master extends SYGAAS_Controller {
 		unset($_POST['action']);
 		
 		if ($action == 'jenis_skp') {
-			$_POST['column'] = array( 'title', 'jumlah', 'satuan' );
+			$_POST['column'] = array( 'title', 'jumlah', 'satuan', 'point' );
 			
 			$array = $this->jenis_skp_model->get_array($_POST);
 			$count = $this->jenis_skp_model->get_count();
 		} else if ($action == 'jenis_kegiatan') {
-			$_POST['column'] = array( 'title' );
+			$_POST['column'] = array( 'title', 'jumlah', 'satuan', 'point' );
 			
 			$array = $this->jenis_kegiatan_model->get_array($_POST);
 			$count = $this->jenis_kegiatan_model->get_count();
