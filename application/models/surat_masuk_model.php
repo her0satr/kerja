@@ -255,8 +255,12 @@ class surat_masuk_model extends CI_Model {
 		$param['field_replace']['detail'] = '';
 		$param['field_replace']['disposisi'] = '';
 		
+		$string_year = (isset($param['year'])) ? "AND YEAR(surat_masuk.tanggal_terima) = '".$param['year']."'" : '';
+		$string_month = (isset($param['month'])) ? "AND MONTH(surat_masuk.tanggal_terima) = '".$param['month']."'" : '';
+		$string_date_start = (isset($param['date_start'])) ? "AND surat_masuk.tanggal_terima >= '".$param['date_start']."'" : '';
+		$string_date_end = (isset($param['date_end'])) ? "AND surat_masuk.tanggal_terima <= '".$param['date_end']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'surat_masuk.no_urut ASC');
 		$string_limit = GetStringLimit($param);
 		
 		// get surat data
@@ -264,9 +268,9 @@ class surat_masuk_model extends CI_Model {
 			SELECT SQL_CALC_FOUND_ROWS surat_masuk.id, surat_masuk.no_urut, surat_masuk.surat_dari, surat_masuk.no_surat,
 				surat_masuk.tanggal_terima, surat_masuk.perihal
 			FROM ".SURAT_MASUK." surat_masuk
-			WHERE 
-				surat_masuk.tanggal_terima >= '".$param['date_start']."'
-				AND surat_masuk.tanggal_terima <= '".$param['date_end']."'
+			WHERE 1
+				$string_year $string_month
+				$string_date_start $string_date_end
 				$string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
@@ -299,9 +303,13 @@ class surat_masuk_model extends CI_Model {
 		}
 		
 		// convert to datatable
-		$result = array();
-		foreach ($array as $row) {
-			$result[] = dt_view_set($row, $param);
+		if (isset($param['column'])) {
+			$result = array();
+			foreach ($array as $row) {
+				$result[] = dt_view_set($row, $param);
+			}
+		} else {
+			$result = $array;
 		}
 		
         return $result;
@@ -327,5 +335,112 @@ class surat_masuk_model extends CI_Model {
 		}
 		
 		return $row;
+	}
+	
+	function get_chart_monthly($param = array()) {
+		// prepare result
+		$result = array( );
+		for ($i = 1; $i <= 31; $i++) {
+			$result[$i] = array( 'date' => $i, 'tepat_waktu' => 0, 'terlambat' => 0, 'total' => 0 );
+		}
+		
+		// time info
+		$tepat_waktu = 2 * 24 * 60 * 60;
+		
+		// get value
+		$select_query = "
+			SELECT DAY(surat_masuk.tanggal_terima) tanggal, surat_masuk.id, surat_masuk.no_surat,
+				(	SELECT COUNT(*)
+					FROM ".DISPOSISI."
+					WHERE
+						surat_masuk_id = surat_masuk.id
+						AND surat_destination_id != '".SURAT_DESTINATION_CREATED."'
+						AND waktu_diff != 0
+						AND waktu_diff <= '$tepat_waktu'
+				) tepat_waktu,
+				(	SELECT COUNT(*)
+					FROM ".DISPOSISI."
+					WHERE
+						surat_masuk_id = surat_masuk.id
+						AND surat_destination_id != '".SURAT_DESTINATION_CREATED."'
+						AND waktu_diff != 0
+						AND waktu_diff > '$tepat_waktu'
+				) terlambat
+			FROM ".SURAT_MASUK." surat_masuk
+			WHERE
+				MONTH(surat_masuk.tanggal_terima) = '".$param['month']."'
+				AND YEAR(surat_masuk.tanggal_terima) = '".$param['year']."'
+			LIMIT 10000
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result[$row['tanggal']]['terlambat'] += $row['terlambat'];
+			$result[$row['tanggal']]['tepat_waktu'] += $row['tepat_waktu'];
+			$result[$row['tanggal']]['total'] = $result[$row['tanggal']]['tepat_waktu'] + $result[$row['tanggal']]['terlambat'];
+		}
+		
+		// fix data
+		$result_temp = $result;
+		$result = array();
+		foreach ($result_temp as $row) {
+			$result[] = $row;
+		}
+		
+		return $result;
+	}
+	
+	function get_chart_yearly($param = array()) {
+		// prepare result
+		$result = array( );
+		for ($i = 1; $i <= 12; $i++) {
+			$result[$i] = array(
+				'total' => 0,
+				'month_no' => $i,
+				'terlambat' => 0,
+				'tepat_waktu' => 0,
+				'label' => GetFormatDate($param['year'].'-'.$i.'-01', array( 'FormatDate' => 'F', 'replace_indo' => true ))
+			);
+		}
+		
+		// time info
+		$tepat_waktu = 2 * 24 * 60 * 60;
+		
+		// get value
+		$select_query = "
+			SELECT MONTH(surat_masuk.tanggal_terima) month, surat_masuk.id, surat_masuk.no_surat,
+				(	SELECT COUNT(*)
+					FROM ".DISPOSISI."
+					WHERE
+						surat_masuk_id = surat_masuk.id
+						AND surat_destination_id != '".SURAT_DESTINATION_CREATED."'
+						AND waktu_diff != 0
+						AND waktu_diff <= '$tepat_waktu'
+				) tepat_waktu,
+				(	SELECT COUNT(*)
+					FROM ".DISPOSISI."
+					WHERE
+						surat_masuk_id = surat_masuk.id
+						AND surat_destination_id != '".SURAT_DESTINATION_CREATED."'
+						AND waktu_diff != 0
+						AND waktu_diff > '$tepat_waktu'
+				) terlambat
+			FROM ".SURAT_MASUK." surat_masuk
+			WHERE YEAR(surat_masuk.tanggal_terima) = '".$param['year']."'
+		";
+		$select_result = mysql_query($select_query) or die(mysql_error());
+		while (false !== $row = mysql_fetch_assoc($select_result)) {
+			$result[$row['month']]['terlambat'] += $row['terlambat'];
+			$result[$row['month']]['tepat_waktu'] += $row['tepat_waktu'];
+			$result[$row['month']]['total'] = $result[$row['month']]['tepat_waktu'] + $result[$row['month']]['terlambat'];
+		}
+		
+		// fix data
+		$result_temp = $result;
+		$result = array();
+		foreach ($result_temp as $row) {
+			$result[] = $row;
+		}
+		
+		return $result;
 	}
 }

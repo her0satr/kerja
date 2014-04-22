@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2014 at 03:04 PM
+-- Generation Time: Apr 22, 2014 at 01:19 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -246,24 +246,31 @@ CREATE TABLE IF NOT EXISTS `disposisi` (
   `surat_masuk_id` int(11) NOT NULL,
   `surat_destination_id` int(11) NOT NULL,
   `waktu` datetime NOT NULL,
-  `waktu_diff` varchar(50) NOT NULL,
+  `waktu_diff` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `disposisi`
 --
 
 INSERT INTO `disposisi` (`id`, `surat_masuk_id`, `surat_destination_id`, `waktu`, `waktu_diff`) VALUES
-(1, 19, 1, '2014-04-07 21:19:00', ''),
-(3, 19, 2, '2014-04-07 21:28:16', '556'),
-(4, 19, 3, '2014-04-07 21:28:25', '9'),
-(5, 20, 1, '2014-04-09 07:12:31', ''),
-(6, 21, 1, '2014-04-09 11:56:40', ''),
-(7, 22, 1, '2014-04-09 11:56:40', ''),
-(8, 0, 0, '0000-00-00 00:00:00', ''),
-(9, 0, 0, '0000-00-00 00:00:00', ''),
-(10, 0, 0, '0000-00-00 00:00:00', '');
+(1, 19, 1, '2014-04-07 21:19:00', 0),
+(3, 19, 2, '2014-04-07 21:28:16', 556),
+(4, 19, 3, '2014-04-07 21:28:25', 9),
+(5, 20, 1, '2014-04-09 07:12:31', 0),
+(6, 21, 1, '2014-04-09 11:56:40', 0),
+(7, 22, 1, '2014-04-09 11:56:40', 0),
+(11, 20, 2, '2014-04-22 12:11:45', 795554),
+(12, 20, 3, '2014-04-22 12:11:50', 5),
+(13, 20, 3, '2014-04-22 12:12:13', 23),
+(14, 21, 2, '2014-04-22 12:12:46', 778566),
+(15, 21, 2, '2014-04-22 12:12:47', 1),
+(16, 21, 3, '2014-04-22 12:12:48', 1),
+(17, 21, 3, '2014-04-22 12:12:49', 1),
+(18, 23, 1, '2014-05-01 13:17:35', 0),
+(19, 23, 2, '2014-05-01 13:17:36', 1),
+(20, 23, 3, '2014-05-01 13:17:37', 1);
 
 -- --------------------------------------------------------
 
@@ -824,7 +831,7 @@ CREATE TABLE IF NOT EXISTS `surat_masuk` (
   `catatan` varchar(255) NOT NULL,
   `file_surat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `surat_masuk`
@@ -835,8 +842,9 @@ INSERT INTO `surat_masuk` (`id`, `sifat_arsip_id`, `sifat_surat_id`, `no_urut`, 
 (18, 0, 0, 1, '11111', '11111', '11111', '11111', '2014-03-17', '2014-03-17 15:38:00', '', ''),
 (19, 2, 4, 3, 'XX-03-2014', 'No Agenda', '13', '21', '2014-04-07', '2014-04-07 21:19:00', 'Catatannya Kosong', ''),
 (20, 2, 4, 4, 'No Surat 1', 'No Agenda', 'Surat Dari 2', 'Perihal', '2014-04-09', '2014-04-09 08:00:00', 'Catatan', '2014/04/09/20140409_071316_7455.jpg'),
-(21, 2, 4, 5, 'No Surat', 'No Agenda', 'Surat Dari 2', 'Perihal', '2014-04-09', '2014-04-09 11:56:40', 'Catatan', ''),
-(22, 0, 0, 6, 'No Surat 1', 'No Agenda 2', 'Surat Dari 2 2', 'Perihal', '2014-04-09', '2014-04-09 11:56:40', '', '');
+(21, 2, 4, 5, 'No Surat 2', 'No Agenda', 'Surat Dari 2', 'Perihal', '2014-04-09', '2014-04-09 11:56:40', 'Catatan', ''),
+(22, 0, 0, 6, 'No Surat 3', 'No Agenda 2', 'Surat Dari 2 2', 'Perihal', '2014-04-09', '2014-04-09 11:56:40', '', ''),
+(23, 2, 4, 7, 'No Surat 7', 'No Agenda', 'Dari si no 7', '-', '2014-05-01', '2014-05-01 13:17:35', '', '');
 
 -- --------------------------------------------------------
 
