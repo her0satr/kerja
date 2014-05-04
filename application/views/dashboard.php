@@ -3,6 +3,7 @@
 	$user = $this->user_model->get_session();
 	
 	// page info
+//    echo $this->uri->segments[2]; exit;
 	$view_type = (empty($this->uri->segments[2])) ? 'home' : $this->uri->segments[2];
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Selamat Datang' ) ); ?>
@@ -49,6 +50,11 @@
 						</li>
 						<?php } ?>
 					</ul>
+                    <?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
+                    <div>
+                        <a href="<?php echo base_url('home/master'); ?>"><img src="<?php echo base_url('static/img/icons/icon-surat.png'); ?>" /></a>
+                    </div>
+                    <?php } ?>
 				</div>
 				<?php } else if ($view_type == 'pegawai') { ?>
 				<div class="page-head">

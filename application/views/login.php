@@ -13,7 +13,7 @@
 				
 				<div class="widget-content" id="form-login">
 					<div class="padd">
-						<div class="center"><img src="<?php echo base_url('static/img/logo.png'); ?>" style="width: 75%;" /></div>
+						<div class="center"><img src="<?php echo base_url('static/img/logo-kab.png'); ?>" style="width: 40%;" /></div>
 						<form class="form-horizontal" method="post">
 							<div class="form-group">
 								<label class="control-label col-lg-3">Email / NIP</label>

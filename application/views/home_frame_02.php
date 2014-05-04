@@ -30,6 +30,9 @@
 			<div class="featured_box">
 				<h2><?php echo $surat_masuk['title']; ?></h2>
 				<p><?php echo $surat_masuk['content']; ?></p>
+				<p class="readmore">
+                <a target="_parent" href="<?php echo base_url('surat/surat_masuk/home'); ?>">Surat Masuk &raquo;</a>
+                </p>
 			</div>
 			<div class="featured_tab">
 				<img src="<?php echo base_url('static/img/slider/1.png'); ?>" alt="" />
@@ -40,6 +43,9 @@
 			<div class="featured_box">
 				<h2><?php echo $surat_keluar['title']; ?></h2>
 				<p><?php echo $surat_keluar['content']; ?></p>
+				<p class="readmore">
+                <a target="_parent" href="<?php echo base_url('surat/surat_keluar/home'); ?>">Surat Keluar &raquo;</a>
+                </p>
 			</div>
 			<div class="featured_tab">
 				<img src="<?php echo base_url('static/img/slider/2.png'); ?>" alt="" />
@@ -50,6 +56,9 @@
 			<div class="featured_box">
 				<h2><?php echo $nota_dinas['title']; ?></h2>
 				<p><?php echo $nota_dinas['content']; ?></p>
+				<p class="readmore">
+                <a target="_parent" href="<?php echo base_url('surat/nota_dinas/home'); ?>">Nota Dinas &raquo;</a>
+                </p>
 			</div>
 			<div class="featured_tab">
 				<img src="<?php echo base_url('static/img/slider/3.png'); ?>" alt="" />
@@ -60,6 +69,9 @@
 			<div class="featured_box">
 				<h2><?php echo $agenda_rapat['title']; ?></h2>
 				<p><?php echo $agenda_rapat['content']; ?></p>
+				<p class="readmore">
+                <a target="_parent" href="<?php echo base_url('agenda_rapat/home'); ?>">Agenda Rapat &raquo;</a>
+                </p>
 			</div>
 			<div class="featured_tab">
 				<img src="<?php echo base_url('static/img/slider/4.png'); ?>" alt="" />
@@ -70,6 +82,17 @@
 			<div class="featured_box">
 				<h2><?php echo $tambahan_surat['title']; ?></h2>
 				<p><?php echo $tambahan_surat['content']; ?></p>
+				<p class="readmore">
+                SURAT MASUK &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NOTA DINAS<br />
+                <a target="_parent" href="<?php echo base_url('surat/surat_masuk/rekap_posisi'); ?>">Rekap Posisi &raquo;</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <br />
+                <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Harian &raquo;</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Harian &raquo;</a> <br /> 
+                <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Bulanan &raquo;</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Bulanan &raquo;</a> <br />
+                <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Tahunan &raquo;</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Tahunan &raquo;</a> <br />
+<br />
+                SURAT KELUAR &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AGENDA RAPAT<br />
+                <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Surat Keluar &raquo;</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Agenda Rapat &raquo;</a> <br />
+
+                </p>
 			</div>
 			<div class="featured_tab">
 				<img src="<?php echo base_url('static/img/slider/4.png'); ?>" alt="" />

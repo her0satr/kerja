@@ -7,7 +7,7 @@
 		<div class="navbar-header">
 			<button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"><span>Menu</span></button>
 			<a href="#" class="pull-left menubutton hidden-xs"><i class="fa fa-bars"></i></a>
-			<a href="<?php echo base_url('home'); ?>" class="navbar-brand">Home</a>
+			<a href="<?php echo base_url('home'); ?>" class="navbar-brand">Halaman Depan</a> 
 		</div>
 		
 		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         

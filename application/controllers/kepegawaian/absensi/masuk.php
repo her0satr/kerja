@@ -36,7 +36,7 @@ class masuk extends SYGAAS_Controller {
 				exit;
 			}
 			
-			// absensi #1
+			 //absensi #1
 			if (empty($_POST['id'])) {
 				$_POST['waktu_01'] = $this->config->item('current_time');
 			}
@@ -44,7 +44,7 @@ class masuk extends SYGAAS_Controller {
 			$result = $this->absensi_masuk_model->update($_POST);
 		} else if ($action == 'update_waktu') {
 			if (in_array($_POST['absensi'], array( 'waktu_02', 'waktu_03', 'waktu_04' ))) {
-				$array_jam['waktu_02'] = 2;
+                $array_jam['waktu_02'] = 2;
 				$array_jam['waktu_03'] = 3;
 				$array_jam['waktu_04'] = 4;
 				$jam_absensi = $this->jam_absensi_model->get_by_id(array( 'jam_ke' => $array_jam[$_POST['absensi']] ));

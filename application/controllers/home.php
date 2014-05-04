@@ -23,6 +23,10 @@ class home extends CI_Controller {
 		$this->load->view( 'dashboard');
 	}
 	
+	function master() {
+		$this->load->view( 'master');
+	}
+
 	function action() {
 		$user = $this->user_model->get_by_id(array( 'email' => $_POST['email'] ));
 		
