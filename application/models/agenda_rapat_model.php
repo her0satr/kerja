@@ -58,6 +58,8 @@ class agenda_rapat_model extends CI_Model {
 		$string_skpd = (isset($param['skpd_id'])) ? "AND agenda_rapat.skpd_id = '".$param['skpd_id']."'" : '';
 		$string_today = (isset($param['today'])) ? "AND agenda_rapat.tanggal_undangan >= DATE('".$param['today']."')" : '';
 		$string_rahasia = (isset($param['rahasia'])) ? "AND agenda_rapat.rahasia = '".$param['rahasia']."'" : '';
+		$string_date_start = (isset($param['date_start'])) ? "AND agenda_rapat.tanggal_ajuan >= '".$param['date_start']."'" : '';
+		$string_date_end = (isset($param['date_start'])) ? "AND agenda_rapat.tanggal_ajuan <= '".$param['date_end']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'leading_sektor ASC');
 		$string_limit = GetStringLimit($param);
@@ -65,7 +67,7 @@ class agenda_rapat_model extends CI_Model {
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS agenda_rapat.*
 			FROM ".AGENDA_RAPAT." agenda_rapat
-			WHERE 1 $string_skpd $string_rahasia $string_today $string_filter
+			WHERE 1 $string_skpd $string_rahasia $string_today $string_date_start $string_date_end $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -126,6 +128,11 @@ class agenda_rapat_model extends CI_Model {
 			$array_temp = explode(' ', $row['tanggal_ajuan']);
 			$row['tanggal_ajuan_date'] = $array_temp[0];
 			$row['tanggal_ajuan_time'] = $array_temp[1];
+		}
+		if (isset($row['tanggal_undangan'])) {
+			$array_temp = explode(' ', $row['tanggal_undangan']);
+			$row['tanggal_undangan_date'] = $array_temp[0];
+			$row['tanggal_undangan_time'] = $array_temp[1];
 		}
 		
 		if (count(@$param['column']) > 0) {

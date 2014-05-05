@@ -13,8 +13,15 @@ class list_kosong extends SYGAAS_Controller {
 		$_POST['grid_type'] = 'rekap_pegawai';
 		$_POST['column'] = array( 'nama', 'tanggal', 'status_kosong', 'keterangan' );
 		
-		$_POST['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
-		$_POST['is_custom'] .= '<button class="btn btn-xs btn-file" data-original-title="File"><img src="'.base_url('static/img/icons/icon-detail.png').'" /></button> ';
+		// user
+		$user = $this->user_model->get_session();
+		
+		if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) {
+			$_POST['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
+			$_POST['is_custom'] .= '<button class="btn btn-xs btn-file" data-original-title="File"><img src="'.base_url('static/img/icons/icon-detail.png').'" /></button> ';
+		} else {
+			$_POST['is_custom'] = '&nbsp;';
+		}
 		
 		$array = $this->absensi_kosong_model->get_array($_POST);
 		$count = $this->absensi_kosong_model->get_count();

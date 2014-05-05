@@ -157,7 +157,7 @@
 $(document).ready(function() {
 	// grid
 	var param = {
-		id: 'datatable',
+		id: 'datatable', aaSorting: [[1, 'desc']],
 		source: web.host + 'kepegawaian/absensi/list_masuk/grid',
 		column: [ { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { sClass: "center" }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {

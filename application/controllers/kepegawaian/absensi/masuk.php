@@ -43,13 +43,26 @@ class masuk extends SYGAAS_Controller {
 			
 			$result = $this->absensi_masuk_model->update($_POST);
 		} else if ($action == 'update_waktu') {
-			if (in_array($_POST['absensi'], array( 'waktu_02', 'waktu_03', 'waktu_04' ))) {
+			if (in_array($_POST['absensi'], array( 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' ))) {
+                $array_jam['waktu_01'] = 1;
                 $array_jam['waktu_02'] = 2;
 				$array_jam['waktu_03'] = 3;
 				$array_jam['waktu_04'] = 4;
 				$jam_absensi = $this->jam_absensi_model->get_by_id(array( 'jam_ke' => $array_jam[$_POST['absensi']] ));
 				
+				$current_date = $this->config->item('current_date');
 				$current_hour = $this->config->item('current_hour');
+				$absensi_masuk = $this->absensi_masuk_model->get_by_id(array( 'id' => $_POST['id'] ));
+				
+				// absence must in same date
+				if ($absensi_masuk['tanggal'] != $current_date) {
+					$result['status'] = 0;
+					$result['message'] = 'Maaf, Anda hanya bisa mengubah absensi dihari yang sama.';
+					echo json_encode($result);
+					exit;
+				}
+				
+				// execute it
 				if ($jam_absensi['jam_awal'] <= $current_hour && $current_hour <= $jam_absensi['jam_akhir']) {
 					$param_update['id'] = $_POST['id'];
 					$param_update[$_POST['absensi']] = $this->config->item('current_time');

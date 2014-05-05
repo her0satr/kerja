@@ -1,14 +1,19 @@
 <?php
+	// data
 	$_POST['date_start'] = (empty($_POST['date_start'])) ? date("01-m-Y") : $_POST['date_start'];
 	$_POST['date_end'] = (empty($_POST['date_end'])) ? date("t-m-Y") : $_POST['date_end'];
 	
-	$param_rekap_penjualan['date_start'] = ExchangeFormatDate($_POST['date_start']);
-	$param_rekap_penjualan['date_end'] = ExchangeFormatDate($_POST['date_end']);
-	$array_rekap_penjualan = $this->agenda_rapat_model->get_rekap_filter($param_rekap_penjualan);
+	// array agenda
+	$param_rekap_agenda['date_start'] = ExchangeFormatDate($_POST['date_start']);
+	$param_rekap_agenda['date_end'] = ExchangeFormatDate($_POST['date_end']);
+	$param_rekap_agenda['limit'] = 100000;
+	$array_agenda = $this->agenda_rapat_model->get_array($param_rekap_agenda);
+	$chart_agenda = $this->agenda_rapat_model->get_rekap_filter($param_rekap_agenda);
 	
+	// page
 	$page_data['date_start'] = $_POST['date_start'];
 	$page_data['date_end'] = $_POST['date_end'];
-	$page_data['chart_data'] = $array_rekap_penjualan;
+	$page_data['chart_data'] = $chart_agenda;
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Agenda Rapat' ) ); ?>
 
@@ -84,6 +89,42 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="widget grid-main">
+					<div class="widget-head">
+						<div class="pull-left">&nbsp;</div>
+						<div class="widget-icons pull-right">&nbsp;</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="widget-content">
+						<table id="datatable" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>No Surat</th>
+									<th>Leading Sektor</th>
+									<th>Acara</th>
+									<th class="center">Tanggal Undangan</th>
+									<th>Tempat</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($array_agenda as $row) { ?>
+								<tr>
+									<td><?php echo $row['no_surat']; ?></td>
+									<td><?php echo $row['leading_sektor']; ?></td>
+									<td><?php echo $row['acara']; ?></td>
+									<td class="center"><?php echo GetFormatDate($row['tanggal_undangan']); ?></td>
+									<td><?php echo $row['tempat']; ?></td>
+								</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+						<div class="widget-foot">
+							<br /><br />
+							<div class="clearfix"></div> 
+						</div>
+					</div>
+				</div>
 			</div></div>
         </div></div>
     </div>
@@ -108,6 +149,9 @@ $(document).ready(function() {
 	}
 	page.init();
 	
+	// datatable
+	$('#datatable').dataTable({ 'sPaginationType': 'full_numbers' });
+	
 	if (page.data.chart_data.length > 0) {
 		Morris.Bar({
 			element: 'chart-bar',
@@ -117,7 +161,7 @@ $(document).ready(function() {
 			labels: [ 'Total' ]
 		});
 	} else {
-		noty({ text: 'Tidak ada penjualan yang ditemukan', layout: 'topRight', type: 'warning', timeout: 1500 });
+		noty({ text: 'Tidak ada agenda yang ditemukan', layout: 'topRight', type: 'warning', timeout: 1500 });
 	}
 });
 </script>

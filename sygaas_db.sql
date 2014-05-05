@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2014 at 01:19 PM
+-- Generation Time: May 04, 2014 at 03:01 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `absensi_masuk`
@@ -78,7 +78,9 @@ INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`,
 (3, 4, '2014-03-17', 'Tepat Waktu', '15:01:14', '', '15:31:05', '', '15:19:09', '', '15:19:07', '', ''),
 (4, 4, '2014-03-18', 'Tepat Waktu', '08:01:46', '', '15:31:05', '', '15:19:10', '', '15:19:08', '', ''),
 (7, 4, '2014-04-08', 'Tepat Waktu', '14:32:31', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '456'),
-(8, 0, '0000-00-00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
+(11, 5, '2014-05-04', '', '00:00:00', '', '00:00:00', '', '14:00:29', '', '00:00:00', '', ''),
+(12, 5, '2014-05-05', 'Tepat Waktu', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
+(13, 2, '2014-05-04', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -118,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
   `no_surat` varchar(50) NOT NULL,
   `tempat` varchar(255) NOT NULL,
   `tanggal_ajuan` datetime NOT NULL,
-  `tanggal_undangan` date NOT NULL,
+  `tanggal_undangan` datetime NOT NULL,
   `pimpinan_rapat` varchar(255) NOT NULL,
   `pakaian` varchar(50) NOT NULL,
   `catatan` varchar(255) NOT NULL,
@@ -132,9 +134,9 @@ CREATE TABLE IF NOT EXISTS `agenda_rapat` (
 --
 
 INSERT INTO `agenda_rapat` (`id`, `skpd_id`, `acara`, `leading_sektor`, `no_surat`, `tempat`, `tanggal_ajuan`, `tanggal_undangan`, `pimpinan_rapat`, `pakaian`, `catatan`, `keterangan`, `rahasia`) VALUES
-(5, 0, 'Peringatan Acara', 'Sektor', 'No 001', 'Balai RW', '2014-03-13 20:00:00', '2014-03-30', '', '', 'Catatan', '', 0),
-(6, 0, 'Acara Umum', '13', '13', '13', '2014-03-13 21:40:57', '2014-03-28', '', '', '', '', 1),
-(7, 0, 'Acara Kementrian', '11', '12', '13', '2014-03-17 10:06:52', '2014-03-31', '1', '', '', '', 1);
+(5, 0, 'Peringatan Acara', 'Sektor', 'No 001', 'Balai RW', '2014-03-13 20:00:00', '2014-03-30 00:00:00', '', '', 'Catatan', '', 0),
+(6, 0, 'Acara Umum', '13', '13', '13', '2014-03-13 21:40:57', '2014-03-28 00:00:00', '', '', '', '', 1),
+(7, 0, 'Acara Kementrian', '11', '12', '13', '2014-03-17 10:06:52', '2014-03-10 11:00:00', '1', '', '', '', 1);
 
 -- --------------------------------------------------------
 

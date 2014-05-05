@@ -1,4 +1,4 @@
-<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Absensi Masuk' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Absensi Tidak Masuk' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -11,7 +11,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Rekap Absensi Masuk</h2>
+			<h2 class="pull-left button-back">Rekap Absensi Tidak Masuk</h2>
 			<div class="clearfix"></div>
 		</div>
 		
@@ -120,7 +120,7 @@ $(document).ready(function() {
 	
 	// grid
 	var param = {
-		id: 'datatable',
+		id: 'datatable', aaSorting: [[1, 'desc']],
 		source: web.host + 'kepegawaian/absensi/list_kosong/grid',
 		column: [ { }, { sClass: "center" }, { sClass: "center" }, { }, { bSortable: false, sClass: "center" } ],
 		callback: function() {

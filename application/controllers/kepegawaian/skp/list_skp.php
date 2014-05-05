@@ -10,8 +10,16 @@ class list_skp extends SYGAAS_Controller {
 	}
 	
 	function grid() {
-		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'keterangan' );
+		// user
+		$user = $this->user_model->get_session();
+		
+		if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) {
+			$_POST['is_edit'] = 1;
+			$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'keterangan' );
+		} else {
+			$_POST['is_custom'] = '&nbsp;';
+			$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'keterangan' );
+		}
 		
 		$array = $this->kegiatan_skp_model->get_array($_POST);
 		$count = $this->kegiatan_skp_model->get_count();

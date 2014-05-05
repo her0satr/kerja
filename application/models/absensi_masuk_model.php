@@ -122,8 +122,7 @@ class absensi_masuk_model extends CI_Model {
 		if (count($record) == 0) {
 			$param_update = array(
 				'tanggal' => $tanggal,
-				'biodata_id' => $param['biodata_id'],
-				'waktu_01' => $this->config->item('current_time')
+				'biodata_id' => $param['biodata_id']
 			);
 			$this->update($param_update);
 		}
@@ -250,10 +249,13 @@ class absensi_masuk_model extends CI_Model {
     }
 	
 	function sync($row, $param = array()) {
-		$row = StripArray($row, array( 'waktu_02', 'waktu_03', 'waktu_04' ));
+		$row = StripArray($row, array( 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' ));
 		
 		// grid type
 		if (isset($param['grid_type']) && $param['grid_type'] == 'absensi_pegawai') {
+			if (empty($row['waktu_01'])) {
+				$row['waktu_01'] = '<button class="btn btn-xs btn-absensi" data-absensi="waktu_01" data-original-title="Cek Absen"><img src="'.base_url('static/img/icons/icon-clock.png').'" /></button>';
+			}
 			if (empty($row['waktu_02'])) {
 				$row['waktu_02'] = '<button class="btn btn-xs btn-absensi" data-absensi="waktu_02" data-original-title="Cek Absen"><img src="'.base_url('static/img/icons/icon-clock.png').'" /></button>';
 			}
