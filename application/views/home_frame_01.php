@@ -66,8 +66,13 @@
 				<h2><?php echo $laporan_pegawai['title']; ?></h2>
 				<p><?php echo $laporan_pegawai['content']; ?></p>
 				<p class="readmore">
-                <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">List Presensi &raquo;</a> <br /><br />
-                <a target="_parent" href="<?php echo base_url('kepegawaian/skp/rekap_agenda'); ?>">Rekap Agenda Kerja &raquo;</a>
+                REKAP AGENDA KERJA <br />
+                <a target="_parent" href="<?php echo base_url('kepegawaian/skp/list_skp'); ?>">Rekap Agenda Kerja &raquo;</a> <br />
+                <br />
+                REKAP ABSENSI <br />
+                <a target="_parent" href="<?php echo base_url('kepegawaian/absensi/masuk'); ?>">Rekap Masuk &raquo;</a> <br />
+                <a target="_parent" href="<?php echo base_url('absensi/list_kosong'); ?>">Rekap Tidak Masuk &raquo;</a> <br />
+                <a target="_parent" href="<?php echo base_url('rekap/absensi'); ?>">Rekap Absensi &raquo;</a> <br />
                 </p>
 			</div>
 			<div class="featured_tab"><img src="<?php echo base_url('static/img/slider/4.png'); ?>" alt="" />

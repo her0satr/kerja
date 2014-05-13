@@ -52,7 +52,7 @@
 					</ul>
                     <?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
                     <div>
-                        <a href="<?php echo base_url('home/master'); ?>"><img src="<?php echo base_url('static/img/icons/icon-surat.png'); ?>" /></a>
+                        <a href="<?php echo base_url('home/master'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" /> Konfigurasi </a>
                     </div>
                     <?php } ?>
 				</div>

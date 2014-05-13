@@ -27,7 +27,20 @@
 		
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
-	           <a href="<?php echo base_url('master/agama'); ?>"><img src="<?php echo base_url('static/img/icons/icon-surat.png'); ?>" /></a>
+            
+               <?php if (in_array($user['user_type_id'], array(USER_ID_ADMINISTRATOR))) { ?>
+               <a href="<?php echo base_url('user/user'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />User</a> <br />
+               <?php } ?>
+               
+	           <a href="<?php echo base_url('master/agama'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Agama</a> <br />
+               <a href="<?php echo base_url('master/index_surat'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Index Surat</a> <br />
+               <a href="<?php echo base_url('master/jenis_kepegawaian'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Jenis Kepegawaian</a> <br />
+               <a href="<?php echo base_url('master/pangkat'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Pangkat</a> <br />
+               <a href="<?php echo base_url('master/sifat_arsip'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Sifat Arsip</a> <br />
+               <a href="<?php echo base_url('master/skpd'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />SKPD</a> <br />
+               <a href="<?php echo base_url('master/status_kepegawaian'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Status Kepegawaian</a> <br />
+               <a href="<?php echo base_url('master/status_perkawinan'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Status Perkawinan</a> <br />
+               <a href="<?php echo base_url('master/surat_destination'); ?>"><img src="<?php echo base_url('static/img/icons/master.png'); ?>" />Tujuan Surat</a> <br />
 			</div></div>
         </div></div>
     </div>

@@ -27,7 +27,7 @@
 				
 				<div class="widget grid-main">
 					<div class="widget-head">
-						<div class="pull-left">
+						<div class="hide">
 							<button class="btn btn-info btn-xs btn-add">Tambah</button>
 						</div>
 						<div class="widget-icons pull-right">
