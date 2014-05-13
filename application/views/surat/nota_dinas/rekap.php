@@ -1,14 +1,19 @@
 <?php
+	// data
 	$_POST['date_start'] = (empty($_POST['date_start'])) ? date("01-m-Y") : $_POST['date_start'];
 	$_POST['date_end'] = (empty($_POST['date_end'])) ? date("t-m-Y") : $_POST['date_end'];
 	
-	$param_rekap_penjualan['date_start'] = ExchangeFormatDate($_POST['date_start']);
-	$param_rekap_penjualan['date_end'] = ExchangeFormatDate($_POST['date_end']);
-	$array_rekap_penjualan = $this->nota_dinas_model->get_rekap_filter($param_rekap_penjualan);
+	// array nota dinas
+	$param_rekap_nota['date_start'] = ExchangeFormatDate($_POST['date_start']);
+	$param_rekap_nota['date_end'] = ExchangeFormatDate($_POST['date_end']);
+	$param_rekap_nota['limit'] = 100000;
+	$array_nota = $this->nota_dinas_model->get_array($param_rekap_nota);
+	$chart_nota = $this->nota_dinas_model->get_rekap_filter($param_rekap_nota);
 	
+	// page
 	$page_data['date_start'] = $_POST['date_start'];
 	$page_data['date_end'] = $_POST['date_end'];
-	$page_data['chart_data'] = $array_rekap_penjualan;
+	$page_data['chart_data'] = $chart_nota;
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Nota Dinas' ) ); ?>
 
@@ -84,6 +89,42 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="widget grid-main">
+					<div class="widget-head">
+						<div class="pull-left">&nbsp;</div>
+						<div class="widget-icons pull-right">&nbsp;</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="widget-content">
+						<table id="datatable" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>No Urut</th>
+									<th>No Surat</th>
+									<th>Surat Dari</th>
+									<th>Perihal</th>
+									<th>Tanggal Surat</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($array_nota as $row) { ?>
+								<tr>
+									<td><?php echo $row['no_urut']; ?></td>
+									<td><?php echo $row['no_surat']; ?></td>
+									<td><?php echo $row['surat_dari']; ?></td>
+									<td><?php echo $row['perihal']; ?></td>
+									<td class="center"><?php echo GetFormatDate($row['tanggal_surat']); ?></td>
+								</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+						<div class="widget-foot">
+							<br /><br />
+							<div class="clearfix"></div> 
+						</div>
+					</div>
+				</div>
 			</div></div>
         </div></div>
     </div>
@@ -107,6 +148,9 @@ $(document).ready(function() {
 		}
 	}
 	page.init();
+	
+	// datatable
+	$('#datatable').dataTable({ 'sPaginationType': 'full_numbers' });
 	
 	if (page.data.chart_data.length > 0) {
 		Morris.Bar({

@@ -21,7 +21,7 @@
 #accordion .featured_box { width: 395px; }
 #accordion .featured_tab { width: 80px; }
 #accordion .featured_tab div { width: 80%; text-align: center; }
-#accordion .featured_tab img { display: inline; width: 100%; text-align: center; }
+#accordion .featured_tab img { display: inline; width: auto; height: auto; text-align: center; }
 #accordion .featured_tab p { padding: 0px 5px; }
 </style>
 

@@ -30,6 +30,23 @@ class list_kosong extends SYGAAS_Controller {
 		echo json_encode($grid);
 	}
 	
+	function grid_no_absense() {
+		if (empty($_POST['tanggal'])) {
+			$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => array(), 'iTotalRecords' => 0, 'iTotalDisplayRecords' => 0 );
+			echo json_encode($grid);
+			exit;
+		}
+		
+		// set column
+		$_POST['column'] = array( 'nama', 'tanggal' );
+		
+		$array = $this->absensi_kosong_model->get_no_absence($_POST);
+		$count = $this->absensi_kosong_model->get_count();
+		$grid = array( 'sEcho' => $_POST['sEcho'], 'aaData' => $array, 'iTotalRecords' => $count, 'iTotalDisplayRecords' => $count );
+		
+		echo json_encode($grid);
+	}
+	
 	function action() {
 		$action = (isset($_POST['action'])) ? $_POST['action'] : '';
 		unset($_POST['action']);

@@ -18,9 +18,28 @@
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
 				
+				<div class="widget">
+					<div class="widget-content" style="padding: 20px 20px 0 20px;">
+						<form class="form-horizontal" method="post" id="form-search">
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Tanggal</label>
+								<div class="col-lg-5">
+									<div class="input-append datepicker">
+										<input name="tanggal" type="text" class="form-control dtpicker" placeholder="Tanggal" data-format="dd-MM-yyyy" />
+										<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<button type="submit" class="btn btn-info">Cari</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
 				<div class="widget grid-main">
 					<div class="widget-head">
-						<div class="pull-left">&nbsp;</div>
+						<div class="pull-left">Status dengan Keterangan</div>
 						<div class="widget-icons pull-right">
 							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
@@ -36,6 +55,31 @@
 									<th class="center">Status</th>
 									<th class="center">Keterangan</th>
 									<th class="center">Control</th></tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+						<div class="widget-foot">
+							<br /><br />
+							<div class="clearfix"></div> 
+						</div>
+					</div>
+				</div>
+				
+				<div class="widget grid-main">
+					<div class="widget-head">
+						<div class="pull-left">Status tanpa Keterangan</div>
+						<div class="widget-icons pull-right">
+							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="widget-content">
+						<table id="datatable-no-absense" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center">Nama</th>
+									<th class="center">Tanggal</th></tr>
 							</thead>
 							<tbody></tbody>
 						</table>
@@ -118,11 +162,19 @@ $(document).ready(function() {
 		$('#form-absensi [name="upload_file"]').val(p.file_name);
 	}
 	
-	// grid
+	// grid with absense
 	var param = {
 		id: 'datatable', aaSorting: [[1, 'desc']],
 		source: web.host + 'kepegawaian/absensi/list_kosong/grid',
 		column: [ { }, { sClass: "center" }, { sClass: "center" }, { }, { bSortable: false, sClass: "center" } ],
+		fnServerParams: function ( aoData ) {
+			var search = Func.form.get_value('form-search');
+			if (search.tanggal.length > 0) {
+				aoData.push(
+					{ "name": "tanggal", "value": search.tanggal }
+				)
+			}
+		},
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
@@ -146,6 +198,29 @@ $(document).ready(function() {
 		}
 	}
 	var dt = Func.datatable(param);
+	
+	// grid without absense
+	var param_absence = {
+		id: 'datatable-no-absense', aaSorting: [[0, 'asc']],
+		source: web.host + 'kepegawaian/absensi/list_kosong/grid_no_absense',
+		column: [ { }, { sClass: "center" } ],
+		fnServerParams: function ( aoData ) {
+			var search = Func.form.get_value('form-search');
+			if (search.tanggal.length > 0) {
+				aoData.push(
+					{ "name": "tanggal", "value": search.tanggal }
+				)
+			}
+		}
+	}
+	var dt_absence = Func.datatable(param_absence);
+	
+	// form search
+	$('#form-search').submit(function(e) {
+		e.preventDefault();
+		dt.reload();
+		dt_absence.reload();
+	});
 	
 	// form jam
 	$('#form-absensi form').validate({

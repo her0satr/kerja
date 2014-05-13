@@ -56,6 +56,7 @@ class absensi_kosong_model extends CI_Model {
 		
 		$param['field_replace']['tanggal_text'] = 'waktu_kosong.tanggal';
 		
+		$string_tanggal = (isset($param['tanggal'])) ? "AND waktu_kosong.tanggal = '".$param['tanggal']."'" : '';
 		$string_biodata = (isset($param['biodata_id'])) ? "AND waktu_kosong.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'tanggal DESC');
@@ -65,7 +66,7 @@ class absensi_kosong_model extends CI_Model {
 			SELECT SQL_CALC_FOUND_ROWS waktu_kosong.*, biodata.nama, biodata.nip
 			FROM ".ABSENSI_KOSONG." waktu_kosong
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_kosong.biodata_id
-			WHERE 1 $string_biodata $string_filter
+			WHERE 1 $string_tanggal $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -85,6 +86,31 @@ class absensi_kosong_model extends CI_Model {
 		
 		return $TotalRecord;
     }
+	
+	function get_no_absence($param = array()) {
+        $array = array();
+		
+		$string_filter = GetStringFilter($param, @$param['column']);
+		$string_sorting = GetStringSorting($param, @$param['column'], 'nama DESC');
+		$string_limit = GetStringLimit($param);
+		
+		$select_query = "
+			SELECT SQL_CALC_FOUND_ROWS biodata.*, '".$param['tanggal']."' tanggal
+			FROM ".BIODATA." biodata
+			WHERE
+				biodata.id NOT IN ( SELECT biodata_id FROM ".ABSENSI_MASUK." WHERE tanggal = '".$param['tanggal']."' )
+				AND biodata.id NOT IN ( SELECT biodata_id FROM ".ABSENSI_KOSONG." WHERE tanggal = '".$param['tanggal']."' )
+				$string_filter
+			ORDER BY $string_sorting
+			LIMIT $string_limit
+		";
+        $select_result = mysql_query($select_query) or die(mysql_error());
+		while ( $row = mysql_fetch_assoc( $select_result ) ) {
+			$array[] = $this->sync($row, $param);
+		}
+		
+        return $array;
+	}
 	
     function delete($param) {
 		$delete_query  = "DELETE FROM ".ABSENSI_KOSONG." WHERE id = '".$param['id']."' LIMIT 1";
