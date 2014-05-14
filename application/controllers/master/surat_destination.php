@@ -11,7 +11,7 @@ class surat_destination extends SYGAAS_Controller {
 	
 	function grid() {
 		$_POST['is_edit'] = 1;
-		$_POST['column'] = array( 'title' );
+		$_POST['column'] = array( 'title', 'order_no' );
 		
 		$array = $this->surat_destination_model->get_array($_POST);
 		$count = $this->surat_destination_model->get_count();

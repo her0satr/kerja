@@ -3,7 +3,6 @@
 	$user = $this->user_model->get_session();
 	
 	// page info
-//    echo $this->uri->segments[2]; exit;
 	$view_type = (empty($this->uri->segments[2])) ? 'home' : $this->uri->segments[2];
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Selamat Datang' ) ); ?>

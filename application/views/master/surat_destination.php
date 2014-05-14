@@ -31,6 +31,7 @@
 							<thead>
 								<tr>
 									<th>Name</th>
+									<th>No Urut</th>
 									<th class="center">Control</th></tr>
 							</thead>
 							<tbody></tbody>
@@ -61,6 +62,12 @@
 								<label class="col-lg-2 control-label">Name</label>
 								<div class="col-lg-10">
 									<input type="text" name="title" class="form-control" placeholder="Name" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">No Urut</label>
+								<div class="col-lg-10">
+									<input type="text" name="order_no" class="form-control" placeholder="No Urut" />
 								</div>
 							</div>
 							
@@ -107,7 +114,7 @@ $(document).ready(function() {
 	var param = {
 		id: 'datatable',
 		source: web.host + 'master/surat_destination/grid',
-		column: [ { }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { sClass: "center" }, { bSortable: false, sClass: "center" } ],
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();

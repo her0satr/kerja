@@ -223,7 +223,10 @@ class user_model extends CI_Model {
 						'name' => 'agenda_rapat', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1, 2 ),
 						'children' => array(
 							array( 'name' => 'home', 'title' => 'Agenda Rapat', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'rekap', 'title' => 'Rekap', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_harian', 'title' => 'Rekap Harian', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_bulanan', 'title' => 'Rekap Bulanan', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'rekap_tahunan', 'title' => 'Rekap Tahunan', 'user_type_id' => array( 1, 2 ) )
 						)
 					)
 				)

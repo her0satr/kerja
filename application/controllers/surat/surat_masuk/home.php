@@ -105,8 +105,8 @@ class home extends SYGAAS_Controller {
 	}
 	
 	function disposisi() {
-		header("Content-type: application/vnd.ms-word");
-		header("Content-Disposition: attachment;Filename=disposisi.doc");
+//		header("Content-type: application/vnd.ms-word");
+//		header("Content-Disposition: attachment;Filename=disposisi.doc");
 		
 		$content = $this->load->view( 'surat/surat_masuk/disposisi', array(), true );
 		echo $content;

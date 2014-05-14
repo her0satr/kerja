@@ -4,7 +4,7 @@ class surat_destination_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'title', 'hidden' );
+        $this->field = array( 'id', 'title', 'hidden', 'order_no' );
     }
 
     function update($param) {
@@ -56,7 +56,7 @@ class surat_destination_model extends CI_Model {
 		
 		$string_hidden = "AND (surat_destination.hidden = '".$param['hidden']."' OR '".$param['hidden']."' = 'x')";
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'order_no ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "

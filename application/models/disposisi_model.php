@@ -59,6 +59,7 @@ class disposisi_model extends CI_Model {
 		$param['field_replace']['surat_destination_title'] = 'surat_destination.title';
 		
 		$string_surat_masuk = (isset($param['surat_masuk_id'])) ? "AND disposisi.surat_masuk_id = '".$param['surat_masuk_id']."'" : '';
+		$string_surat_hidden = (isset($param['hidden'])) ? "AND surat_destination.hidden = '".$param['hidden']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'waktu ASC');
 		$string_limit = GetStringLimit($param);
@@ -68,7 +69,7 @@ class disposisi_model extends CI_Model {
 				surat_destination.title surat_destination_title, surat_destination.hidden surat_destination_hidden
 			FROM ".DISPOSISI." disposisi
 			LEFT JOIN ".SURAT_DESTINATION." surat_destination ON surat_destination.id = disposisi.surat_destination_id
-			WHERE 1 $string_surat_masuk $string_filter
+			WHERE 1 $string_surat_masuk $string_surat_hidden $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -79,7 +80,23 @@ class disposisi_model extends CI_Model {
 		
         return $array;
     }
-
+	
+	function get_array_disposisi_print($param = array()) {
+		$param['hidden'] = 0;
+		$result = $this->get_array($param);
+		
+		if (count($result) == 0) {
+			$result = $this->surat_destination_model->get_array();
+			
+			// make same label
+			foreach ($result as $key => $row) {
+				$result[$key]['surat_destination_title'] = $row['title'];
+			}
+		}
+		
+		return $result;
+	}
+	
     function get_count($param = array()) {
 		$select_query = "SELECT FOUND_ROWS() TotalRecord";
 		$select_result = mysql_query($select_query) or die(mysql_error());

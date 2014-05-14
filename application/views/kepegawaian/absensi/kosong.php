@@ -94,7 +94,10 @@
 							<option value="Ijin">Ijin</option>
 							<option value="Cuti">Cuti</option>
 							<option value="Sakit">Sakit</option>
-							<option value="Tanpa Keterangan">Tanpa Keterangan</option>
+							<option value="DL">DL</option>
+							<option value="DD">DD</option>
+							<option value="TB">TB</option>
+							<option value="MPP">MPP</option>
 						</select>
 					</div>
 				</div>
