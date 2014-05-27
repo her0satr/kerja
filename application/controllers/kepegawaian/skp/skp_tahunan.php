@@ -106,9 +106,15 @@ class skp_tahunan extends SYGAAS_Controller {
 		
 		// skp pejabat
 		else if ($action == 'skp_realisasi_update') {
-			echo 'continue here';
-			print_r($_POST); exit;
+			// check record
+			$record = $this->skp_realisasi_model->get_by_id(array( 'skp_sasaran_kerja_id' => $_POST['skp_sasaran_kerja_id'] ));
 			
+			// add parameter for existing record
+			if (!empty($record['id'])) {
+				$_POST['id'] = $record['id'];
+			}
+			
+			// update
 			$result = $this->skp_realisasi_model->update($_POST);
 		} else if ($action == 'skp_realisasi_get_by_id') {
 			$result = $this->skp_realisasi_model->get_by_id(array( 'skp_sasaran_kerja_id' => $_POST['skp_sasaran_kerja_id'] ));
