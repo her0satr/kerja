@@ -5,7 +5,7 @@ class skp_realisasi_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'biodata_id', 'skp_sasaran_kerja_id', 'tahun', 'waktu_nilai', 'waktu_satuan', 'biaya'
+			'id', 'skp_sasaran_kerja_id', 'waktu_nilai', 'waktu_satuan', 'biaya'
 		);
     }
 
@@ -41,14 +41,14 @@ class skp_realisasi_model extends CI_Model {
 				WHERE skp_realisasi.id = '".$param['id']."'
 				LIMIT 1
 			";
-		} else if (isset($param['biodata_id']) && isset($param['tahun'])) {
-			$select_query  = "
-				SELECT skp_realisasi.*
-				FROM ".SKP_REALISASI." skp_realisasi
-				WHERE
-					skp_realisasi.tahun = '".$param['tahun']."'
-					AND skp_realisasi.biodata_id = '".$param['biodata_id']."'
-				LIMIT 1
+		} else if (isset($param['skp_sasaran_kerja_id'])) {
+			$select_query = "
+				SELECT SQL_CALC_FOUND_ROWS
+					skp_realisasi.id, skp_realisasi.waktu_nilai, skp_realisasi.waktu_satuan, skp_realisasi.biaya,
+					skp_sasaran_kerja.id skp_sasaran_kerja_id
+				FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
+				LEFT JOIN ".SKP_REALISASI." skp_realisasi ON skp_realisasi.skp_sasaran_kerja_id = skp_sasaran_kerja.id
+				WHERE skp_sasaran_kerja.id = '".$param['skp_sasaran_kerja_id']."'
 			";
 		}
 		
@@ -63,19 +63,27 @@ class skp_realisasi_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$string_tahun = (isset($param['tahun'])) ? "AND skp_realisasi.tahun = '".$param['tahun']."'" : '';
-		$string_biodata = (isset($param['biodata_id'])) ? "AND skp_realisasi.biodata_id = '".$param['biodata_id']."'" : '';
+		$param['field_replace']['jenis_skp_title'] = 'jenis_skp.title';
+		
+		$string_tahun = (isset($param['tahun'])) ? "AND skp_sasaran_kerja.tahun = '".$param['tahun']."'" : '';
+		$string_biodata = (isset($param['biodata_id'])) ? "AND skp_sasaran_kerja.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'tahun ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS skp_realisasi.*
-			FROM ".SKP_REALISASI." skp_realisasi
+			SELECT SQL_CALC_FOUND_ROWS
+				skp_realisasi.id, skp_realisasi.waktu_nilai, skp_realisasi.waktu_satuan, skp_realisasi.biaya,
+				skp_sasaran_kerja.id skp_sasaran_kerja_id,
+				jenis_skp.title jenis_skp_title, '0' kuant, '0' kual, '0' waktu_text, '0' biaya_text
+			FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
+			LEFT JOIN ".SKP_REALISASI." skp_realisasi ON skp_realisasi.skp_sasaran_kerja_id = skp_sasaran_kerja.id
+			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = skp_sasaran_kerja.jenis_skp_id
 			WHERE 1 $string_tahun $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
+		
         $select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
 			$array[] = $this->sync($row, $param);
@@ -106,6 +114,16 @@ class skp_realisasi_model extends CI_Model {
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
 		
+		// waktu
+		$row['waktu_text'] = '';
+		if (isset($row['waktu_nilai']) && isset($row['waktu_satuan'])) {
+			$row['waktu_text'] = $row['waktu_nilai'].' '.$row['waktu_satuan'];
+		}
+		
+		// biaya
+		$row['biaya_text'] = (empty($row['biaya'])) ? '-' : $row['biaya'];
+		
+		// dt view
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);
 		}

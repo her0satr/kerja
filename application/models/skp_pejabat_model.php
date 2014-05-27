@@ -33,7 +33,7 @@ class skp_pejabat_model extends CI_Model {
 
     function get_by_id($param) {
         $array = array();
-       
+		
         if (isset($param['id'])) {
             $select_query  = "
 				SELECT skp_pejabat.*
@@ -41,12 +41,13 @@ class skp_pejabat_model extends CI_Model {
 				WHERE skp_pejabat.id = '".$param['id']."'
 				LIMIT 1
 			";
-		} else if (isset($param['biodata_id']) && isset($param['tahun'])) {
+		} else if (isset($param['biodata_id']) && isset($param['tahun']) && isset($param['posisi'])) {
 			$select_query  = "
 				SELECT skp_pejabat.*
 				FROM ".SKP_PEJABAT." skp_pejabat
 				WHERE
 					skp_pejabat.tahun = '".$param['tahun']."'
+					AND skp_pejabat.posisi = '".$param['posisi']."'
 					AND skp_pejabat.biodata_id = '".$param['biodata_id']."'
 				LIMIT 1
 			";

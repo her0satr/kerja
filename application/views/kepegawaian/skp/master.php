@@ -26,10 +26,10 @@
 			<div class="clearfix"></div>
 		</div>
         
-		<?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
 	    <div class="matter"><div class="container">
             <div class="row"><div class="col-md-12">
 				
+				<?php if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) { ?>
 				<h3>Tupoksi</h3>
 				<div class="widget grid-main">
 					<div class="widget-head">
