@@ -201,7 +201,7 @@
 							</div>
 						</form></div>
 					</div>
-				</div>  
+				</div>
 				
 				<div class="widget hide" id="form-detail">
 					<div class="widget-head">

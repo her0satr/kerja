@@ -177,7 +177,8 @@ class user_model extends CI_Model {
 							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 2, 3 ) ),
 							array( 'name' => 'home', 'title' => 'Agenda Kerja Harian', 'user_type_id' => array( 1, 2, 3 ) ),
 							array( 'name' => 'list_skp', 'title' => 'List Agenda Kerja', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'rekap_agenda', 'title' => 'Rekap Agenda Kerja', 'user_type_id' => array( 1, 2 ) )
+							array( 'name' => 'rekap_agenda', 'title' => 'Rekap Agenda Kerja', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'skp_tahunan', 'title' => 'SKP Tahunan', 'user_type_id' => array( 1, 2, 3 ) )
 						)
 					)
 				)
