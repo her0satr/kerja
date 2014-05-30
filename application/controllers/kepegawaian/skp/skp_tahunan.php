@@ -200,7 +200,7 @@ class skp_tahunan extends SYGAAS_Controller {
 		
 		if ($print_type == 'sasaran') {
 			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/sasaran_kerja', array( 'K_PENILAI' => $K_PENILAI ), true );
-			echo $template; exit;
+//			echo $template; exit;
 			$this->mpdf->WriteHTML($template);
 		} else if ($print_type == 'realisasi') {
 			$this->mpdf->AddPage('L');

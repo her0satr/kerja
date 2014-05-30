@@ -73,13 +73,14 @@ class skp_sasaran_kerja_model extends CI_Model {
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS skp_sasaran_kerja.*,
-				jenis_skp.title jenis_skp_title
+				jenis_skp.title jenis_skp_title, jenis_skp.satuan jenis_skp_satuan
 			FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
 			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = skp_sasaran_kerja.jenis_skp_id
 			WHERE 1 $string_tahun $string_biodata $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
+		
         $select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
 			$array[] = $this->sync($row, $param);

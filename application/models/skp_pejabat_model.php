@@ -43,8 +43,9 @@ class skp_pejabat_model extends CI_Model {
 			";
 		} else if (isset($param['biodata_id']) && isset($param['tahun']) && isset($param['posisi'])) {
 			$select_query  = "
-				SELECT skp_pejabat.*
+				SELECT skp_pejabat.*, pangkat.golongan, pangkat.ruang
 				FROM ".SKP_PEJABAT." skp_pejabat
+				LEFT JOIN ".PANGKAT." pangkat ON pangkat.id = skp_pejabat.pangkat_id
 				WHERE
 					skp_pejabat.tahun = '".$param['tahun']."'
 					AND skp_pejabat.posisi = '".$param['posisi']."'
@@ -106,6 +107,12 @@ class skp_pejabat_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
+		
+		// golongan ruang
+		$row['golongan_ruang_text'] = '';
+		if (!empty($row['golongan']) && !empty($row['ruang'])) {
+			$row['golongan_ruang_text'] = $row['golongan'].' / '.$row['ruang'];
+		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

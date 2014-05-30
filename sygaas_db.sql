@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2014 at 12:08 PM
+-- Generation Time: May 30, 2014 at 02:39 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -207,7 +207,7 @@ INSERT INTO `biodata` (`id`, `skpd_id`, `agama_id`, `status_perkawinan_id`, `jen
 (5, 10, 1, 0, 0, 0, '0123456789', 'Ferry Cahyono', 'Laki Laki', '', '', '-', '2014-04-21', '', '', ''),
 (6, 10, 1, 2, 2, 1, '39284208', 'Ferry Cahyono  non admin', 'Laki Laki', 'Drs.', 'M.Si', 'Malang', '2014-04-23', '', '', ''),
 (7, 10, 1, 0, 0, 0, '4343', 'asfsaf', 'Laki Laki', 'aa', 'aa', 'kk', '2014-04-07', '', '', ''),
-(8, 10, 1, 0, 0, 0, '46356565656', 'Wudi Yulianto', 'Laki Laki', '', '', 'fdsfsd', '2014-05-07', '', '', '');
+(8, 10, 1, 1, 1, 1, '46356565656', 'Wudi Yulianto', 'Laki Laki', 'Prof.', 'M. Kom', 'fdsfsd', '2014-05-07', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `biodata_id` int(11) NOT NULL,
   `pangkat_id` int(11) NOT NULL,
-  `unit_kerja_id` int(50) NOT NULL,
+  `unit_kerja_id` int(10) NOT NULL,
   `jabatan` varchar(50) NOT NULL,
   `golongan_ruang` varchar(50) NOT NULL,
   `tmt_pangkat` varchar(50) NOT NULL,
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
   `non_pns` varchar(50) NOT NULL,
   `gaji` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `biodata_detail`
@@ -243,7 +243,8 @@ INSERT INTO `biodata_detail` (`id`, `biodata_id`, `pangkat_id`, `unit_kerja_id`,
 (1, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', 0),
 (2, 3, 1, 9, '', '', '', '', '', '', '-', '', '', '', '', 123456),
 (3, 4, 0, 2014, 'Programmer', 'III/A', '-', '5 Tahun 2 Bulan', '5 Tahun', '2 Bulan', '856355402', 'her0satr@yahoo.com', '2014/03/17/20140317_144553_8586.jpg', '2014/03/17/20140317_144555_4644.jpg', '2014/03/17/20140317_144557_7781.jpg', 1500000),
-(4, 5, 0, 0, '', '', '', '', '', '', '111111', '', '', '', '', 0);
+(4, 5, 0, 0, '', '', '', '', '', '', '111111', '', '', '', '', 0),
+(5, 8, 5, 57, 'Kepala Sub Bagian Tata Usaha', 'IV / E', '', '', '', '', '-', '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -889,7 +890,7 @@ CREATE TABLE IF NOT EXISTS `jenis_skp` (
   `satuan` varchar(10) NOT NULL,
   `point` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `jenis_skp`
@@ -904,7 +905,9 @@ INSERT INTO `jenis_skp` (`id`, `biodata_id`, `title`, `jumlah`, `satuan`, `point
 (9, 5, 'Jenis SKP 02', 1, 'unit', 1),
 (10, 2, 'Mendeteksi kerusakan jaringan', 1, 'unit', 0),
 (11, 5, 'Membuat Nodin', 1, 'lembar', 0),
-(12, 5, 'Membuat Nota Dinas', 60, 'Naskah', 0);
+(12, 5, 'Membuat Nota Dinas', 60, 'Naskah', 0),
+(13, 8, 'Wudi SKP 01', 1, 'Unit', 0),
+(14, 8, 'Wudi SKP 02', 5, 'Lembar', 0);
 
 -- --------------------------------------------------------
 
@@ -925,7 +928,7 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
   `kendala` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `kegiatan_skp`
@@ -935,7 +938,11 @@ INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `jenis_kegiatan_
 (18, 2, 10, 0, 1, '2014-05-05', '14:45:13', 1, 0, '', ''),
 (19, 2, 0, 9, 2, '2014-05-05', '14:51:38', 2, 0, '', ''),
 (20, 5, 8, 0, 1, '2014-05-07', '09:39:19', 1, 0, '', ''),
-(21, 5, 0, 8, 2, '2014-05-07', '13:39:19', 2, 0, '', '');
+(21, 5, 0, 8, 2, '2014-05-07', '13:39:19', 2, 0, '', ''),
+(22, 8, 13, 0, 1, '2014-05-30', '08:50:34', 1, 90, '-', '-'),
+(23, 8, 13, 0, 2, '2014-05-30', '08:50:34', 1, 95, '-', '-'),
+(24, 8, 14, 0, 3, '2014-05-30', '08:50:34', 1, 100, '-', '-'),
+(25, 8, 14, 0, 4, '2014-05-30', '08:50:34', 1, 100, '-', '-');
 
 -- --------------------------------------------------------
 
@@ -1077,7 +1084,19 @@ CREATE TABLE IF NOT EXISTS `perilaku_kerja` (
   `title` varchar(100) NOT NULL,
   `no_urut` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `perilaku_kerja`
+--
+
+INSERT INTO `perilaku_kerja` (`id`, `title`, `no_urut`) VALUES
+(1, 'Orientasi Pelayanan', 1),
+(2, 'Integritas', 2),
+(3, 'Komitmen', 3),
+(4, 'Disiplin', 4),
+(5, 'Kerjasama', 5),
+(6, 'Kepemimpinan', 6);
 
 -- --------------------------------------------------------
 
@@ -1285,7 +1304,15 @@ CREATE TABLE IF NOT EXISTS `skp_kreativitas` (
   `perhitungan` varchar(50) NOT NULL,
   `nilai_capaian` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `skp_kreativitas`
+--
+
+INSERT INTO `skp_kreativitas` (`id`, `biodata_id`, `tahun`, `title`, `perhitungan`, `nilai_capaian`) VALUES
+(1, 0, 0, '', '', ''),
+(3, 8, 2014, 'Kreativitas 1', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -1304,7 +1331,14 @@ CREATE TABLE IF NOT EXISTS `skp_pejabat` (
   `jabatan` varchar(255) NOT NULL,
   `unit_kerja` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `skp_pejabat`
+--
+
+INSERT INTO `skp_pejabat` (`id`, `biodata_id`, `pangkat_id`, `tahun`, `posisi`, `nama`, `nip`, `jabatan`, `unit_kerja`) VALUES
+(2, 8, 5, 2014, 'Pejabat Penilai', 'Drs. Budiman ST', '0123456', 'Kepala Dinas', 'Unit Satuan');
 
 -- --------------------------------------------------------
 
@@ -1319,7 +1353,20 @@ CREATE TABLE IF NOT EXISTS `skp_perilaku_kerja` (
   `tahun` int(11) NOT NULL,
   `nilai` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `skp_perilaku_kerja`
+--
+
+INSERT INTO `skp_perilaku_kerja` (`id`, `biodata_id`, `perilaku_kerja_id`, `tahun`, `nilai`) VALUES
+(1, 0, 0, 0, 0),
+(8, 8, 1, 2014, 1),
+(3, 8, 2, 2014, 2),
+(4, 8, 3, 2014, 6),
+(5, 8, 4, 2014, 7),
+(6, 8, 5, 2014, 8),
+(7, 8, 6, 2014, 9);
 
 -- --------------------------------------------------------
 
@@ -1329,14 +1376,20 @@ CREATE TABLE IF NOT EXISTS `skp_perilaku_kerja` (
 
 CREATE TABLE IF NOT EXISTS `skp_realisasi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `biodata_id` int(11) NOT NULL,
   `skp_sasaran_kerja_id` int(11) NOT NULL,
-  `tahun` int(11) NOT NULL,
   `waktu_nilai` int(11) NOT NULL,
   `waktu_satuan` varchar(50) NOT NULL,
   `biaya` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `skp_realisasi`
+--
+
+INSERT INTO `skp_realisasi` (`id`, `skp_sasaran_kerja_id`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
+(2, 2, 12, 'Bulan', 0),
+(3, 3, 6, 'Bulan', 0);
 
 -- --------------------------------------------------------
 
@@ -1356,7 +1409,15 @@ CREATE TABLE IF NOT EXISTS `skp_sasaran_kerja` (
   `waktu_satuan` varchar(50) NOT NULL,
   `biaya` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `skp_sasaran_kerja`
+--
+
+INSERT INTO `skp_sasaran_kerja` (`id`, `biodata_id`, `jenis_skp_id`, `tahun`, `ak`, `kuant_nilai`, `kual`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
+(2, 8, 13, 2014, 0, 1000, 100, 12, 'Bulan', '0'),
+(3, 8, 14, 2014, 0, 250, 100, 11, 'Bulan', '0');
 
 -- --------------------------------------------------------
 
@@ -1381,7 +1442,14 @@ CREATE TABLE IF NOT EXISTS `skp_summary` (
   `tanggal_diterima_pns` date NOT NULL,
   `tanggal_diterima_atasan` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `skp_summary`
+--
+
+INSERT INTO `skp_summary` (`id`, `biodata_id`, `tahun`, `tanggal_pembuatan`, `tanggal_penilaian`, `keberatan`, `tanggal_keberatan`, `tanggapan`, `tanggal_tanggapan`, `keputusan`, `tanggal_keputusan`, `rekomendasi`, `tanggal_dibuat`, `tanggal_diterima_pns`, `tanggal_diterima_atasan`) VALUES
+(1, 8, 2014, '2014-05-01', '2014-05-31', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -1397,7 +1465,14 @@ CREATE TABLE IF NOT EXISTS `skp_tugas_tambahan` (
   `perhitungan` varchar(50) NOT NULL,
   `nilai_capaian` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `skp_tugas_tambahan`
+--
+
+INSERT INTO `skp_tugas_tambahan` (`id`, `biodata_id`, `tahun`, `title`, `perhitungan`, `nilai_capaian`) VALUES
+(3, 8, 2014, 'Tugas Tambahan 1', '1', '1');
 
 -- --------------------------------------------------------
 

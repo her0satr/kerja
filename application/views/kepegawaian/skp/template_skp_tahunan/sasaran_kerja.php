@@ -1,9 +1,22 @@
 <?php
-	print_r($_GET); exit;
-	$penilai = $this->skp_model->get_by_id_penilai(array( 'K_PENILAI' => $K_PENILAI ));
-	$pegawai_detail = $this->lpegawai->GetPegawaiById($penilai['K_PEGAWAI']);
-	$penilai_detail = $this->lpegawai->GetPegawaiById($penilai['K_PENILAI_PEGAWAI']);
-	$array_kegiatan = $this->skp_model->get_array_kegiatan(array( 'K_PEGAWAI' => $penilai['K_PEGAWAI'], 'TAHUN' => $penilai['TAHUN'] ));
+	// biodata
+	$biodata = $this->biodata_model->get_by_id(array( 'id' => $_GET['biodata_id'] ));
+	
+	// pejabat penilai
+	$param_pejabat_penilai['tahun'] = $_GET['tahun'];
+	$param_pejabat_penilai['biodata_id'] = $_GET['biodata_id'];
+	$param_pejabat_penilai['posisi'] = 'Pejabat Penilai';
+	$pejabat_penilai = $this->skp_pejabat_model->get_by_id($param_pejabat_penilai);
+	
+	// summary
+	$param_summary['tahun'] = $_GET['tahun'];
+	$param_summary['biodata_id'] = $_GET['biodata_id'];
+	$summary = $this->skp_summary_model->get_by_id($param_summary);
+	
+	// sasaran kerja
+	$param_sasaran_kerja['tahun'] = $_GET['tahun'];
+	$param_sasaran_kerja['biodata_id'] = $_GET['biodata_id'];
+	$sasaran_kerja = $this->skp_sasaran_kerja_model->get_array($param_sasaran_kerja);
 ?>
 
 <style>
@@ -26,56 +39,72 @@ table.border td,th,caption{background-color:#fff}
 	<tr>
 		<td style="width: 30px; text-align: center;">1</td>
 		<td style="width: 120px;">Nama</td>
-		<td style="width: 180px;"><?php echo $penilai_detail['NAMA_GELAR']; ?></td>
+		<td style="width: 180px;"><?php echo $pejabat_penilai['nama']; ?></td>
 		<td style="width: 30px; text-align: center;">1</td>
 		<td style="width: 120px;">Nama</td>
-		<td style="width: 180px;"><?php echo $pegawai_detail['NAMA_GELAR']; ?></td></tr>
+		<td style="width: 180px;"><?php echo $biodata['nama']; ?></td></tr>
+	<tr>
+		<td style="width: 30px; text-align: center;">2</td>
+		<td style="width: 120px;">NIP</td>
+		<td style="width: 180px;"><?php echo $pejabat_penilai['nip']; ?></td>
+		<td style="width: 30px; text-align: center;">2</td>
+		<td style="width: 120px;">NIP</td>
+		<td style="width: 180px;"><?php echo $biodata['nip']; ?></td></tr>
 	<tr>
 		<td style="text-align: center;">3</td>
 		<td>Pangkat/Gol.Ruang</td>
-		<td><?php echo $penilai_detail['GOLONGAN_RUANG']; ?></td>
+		<td><?php echo $pejabat_penilai['golongan_ruang_text']; ?></td>
 		<td style="text-align: center;">3</td>
 		<td>Pangkat/Gol.Ruang</td>
-		<td><?php echo $pegawai_detail['GOLONGAN_RUANG']; ?></td></tr>
+		<td><?php echo $biodata['golongan_ruang_text']; ?></td></tr>
 	<tr>
 		<td style="text-align: center;">4</td>
 		<td>Jabatan</td>
-		<td><?php echo $penilai_detail['JABATAN_LAIN']; ?></td>
+		<td><?php echo $pejabat_penilai['jabatan']; ?></td>
 		<td style="text-align: center;">4</td>
 		<td>Jabatan</td>
-		<td><?php echo $pegawai_detail['JABATAN_LAIN']; ?></td></tr>
+		<td><?php echo $biodata['jabatan']; ?></td></tr>
 	<tr>
 		<td style="text-align: center;">5</td>
 		<td>Unit Kerja</td>
-		<td><?php echo $penilai_detail['UNIT_KERJA']; ?></td>
+		<td><?php echo $pejabat_penilai['unit_kerja']; ?></td>
 		<td style="text-align: center;">5</td>
 		<td>Unit Kerja</td>
-		<td><?php echo $pegawai_detail['UNIT_KERJA']; ?></td></tr>
+		<td><?php echo $biodata['skpd_title']; ?></td></tr>
 </table>
 </div>
+
+<div style="clear: both; margin: 0pt; padding: 0pt; "></div>
 
 <div style="padding: 20px 0 0 40px;">
 <table class="border" style="font-size: 10px; width: 680px;">
 	<tr>
 		<td style="width: 30px; text-align: center;" rowspan="2">NO</td>
-		<td style="width: 300px;" rowspan="2">III. KEGIATAN TUGAS JABATAN</td>
+		<td style="width: 280px;" rowspan="2">III. KEGIATAN TUGAS JABATAN</td>
 		<td style="width: 60px; text-align: center;" rowspan="2">AK</td>
-		<td style="width: 280px; text-align: center;" colspan="4">TARGET</td></tr>
+		<td style="width: 300px; text-align: center;" colspan="4">TARGET</td></tr>
 	<tr>
-		<td style="width: 70px; text-align: center;">KUANT /<br />OUTPUT</td>
-		<td style="width: 70px; text-align: center;">KUAL /<br />OUTPUT</td>
-		<td style="width: 70px; text-align: center;">WAKTU</td>
-		<td style="width: 70px; text-align: center;">BIAYA</td></tr>
+		<td style="font-size: 8px; width: 80px; text-align: center;">KUANT/OUTPUT</td>
+		<td style="font-size: 8px; width: 70px; text-align: center;">KUAL/OUTPUT</td>
+		<td style="font-size: 8px; width: 80px; text-align: center;">WAKTU</td>
+		<td style="font-size: 8px; width: 70px; text-align: center;">BIAYA</td></tr>
 	<?php $counter = 1; ?>
-	<?php foreach ($array_kegiatan as $row) { ?>
+	<?php foreach ($sasaran_kerja as $row) { ?>
 	<tr>
 		<td style="text-align: center;"><?php echo $counter; ?></td>
-		<td><?php echo $row['KEGIATAN']; ?></td>
-		<td style="text-align: center;"><?php echo show_skp($row['AK_TARGET_TITLE']); ?></td>
-		<td style="text-align: center;"><?php echo $row['KUAN_TARGET_TITLE']; ?></td>
-		<td style="text-align: center;"><?php echo $row['KUAL_TARGET_TITLE']; ?></td>
-		<td style="text-align: center;"><?php echo $row['WAKTU_TARGET']; ?></td>
-		<td style="text-align: center;"><?php echo show_skp($row['BIAYA_TARGET']); ?></td></tr>
+		<td><?php echo $row['jenis_skp_title']; ?></td>
+		<td style="text-align: center;"><?php echo $row['ak']; ?></td>
+		<td>
+			<table style="width: 70;">
+				<tr>
+					<td style="width: 30; text-align: center;"><?php echo $row['kuant_nilai']; ?></td>
+					<td style="width: 40;"><?php echo $row['jenis_skp_satuan']; ?></td>
+				</tr>
+			</table>
+		</td>
+		<td style="text-align: center;"><?php echo $row['kual']; ?></td>
+		<td style="text-align: center;"><?php echo $row['waktu_nilai'].' '.$row['waktu_satuan']; ?></td>
+		<td style="text-align: center;"><?php echo $row['biaya']; ?></td></tr>
 	<?php $counter++; ?>
 	<?php } ?>
 </table>
@@ -86,15 +115,20 @@ table.border td,th,caption{background-color:#fff}
 		<div>&nbsp;</div>
 		<div>Pejabat Penilai,</div>
 		<div style="padding: 25px 0;">&nbsp;</div>
-		<div><?php echo $penilai_detail['NAMA_GELAR']; ?></div>
-		<div><?php echo $penilai_detail['K_PEGAWAI']; ?></div>
+		<div><?php echo $pejabat_penilai['nama']; ?></div>
+		<div>NIP. <?php echo $pejabat_penilai['nip']; ?></div>
 	</div>
 	<div style="float: left; width: 50%;">
-		<div>Malang, 02  Januari <?php echo ($penilai['TAHUN'] + 1); ?></div>
+		<div>Malang, <?php echo $summary['tanggal_pembuatan_text']; ?></div>
 		<div>Pegawai Negeri Sipil Yang Dinilai</div>
 		<div style="padding: 25px 0;">&nbsp;</div>
-		<div><?php echo $pegawai_detail['NAMA_GELAR']; ?></div>
-		<div><?php echo $pegawai_detail['K_PEGAWAI']; ?></div>
+		<div><?php echo $biodata['nama']; ?></div>
+		<div>NIP. <?php echo $biodata['nip']; ?></div>
 	</div>
 	<div style="clear: both;"></div>
+	
+	<div style="padding: 25px 0 0 45px; text-align: left;">
+		Catatan :<br />
+		* AK Bagi PNS yang memangku jabatan fungsional tertentu
+	</div>
 </div>

@@ -38,7 +38,7 @@ class biodata_model extends CI_Model {
         if (isset($param['id'])) {
             $select_query  = "
 				SELECT
-					biodata.*, skpd.title skpd_title,
+					biodata.*, skpd.title skpd_title, pangkat.golongan, pangkat.ruang,
 					biodata_detail.biodata_id, biodata_detail.jabatan, biodata_detail.golongan_ruang, biodata_detail.tmt_pangkat,
 					biodata_detail.tmt_masa_kerja, biodata_detail.tmt_tahun, biodata_detail.tmt_bulan, biodata_detail.hp, biodata_detail.email,
 					biodata_detail.cpns, biodata_detail.pns, biodata_detail.non_pns, biodata_detail.unit_kerja_id unit_kerja
@@ -142,8 +142,15 @@ class biodata_model extends CI_Model {
 			$row['link_photo'] = base_url('static/img/user1.png');
 		}
 		
+		// date
 		if (isset($row['tanggal_lahir'])) {
 			$row['tanggal_lahir_text'] = GetFormatDate($row['tanggal_lahir']);
+		}
+		
+		// golongan ruang
+		$row['golongan_ruang_text'] = '';
+		if (!empty($row['golongan']) && !empty($row['ruang'])) {
+			$row['golongan_ruang_text'] = $row['golongan'].' / '.$row['ruang'];
 		}
 		
 		if (count(@$param['column']) > 0) {

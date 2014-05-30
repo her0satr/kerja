@@ -162,6 +162,39 @@
 					</div>
 				</div>
 				
+				<div class="cnt-realisasi">
+					<h3>SKP Realisasi</h3>
+					<div class="widget grid-main">
+						<div class="widget-head">
+							<div class="pull-left">&nbsp;</div>
+							<div class="widget-icons pull-right">
+								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="widget-content">
+							<table id="dt-skp-realisasi" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Jenis SKP</th>
+										<th class="center">Kuant</th>
+										<th class="center">Kual</th>
+										<th class="center">Waktu</th>
+										<th class="center">Biaya</th>
+										<th class="center">Control</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<div class="widget-foot">
+								<br /><br />
+								<div class="clearfix"></div> 
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<div class="cnt-tugas-tambahan">
 					<h3>SKP Tugas Tambahan</h3>
 					<div class="widget grid-main">
@@ -695,6 +728,9 @@ $(document).ready(function() {
 			$('.cnt-sasaran').show();
 			$('.cnt-pejabat').show();
 			$('.cnt-realisasi').show();
+			$('.cnt-tugas-tambahan').show();
+			$('.cnt-kreativitas').show();
+			$('.cnt-perilaku-kerja').show();
 			$('#form-summary').hide();
 			$('#form-sasaran').hide();
 		},
@@ -704,6 +740,9 @@ $(document).ready(function() {
 			$('.cnt-sasaran').hide();
 			$('.cnt-pejabat').hide();
 			$('.cnt-realisasi').hide();
+			$('.cnt-tugas-tambahan').hide();
+			$('.cnt-kreativitas').hide();
+			$('.cnt-perilaku-kerja').hide();
 			$('#form-summary').show();
 			$('#form-sasaran').hide();
 		},
@@ -713,6 +752,9 @@ $(document).ready(function() {
 			$('.cnt-sasaran').hide();
 			$('.cnt-pejabat').hide();
 			$('.cnt-realisasi').hide();
+			$('.cnt-tugas-tambahan').hide();
+			$('.cnt-kreativitas').hide();
+			$('.cnt-perilaku-kerja').hide();
 			$('#form-summary').hide();
 			$('#form-sasaran').show();
 		},
