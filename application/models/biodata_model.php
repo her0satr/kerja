@@ -44,6 +44,7 @@ class biodata_model extends CI_Model {
 					biodata_detail.cpns, biodata_detail.pns, biodata_detail.non_pns, biodata_detail.unit_kerja_id unit_kerja
 				FROM ".BIODATA." biodata
 				LEFT JOIN ".BIODATA_DETAIL." biodata_detail ON biodata_detail.biodata_id = biodata.id
+				LEFT JOIN ".PANGKAT." pangkat ON biodata_detail.pangkat_id = pangkat.id
 				LEFT JOIN ".SKPD." skpd ON skpd.id = biodata.skpd_id
 				LEFT JOIN ".SKPD." unit_kerja ON unit_kerja.id = biodata_detail.unit_kerja_id
 				WHERE biodata.id = '".$param['id']."'
