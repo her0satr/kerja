@@ -912,6 +912,24 @@
 		}
 	}
 	
+	if (! function_exists('get_string_score')) {
+		function get_string_score($value) {
+			if ($value >= 91) {
+				$result = 'Sangat baik';
+			} else if ($value >= 76) {
+				$result = 'Baik';
+			} else if ($value >= 61) {
+				$result = 'Cukup';
+			} else if ($value >= 51) {
+				$result = 'Kurang';
+			} else {
+				$result = 'Buruk';
+			}
+			
+			return $result;
+		}
+	}
+	
 	if (! class_exists('curl')) {
 		class curl {
 			var $callback = false;

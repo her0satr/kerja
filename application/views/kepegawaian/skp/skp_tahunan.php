@@ -69,6 +69,7 @@
 						<div class="widget-head">
 							<div class="pull-left">
 								<button class="btn btn-info btn-xs btn-add-skp-summary">Tambah</button>
+								<button class="btn btn-info btn-xs btn-print-skp-summary">Cetak</button>
 							</div>
 							<div class="widget-icons pull-right">
 								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
@@ -166,7 +167,9 @@
 					<h3>SKP Realisasi</h3>
 					<div class="widget grid-main">
 						<div class="widget-head">
-							<div class="pull-left">&nbsp;</div>
+							<div class="pull-left">
+								<button class="btn btn-info btn-xs btn-print-skp-realisasi">Cetak</button>
+							</div>
 							<div class="widget-icons pull-right">
 								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
@@ -1106,6 +1109,17 @@ $(document).ready(function() {
 		$('#form-summary [name="tahun"]').val(form_search.tahun);
 		$('#form-summary [name="biodata_id"]').val(form_search.biodata_id);
 	});
+	$('.btn-print-skp-summary').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		var link_print = web.host + 'kepegawaian/skp/skp_tahunan/cetak?print_type=penilaian&biodata_id=' + form_search.biodata_id + '&tahun=' + form_search.tahun;
+		window.open(link_print);
+	});
 	$('#form-summary form').validate({
 		rules: {
 			tanggal_pembuatan: { required: true }
@@ -1151,9 +1165,6 @@ $(document).ready(function() {
 		if (!is_valid_search) {
 			return;
 		}
-		
-		// show form
-		page.show_form_sasaran();
 		
 		// populate data
 		var form_search = Func.form.get_value('form-search');
@@ -1230,6 +1241,17 @@ $(document).ready(function() {
 	});
 	
 	// form realisasi
+	$('.btn-print-skp-realisasi').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		var link_print = web.host + 'kepegawaian/skp/skp_tahunan/cetak?print_type=realisasi&biodata_id=' + form_search.biodata_id + '&tahun=' + form_search.tahun;
+		window.open(link_print);
+	});
 	$('#form-realisasi form').validate({
 		rules: {
 			posisi: { required: true },

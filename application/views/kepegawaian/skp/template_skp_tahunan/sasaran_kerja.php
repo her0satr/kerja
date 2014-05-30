@@ -42,7 +42,7 @@ table.border td,th,caption{background-color:#fff}
 		<td style="width: 180px;"><?php echo $pejabat_penilai['nama']; ?></td>
 		<td style="width: 30px; text-align: center;">1</td>
 		<td style="width: 120px;">Nama</td>
-		<td style="width: 180px;"><?php echo $biodata['nama']; ?></td></tr>
+		<td style="width: 180px;"><?php echo $biodata['nama_gelar']; ?></td></tr>
 	<tr>
 		<td style="width: 30px; text-align: center;">2</td>
 		<td style="width: 120px;">NIP</td>

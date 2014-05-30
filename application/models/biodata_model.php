@@ -147,6 +147,18 @@ class biodata_model extends CI_Model {
 			$row['tanggal_lahir_text'] = GetFormatDate($row['tanggal_lahir']);
 		}
 		
+		// gelar
+		$row['nama_gelar'] = '';
+		if (isset($row['nama']) && isset($row['gelar_depan']) && isset($row['gelar_belakang'])) {
+			$row['nama_gelar'] = $row['nama'];
+			if (!empty($row['gelar_depan'])) {
+				$row['nama_gelar'] = $row['gelar_depan'].' '.$row['nama_gelar'];
+			}
+			if (!empty($row['gelar_belakang'])) {
+				$row['nama_gelar'] = $row['nama_gelar'].' '.$row['gelar_belakang'];
+			}
+		}
+		
 		// golongan ruang
 		$row['golongan_ruang_text'] = '';
 		if (!empty($row['golongan']) && !empty($row['ruang'])) {

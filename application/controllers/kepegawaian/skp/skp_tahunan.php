@@ -29,7 +29,7 @@ class skp_tahunan extends SYGAAS_Controller {
 				$_POST['column'] = array( 'nama', 'nip' );
 			} else if ($action == 'skp_realisasi') {
 				$_POST['is_edit_only'] = 1;
-				$_POST['column'] = array( 'jenis_skp_title', 'kuant', 'kual', 'waktu_text', 'biaya_text' );
+				$_POST['column'] = array( 'jenis_skp_title', 'real_kuant', 'real_kual', 'real_waktu', 'real_biaya' );
 			} else if ($action == 'skp_tugas_tambahan') {
 				$_POST['is_edit'] = 1;
 				$_POST['column'] = array( 'title', 'perhitungan', 'nilai_capaian' );
@@ -200,13 +200,16 @@ class skp_tahunan extends SYGAAS_Controller {
 		
 		if ($print_type == 'sasaran') {
 			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/sasaran_kerja', array( 'K_PENILAI' => $K_PENILAI ), true );
-//			echo $template; exit;
 			$this->mpdf->WriteHTML($template);
 		} else if ($print_type == 'realisasi') {
 			$this->mpdf->AddPage('L');
 			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/capaian_sasaran', array( 'K_PENILAI' => $K_PENILAI ), true );
 			$this->mpdf->WriteHTML($template);
+		} else if ($print_type == 'penilaian') {
+			echo time();
+			exit;
 			
+			/*
 			$this->mpdf->AddPage('P');
 			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/perilaku', array( 'K_PEGAWAI' => $penilai['K_PEGAWAI'], 'TAHUN' => $penilai['TAHUN'], 'K_PENILAI' => $K_PENILAI ), true );
 			$this->mpdf->WriteHTML($template);
@@ -214,6 +217,7 @@ class skp_tahunan extends SYGAAS_Controller {
 			$this->mpdf->AddPage('P');
 			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/prestasi_kerja', array( 'K_PEGAWAI' => $penilai['K_PEGAWAI'], 'TAHUN' => $penilai['TAHUN'], 'K_PENILAI' => $K_PENILAI ), true );
 			$this->mpdf->WriteHTML($template);
+			/*	*/
 		}
 		
 		$this->mpdf->Output();

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: May 30, 2014 at 02:39 PM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: May 30, 2014 at 07:20 PM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,8 +18,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `sygaas_db`
 --
-CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -1304,7 +1301,7 @@ CREATE TABLE IF NOT EXISTS `skp_kreativitas` (
   `perhitungan` varchar(50) NOT NULL,
   `nilai_capaian` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `skp_kreativitas`
@@ -1312,7 +1309,8 @@ CREATE TABLE IF NOT EXISTS `skp_kreativitas` (
 
 INSERT INTO `skp_kreativitas` (`id`, `biodata_id`, `tahun`, `title`, `perhitungan`, `nilai_capaian`) VALUES
 (1, 0, 0, '', '', ''),
-(3, 8, 2014, 'Kreativitas 1', '1', '1');
+(3, 8, 2014, 'Kreativitas 1', '1', '1'),
+(4, 8, 2014, 'Kreativitas 2', '2', '2');
 
 -- --------------------------------------------------------
 
@@ -1389,7 +1387,7 @@ CREATE TABLE IF NOT EXISTS `skp_realisasi` (
 
 INSERT INTO `skp_realisasi` (`id`, `skp_sasaran_kerja_id`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
 (2, 2, 12, 'Bulan', 0),
-(3, 3, 6, 'Bulan', 0);
+(3, 3, 12, 'Bulan', 0);
 
 -- --------------------------------------------------------
 
@@ -1416,8 +1414,8 @@ CREATE TABLE IF NOT EXISTS `skp_sasaran_kerja` (
 --
 
 INSERT INTO `skp_sasaran_kerja` (`id`, `biodata_id`, `jenis_skp_id`, `tahun`, `ak`, `kuant_nilai`, `kual`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
-(2, 8, 13, 2014, 0, 1000, 100, 12, 'Bulan', '0'),
-(3, 8, 14, 2014, 0, 250, 100, 11, 'Bulan', '0');
+(2, 8, 13, 2014, 0, 2, 100, 12, 'Bulan', '0'),
+(3, 8, 14, 2014, 0, 10, 100, 12, 'Bulan', '0');
 
 -- --------------------------------------------------------
 
@@ -1449,7 +1447,7 @@ CREATE TABLE IF NOT EXISTS `skp_summary` (
 --
 
 INSERT INTO `skp_summary` (`id`, `biodata_id`, `tahun`, `tanggal_pembuatan`, `tanggal_penilaian`, `keberatan`, `tanggal_keberatan`, `tanggapan`, `tanggal_tanggapan`, `keputusan`, `tanggal_keputusan`, `rekomendasi`, `tanggal_dibuat`, `tanggal_diterima_pns`, `tanggal_diterima_atasan`) VALUES
-(1, 8, 2014, '2014-05-01', '2014-05-31', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00');
+(1, 8, 2014, '2014-05-01', '2014-12-31', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -1465,14 +1463,15 @@ CREATE TABLE IF NOT EXISTS `skp_tugas_tambahan` (
   `perhitungan` varchar(50) NOT NULL,
   `nilai_capaian` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `skp_tugas_tambahan`
 --
 
 INSERT INTO `skp_tugas_tambahan` (`id`, `biodata_id`, `tahun`, `title`, `perhitungan`, `nilai_capaian`) VALUES
-(3, 8, 2014, 'Tugas Tambahan 1', '1', '1');
+(3, 8, 2014, 'Tugas Tambahan 1', '1', '1'),
+(4, 8, 2014, 'menghadiri konfrensi keersihan air', '10', '3');
 
 -- --------------------------------------------------------
 

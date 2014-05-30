@@ -63,39 +63,41 @@ class skp_realisasi_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['kual'] = '';
-		$param['field_replace']['kuant'] = '';
-		$param['field_replace']['waktu_text'] = '';
-		$param['field_replace']['biaya_text'] = '';
+		$param['field_replace']['real_kual'] = '';
+		$param['field_replace']['real_kuant'] = '';
+		$param['field_replace']['real_waktu'] = '';
+		$param['field_replace']['real_biaya'] = '';
 		$param['field_replace']['jenis_skp_title'] = 'jenis_skp.title';
 		
 		$string_tahun = (isset($param['tahun'])) ? "AND skp_sasaran_kerja.tahun = '".$param['tahun']."'" : '';
 		$string_biodata = (isset($param['biodata_id'])) ? "AND skp_sasaran_kerja.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'tahun ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'jenis_skp.title ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS
-				skp_realisasi.id, skp_realisasi.waktu_nilai, skp_realisasi.waktu_satuan, skp_realisasi.biaya,
+				jenis_skp.title jenis_skp_title, jenis_skp.satuan jenis_skp_satuan,
+				
 				skp_sasaran_kerja.id skp_sasaran_kerja_id,
-				jenis_skp.title jenis_skp_title,
+				skp_sasaran_kerja.ak target_ak, skp_sasaran_kerja.kuant_nilai target_kuant_nilai, skp_sasaran_kerja.kual target_kual,
+				skp_sasaran_kerja.waktu_nilai target_waktu_nilai, skp_sasaran_kerja.waktu_satuan target_waktu_satuan, skp_sasaran_kerja.biaya target_biaya,
+				
+				skp_realisasi.id skp_realisasi_id, skp_realisasi.waktu_nilai real_waktu_nilai, skp_realisasi.waktu_satuan real_waktu_satuan,
+				skp_realisasi.biaya real_biaya,
 				
 				(	SELECT SUM(a2.jumlah)
 					FROM ".KEGIATAN_SKP." a1
 					LEFT JOIN ".JENIS_SKP." a2 ON a2.id = a1.jenis_skp_id
 					WHERE a1.biodata_id = skp_sasaran_kerja.biodata_id AND YEAR(a1.tanggal) = skp_sasaran_kerja.tahun AND a1.jenis_skp_id = skp_sasaran_kerja.jenis_skp_id
-				) kuant,
-				
+				) real_kuant,
 				(	SELECT AVG(kual)
 					FROM ".KEGIATAN_SKP." b1
 					WHERE
 						b1.biodata_id = skp_sasaran_kerja.biodata_id
 						AND YEAR(b1.tanggal) = skp_sasaran_kerja.tahun
 						AND b1.jenis_skp_id = skp_sasaran_kerja.jenis_skp_id
-				) kual,
-				
-				'0' waktu_text, '0' biaya_text
+				) real_kual
 			FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
 			LEFT JOIN ".SKP_REALISASI." skp_realisasi ON skp_realisasi.skp_sasaran_kerja_id = skp_sasaran_kerja.id
 			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = skp_sasaran_kerja.jenis_skp_id
@@ -135,18 +137,38 @@ class skp_realisasi_model extends CI_Model {
 		$row = StripArray($row);
 		
 		// kual
-		if (!empty($row['kual'])) {
-			$row['kual'] = round($row['kual']);
+		if (!empty($row['real_kual'])) {
+			$row['real_kual'] = round($row['real_kual']);
 		}
 		
-		// waktu
-		$row['waktu_text'] = '';
-		if (isset($row['waktu_nilai']) && isset($row['waktu_satuan'])) {
-			$row['waktu_text'] = $row['waktu_nilai'].' '.$row['waktu_satuan'];
+		// real waktu
+		$row['real_waktu'] = '-';
+		if (!empty($row['real_waktu_nilai']) && !empty($row['real_waktu_satuan'])) {
+			$row['real_waktu'] = $row['real_waktu_nilai'].' '.$row['real_waktu_satuan'];
 		}
 		
-		// biaya
-		$row['biaya_text'] = (empty($row['biaya'])) ? '-' : $row['biaya'];
+		// perhitungan & nilai capaian
+		$row['perhitungan'] = 0;
+		if (!empty($row['target_kuant_nilai']) && !empty($row['real_kuant'])) {
+			// kontanta
+			$rw_kecil_24 = (((1.76 * $row['real_waktu_nilai']) - $row['target_waktu_nilai']) / $row['real_waktu_nilai']) * 100;
+			$rw_besar_24 = 76 - (((((1.76 * $row['real_waktu_nilai']) - $row['target_waktu_nilai']) / $row['real_waktu_nilai']) * 100) - 100);
+			
+			// data
+			$waktu_persen = 100 - (($row['real_waktu_nilai'] / $row['target_waktu_nilai']) * 100);
+			$waktu = ($waktu_persen > 24) ? $rw_besar_24 : $rw_kecil_24;
+			$biaya_persen = (empty($row['target_biaya']) || empty($row['real_biaya'])) ? 0 : 100 - (($row['real_biaya'] / $row['target_biaya']) * 100);
+			$kuan = ($row['real_kuant'] / $row['target_kuant_nilai']) * 100;
+			$kual = ($row['real_kual'] / $row['target_kual']) * 100;
+			
+			// perhitungan
+			$row['perhitungan'] = $waktu + $kuan + $kual;
+			$row['perhitungan'] = number_format($row['perhitungan'], 2, ',', '.');
+			
+			// nilai capaian
+			$row['nilai_capaian'] = (empty($row['target_biaya']) || empty($row['real_biaya'])) ? $row['perhitungan'] / 3 : $row['perhitungan'] / 4;
+			$row['nilai_capaian'] = number_format($row['nilai_capaian'], 2, ',', '.');
+		}
 		
 		// dt view
 		if (count(@$param['column']) > 0) {
@@ -154,5 +176,44 @@ class skp_realisasi_model extends CI_Model {
 		}
 		
 		return $row;
+	}
+	
+	function get_total_nilai_capaian($param = array()) {
+		// realisasi
+		$param_realisasi['tahun'] = $param['tahun'];
+		$param_realisasi['biodata_id'] = $param['biodata_id'];
+		$realisasi = $this->skp_realisasi_model->get_array($param_realisasi);
+		
+		// tugas tambahan
+		$param_tugas_tambahan['tahun'] = $param['tahun'];
+		$param_tugas_tambahan['biodata_id'] = $param['biodata_id'];
+		$array_tugas_tambahan = $this->skp_tugas_tambahan_model->get_array($param_tugas_tambahan);
+		
+		// kreativitas
+		$param_kreativitas['tahun'] = $param['tahun'];
+		$param_kreativitas['biodata_id'] = $param['biodata_id'];
+		$array_kreativitas = $this->skp_kreativitas_model->get_array($param_kreativitas);
+		
+		// count realisasi
+		$temp_total = 0;
+		foreach ($realisasi as $key => $row) {
+			$temp_total += $row['nilai_capaian'];
+		}
+		$nilai_capaian = $temp_total / count($realisasi);
+		
+		// count tugas tambahan
+		foreach ($array_tugas_tambahan as $key => $row) {
+			$nilai_capaian += $row['nilai_capaian'];
+		}
+		
+		// count kreativitas
+		foreach ($array_kreativitas as $key => $row) {
+			$nilai_capaian += $row['nilai_capaian'];
+		}
+		
+		// final
+		$nilai_capaian = number_format($nilai_capaian, 2, ',', '.');
+		
+		return $nilai_capaian;
 	}
 }
