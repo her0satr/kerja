@@ -63,6 +63,10 @@ class skp_realisasi_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['kual'] = '';
+		$param['field_replace']['kuant'] = '';
+		$param['field_replace']['waktu_text'] = '';
+		$param['field_replace']['biaya_text'] = '';
 		$param['field_replace']['jenis_skp_title'] = 'jenis_skp.title';
 		
 		$string_tahun = (isset($param['tahun'])) ? "AND skp_sasaran_kerja.tahun = '".$param['tahun']."'" : '';
@@ -75,7 +79,23 @@ class skp_realisasi_model extends CI_Model {
 			SELECT SQL_CALC_FOUND_ROWS
 				skp_realisasi.id, skp_realisasi.waktu_nilai, skp_realisasi.waktu_satuan, skp_realisasi.biaya,
 				skp_sasaran_kerja.id skp_sasaran_kerja_id,
-				jenis_skp.title jenis_skp_title, '0' kuant, '0' kual, '0' waktu_text, '0' biaya_text
+				jenis_skp.title jenis_skp_title,
+				
+				(	SELECT SUM(a2.jumlah)
+					FROM ".KEGIATAN_SKP." a1
+					LEFT JOIN ".JENIS_SKP." a2 ON a2.id = a1.jenis_skp_id
+					WHERE a1.biodata_id = skp_sasaran_kerja.biodata_id AND YEAR(a1.tanggal) = skp_sasaran_kerja.tahun AND a1.jenis_skp_id = skp_sasaran_kerja.jenis_skp_id
+				) kuant,
+				
+				(	SELECT AVG(kual)
+					FROM ".KEGIATAN_SKP." b1
+					WHERE
+						b1.biodata_id = skp_sasaran_kerja.biodata_id
+						AND YEAR(b1.tanggal) = skp_sasaran_kerja.tahun
+						AND b1.jenis_skp_id = skp_sasaran_kerja.jenis_skp_id
+				) kual,
+				
+				'0' waktu_text, '0' biaya_text
 			FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
 			LEFT JOIN ".SKP_REALISASI." skp_realisasi ON skp_realisasi.skp_sasaran_kerja_id = skp_sasaran_kerja.id
 			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = skp_sasaran_kerja.jenis_skp_id
@@ -113,6 +133,11 @@ class skp_realisasi_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
+		
+		// kual
+		if (!empty($row['kual'])) {
+			$row['kual'] = round($row['kual']);
+		}
 		
 		// waktu
 		$row['waktu_text'] = '';

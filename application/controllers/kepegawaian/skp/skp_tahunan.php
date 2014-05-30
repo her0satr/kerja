@@ -17,7 +17,7 @@ class skp_tahunan extends SYGAAS_Controller {
 		$user = $this->user_model->get_session();
 		
 		// grid selecetor
-		if (in_array($action, array( 'skp_summary', 'skp_sasaran_kerja', 'skp_pejabat', 'skp_realisasi' ))) {
+		if (in_array($action, array( 'skp_summary', 'skp_sasaran_kerja', 'skp_pejabat', 'skp_realisasi', 'skp_tugas_tambahan', 'skp_kreativitas', 'skp_perilaku_kerja' ))) {
 			if ($action == 'skp_summary') {
 				$_POST['is_edit'] = 1;
 				$_POST['column'] = array( 'tanggal_pembuatan_text', 'tanggal_penilaian_text' );
@@ -30,6 +30,15 @@ class skp_tahunan extends SYGAAS_Controller {
 			} else if ($action == 'skp_realisasi') {
 				$_POST['is_edit_only'] = 1;
 				$_POST['column'] = array( 'jenis_skp_title', 'kuant', 'kual', 'waktu_text', 'biaya_text' );
+			} else if ($action == 'skp_tugas_tambahan') {
+				$_POST['is_edit'] = 1;
+				$_POST['column'] = array( 'title', 'perhitungan', 'nilai_capaian' );
+			} else if ($action == 'skp_kreativitas') {
+				$_POST['is_edit'] = 1;
+				$_POST['column'] = array( 'title', 'perhitungan', 'nilai_capaian' );
+			} else if ($action == 'skp_perilaku_kerja') {
+				$_POST['is_edit'] = 1;
+				$_POST['column'] = array( 'perilaku_kerja_title', 'nilai' );
 			}
 			
 			$model_name = $action.'_model';
@@ -104,7 +113,7 @@ class skp_tahunan extends SYGAAS_Controller {
 			$result = $this->skp_pejabat_model->delete($_POST);
 		}
 		
-		// skp pejabat
+		// skp realisasi
 		else if ($action == 'skp_realisasi_update') {
 			// check record
 			$record = $this->skp_realisasi_model->get_by_id(array( 'skp_sasaran_kerja_id' => $_POST['skp_sasaran_kerja_id'] ));
@@ -120,6 +129,93 @@ class skp_tahunan extends SYGAAS_Controller {
 			$result = $this->skp_realisasi_model->get_by_id(array( 'skp_sasaran_kerja_id' => $_POST['skp_sasaran_kerja_id'] ));
 		}
 		
+		// skp tugas tambahan
+		else if ($action == 'skp_tugas_tambahan_update') {
+			// check record
+			if (empty($_POST['id'])) {
+				$check_param = array(
+					'tahun' => $_POST['tahun'],
+					'biodata_id' => $_POST['biodata_id']
+				);
+				$check_record = $this->skp_tugas_tambahan_model->get_array($check_param);
+				if (count($check_record) >= 2) {
+					$result['status'] = 0;
+					$result['message'] = 'Anda tidak bisa memiliki Tugas Tambahan lebih dari 2 pada tahun yang sama.';
+					echo json_encode($result);
+					exit;
+				}
+			}
+			
+			// update
+			$result = $this->skp_tugas_tambahan_model->update($_POST);
+		} else if ($action == 'skp_tugas_tambahan_get_by_id') {
+			$result = $this->skp_tugas_tambahan_model->get_by_id(array( 'id' => $_POST['id'] ));
+		} else if ($action == 'skp_tugas_tambahan_delete') {
+			$result = $this->skp_tugas_tambahan_model->delete($_POST);
+		}
+		
+		// skp kreativitas
+		else if ($action == 'skp_kreativitas_update') {
+			// check record
+			if (empty($_POST['id'])) {
+				$check_param = array(
+					'tahun' => $_POST['tahun'],
+					'biodata_id' => $_POST['biodata_id']
+				);
+				$check_record = $this->skp_kreativitas_model->get_array($check_param);
+				if (count($check_record) >= 2) {
+					$result['status'] = 0;
+					$result['message'] = 'Anda tidak bisa memiliki Kreativitas lebih dari 2 pada tahun yang sama.';
+					echo json_encode($result);
+					exit;
+				}
+			}
+			
+			// update
+			$result = $this->skp_kreativitas_model->update($_POST);
+		} else if ($action == 'skp_kreativitas_get_by_id') {
+			$result = $this->skp_kreativitas_model->get_by_id(array( 'id' => $_POST['id'] ));
+		} else if ($action == 'skp_kreativitas_delete') {
+			$result = $this->skp_kreativitas_model->delete($_POST);
+		}
+		
+		// skp perilaku kerja
+		else if ($action == 'skp_perilaku_kerja_update') {
+			$result = $this->skp_perilaku_kerja_model->update($_POST);
+		} else if ($action == 'skp_perilaku_kerja_get_by_id') {
+			$result = $this->skp_perilaku_kerja_model->get_by_id(array( 'id' => $_POST['id'] ));
+		} else if ($action == 'skp_perilaku_kerja_delete') {
+			$result = $this->skp_perilaku_kerja_model->delete($_POST);
+		}
+		
 		echo json_encode($result);
+	}
+	
+	function cetak() {
+		$print_type = (isset($_GET['print_type'])) ? $_GET['print_type'] : 'sasaran';
+		
+		// load library
+		ini_set("memory_limit", "124M");
+		$this->load->library('mpdf');
+		
+		if ($print_type == 'sasaran') {
+			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/sasaran_kerja', array( 'K_PENILAI' => $K_PENILAI ), true );
+			echo $template; exit;
+			$this->mpdf->WriteHTML($template);
+		} else if ($print_type == 'realisasi') {
+			$this->mpdf->AddPage('L');
+			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/capaian_sasaran', array( 'K_PENILAI' => $K_PENILAI ), true );
+			$this->mpdf->WriteHTML($template);
+			
+			$this->mpdf->AddPage('P');
+			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/perilaku', array( 'K_PEGAWAI' => $penilai['K_PEGAWAI'], 'TAHUN' => $penilai['TAHUN'], 'K_PENILAI' => $K_PENILAI ), true );
+			$this->mpdf->WriteHTML($template);
+			
+			$this->mpdf->AddPage('P');
+			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/prestasi_kerja', array( 'K_PEGAWAI' => $penilai['K_PEGAWAI'], 'TAHUN' => $penilai['TAHUN'], 'K_PENILAI' => $K_PENILAI ), true );
+			$this->mpdf->WriteHTML($template);
+		}
+		
+		$this->mpdf->Output();
 	}
 }

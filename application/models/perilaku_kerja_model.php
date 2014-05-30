@@ -1,26 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class skp_perilaku_kerja_model extends CI_Model {
+class perilaku_kerja_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array(
-			'id', 'biodata_id', 'perilaku_kerja_id', 'tahun', 'nilai'
-		);
+        $this->field = array( 'id', 'title', 'no_urut' );
     }
 
     function update($param) {
         $result = array();
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, SKP_PERILAKU_KERJA);
+            $insert_query  = GenerateInsertQuery($this->field, $param, PERILAKU_KERJA);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, SKP_PERILAKU_KERJA);
+            $update_query  = GenerateUpdateQuery($this->field, $param, PERILAKU_KERJA);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -36,18 +34,9 @@ class skp_perilaku_kerja_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT skp_perilaku_kerja.*
-				FROM ".SKP_PERILAKU_KERJA." skp_perilaku_kerja
-				WHERE skp_perilaku_kerja.id = '".$param['id']."'
-				LIMIT 1
-			";
-		} else if (isset($param['biodata_id']) && isset($param['tahun'])) {
-			$select_query  = "
-				SELECT skp_perilaku_kerja.*
-				FROM ".SKP_PERILAKU_KERJA." skp_perilaku_kerja
-				WHERE
-					skp_perilaku_kerja.tahun = '".$param['tahun']."'
-					AND skp_perilaku_kerja.biodata_id = '".$param['biodata_id']."'
+				SELECT perilaku_kerja.*
+				FROM ".PERILAKU_KERJA." perilaku_kerja
+				WHERE perilaku_kerja.id = '".$param['id']."'
 				LIMIT 1
 			";
 		}
@@ -63,21 +52,14 @@ class skp_perilaku_kerja_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['perilaku_kerja_title'] = 'perilaku_kerja.title';
-		
-		$string_tahun = (isset($param['tahun'])) ? "AND skp_perilaku_kerja.tahun = '".$param['tahun']."'" : '';
-		$string_biodata = (isset($param['biodata_id'])) ? "AND skp_perilaku_kerja.biodata_id = '".$param['biodata_id']."'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-//		$string_sorting = GetStringSorting($param, @$param['column'], 'no_urut ASC');
-		$string_sorting = 'no_urut ASC';
+		$string_sorting = GetStringSorting($param, @$param['column'], 'no_urut ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS skp_perilaku_kerja.*,
-				perilaku_kerja.title perilaku_kerja_title
-			FROM ".SKP_PERILAKU_KERJA." skp_perilaku_kerja
-			LEFT JOIN ".PERILAKU_KERJA." perilaku_kerja ON perilaku_kerja.id = skp_perilaku_kerja.perilaku_kerja_id
-			WHERE 1 $string_tahun $string_biodata $string_filter
+			SELECT SQL_CALC_FOUND_ROWS perilaku_kerja.*
+			FROM ".PERILAKU_KERJA." perilaku_kerja
+			WHERE 1 $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
@@ -99,7 +81,24 @@ class skp_perilaku_kerja_model extends CI_Model {
     }
 	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".SKP_PERILAKU_KERJA." WHERE id = '".$param['id']."' LIMIT 1";
+        $record_count = 0;
+        $select_query = array();
+        if (isset($param['id'])) {
+            $select_query[] = "SELECT COUNT(*) total FROM ".SKP_PERILAKU_KERJA." WHERE perilaku_kerja_id = '".$param['id']."'";
+        }
+        foreach ($select_query as $query) {
+            $select_result = mysql_query($query) or die(mysql_error());
+            if (false !== $Row = mysql_fetch_assoc($select_result)) {
+                $record_count += $Row['total'];
+            }
+        }
+		if ($record_count > 0) {
+            $result['status'] = '0';
+            $result['message'] = 'Data tidak bisa dihapus karena sudah terpakai.';
+			return $result;
+		}
+		
+		$delete_query  = "DELETE FROM ".PERILAKU_KERJA." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';

@@ -4,6 +4,7 @@
 	$biodata = $this->biodata_model->get_by_id(array( 'id' => $user['biodata_id'] ));
 	$array_year = get_array_year(array( 'YearMin' => 2013 ));
 	$array_pangkat = $this->pangkat_model->get_array(array( 'limit' => 100 ));
+	$array_perilaku_kerja = $this->perilaku_kerja_model->get_array(array( 'limit' => 100 ));
 	
 	// page data
 	$page_data['user'] = $user;
@@ -100,6 +101,7 @@
 						<div class="widget-head">
 							<div class="pull-left">
 								<button class="btn btn-info btn-xs btn-add-skp-sasaran">Tambah</button>
+								<button class="btn btn-info btn-xs btn-print-skp-sasaran">Cetak</button>
 							</div>
 							<div class="widget-icons pull-right">
 								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
@@ -160,11 +162,13 @@
 					</div>
 				</div>
 				
-				<div class="cnt-realisasi">
-					<h3>SKP Realisasi</h3>
+				<div class="cnt-tugas-tambahan">
+					<h3>SKP Tugas Tambahan</h3>
 					<div class="widget grid-main">
 						<div class="widget-head">
-							<div class="pull-left">&nbsp;</div>
+							<div class="pull-left">
+								<button class="btn btn-info btn-xs btn-add-skp-tugas-tambahan">Tambah</button>
+							</div>
 							<div class="widget-icons pull-right">
 								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
@@ -172,14 +176,77 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="widget-content">
-							<table id="dt-skp-realisasi" class="table table-striped table-bordered table-hover">
+							<table id="dt-skp-tugas-tambahan" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>Jenis SKP</th>
-										<th class="center">Kuant</th>
-										<th class="center">Kual</th>
-										<th class="center">Waktu</th>
-										<th class="center">Biaya</th>
+										<th>Judul</th>
+										<th class="center">Perhituangan</th>
+										<th class="center">Nilai Capaian</th>
+										<th class="center">Control</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<div class="widget-foot">
+								<br /><br />
+								<div class="clearfix"></div> 
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="cnt-kreativitas">
+					<h3>SKP Kreativitas</h3>
+					<div class="widget grid-main">
+						<div class="widget-head">
+							<div class="pull-left">
+								<button class="btn btn-info btn-xs btn-add-skp-kreativitas">Tambah</button>
+							</div>
+							<div class="widget-icons pull-right">
+								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="widget-content">
+							<table id="dt-skp-kreativitas" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Judul</th>
+										<th class="center">Perhituangan</th>
+										<th class="center">Nilai Capaian</th>
+										<th class="center">Control</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<div class="widget-foot">
+								<br /><br />
+								<div class="clearfix"></div> 
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="cnt-perilaku-kerja">
+					<h3>SKP Perilaku Kerja</h3>
+					<div class="widget grid-main">
+						<div class="widget-head">
+							<div class="pull-left">
+								<button class="btn btn-info btn-xs btn-add-skp-perilaku-kerja">Tambah</button>
+							</div>
+							<div class="widget-icons pull-right">
+								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="widget-content">
+							<table id="dt-skp-perilaku-kerja" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Judul</th>
+										<th class="center">Nilai</th>
 										<th class="center">Control</th>
 									</tr>
 								</thead>
@@ -492,6 +559,116 @@
 		</div>
 	</form></div></div></div>
 	
+	<div id="form-tugas-tambahan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-big"><div class="modal-content"><form>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Form SKP Tugas Tambahan</h4>
+		</div>
+		<div class="modal-body"><div class="widget-content">
+			<div class="padd"><div class="form-horizontal">
+				<input type="hidden" name="action" value="skp_tugas_tambahan_update" />
+				<input type="hidden" name="id" value="0" />
+				<input type="hidden" name="tahun" />
+				<input type="hidden" name="biodata_id" />
+				
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Judul</label>
+					<div class="col-lg-8">
+						<input type="text" name="title" class="form-control" placeholder="Judul" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Perhitungan</label>
+					<div class="col-lg-8">
+						<input type="text" name="perhitungan" class="form-control" placeholder="Perhitungan" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Nilai Capaian</label>
+					<div class="col-lg-8">
+						<input type="text" name="nilai_capaian" class="form-control" placeholder="NIP" />
+					</div>
+				</div>
+			</div></div>
+		</div></div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button type="submit" class="btn btn-primary">Save changes</button>
+		</div>
+	</form></div></div></div>
+	
+	<div id="form-kreativitas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-big"><div class="modal-content"><form>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Form SKP Kreativitas</h4>
+		</div>
+		<div class="modal-body"><div class="widget-content">
+			<div class="padd"><div class="form-horizontal">
+				<input type="hidden" name="action" value="skp_kreativitas_update" />
+				<input type="hidden" name="id" value="0" />
+				<input type="hidden" name="tahun" />
+				<input type="hidden" name="biodata_id" />
+				
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Judul</label>
+					<div class="col-lg-8">
+						<input type="text" name="title" class="form-control" placeholder="Judul" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Perhitungan</label>
+					<div class="col-lg-8">
+						<input type="text" name="perhitungan" class="form-control" placeholder="Perhitungan" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Nilai Capaian</label>
+					<div class="col-lg-8">
+						<input type="text" name="nilai_capaian" class="form-control" placeholder="NIP" />
+					</div>
+				</div>
+			</div></div>
+		</div></div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button type="submit" class="btn btn-primary">Save changes</button>
+		</div>
+	</form></div></div></div>
+	
+	<div id="form-perilaku-kerja" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-big"><div class="modal-content"><form>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Form SKP Perilaku Kerja</h4>
+		</div>
+		<div class="modal-body"><div class="widget-content">
+			<div class="padd"><div class="form-horizontal">
+				<input type="hidden" name="action" value="skp_perilaku_kerja_update" />
+				<input type="hidden" name="id" value="0" />
+				<input type="hidden" name="tahun" />
+				<input type="hidden" name="biodata_id" />
+				
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Judul</label>
+					<div class="col-lg-8">
+						<select class="form-control" name="perilaku_kerja_id">
+							<?php echo ShowOption(array( 'Array' => $array_perilaku_kerja )); ?>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Nilai</label>
+					<div class="col-lg-8">
+						<input type="text" name="nilai" class="form-control" placeholder="Nilai" />
+					</div>
+				</div>
+			</div></div>
+		</div></div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button type="submit" class="btn btn-primary">Save changes</button>
+		</div>
+	</form></div></div></div>
+	
 </div>
 
 <?php $this->load->view( 'common/footer' ); ?>
@@ -564,6 +741,9 @@ $(document).ready(function() {
 			dt_skp_sasaran.reload();
 			dt_skp_pejabat.reload();
 			dt_skp_realisasi.reload();
+			dt_skp_tugas_tambahan.reload();
+			dt_skp_kreativitas.reload();
+			dt_skp_perilaku_kerja.reload();
 		}
 	}
 	page.init();
@@ -720,6 +900,117 @@ $(document).ready(function() {
 	}
 	var dt_skp_realisasi = Func.datatable(dt_skp_realisasi_param);
 	
+	// grid tugas_tambahan
+	var dt_skp_tugas_tambahan_param = {
+		id: 'dt-skp-tugas-tambahan',
+		source: web.host + 'kepegawaian/skp/skp_tahunan/grid',
+		column: [ { }, { sClass: "center" }, { sClass: "center" }, { bSortable: false, sClass: "center" } ],
+		fnServerParams: function ( aoData ) {
+			var form_search = Func.form.get_value('form-search');
+			aoData.push(
+				{ "name": "action", "value": 'skp_tugas_tambahan' },
+				{ "name": "tahun", "value": form_search.tahun },
+				{ "name": "biodata_id", "value": form_search.biodata_id }
+			)
+		},
+		callback: function() {
+			$('#dt-skp-tugas-tambahan .btn-edit').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.ajax({ url: web.host + 'kepegawaian/skp/skp_tahunan/action', param: { action: 'skp_tugas_tambahan_get_by_id', id: record.id }, callback: function(result) {
+					Func.populate({ cnt: '#form-tugas-tambahan', record: result });
+					$('#form-tugas-tambahan').modal();
+				} });
+			});
+			
+			$('#dt-skp-tugas-tambahan .btn-delete').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.form.del({
+					data: { action: 'skp_tugas_tambahan_delete', id: record.id },
+					url: web.host + 'kepegawaian/skp/skp_tahunan/action', callback: function() { dt_skp_tugas_tambahan.reload(); }
+				});
+			});
+		}
+	}
+	var dt_skp_tugas_tambahan = Func.datatable(dt_skp_tugas_tambahan_param);
+	
+	// grid kreativitas
+	var dt_skp_kreativitas_param = {
+		id: 'dt-skp-kreativitas',
+		source: web.host + 'kepegawaian/skp/skp_tahunan/grid',
+		column: [ { }, { sClass: "center" }, { sClass: "center" }, { bSortable: false, sClass: "center" } ],
+		fnServerParams: function ( aoData ) {
+			var form_search = Func.form.get_value('form-search');
+			aoData.push(
+				{ "name": "action", "value": 'skp_kreativitas' },
+				{ "name": "tahun", "value": form_search.tahun },
+				{ "name": "biodata_id", "value": form_search.biodata_id }
+			)
+		},
+		callback: function() {
+			$('#dt-skp-kreativitas .btn-edit').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.ajax({ url: web.host + 'kepegawaian/skp/skp_tahunan/action', param: { action: 'skp_kreativitas_get_by_id', id: record.id }, callback: function(result) {
+					Func.populate({ cnt: '#form-kreativitas', record: result });
+					$('#form-kreativitas').modal();
+				} });
+			});
+			
+			$('#dt-skp-kreativitas .btn-delete').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.form.del({
+					data: { action: 'skp_kreativitas_delete', id: record.id },
+					url: web.host + 'kepegawaian/skp/skp_tahunan/action', callback: function() { dt_skp_kreativitas.reload(); }
+				});
+			});
+		}
+	}
+	var dt_skp_kreativitas = Func.datatable(dt_skp_kreativitas_param);
+	
+	// grid perilaku kerja
+	var dt_skp_perilaku_kerja_param = {
+		id: 'dt-skp-perilaku-kerja',
+		source: web.host + 'kepegawaian/skp/skp_tahunan/grid',
+		column: [ { }, { sClass: "center" }, { bSortable: false, sClass: "center" } ],
+		fnServerParams: function ( aoData ) {
+			var form_search = Func.form.get_value('form-search');
+			aoData.push(
+				{ "name": "action", "value": 'skp_perilaku_kerja' },
+				{ "name": "tahun", "value": form_search.tahun },
+				{ "name": "biodata_id", "value": form_search.biodata_id }
+			)
+		},
+		callback: function() {
+			$('#dt-skp-perilaku-kerja .btn-edit').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.ajax({ url: web.host + 'kepegawaian/skp/skp_tahunan/action', param: { action: 'skp_perilaku_kerja_get_by_id', id: record.id }, callback: function(result) {
+					Func.populate({ cnt: '#form-perilaku-kerja', record: result });
+					$('#form-perilaku-kerja').modal();
+				} });
+			});
+			
+			$('#dt-skp-perilaku-kerja .btn-delete').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.form.del({
+					data: { action: 'skp_perilaku_kerja_delete', id: record.id },
+					url: web.host + 'kepegawaian/skp/skp_tahunan/action', callback: function() { dt_skp_perilaku_kerja.reload(); }
+				});
+			});
+		}
+	}
+	var dt_skp_perilaku_kerja = Func.datatable(dt_skp_perilaku_kerja_param);
+	
 	// biodata
 	var biodata_store = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nama'),
@@ -788,8 +1079,8 @@ $(document).ready(function() {
 			url: web.host + 'kepegawaian/skp/skp_tahunan/action',
 			param: Func.form.get_value('form-summary'),
 			callback: function(result) {
-				page.search_refresh();
 				page.show_grid();
+				dt_skp_summary.reload();
 				$('#form-summary form')[0].reset();
 			}
 		});
@@ -813,6 +1104,20 @@ $(document).ready(function() {
 		$('#form-sasaran [name="biodata_id"]').val(form_search.biodata_id);
 		combo.jenis_skp({ biodata_id: form_search.biodata_id, target: $('#form-sasaran [name="jenis_skp_id"]') });
 	});
+	$('.btn-print-skp-sasaran').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// show form
+		page.show_form_sasaran();
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		var link_print = web.host + 'kepegawaian/skp/skp_tahunan/cetak?print_type=sasaran&biodata_id=' + form_search.biodata_id + '&tahun=' + form_search.tahun;
+		window.open(link_print);
+	});
 	$('#form-sasaran form').validate({
 		rules: {
 			jenis_skp_id: { required: true },
@@ -831,8 +1136,8 @@ $(document).ready(function() {
 			url: web.host + 'kepegawaian/skp/skp_tahunan/action',
 			param: Func.form.get_value('form-sasaran'),
 			callback: function(result) {
-				page.search_refresh();
 				page.show_grid();
+				dt_skp_sasaran.reload();
 				$('#form-sasaran form')[0].reset();
 			}
 		});
@@ -875,8 +1180,8 @@ $(document).ready(function() {
 			url: web.host + 'kepegawaian/skp/skp_tahunan/action',
 			param: Func.form.get_value('form-pejabat'),
 			callback: function(result) {
-				page.search_refresh();
 				page.show_grid();
+				dt_skp_pejabat.reload();
 				$('#form-pejabat').modal('hide');
 			}
 		});
@@ -903,9 +1208,131 @@ $(document).ready(function() {
 			url: web.host + 'kepegawaian/skp/skp_tahunan/action',
 			param: Func.form.get_value('form-realisasi'),
 			callback: function(result) {
-				page.search_refresh();
 				page.show_grid();
+				dt_skp_realisasi.reload();
 				$('#form-realisasi').modal('hide');
+			}
+		});
+	});
+	
+	// form tugas tambahan
+	$('.btn-add-skp-tugas-tambahan').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// show form
+		$('#form-tugas-tambahan').modal();
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		$('#form-tugas-tambahan form')[0].reset();
+		$('#form-tugas-tambahan [name="id"]').val(0);
+		$('#form-tugas-tambahan [name="tahun"]').val(form_search.tahun);
+		$('#form-tugas-tambahan [name="biodata_id"]').val(form_search.biodata_id);
+	});
+	$('#form-tugas-tambahan form').validate({
+		rules: {
+			title: { required: true },
+			perhitungan: { required: true },
+			nilai_capaian: { required: true }
+		}
+	});
+	$('#form-tugas-tambahan form').submit(function(e) {
+		e.preventDefault();
+		if (! $('#form-tugas-tambahan form').valid()) {
+			return false;
+		}
+		
+		Func.form.submit({
+			url: web.host + 'kepegawaian/skp/skp_tahunan/action',
+			param: Func.form.get_value('form-tugas-tambahan'),
+			callback: function(result) {
+				page.show_grid();
+				dt_skp_tugas_tambahan.reload();
+				$('#form-tugas-tambahan').modal('hide');
+			}
+		});
+	});
+	
+	// form kreativitas
+	$('.btn-add-skp-kreativitas').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// show form
+		$('#form-kreativitas').modal();
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		$('#form-kreativitas form')[0].reset();
+		$('#form-kreativitas [name="id"]').val(0);
+		$('#form-kreativitas [name="tahun"]').val(form_search.tahun);
+		$('#form-kreativitas [name="biodata_id"]').val(form_search.biodata_id);
+	});
+	$('#form-kreativitas form').validate({
+		rules: {
+			title: { required: true },
+			perhitungan: { required: true },
+			nilai_capaian: { required: true }
+		}
+	});
+	$('#form-kreativitas form').submit(function(e) {
+		e.preventDefault();
+		if (! $('#form-kreativitas form').valid()) {
+			return false;
+		}
+		
+		Func.form.submit({
+			url: web.host + 'kepegawaian/skp/skp_tahunan/action',
+			param: Func.form.get_value('form-kreativitas'),
+			callback: function(result) {
+				page.show_grid();
+				dt_skp_kreativitas.reload();
+				$('#form-kreativitas').modal('hide');
+			}
+		});
+	});
+	
+	// form perilaku kerja
+	$('.btn-add-skp-perilaku-kerja').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// show form
+		$('#form-perilaku-kerja').modal();
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		$('#form-perilaku-kerja form')[0].reset();
+		$('#form-perilaku-kerja [name="id"]').val(0);
+		$('#form-perilaku-kerja [name="tahun"]').val(form_search.tahun);
+		$('#form-perilaku-kerja [name="biodata_id"]').val(form_search.biodata_id);
+	});
+	$('#form-perilaku-kerja form').validate({
+		rules: {
+			perilaku_kerja_id: { required: true },
+			nilai: { required: true }
+		}
+	});
+	$('#form-perilaku-kerja form').submit(function(e) {
+		e.preventDefault();
+		if (! $('#form-perilaku-kerja form').valid()) {
+			return false;
+		}
+		
+		Func.form.submit({
+			url: web.host + 'kepegawaian/skp/skp_tahunan/action',
+			param: Func.form.get_value('form-perilaku-kerja'),
+			callback: function(result) {
+				page.show_grid();
+				dt_skp_perilaku_kerja.reload();
+				$('#form-perilaku-kerja').modal('hide');
 			}
 		});
 	});

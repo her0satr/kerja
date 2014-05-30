@@ -55,6 +55,7 @@ define('NOTA_DINAS',							'nota_dinas');
 define('NOTA_DINAS_DISPOSISI',					'nota_dinas_disposisi');
 define('NOTA_DINAS_KEPADA',						'nota_dinas_kepada');
 define('PANGKAT',								'pangkat');
+define('PERILAKU_KERJA',						'perilaku_kerja');
 define('RIWAYAT_DIKLAT',						'riwayat_diklat');
 define('RIWAYAT_MUTASI',						'riwayat_mutasi');
 define('RIWAYAT_PENDIDIKAN',					'riwayat_pendidikan');
