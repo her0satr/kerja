@@ -117,4 +117,18 @@ class skp_perilaku_kerja_model extends CI_Model {
 		
 		return $row;
 	}
+	
+	function get_average_nilai($param = array()) {
+		$array = $this->get_array($param);
+		
+		// get average
+		$total = 0;
+		foreach ($array as $key => $row) {
+			$total += $row['nilai'];
+		}
+		$result = $total / count($array);
+		$result = number_format($result, 2, ',', '.');
+		
+		return $result;
+	}
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 30, 2014 at 07:20 PM
+-- Generation Time: May 31, 2014 at 09:33 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -1329,14 +1329,15 @@ CREATE TABLE IF NOT EXISTS `skp_pejabat` (
   `jabatan` varchar(255) NOT NULL,
   `unit_kerja` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `skp_pejabat`
 --
 
 INSERT INTO `skp_pejabat` (`id`, `biodata_id`, `pangkat_id`, `tahun`, `posisi`, `nama`, `nip`, `jabatan`, `unit_kerja`) VALUES
-(2, 8, 5, 2014, 'Pejabat Penilai', 'Drs. Budiman ST', '0123456', 'Kepala Dinas', 'Unit Satuan');
+(2, 8, 5, 2014, 'Pejabat Penilai', 'Drs. Budiman ST', '0123456', 'Kepala Dinas', 'Unit Satuan'),
+(3, 8, 1, 2014, 'Atasan Pejabat Penilai', 'Drs. Sulaiman MPD', '021548775', 'Presiden Direktur', 'Kantor Jakarta');
 
 -- --------------------------------------------------------
 
@@ -1359,12 +1360,12 @@ CREATE TABLE IF NOT EXISTS `skp_perilaku_kerja` (
 
 INSERT INTO `skp_perilaku_kerja` (`id`, `biodata_id`, `perilaku_kerja_id`, `tahun`, `nilai`) VALUES
 (1, 0, 0, 0, 0),
-(8, 8, 1, 2014, 1),
-(3, 8, 2, 2014, 2),
-(4, 8, 3, 2014, 6),
-(5, 8, 4, 2014, 7),
-(6, 8, 5, 2014, 8),
-(7, 8, 6, 2014, 9);
+(8, 8, 1, 2014, 78),
+(3, 8, 2, 2014, 79),
+(4, 8, 3, 2014, 81),
+(5, 8, 4, 2014, 83),
+(6, 8, 5, 2014, 85),
+(7, 8, 6, 2014, 90);
 
 -- --------------------------------------------------------
 
@@ -1447,7 +1448,7 @@ CREATE TABLE IF NOT EXISTS `skp_summary` (
 --
 
 INSERT INTO `skp_summary` (`id`, `biodata_id`, `tahun`, `tanggal_pembuatan`, `tanggal_penilaian`, `keberatan`, `tanggal_keberatan`, `tanggapan`, `tanggal_tanggapan`, `keputusan`, `tanggal_keputusan`, `rekomendasi`, `tanggal_dibuat`, `tanggal_diterima_pns`, `tanggal_diterima_atasan`) VALUES
-(1, 8, 2014, '2014-05-01', '2014-12-31', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00');
+(1, 8, 2014, '2014-05-01', '2014-12-31', 'Keberatan 1', '2014-05-31', 'Tanggapan 1', '2014-06-05', 'Keputusan', '2014-06-06', 'Rekomendasi', '2014-07-01', '2014-07-02', '2014-07-03');
 
 -- --------------------------------------------------------
 

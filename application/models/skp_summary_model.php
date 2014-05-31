@@ -118,6 +118,24 @@ class skp_summary_model extends CI_Model {
 		if (!empty($row['tanggal_penilaian'])) {
 			$row['tanggal_penilaian_text'] = GetFormatDate($row['tanggal_penilaian']);
 		}
+		if (!empty($row['tanggal_keberatan'])) {
+			$row['tanggal_keberatan_text'] = GetFormatDate($row['tanggal_keberatan']);
+		}
+		if (!empty($row['tanggal_tanggapan'])) {
+			$row['tanggal_tanggapan_text'] = GetFormatDate($row['tanggal_tanggapan']);
+		}
+		if (!empty($row['tanggal_keputusan'])) {
+			$row['tanggal_keputusan_text'] = GetFormatDate($row['tanggal_keputusan']);
+		}
+		if (!empty($row['tanggal_dibuat'])) {
+			$row['tanggal_dibuat_text'] = GetFormatDate($row['tanggal_dibuat']);
+		}
+		if (!empty($row['tanggal_diterima_pns'])) {
+			$row['tanggal_diterima_pns_text'] = GetFormatDate($row['tanggal_diterima_pns']);
+		}
+		if (!empty($row['tanggal_diterima_atasan'])) {
+			$row['tanggal_diterima_atasan_text'] = GetFormatDate($row['tanggal_diterima_atasan']);
+		}
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

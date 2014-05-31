@@ -1,32 +1,45 @@
 <?php
-	$penilai = $this->skp_model->get_by_id_penilai(array( 'K_PENILAI' => $K_PENILAI ));
-	$array_perilaku = $this->skp_model->get_array_perilaku_pegawai(array( 'K_PEGAWAI' => $K_PEGAWAI, 'TAHUN' => $TAHUN ));
-	$rate_kegiatan = $this->skp_model->get_rate_kegiatan(array( 'K_PEGAWAI' => $K_PEGAWAI, 'TAHUN' => $TAHUN ));
-	$rate_perilaku = $this->skp_model->get_rate_perilaku_pegawai(array( 'K_PEGAWAI' => $K_PEGAWAI, 'TAHUN' => $TAHUN ));
-	$score_presasi = $this->skp_model->get_score_prestasi(array( 'K_PEGAWAI' => $K_PEGAWAI, 'TAHUN' => $TAHUN ));
+	// biodata
+	$biodata = $this->biodata_model->get_by_id(array( 'id' => $_GET['biodata_id'] ));
 	
-	// detail pegawai
-	$pegawai_detail = $this->lpegawai->GetPegawaiById($penilai['K_PEGAWAI']);
-	$penilai_detail = $this->lpegawai->GetPegawaiById($penilai['K_PENILAI_PEGAWAI']);
-	$atasan_penilai_detail = $this->lpegawai->GetPegawaiById($penilai['K_PEJABAT']);
+	// summary
+	$param_summary['tahun'] = $_GET['tahun'];
+	$param_summary['biodata_id'] = $_GET['biodata_id'];
+	$summary = $this->skp_summary_model->get_by_id($param_summary);
+	
+	// pejabat penilai
+	$param_pejabat_penilai['tahun'] = $_GET['tahun'];
+	$param_pejabat_penilai['biodata_id'] = $_GET['biodata_id'];
+	$param_pejabat_penilai['posisi'] = 'Pejabat Penilai';
+	$pejabat_penilai = $this->skp_pejabat_model->get_by_id($param_pejabat_penilai);
+	
+	// atasan pejabat penilai
+	$param_atasan_pejabat_penilai['tahun'] = $_GET['tahun'];
+	$param_atasan_pejabat_penilai['biodata_id'] = $_GET['biodata_id'];
+	$param_atasan_pejabat_penilai['posisi'] = 'Atasan Pejabat Penilai';
+	$atasan_pejabat_penilai = $this->skp_pejabat_model->get_by_id($param_atasan_pejabat_penilai);
 ?>
 
 <style>
 table.border {background-color:#000;}
 table.border td,th,caption{background-color:#fff}
-table.border td{vertical-align: top;}
+table.border td{ vertical-align: top; padding: 12px 7px; }
 </style>
 
 <div style="padding: 20px 0 0 40px; text-align: center; font-weight: bold; font-size: 14px;">
-	<div>FORMULIR PENILAIAN PRESTASI KERJA</div>
+	<div><img src="<?php echo base_url('static/img/garuda.png'); ?>" /></div>
+	<div>PENILAIAN PRESTASI KERJA</div>
 	<div>PEGAWAI NEGERI SIPIL</div>
 </div>
 
-<div style="padding: 10px 0 0 20px; font-size: 12px;">
-	<div style="float: left; width: 40%;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN</div>
-	<div style="float: right; width: 30%;">
+<div style="padding: 40px 0 10px 20px; font-size: 12px;">
+	<div style="float: left; width: 40%;">
+		KEMENTERIAN PEKERJAAN UMUM<br />
+		DIREKTORAT JENDERAL BINA MARGA
+	</div>
+	<div style="float: right; width: 35%;">
 		JANGKA WAKTU PENILAIAN<br />
-		BULAN Januari s/d Desember <?php echo $TAHUN; ?>
+		BULAN Januari s/d <?php echo $summary['tanggal_penilaian_text']; ?>
 	</div>
 	<div style="clear: both;"></div>
 </div>
@@ -35,166 +48,57 @@ table.border td{vertical-align: top;}
 <table class="border" style="width: 1000px;">
 	<tr>
 		<td style="width: 25px; text-align: center;" rowspan="6">1</td>
-		<td style="width: 975px; text-align: left;" colspan="4">YANG DINILAI</td></tr>
+		<td style="width: 975px; text-align: left;" colspan="2">YANG DINILAI</td></tr>
 	<tr>
-		<td style="width: 650px;">a. Nama</td>
-		<td style="width: 150px;" colspan="3"><?php echo $pegawai_detail['NAMA_GELAR']; ?></td></tr>
+		<td style="width: 500px;">a. Nama</td>
+		<td style="width: 475px;"><?php echo $biodata['nama_gelar']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">b. NIP</td>
-		<td style="width: 150px;" colspan="3"><?php echo $pegawai_detail['K_PEGAWAI']; ?></td></tr>
+		<td>b. NIP</td>
+		<td><?php echo $biodata['nip']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">c. Pangkat, golongan ruang</td>
-		<td style="width: 150px;" colspan="3"><?php echo $pegawai_detail['GOLONGAN_RUANG']; ?></td></tr>
+		<td>c. Pangkat, Golongan ruang, TMT</td>
+		<td><?php echo $biodata['golongan_ruang_text']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">d. Jabatan / Pekerjaan</td>
-		<td style="width: 150px;" colspan="3"><?php echo $pegawai_detail['JABATAN_LAIN']; ?></td></tr>
+		<td>d. Jabatan / Pekerjaan</td>
+		<td><?php echo $biodata['jabatan']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">e. Unit Organisasi</td>
-		<td style="width: 150px;" colspan="3"><?php echo $pegawai_detail['UNIT_KERJA']; ?></td></tr>
+		<td>e. Unit Organisasi</td>
+		<td><?php echo $biodata['skpd_title']; ?></td></tr>
 	<tr>
-		<td style="width: 25px; text-align: center;" rowspan="6">2</td>
-		<td style="width: 975px; text-align: left;" colspan="4">PEJABAT PENILAI</td></tr>
+		<td style="text-align: center;" rowspan="6">2</td>
+		<td style="text-align: left;" colspan="2">PEJABAT PENILAI</td></tr>
 	<tr>
-		<td style="width: 650px;">a. Nama</td>
-		<td style="width: 150px;" colspan="3"><?php echo $penilai_detail['NAMA_GELAR']; ?></td></tr>
+		<td>a. Nama</td>
+		<td><?php echo $pejabat_penilai['nama']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">b. NIP</td>
-		<td style="width: 150px;" colspan="3"><?php echo $penilai_detail['K_PEGAWAI']; ?></td></tr>
+		<td>b. NIP</td>
+		<td><?php echo $pejabat_penilai['nip']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">c. Pangkat, golongan ruang</td>
-		<td style="width: 150px;" colspan="3"><?php echo $penilai_detail['GOLONGAN_RUANG']; ?></td></tr>
+		<td>c. Pangkat, Golongan ruang, TMT</td>
+		<td><?php echo $pejabat_penilai['golongan_ruang_text']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">d. Jabatan / Pekerjaan</td>
-		<td style="width: 150px;" colspan="3"><?php echo $penilai_detail['JABATAN_LAIN']; ?></td></tr>
+		<td>d. Jabatan / Pekerjaan</td>
+		<td><?php echo $pejabat_penilai['jabatan']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">e. Unit Organisasi</td>
-		<td style="width: 150px;" colspan="3"><?php echo $penilai_detail['UNIT_KERJA']; ?></td></tr>
+		<td>e. Unit Organisasi</td>
+		<td><?php echo $pejabat_penilai['unit_kerja']; ?></td></tr>
 	<tr>
-		<td style="width: 25px; text-align: center;" rowspan="6">3</td>
-		<td style="width: 975px; text-align: left;" colspan="4">ATASAN PEJABAT PENILAI</td></tr>
+		<td style="text-align: center;" rowspan="6">3</td>
+		<td style="text-align: left;" colspan="2">ATASAN PEJABAT PENILAI</td></tr>
 	<tr>
-		<td style="width: 650px;">a. Nama</td>
-		<td style="width: 150px;" colspan="3"><?php echo $atasan_penilai_detail['NAMA_GELAR']; ?></td></tr>
+		<td>a. Nama</td>
+		<td><?php echo $atasan_pejabat_penilai['nama']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">b. NIP</td>
-		<td style="width: 150px;" colspan="3"><?php echo $atasan_penilai_detail['K_PEGAWAI']; ?></td></tr>
+		<td>b. NIP</td>
+		<td><?php echo $atasan_pejabat_penilai['nip']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">c. Pangkat, golongan ruang</td>
-		<td style="width: 150px;" colspan="3"><?php echo $atasan_penilai_detail['GOLONGAN_RUANG']; ?></td></tr>
+		<td>c. Pangkat, Golongan ruang, TMT</td>
+		<td><?php echo $atasan_pejabat_penilai['golongan_ruang_text']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">d. Jabatan / Pekerjaan</td>
-		<td style="width: 150px;" colspan="3"><?php echo $atasan_penilai_detail['JABATAN_LAIN']; ?></td></tr>
+		<td>d. Jabatan / Pekerjaan</td>
+		<td><?php echo $atasan_pejabat_penilai['jabatan']; ?></td></tr>
 	<tr>
-		<td style="width: 650px;">e. Unit Organisasi</td>
-		<td style="width: 150px;" colspan="3"><?php echo $atasan_penilai_detail['UNIT_KERJA']; ?></td></tr>
-	<tr>
-		<td style="width: 25px; text-align: center;" rowspan="5">4</td>
-		<td style="width: 850px; text-align: left;" colspan="3">UNSUR YANG DINILAI</td>
-		<td style="width: 125px; text-align: center;">JUMLAH</td>
-	</tr>
-	<tr>
-		<td style="width: 650px;">a. Sasaran Kerja Pegawai (SKP) / Nilai Akademik</td>
-		<td style="width: 150px; text-align: center;" colspan="2"><?php echo $rate_kegiatan['score']; ?> x 60 %</td>
-		<td style="text-align: center;"><?php echo $rate_kegiatan['score_percent']; ?></td>
-	</tr>
-	<tr>
-		<td style="">
-			b. Perilaku Kerja<br />
-			<?php if (count($array_perilaku) > 0) { ?>
-			<?php foreach ($array_perilaku as $row) { ?>
-				<div style="padding: 0 0 0 5px;">- <?php echo $row['PERILAKU']; ?></div>
-			<?php } ?>
-			<div>Jumlah</div>
-			<div>Nilai rata-rata</div>
-			<?php } ?>
-		</td>
-		<td style="width: 75px; text-align: center;">
-			&nbsp;<br />
-			<?php if (count($array_perilaku) > 0) { ?>
-			<?php foreach ($array_perilaku as $row) { ?>
-				<div style="padding: 0 0 0 5px;"><?php echo $row['NILAI']; ?></div>
-			<?php } ?>
-			<div><?php echo $rate_perilaku['total']; ?></div>
-			<div><?php echo $rate_perilaku['rate']; ?></div>
-			<?php } ?>
-		</td>
-		<td style="width: 125px; text-align: center;">
-			&nbsp;<br />
-			<?php if (count($array_perilaku) > 0) { ?>
-			<?php foreach ($array_perilaku as $row) { ?>
-				<div style="padding: 0 0 0 5px;"><?php echo $row['NILAI_TEXT']; ?></div>
-			<?php } ?>
-			<div><?php echo $rate_perilaku['label']; ?></div>
-			<div><?php echo $rate_perilaku['label']; ?></div>
-			<?php } ?>
-		</td>
-		<td style="text-align: center;">&nbsp;</td>
-	</tr>
-	<tr>
-		<td>Nilai Perilaku kerja</td>
-		<td colspan="2" style="text-align: center;"><?php echo $rate_perilaku['rate']; ?> x 40 %</td>
-		<td style="text-align: center;"><?php echo $rate_perilaku['rate_percent']; ?></td>
-	</tr>
-	<tr>
-		<td colspan="3">NILAI PRESTASI KERJA</td>
-		<td style="text-align: center;"><?php echo $score_presasi['score']; ?><br />(<?php echo $score_presasi['label']; ?>)</td>
-	</tr>
-	<tr>
-		<td style="text-align: center;">5</td>
-		<td colspan="4">
-			KEBERATAN DARI PNS YANG DINILAI (APABILA ADA)<br />
-			<div style="padding: 0 0 0 10px;"><?php echo $penilai['KEBERATAN']; ?></div>
-		</td>
-	</tr>
-	<tr>
-		<td style="text-align: center;">6</td>
-		<td colspan="4">
-			TANGGAPAN PEJABAT PENILAI ATAS KEBERATAN<br />
-			<div style="padding: 0 0 0 10px;"><?php echo $penilai['KEPUTUSAN']; ?></div>
-		</td>
-	</tr>
-	<tr>
-		<td style="text-align: center;">7</td>
-		<td colspan="4">
-			KEPUTUSAN ATASAN PEJABAT PENILAI ATAS KEBERATAN<br />
-			<div style="padding: 0 0 0 10px;"><?php echo $penilai['TANGGAPAN']; ?></div>
-		</td>
-	</tr>
+		<td>e. Unit Organisasi</td>
+		<td><?php echo $atasan_pejabat_penilai['unit_kerja']; ?></td></tr>
 </table>
-</div>
-
-<div style="text-align: center; font-size: 12px; padding: 30px 0 0 0;">
-	<div style="float: left; width: 50%;">
-		<div>&nbsp;</div>
-	</div>
-	<div style="float: left; width: 50%;">
-		<div>DIBUAT TANGGAL 31 DESEMBER <?php echo $penilai['TAHUN']; ?></div>
-		<div>PEJABAT PENILAI,</div>
-		<div style="padding: 25px 0;">&nbsp;</div>
-		<div><?php echo $penilai_detail['K_PEGAWAI']; ?></div>
-		<div><?php echo $penilai_detail['NAMA_GELAR']; ?></div>
-	</div>
-	<div style="clear: both;"></div>
-	<div style="float: left; width: 50%;">
-		<div>DITERIMA TANGGAL 5 JANUARI 2015</div>
-		<div>PEJABAT NEGERI SIPIL YANG DINILAI,</div>
-		<div style="padding: 25px 0;">&nbsp;</div>
-		<div><?php echo $pegawai_detail['K_PEGAWAI']; ?></div>
-		<div><?php echo $pegawai_detail['NAMA_GELAR']; ?></div>
-	</div>
-	<div style="float: left; width: 50%;">
-		<div>&nbsp;</div>
-	</div>
-	<div style="clear: both;"></div>
-	<div style="float: left; width: 50%;">
-		<div>&nbsp;</div>
-	</div>
-	<div style="float: left; width: 50%;">
-		<div>DITERIMA TANGGAL 7 JANUARI 2015</div>
-		<div>ATASAN PEJABAT PENILAI,</div>
-		<div style="padding: 25px 0;">&nbsp;</div>
-		<div><?php echo $atasan_penilai_detail['K_PEGAWAI']; ?></div>
-		<div><?php echo $atasan_penilai_detail['NAMA_GELAR']; ?></div>
-	</div>
-	<div style="clear: both;"></div>
 </div>

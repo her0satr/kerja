@@ -216,4 +216,22 @@ class skp_realisasi_model extends CI_Model {
 		
 		return $nilai_capaian;
 	}
+	
+	function get_final_nilai($param = array()) {
+		$nilai_capaian = $this->get_total_nilai_capaian($param);
+		$perilaku_kerja_average = $this->skp_perilaku_kerja_model->get_average_nilai($param);
+		
+		$result = array(
+			'nilai_capaian' => $nilai_capaian,
+			'nilai_capaian_persen' => number_format($nilai_capaian * 0.6, 2, ',', '.'),
+			'perilaku_kerja' => $perilaku_kerja_average,
+			'perilaku_kerja_persen' => number_format($perilaku_kerja_average * 0.4, 2, ',', '.'),
+		);
+		
+		// summary
+		$result['final_nilai'] = $result['nilai_capaian_persen'] + $result['perilaku_kerja_persen'];
+		$result['final_nilai'] = number_format($result['final_nilai'], 2, ',', '.');
+		
+		return $result;
+	}
 }
