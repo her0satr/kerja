@@ -55,6 +55,9 @@ class agenda_rapat_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['tanggal_ajuan_date'] = 'agenda_rapat.tanggal_ajuan';
+		$param['field_replace']['tanggal_ajuan_time'] = '';
+		
 		$string_skpd = (isset($param['skpd_id'])) ? "AND agenda_rapat.skpd_id = '".$param['skpd_id']."'" : '';
 		$string_today = (isset($param['today'])) ? "AND agenda_rapat.tanggal_undangan >= DATE('".$param['today']."')" : '';
 		$string_rahasia = (isset($param['rahasia'])) ? "AND agenda_rapat.rahasia = '".$param['rahasia']."'" : '';

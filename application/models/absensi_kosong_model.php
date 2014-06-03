@@ -36,8 +36,9 @@ class absensi_kosong_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT waktu_kosong.*
+				SELECT waktu_kosong.*, biodata.nama biodata_title
 				FROM ".ABSENSI_KOSONG." waktu_kosong
+				LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_kosong.biodata_id
 				WHERE waktu_kosong.id = '".$param['id']."'
 				LIMIT 1
 			";
@@ -54,6 +55,7 @@ class absensi_kosong_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['biodata_title'] = 'biodata.nama';
 		$param['field_replace']['tanggal_text'] = 'waktu_kosong.tanggal';
 		
 		$string_tanggal = (isset($param['tanggal'])) ? "AND waktu_kosong.tanggal = '".$param['tanggal']."'" : '';
@@ -63,7 +65,7 @@ class absensi_kosong_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS waktu_kosong.*, biodata.nama, biodata.nip
+			SELECT SQL_CALC_FOUND_ROWS waktu_kosong.*, biodata.nama biodata_title, biodata.nip
 			FROM ".ABSENSI_KOSONG." waktu_kosong
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_kosong.biodata_id
 			WHERE 1 $string_tanggal $string_biodata $string_filter
@@ -90,12 +92,15 @@ class absensi_kosong_model extends CI_Model {
 	function get_no_absence($param = array()) {
         $array = array();
 		
+		$param['field_replace']['tanggal'] = '';
+		$param['field_replace']['biodata_title'] = 'biodata.nama';
+		
 		$string_filter = GetStringFilter($param, @$param['column']);
 		$string_sorting = GetStringSorting($param, @$param['column'], 'nama DESC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS biodata.*, '".$param['tanggal']."' tanggal
+			SELECT SQL_CALC_FOUND_ROWS biodata.*, biodata.nama biodata_title, '".$param['tanggal']."' tanggal
 			FROM ".BIODATA." biodata
 			WHERE
 				biodata.id NOT IN ( SELECT biodata_id FROM ".ABSENSI_MASUK." WHERE tanggal = '".$param['tanggal']."' )

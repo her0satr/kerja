@@ -42,7 +42,8 @@ class masuk extends SYGAAS_Controller {
 			}
 			
 			$result = $this->absensi_masuk_model->update($_POST);
-		} else if ($action == 'update_waktu') {
+		}
+		else if ($action == 'update_waktu') {
 			if (in_array($_POST['absensi'], array( 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' ))) {
                 $array_jam['waktu_01'] = 1;
                 $array_jam['waktu_02'] = 2;
@@ -63,7 +64,7 @@ class masuk extends SYGAAS_Controller {
 				}
 				
 				// execute it
-				if ($jam_absensi['jam_awal'] <= $current_hour && $current_hour <= $jam_absensi['jam_akhir']) {
+				if ($jam_absensi['jam_awal'] <= $current_hour && $current_hour < $jam_absensi['jam_akhir']) {
 					$param_update['id'] = $_POST['id'];
 					$param_update[$_POST['absensi']] = $this->config->item('current_time');
 					$result = $this->absensi_masuk_model->update($param_update);
@@ -74,9 +75,11 @@ class masuk extends SYGAAS_Controller {
 					exit;
 				}
 			}
-		} else if ($action == 'update_keterangan') {
+		}
+		else if ($action == 'update_keterangan') {
 			$result = $this->absensi_masuk_model->update($_POST);
-		} else if ($action == 'get_by_id') {
+		}
+		else if ($action == 'get_by_id') {
 			$result = $this->absensi_masuk_model->get_by_id($_POST);
 		}
 		

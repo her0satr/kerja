@@ -17,10 +17,10 @@ class list_masuk extends SYGAAS_Controller {
 		
 		if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) {
 			$_POST['is_edit']  = 1;
-			$_POST['column'] = array( 'nama', 'tanggal', 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' );
+			$_POST['column'] = array( 'biodata_title', 'tanggal', 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' );
 		} else {
 			$_POST['is_custom'] = '&nbsp;';
-			$_POST['column'] = array( 'nama', 'tanggal', 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' );
+			$_POST['column'] = array( 'biodata_title', 'tanggal', 'waktu_01', 'waktu_02', 'waktu_03', 'waktu_04' );
 		}
 		
 		$array = $this->absensi_masuk_model->get_array($_POST);

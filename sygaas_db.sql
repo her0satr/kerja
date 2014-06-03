@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: May 31, 2014 at 09:33 AM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Jun 03, 2014 at 09:56 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +19,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `sygaas_db`
 --
+CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -33,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `absensi_kosong` (
   `keterangan` varchar(255) NOT NULL,
   `upload_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `absensi_kosong`
@@ -41,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `absensi_kosong` (
 
 INSERT INTO `absensi_kosong` (`id`, `biodata_id`, `tanggal`, `status_kosong`, `keterangan`, `upload_file`) VALUES
 (2, 3, '2014-03-14', 'Cuti', '123 55', '2014/03/13/20140313_134928_8276.png'),
-(4, 4, '2014-03-18', 'Ijin', 'Ijin saja', ''),
+(9, 6, '2014-06-01', 'Sakit', 'as TB', '2014/06/03/20140603_090717_1674.jpg'),
 (5, 5, '2014-05-01', 'Ijin', 'sdf', ''),
 (6, 2, '2014-04-01', 'Ijin', 'asdfsf', ''),
 (7, 5, '2014-05-08', 'Cuti', '-', ''),
@@ -68,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Dumping data for table `absensi_masuk`
@@ -79,9 +82,10 @@ INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`,
 (27, 5, '2014-05-07', 'Tepat Waktu', '09:03:40', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', 'apel dulu'),
 (24, 5, '2014-05-05', '', '00:00:00', '', '00:00:00', '', '14:14:32', '', '00:00:00', '', ''),
 (25, 2, '2014-05-05', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
-(26, 3, '2014-05-07', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
-(23, 3, '2014-05-05', '', '00:00:00', '', '00:00:00', '', '14:14:04', '', '00:00:00', '', ''),
-(29, 5, '2014-05-14', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
+(36, 5, '2014-06-03', '', '09:54:51', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
+(29, 5, '2014-05-14', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
+(30, 5, '2014-06-02', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
+(31, 8, '2014-06-03', 'Tepat Waktu', '08:38:00', '', '09:38:00', '', '10:38:00', '', '11:38:00', '', '-');
 
 -- --------------------------------------------------------
 
@@ -138,8 +142,7 @@ INSERT INTO `agenda_rapat` (`id`, `skpd_id`, `acara`, `leading_sektor`, `no_sura
 (5, 0, 'Peringatan Acara', 'Sektor', 'No 001', 'Balai RW', '2014-03-13 20:00:00', '2014-03-30', '', '', 'Catatan', '', 0),
 (6, 0, 'Acara Umum', '13', '13', '13', '2014-03-13 21:40:57', '2014-03-28', '', '', '', '', 1),
 (7, 0, 'Acara Kementrian', 'Bagian TU', '12', '13', '2014-05-23 10:06:52', '2014-05-24', '0', '', '', '', 1),
-(8, 0, 'Rakor', 'Bagian TU', '1212', 'RR. Asisten', '2014-05-08 08:27:07', '2014-05-09', 'Sekda', '', '', '', 0),
-(9, 0, 'fasfasf', '', '1325655', 'bmnhbhl', '0000-00-00 00:00:00', '0000-00-00', '', '', '', '', 0);
+(8, 0, 'Rakor', 'Bagian TU', '1212', 'RR. Asisten', '2014-05-08 08:27:07', '2014-05-09', 'Sekda', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1301,7 +1304,7 @@ CREATE TABLE IF NOT EXISTS `skp_kreativitas` (
   `perhitungan` varchar(50) NOT NULL,
   `nilai_capaian` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `skp_kreativitas`
@@ -1309,8 +1312,7 @@ CREATE TABLE IF NOT EXISTS `skp_kreativitas` (
 
 INSERT INTO `skp_kreativitas` (`id`, `biodata_id`, `tahun`, `title`, `perhitungan`, `nilai_capaian`) VALUES
 (1, 0, 0, '', '', ''),
-(3, 8, 2014, 'Kreativitas 1', '1', '1'),
-(4, 8, 2014, 'Kreativitas 2', '2', '2');
+(3, 8, 2014, 'Kreativitas 1', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -1329,15 +1331,14 @@ CREATE TABLE IF NOT EXISTS `skp_pejabat` (
   `jabatan` varchar(255) NOT NULL,
   `unit_kerja` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `skp_pejabat`
 --
 
 INSERT INTO `skp_pejabat` (`id`, `biodata_id`, `pangkat_id`, `tahun`, `posisi`, `nama`, `nip`, `jabatan`, `unit_kerja`) VALUES
-(2, 8, 5, 2014, 'Pejabat Penilai', 'Drs. Budiman ST', '0123456', 'Kepala Dinas', 'Unit Satuan'),
-(3, 8, 1, 2014, 'Atasan Pejabat Penilai', 'Drs. Sulaiman MPD', '021548775', 'Presiden Direktur', 'Kantor Jakarta');
+(2, 8, 5, 2014, 'Pejabat Penilai', 'Drs. Budiman ST', '0123456', 'Kepala Dinas', 'Unit Satuan');
 
 -- --------------------------------------------------------
 
@@ -1360,12 +1361,12 @@ CREATE TABLE IF NOT EXISTS `skp_perilaku_kerja` (
 
 INSERT INTO `skp_perilaku_kerja` (`id`, `biodata_id`, `perilaku_kerja_id`, `tahun`, `nilai`) VALUES
 (1, 0, 0, 0, 0),
-(8, 8, 1, 2014, 78),
-(3, 8, 2, 2014, 79),
-(4, 8, 3, 2014, 81),
-(5, 8, 4, 2014, 83),
-(6, 8, 5, 2014, 85),
-(7, 8, 6, 2014, 90);
+(8, 8, 1, 2014, 1),
+(3, 8, 2, 2014, 2),
+(4, 8, 3, 2014, 6),
+(5, 8, 4, 2014, 7),
+(6, 8, 5, 2014, 8),
+(7, 8, 6, 2014, 9);
 
 -- --------------------------------------------------------
 
@@ -1388,7 +1389,7 @@ CREATE TABLE IF NOT EXISTS `skp_realisasi` (
 
 INSERT INTO `skp_realisasi` (`id`, `skp_sasaran_kerja_id`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
 (2, 2, 12, 'Bulan', 0),
-(3, 3, 12, 'Bulan', 0);
+(3, 3, 6, 'Bulan', 0);
 
 -- --------------------------------------------------------
 
@@ -1415,8 +1416,8 @@ CREATE TABLE IF NOT EXISTS `skp_sasaran_kerja` (
 --
 
 INSERT INTO `skp_sasaran_kerja` (`id`, `biodata_id`, `jenis_skp_id`, `tahun`, `ak`, `kuant_nilai`, `kual`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
-(2, 8, 13, 2014, 0, 2, 100, 12, 'Bulan', '0'),
-(3, 8, 14, 2014, 0, 10, 100, 12, 'Bulan', '0');
+(2, 8, 13, 2014, 0, 1000, 100, 12, 'Bulan', '0'),
+(3, 8, 14, 2014, 0, 250, 100, 11, 'Bulan', '0');
 
 -- --------------------------------------------------------
 
@@ -1448,7 +1449,7 @@ CREATE TABLE IF NOT EXISTS `skp_summary` (
 --
 
 INSERT INTO `skp_summary` (`id`, `biodata_id`, `tahun`, `tanggal_pembuatan`, `tanggal_penilaian`, `keberatan`, `tanggal_keberatan`, `tanggapan`, `tanggal_tanggapan`, `keputusan`, `tanggal_keputusan`, `rekomendasi`, `tanggal_dibuat`, `tanggal_diterima_pns`, `tanggal_diterima_atasan`) VALUES
-(1, 8, 2014, '2014-05-01', '2014-12-31', 'Keberatan 1', '2014-05-31', 'Tanggapan 1', '2014-06-05', 'Keputusan', '2014-06-06', 'Rekomendasi', '2014-07-01', '2014-07-02', '2014-07-03');
+(1, 8, 2014, '2014-05-01', '2014-05-31', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '', '0000-00-00', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -1464,15 +1465,14 @@ CREATE TABLE IF NOT EXISTS `skp_tugas_tambahan` (
   `perhitungan` varchar(50) NOT NULL,
   `nilai_capaian` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `skp_tugas_tambahan`
 --
 
 INSERT INTO `skp_tugas_tambahan` (`id`, `biodata_id`, `tahun`, `title`, `perhitungan`, `nilai_capaian`) VALUES
-(3, 8, 2014, 'Tugas Tambahan 1', '1', '1'),
-(4, 8, 2014, 'menghadiri konfrensi keersihan air', '10', '3');
+(3, 8, 2014, 'Tugas Tambahan 1', '1', '1');
 
 -- --------------------------------------------------------
 

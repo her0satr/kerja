@@ -1,3 +1,7 @@
+<?php
+	// page data
+	$page_data['current_date'] = $this->config->item('current_date');
+?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Rekap Absensi Tidak Masuk' ) ); ?>
 
 <body>
@@ -6,6 +10,7 @@
 <div class="content enlarged">
 	<?php $this->load->view( 'common/sidebar'); ?>
 	<div class="hide">
+		<div class="cnt-data"><?php echo json_encode($page_data); ?></div>
 		<iframe name="iframe_upload_file" src="<?php echo base_url('upload?callback=set_upload_file'); ?>"></iframe>
 	</div>
 	
@@ -31,6 +36,7 @@
 								</div>
 								<div class="col-lg-3">
 									<button type="submit" class="btn btn-info">Cari</button>
+									<button type="button" class="btn btn-info btn-absensi-add">Tambah</button>
 								</div>
 							</div>
 						</form>
@@ -104,12 +110,19 @@
 			<div class="padd"><div class="form-horizontal">
 				<input type="hidden" name="action" value="update" />
 				<input type="hidden" name="id" value="0" />
+				<input type="hidden" name="biodata_id" value="0" />
 				
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Nama Pegawai</label>
+					<div class="col-lg-10 cnt-typeahead">
+						<input type="text" name="biodata_title" class="form-control typeahead-biodata" placeholder="Nama Pegawai" />
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Tanggal</label>
 					<div class="col-lg-10">
 						<div class="input-append datepicker">
-							<input name="tanggal" type="text" class="form-control dtpicker" placeholder="Tanggal Lahir" data-format="dd-MM-yyyy" />
+							<input name="tanggal" type="text" class="form-control dtpicker" placeholder="Tanggal" data-format="dd-MM-yyyy" />
 							<span class="add-on"><i data-time-icon="fa fa-time" data-date-icon="fa fa-calendar" class="btn btn-info"></i></span>
 						</div>
 					</div>
@@ -118,11 +131,13 @@
 					<label class="col-lg-2 control-label">Status</label>
 					<div class="col-lg-10">
 						<select class="form-control" name="status_kosong">
-							<option value="">-</option>
 							<option value="Ijin">Ijin</option>
 							<option value="Cuti">Cuti</option>
 							<option value="Sakit">Sakit</option>
-							<option value="Tanpa Keterangan">Tanpa Keterangan</option>
+							<option value="DL">DL</option>
+							<option value="DD">DD</option>
+							<option value="TB">TB</option>
+							<option value="MPP">MPP</option>
 						</select>
 					</div>
 				</div>
@@ -156,6 +171,20 @@
 
 <script>
 $(document).ready(function() {
+	var page = {
+		init: function() {
+			var raw = $('.cnt-data').text();
+			eval('var data = ' + raw);
+			page.data = data;
+			
+			// set search
+			Func.populate({ cnt: '#form-search', record: { tanggal: page.data.current_date } });
+		}
+	}
+	
+	// init page
+	page.init();
+	
 	// upload
 	$('.btn-browse-upload-file').click(function() { window.iframe_upload_file.browse() });
 	set_upload_file = function(p) {
@@ -195,6 +224,19 @@ $(document).ready(function() {
 					window.open(record.link_upload);
 				}
 			});
+			
+			$('#datatable .btn-delete').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.form.del({
+					data: { action: 'delete', id: record.id },
+					url: web.host + 'kepegawaian/absensi/list_kosong/action', callback: function() {
+						dt.reload();
+						dt_absence.reload();
+					}
+				});
+			});
 		}
 	}
 	var dt = Func.datatable(param);
@@ -215,19 +257,51 @@ $(document).ready(function() {
 	}
 	var dt_absence = Func.datatable(param_absence);
 	
+	// biodata
+	var biodata_store = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nama'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: web.host + 'typeahead?action=biodata',
+		remote: web.host + 'typeahead?action=biodata&namelike=%QUERY'
+	});
+	biodata_store.initialize();
+	var biodata = $('.typeahead-biodata').typeahead(null, {
+		name: 'biodata',
+		displayKey: 'nama',
+		source: biodata_store.ttAdapter(),
+		templates: {
+			empty: [
+				'<div class="empty-message">',
+				'no result found.',
+				'</div>'
+			].join('\n'),
+			suggestion: Handlebars.compile('<p><strong>{{nama}}</strong></p>')
+		}
+	});
+	biodata.on('typeahead:selected', function(evt, data) {
+		$('#form-absensi [name="biodata_id"]').val(data.id);
+	});
+	
 	// form search
 	$('#form-search').submit(function(e) {
 		e.preventDefault();
 		dt.reload();
 		dt_absence.reload();
 	});
+	$('#form-search').submit();
 	
-	// form jam
+	// form absensi
+	$('.btn-absensi-add').click(function() {
+		$('#form-absensi form')[0].reset();
+		$('#form-absensi [name="id"]').val(0);
+		$('#form-absensi [name="biodata_id"]').val(0);
+		$('#form-absensi').modal();
+	});
 	$('#form-absensi form').validate({
 		rules: {
-			jam_ke: { required: true },
-			jam_awal: { required: true },
-			jam_akhir: { required: true }
+			biodata_title: { required: true },
+			tanggal: { required: true },
+			status_kosong: { required: true }
 		}
 	});
 	$('#form-absensi form').submit(function(e) {
@@ -241,6 +315,7 @@ $(document).ready(function() {
 			param: Func.form.get_value('form-absensi'),
 			callback: function(result) {
 				dt.reload();
+				dt_absence.reload();
 				$('#form-absensi form')[0].reset();
 				$('#form-absensi').modal('hide');
 			}

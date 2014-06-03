@@ -10,7 +10,7 @@
 	// page data
 	$page_data['biodata'] = $biodata;
 ?>
-<?php $this->load->view( 'common/meta', array( 'title' => 'Absensi Kosong' ) ); ?>
+<?php $this->load->view( 'common/meta', array( 'title' => 'Absensi Tidak Masuk' ) ); ?>
 
 <body>
 <?php $this->load->view( 'common/header'); ?>
@@ -24,7 +24,7 @@
 	
   	<div class="mainbar">
 	    <div class="page-head">
-			<h2 class="pull-left button-back">Absensi Kosong</h2>
+			<h2 class="pull-left button-back">Absensi Tidak Masuk</h2>
 			<div class="clearfix"></div>
 		</div>
 		
@@ -90,7 +90,6 @@
 					<label class="col-lg-2 control-label">Status</label>
 					<div class="col-lg-10">
 						<select class="form-control" name="status_kosong">
-							<option value="">-</option>
 							<option value="Ijin">Ijin</option>
 							<option value="Cuti">Cuti</option>
 							<option value="Sakit">Sakit</option>

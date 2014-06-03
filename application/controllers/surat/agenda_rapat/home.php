@@ -18,7 +18,7 @@ class home extends SYGAAS_Controller {
 		
 		$grid = array();
 		if ($action == 'agenda_rapat') {
-			$_POST['column'] = array( 'no_surat', 'leading_sektor', 'acara', 'tanggal_undangan', 'tempat' );
+			$_POST['column'] = array( 'tanggal_ajuan_date', 'tanggal_ajuan_time', 'acara', 'tempat', 'catatan' );
 			
 			// button
 			$_POST['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';

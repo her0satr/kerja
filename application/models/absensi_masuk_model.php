@@ -36,8 +36,9 @@ class absensi_masuk_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT waktu_masuk.*
+				SELECT waktu_masuk.*, biodata.nama biodata_title
 				FROM ".ABSENSI_MASUK." waktu_masuk
+				LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_masuk.biodata_id
 				WHERE waktu_masuk.id = '".$param['id']."'
 				LIMIT 1
 			";
@@ -63,6 +64,7 @@ class absensi_masuk_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
+		$param['field_replace']['biodata_title'] = 'biodata.nama';
 		$param['field_replace']['tanggal_text'] = 'waktu_masuk.tanggal';
 		
 		$string_tanggal = (isset($param['tanggal'])) ? "AND waktu_masuk.tanggal = '".$param['tanggal']."'" : '';
@@ -72,7 +74,7 @@ class absensi_masuk_model extends CI_Model {
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS waktu_masuk.*, biodata.nama
+			SELECT SQL_CALC_FOUND_ROWS waktu_masuk.*, biodata.nama biodata_title
 			FROM ".ABSENSI_MASUK." waktu_masuk
 			LEFT JOIN ".BIODATA." biodata ON biodata.id = waktu_masuk.biodata_id
 			WHERE 1 $string_tanggal $string_biodata $string_filter

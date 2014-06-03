@@ -1,16 +1,2 @@
-ABSENSI
-cek  - Absensi otomatis cukup insert hari saja (jam absensi tidak perlu di update)
-skip - Absen pertama & Kedua, tdk absen, ketika absen ketiga diklik absen pertama & Kedua berubah menjadi sama jamnya dengan absen ketiga. Seharusnya absen pertama & Kedua tetap tidak aktif (absensi seharusnya sesuai tgl & posisi jam ke,1,2,3,4) => kadang2 terjadi
-
-cek  - Absensi seharusnya tidak bisa diklik untuk tgl sebelumnya.
-cek  - Absensi / List Masuk, Tidak Masuk : diurutkan berdasar tanggal (tgl terbaru di atas)
-
-Agenda Rapat, 
-cek - Tanggal Ajuan tidak memakai hari
-cek - Tanggak Undangan ditambah tgl, hari, jam
-cek - Urutan header tabel : No urut, leading sektor, acara, hari tgl jam udangan, tempat => no urut tidak ada disini
-cek - Rekap ditambah TABEL
-
-cek - Untuk semua yang tampil di Rekap user biasa (user Pegawai) : Presensi List Masuk, Tidak Masuk, Agenda Kerja, Kegiatan kerja Harian PNS control untuk edit dihilangkan.
-
 next development - Untuk beda tahun nomor urut bisa kembali ke Nomor 1
+

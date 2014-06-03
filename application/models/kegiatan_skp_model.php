@@ -59,7 +59,15 @@ class kegiatan_skp_model extends CI_Model {
 		
 		$string_tanggal = (isset($param['tanggal'])) ? "AND kegiatan_skp.tanggal = '".$param['tanggal']."'" : '';
 		$string_biodata = (isset($param['biodata_id'])) ? "AND kegiatan_skp.biodata_id = '".$param['biodata_id']."'" : '';
-		$string_filter = (!empty($param['sSearch'])) ? "AND (jenis_skp.title LIKE '%".$param['sSearch']."%' OR jenis_kegiatan.title LIKE '%".$param['sSearch']."%' OR kegiatan_skp.tanggal LIKE '%".$param['sSearch']."%' OR kegiatan_skp.keterangan LIKE '%".$param['sSearch']."%')" : '';
+		$string_filter = (!empty($param['sSearch']))
+			? "AND (
+				biodata.nama LIKE '%".$param['sSearch']."%'
+				OR jenis_skp.title LIKE '%".$param['sSearch']."%'
+				OR jenis_kegiatan.title LIKE '%".$param['sSearch']."%'
+				OR kegiatan_skp.tanggal LIKE '%".$param['sSearch']."%'
+				OR kegiatan_skp.keterangan LIKE '%".$param['sSearch']."%'
+			)"
+			: '';
 		$string_sorting = GetStringSorting($param, @$param['column'], 'title ASC');
 		$string_limit = GetStringLimit($param);
 		

@@ -36,7 +36,9 @@
 				
 				<div class="widget grid-main">
 					<div class="widget-head">
-						<div class="pull-left">&nbsp;</div>
+						<div class="pull-left">
+							<button class="btn btn-info btn-xs btn-add">Tambah</button>
+						</div>
 						<div class="widget-icons pull-right">
 							<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 							<a href="#" class="wclose"><i class="fa fa-times"></i></a>
@@ -78,7 +80,14 @@
 			<div class="padd"><div class="form-horizontal">
 				<input type="hidden" name="action" value="update" />
 				<input type="hidden" name="id" value="0" />
+				<input type="hidden" name="biodata_id" value="0" />
 				
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Nama Pegawai</label>
+					<div class="col-lg-10 cnt-typeahead">
+						<input type="text" name="biodata_title" class="form-control typeahead-biodata" placeholder="Nama Pegawai" />
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Tanggal</label>
 					<div class="col-lg-10">
@@ -192,18 +201,48 @@ $(document).ready(function() {
 	}
 	var dt = Func.datatable(param);
 	
+	// biodata
+	var biodata_store = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nama'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: web.host + 'typeahead?action=biodata',
+		remote: web.host + 'typeahead?action=biodata&namelike=%QUERY'
+	});
+	biodata_store.initialize();
+	var biodata = $('.typeahead-biodata').typeahead(null, {
+		name: 'biodata',
+		displayKey: 'nama',
+		source: biodata_store.ttAdapter(),
+		templates: {
+			empty: [
+				'<div class="empty-message">',
+				'no result found.',
+				'</div>'
+			].join('\n'),
+			suggestion: Handlebars.compile('<p><strong>{{nama}}</strong></p>')
+		}
+	});
+	biodata.on('typeahead:selected', function(evt, data) {
+		$('#form-absensi [name="biodata_id"]').val(data.id);
+	});
+	
 	// form search
 	$('#form-search').submit(function(e) {
 		e.preventDefault();
 		dt.reload();
 	});
 	
-	// form jam
+	// form absensi
+	$('.btn-add').click(function() {
+		$('#form-absensi form')[0].reset();
+		$('#form-absensi [name="id"]').val(0);
+		$('#form-absensi [name="biodata_id"]').val(0);
+		$('#form-absensi').modal();
+	});
 	$('#form-absensi form').validate({
 		rules: {
-			jam_ke: { required: true },
-			jam_awal: { required: true },
-			jam_akhir: { required: true }
+			biodata_title: { required: true },
+			tanggal: { required: true }
 		}
 	});
 	$('#form-absensi form').submit(function(e) {
