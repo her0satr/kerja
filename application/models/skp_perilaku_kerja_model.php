@@ -126,7 +126,7 @@ class skp_perilaku_kerja_model extends CI_Model {
 		foreach ($array as $key => $row) {
 			$total += $row['nilai'];
 		}
-		$result = $total / count($array);
+		$result = (count($array) == 0) ? 0 : $total / count($array);
 		$result = number_format($result, 2, ',', '.');
 		
 		return $result;

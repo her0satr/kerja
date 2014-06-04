@@ -25,7 +25,7 @@
 	
 	// perilaku kerja add average
 	$number = $number + 1;
-	$average = number_format($total / count($perilaku_kerja), 2, ',', '.');
+	$average = (count($perilaku_kerja) == 0) ? 0 : number_format($total / count($perilaku_kerja), 2, ',', '.');
 	$perilaku_kerja_format[] = array(
 		'perilaku_kerja_title' => $number.'. Nilai rata - rata',
 		'nilai' => $average,

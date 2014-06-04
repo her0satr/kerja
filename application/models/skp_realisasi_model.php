@@ -149,7 +149,7 @@ class skp_realisasi_model extends CI_Model {
 		
 		// perhitungan & nilai capaian
 		$row['perhitungan'] = 0;
-		if (!empty($row['target_kuant_nilai']) && !empty($row['real_kuant'])) {
+		if (!empty($row['target_kuant_nilai']) && !empty($row['real_kuant']) && !empty($row['real_waktu_nilai'])) {
 			// kontanta
 			$rw_kecil_24 = (((1.76 * $row['real_waktu_nilai']) - $row['target_waktu_nilai']) / $row['real_waktu_nilai']) * 100;
 			$rw_besar_24 = 76 - (((((1.76 * $row['real_waktu_nilai']) - $row['target_waktu_nilai']) / $row['real_waktu_nilai']) * 100) - 100);
