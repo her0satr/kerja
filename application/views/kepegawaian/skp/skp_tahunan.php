@@ -63,41 +63,8 @@
 					</div>
 				</div>
 				
-				<div class="cnt-summary">
-					<h3>SKP Info</h3>
-					<div class="widget grid-main">
-						<div class="widget-head">
-							<div class="pull-left">
-								<button class="btn btn-info btn-xs btn-add-skp-summary">Tambah</button>
-								<button class="btn btn-info btn-xs btn-print-skp-summary">Cetak</button>
-							</div>
-							<div class="widget-icons pull-right">
-								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="widget-content">
-							<table id="dt-skp-summary" class="table table-striped table-bordered table-hover">
-								<thead>
-									<tr>
-										<th class="center">Tanggal Pembuatan</th>
-										<th class="center">Tanggal Penilaian</th>
-										<th class="center">Control</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-							<div class="widget-foot">
-								<br /><br />
-								<div class="clearfix"></div> 
-							</div>
-						</div>
-					</div>
-				</div>
-				
 				<div class="cnt-sasaran">
-					<h3>SKP Sasaran Kerja</h3>
+					<h3>Target</h3>
 					<div class="widget grid-main">
 						<div class="widget-head">
 							<div class="pull-left">
@@ -131,40 +98,8 @@
 					</div>
 				</div>
 				
-				<div class="cnt-pejabat">
-					<h3>SKP Pejabat</h3>
-					<div class="widget grid-main">
-						<div class="widget-head">
-							<div class="pull-left">
-								<button class="btn btn-info btn-xs btn-add-skp-pejabat">Tambah</button>
-							</div>
-							<div class="widget-icons pull-right">
-								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="widget-content">
-							<table id="dt-skp-pejabat" class="table table-striped table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>Nama</th>
-										<th class="center">NIP</th>
-										<th class="center">Control</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-							<div class="widget-foot">
-								<br /><br />
-								<div class="clearfix"></div> 
-							</div>
-						</div>
-					</div>
-				</div>
-				
 				<div class="cnt-realisasi">
-					<h3>SKP Realisasi</h3>
+					<h3>Realisasi</h3>
 					<div class="widget grid-main">
 						<div class="widget-head">
 							<div class="pull-left">
@@ -197,9 +132,9 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="cnt-tugas-tambahan">
-					<h3>SKP Tugas Tambahan</h3>
+					<h3>Tugas Tambahan</h3>
 					<div class="widget grid-main">
 						<div class="widget-head">
 							<div class="pull-left">
@@ -230,9 +165,9 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="cnt-kreativitas">
-					<h3>SKP Kreativitas</h3>
+					<h3>Kreativitas</h3>
 					<div class="widget grid-main">
 						<div class="widget-head">
 							<div class="pull-left">
@@ -263,9 +198,9 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="cnt-perilaku-kerja">
-					<h3>SKP Perilaku Kerja</h3>
+					<h3>Perilaku Kerja</h3>
 					<div class="widget grid-main">
 						<div class="widget-head">
 							<div class="pull-left">
@@ -296,6 +231,71 @@
 					</div>
 				</div>
 				
+				<div class="cnt-pejabat">
+					<h3>Pejabat Penilai</h3>
+					<div class="widget grid-main">
+						<div class="widget-head">
+							<div class="pull-left">
+								<button class="btn btn-info btn-xs btn-add-skp-pejabat">Tambah</button>
+							</div>
+							<div class="widget-icons pull-right">
+								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="widget-content">
+							<table id="dt-skp-pejabat" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Nama</th>
+										<th class="center">NIP</th>
+										<th class="center">Control</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<div class="widget-foot">
+								<br /><br />
+								<div class="clearfix"></div> 
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="cnt-summary">
+					<h3>DP3</h3>
+					<div class="widget grid-main">
+						<div class="widget-head">
+							<div class="pull-left">
+								<button class="btn btn-info btn-xs btn-add-skp-summary">Tambah</button>
+								<button class="btn btn-info btn-xs btn-print-skp-summary">Cetak</button>
+							</div>
+							<div class="widget-icons pull-right">
+								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="widget-content">
+							<table id="dt-skp-summary" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th class="center">Tanggal Pembuatan</th>
+										<th class="center">Tanggal Penilaian</th>
+										<th class="center">Control</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<div class="widget-foot">
+								<br /><br />
+								<div class="clearfix"></div> 
+							</div>
+						</div>
+					</div>
+				</div>
+			
 				<div class="widget hide" id="form-summary">
 					<div class="widget-head">
 						<div class="pull-left">Form SKP Info</div>
