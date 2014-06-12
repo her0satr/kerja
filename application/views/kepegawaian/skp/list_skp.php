@@ -221,6 +221,15 @@ $(document).ready(function() {
 				} });
 			});
 			
+			$('#datatable .btn-validate').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				
+				Func.ajax({ url: web.host + 'kepegawaian/skp/list_skp/action', param: { action: 'validate', id: record.id, validate: 1 }, callback: function(result) {
+					dt.reload();
+				} });
+			});
+			
 			$('#datatable .btn-delete').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);

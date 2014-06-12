@@ -14,7 +14,7 @@ class list_skp extends SYGAAS_Controller {
 		$user = $this->user_model->get_session();
 		
 		if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) {
-			$_POST['is_edit'] = 1;
+			$_POST['view_type'] = 'validate';
 			$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'keterangan' );
 		} else {
 			$_POST['is_custom'] = '&nbsp;';
@@ -34,6 +34,8 @@ class list_skp extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'update') {
+			$result = $this->kegiatan_skp_model->update($_POST);
+		} else if ($action == 'validate') {
 			$result = $this->kegiatan_skp_model->update($_POST);
 		} else if ($action == 'get_by_id') {
 			$result = $this->kegiatan_skp_model->get_by_id(array( 'id' => $_POST['id'] ));

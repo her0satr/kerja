@@ -116,6 +116,7 @@
 								<thead>
 									<tr>
 										<th>Jenis SKP</th>
+										<th class="center">AK</th>
 										<th class="center">Kuant</th>
 										<th class="center">Kual</th>
 										<th class="center">Waktu</th>
@@ -521,8 +522,8 @@
 				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label">Nama</label>
-					<div class="col-lg-8">
-						<input type="text" name="nama" class="form-control" placeholder="Nama" />
+					<div class="col-lg-8 cnt-typeahead">
+						<input type="text" name="nama" class="form-control typeahead-pejabat" placeholder="Nama" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -861,7 +862,10 @@ $(document).ready(function() {
 				
 				Func.form.del({
 					data: { action: 'skp_sasaran_delete', id: record.id },
-					url: web.host + 'kepegawaian/skp/skp_tahunan/action', callback: function() { dt_skp_sasaran.reload(); }
+					url: web.host + 'kepegawaian/skp/skp_tahunan/action', callback: function() {
+						dt_skp_sasaran.reload();
+						dt_skp_realisasi.reload();
+					}
 				});
 			});
 		}
@@ -909,7 +913,7 @@ $(document).ready(function() {
 	var dt_skp_realisasi_param = {
 		id: 'dt-skp-realisasi',
 		source: web.host + 'kepegawaian/skp/skp_tahunan/grid',
-		column: [ { }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			var form_search = Func.form.get_value('form-search');
 			aoData.push(
@@ -1082,6 +1086,34 @@ $(document).ready(function() {
 		page.search_refresh();
 	});
 	
+	// pejabat
+	var pejabat_store = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nama'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: web.host + 'typeahead?action=pejabat',
+		remote: web.host + 'typeahead?action=pejabat&namelike=%QUERY'
+	});
+	pejabat_store.initialize();
+	var pejabat = $('.typeahead-pejabat').typeahead(null, {
+		name: 'pejabat',
+		displayKey: 'nama',
+		source: pejabat_store.ttAdapter(),
+		templates: {
+			empty: [
+				'<div class="empty-message">',
+				'no result found.',
+				'</div>'
+			].join('\n'),
+			suggestion: Handlebars.compile('<p><strong>{{nama}}</strong></p>')
+		}
+	});
+	pejabat.on('typeahead:selected', function(evt, data) {
+		$('#form-pejabat [name="nip"]').val(data.nip);
+		$('#form-pejabat [name="jabatan"]').val(data.jabatan);
+		$('#form-pejabat [name="pangkat_id"]').val(data.pangkat_id);
+		$('#form-pejabat [name="unit_kerja"]').val(data.unit_kerja);
+	});
+	
 	// search
 	$('#form-search [name="tahun"]').change(function() {
 		page.search_refresh();
@@ -1174,7 +1206,7 @@ $(document).ready(function() {
 	$('#form-sasaran form').validate({
 		rules: {
 			jenis_skp_id: { required: true },
-			ak: { required: true, digits: true },
+			ak: { required: true },
 			kuant_nilai: { required: true, digits: true },
 			kual: { required: true, digits: true }
 		}
@@ -1191,6 +1223,7 @@ $(document).ready(function() {
 			callback: function(result) {
 				page.show_grid();
 				dt_skp_sasaran.reload();
+				dt_skp_realisasi.reload();
 				$('#form-sasaran form')[0].reset();
 			}
 		});

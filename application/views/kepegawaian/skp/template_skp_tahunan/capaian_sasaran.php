@@ -80,7 +80,7 @@ table.border td,th,caption{background-color:#fff}
 		<td style="text-align: center;"><?php echo $row['target_kual']; ?></td>
 		<td style="text-align: center;"><?php echo $row['target_waktu_nilai'].' '.$row['target_waktu_satuan']; ?></td>
 		<td style="text-align: center;"><?php echo $row['target_biaya']; ?></td>
-		<td style="text-align: center;">0</td>
+		<td style="text-align: center;"><?php echo $row['real_angka_kredit']; ?></td>
 		<td>
 			<table style="width: 70;">
 				<tr>

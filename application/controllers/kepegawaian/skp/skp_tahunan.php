@@ -29,7 +29,7 @@ class skp_tahunan extends SYGAAS_Controller {
 				$_POST['column'] = array( 'nama', 'nip' );
 			} else if ($action == 'skp_realisasi') {
 				$_POST['is_edit_only'] = 1;
-				$_POST['column'] = array( 'jenis_skp_title', 'real_kuant', 'real_kual', 'real_waktu', 'real_biaya' );
+				$_POST['column'] = array( 'jenis_skp_title', 'real_angka_kredit', 'real_kuant', 'real_kual', 'real_waktu', 'real_biaya' );
 			} else if ($action == 'skp_tugas_tambahan') {
 				$_POST['is_edit'] = 1;
 				$_POST['column'] = array( 'title', 'perhitungan', 'nilai_capaian' );

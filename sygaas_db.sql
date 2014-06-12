@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 12, 2014 at 03:22 PM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: Jun 12, 2014 at 08:18 PM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,8 +18,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `sygaas_db`
 --
-CREATE DATABASE IF NOT EXISTS `sygaas_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sygaas_db`;
 
 -- --------------------------------------------------------
 
@@ -906,8 +903,8 @@ INSERT INTO `jenis_skp` (`id`, `biodata_id`, `title`, `satuan`, `point`) VALUES
 (10, 2, 'Mendeteksi kerusakan jaringan', 'unit', 0),
 (11, 5, 'Membuat Nodin', 'lembar', 0.55),
 (12, 5, 'Membuat Nota Dinas', 'Naskah', 1.52),
-(13, 8, 'Wudi SKP 01', 'Unit', 0),
-(14, 8, 'Wudi SKP 02', 'Lembar', 0);
+(13, 8, 'Wudi SKP 01', 'Unit', 1),
+(14, 8, 'Wudi SKP 02', 'Lembar', 2);
 
 -- --------------------------------------------------------
 
@@ -924,25 +921,28 @@ CREATE TABLE IF NOT EXISTS `kegiatan_skp` (
   `tanggal` date NOT NULL,
   `waktu` time NOT NULL,
   `type_row` int(11) NOT NULL,
+  `kuan` int(11) NOT NULL,
   `kual` int(11) NOT NULL,
   `kendala` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
+  `validate` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `kegiatan_skp`
 --
 
-INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `jenis_kegiatan_id`, `no_urut`, `tanggal`, `waktu`, `type_row`, `kual`, `kendala`, `keterangan`) VALUES
-(18, 2, 10, 0, 1, '2014-05-05', '14:45:13', 1, 0, '', ''),
-(19, 2, 0, 9, 2, '2014-05-05', '14:51:38', 2, 0, '', ''),
-(20, 5, 8, 0, 1, '2014-05-07', '09:39:19', 1, 0, '', ''),
-(21, 5, 0, 8, 2, '2014-05-07', '13:39:19', 2, 0, '', ''),
-(22, 8, 13, 0, 1, '2014-05-30', '08:50:34', 1, 90, '-', '-'),
-(23, 8, 13, 0, 2, '2014-05-30', '08:50:34', 1, 95, '-', '-'),
-(24, 8, 14, 0, 3, '2014-05-30', '08:50:34', 1, 100, '-', '-'),
-(25, 8, 14, 0, 4, '2014-05-30', '08:50:34', 1, 100, '-', '-');
+INSERT INTO `kegiatan_skp` (`id`, `biodata_id`, `jenis_skp_id`, `jenis_kegiatan_id`, `no_urut`, `tanggal`, `waktu`, `type_row`, `kuan`, `kual`, `kendala`, `keterangan`, `validate`) VALUES
+(18, 2, 10, 0, 1, '2014-05-05', '14:45:13', 1, 0, 0, '', '', 0),
+(19, 2, 0, 9, 2, '2014-05-05', '14:51:38', 2, 0, 0, '', '', 0),
+(20, 5, 8, 0, 1, '2014-05-07', '09:39:19', 1, 15, 25, '', '', 1),
+(21, 5, 0, 8, 2, '2014-05-07', '13:39:19', 2, 1, 2, '', '', 0),
+(22, 8, 13, 0, 1, '2014-05-30', '08:50:34', 1, 1, 90, '-', '-', 1),
+(23, 8, 13, 0, 2, '2014-05-30', '08:50:34', 1, 2, 95, '-', '-', 1),
+(24, 8, 14, 0, 3, '2014-05-30', '08:50:34', 1, 3, 100, '-', '-', 1),
+(25, 8, 14, 0, 4, '2014-05-30', '08:50:34', 1, 4, 100, '-', '-', 1),
+(26, 5, 8, 0, 1, '2014-06-12', '18:54:09', 1, 1, 2, '3', '5', 1);
 
 -- --------------------------------------------------------
 
@@ -1075,6 +1075,30 @@ INSERT INTO `pangkat` (`id`, `pangkat`, `golongan`, `ruang`, `urutan`) VALUES
 (3, 'Pembina Utama Muda', 'IV', 'C', 42),
 (4, 'Pembina Utama Madya', 'IV', 'D', 43),
 (5, 'Pembina Utama', 'IV', 'E', 44);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pejabat`
+--
+
+CREATE TABLE IF NOT EXISTS `pejabat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pangkat_id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `nip` varchar(255) NOT NULL,
+  `jabatan` varchar(255) NOT NULL,
+  `unit_kerja` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `pejabat`
+--
+
+INSERT INTO `pejabat` (`id`, `pangkat_id`, `nama`, `nip`, `jabatan`, `unit_kerja`) VALUES
+(3, 5, 'SI Presiden', '11', '22', '33'),
+(4, 1, 'Wakil Presiden', '1', '3', '4');
 
 -- --------------------------------------------------------
 
@@ -1334,14 +1358,15 @@ CREATE TABLE IF NOT EXISTS `skp_pejabat` (
   `jabatan` varchar(255) NOT NULL,
   `unit_kerja` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `skp_pejabat`
 --
 
 INSERT INTO `skp_pejabat` (`id`, `biodata_id`, `pangkat_id`, `tahun`, `posisi`, `nama`, `nip`, `jabatan`, `unit_kerja`) VALUES
-(2, 8, 5, 2014, 'Pejabat Penilai', 'Drs. Budiman ST', '0123456', 'Kepala Dinas', 'Unit Satuan');
+(2, 8, 5, 2014, 'Pejabat Penilai', 'Drs. Budiman ST', '0123456', 'Kepala Dinas', 'Unit Satuan'),
+(3, 8, 1, 2014, 'Atasan Pejabat Penilai', 'Wakil Presiden', '1', '3', '4');
 
 -- --------------------------------------------------------
 
@@ -1405,7 +1430,7 @@ CREATE TABLE IF NOT EXISTS `skp_sasaran_kerja` (
   `biodata_id` int(11) NOT NULL,
   `jenis_skp_id` int(11) NOT NULL,
   `tahun` int(11) NOT NULL,
-  `ak` int(11) NOT NULL,
+  `ak` float NOT NULL,
   `kuant_nilai` int(11) NOT NULL,
   `kual` int(11) NOT NULL,
   `waktu_nilai` int(11) NOT NULL,
@@ -3384,7 +3409,7 @@ INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `addres
 (12, 3, '4343', 'asfsaf', '58bdea2e9191d57af9f61e06e6d29990', '', '', 1),
 (10, 1, '0123456789', 'Ferry Cahyono', '705f973c251b7e26e40f855739de2d87', '', '', 1),
 (11, 3, '39284208', 'Ferry Cahyono', '675beb1e1b02db58af70302a2089fd96', '', '', 1),
-(13, 3, '46356565656', 'Wudi Yulianto', 'f7c1912b8bff4c16d6e1f0ba198063c3', '', '', 1);
+(13, 2, '46356565656', 'Wudi Yulianto', 'f7c1912b8bff4c16d6e1f0ba198063c3', '', '', 1);
 
 -- --------------------------------------------------------
 

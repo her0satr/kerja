@@ -1,31 +1,24 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class skp_sasaran_kerja_model extends CI_Model {
+class pejabat_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array(
-			'id', 'biodata_id', 'jenis_skp_id', 'tahun', 'ak', 'kuant_nilai', 'kual', 'waktu_nilai', 'waktu_satuan', 'biaya'
-		);
+        $this->field = array( 'id', 'pangkat_id', 'nama', 'nip', 'jabatan', 'unit_kerja' );
     }
-	
+
     function update($param) {
         $result = array();
-		
-		// angka kredit
-		if (isset($param['ak'])) {
-			$param['ak'] = preg_replace('/[,]/i', '.', $param['ak']);
-		}
        
         if (empty($param['id'])) {
-            $insert_query  = GenerateInsertQuery($this->field, $param, SKP_SASARAN_KERJA);
+            $insert_query  = GenerateInsertQuery($this->field, $param, PEJABAT);
             $insert_result = mysql_query($insert_query) or die(mysql_error());
            
             $result['id'] = mysql_insert_id();
             $result['status'] = '1';
             $result['message'] = 'Data berhasil disimpan.';
         } else {
-            $update_query  = GenerateUpdateQuery($this->field, $param, SKP_SASARAN_KERJA);
+            $update_query  = GenerateUpdateQuery($this->field, $param, PEJABAT);
             $update_result = mysql_query($update_query) or die(mysql_error());
            
             $result['id'] = $param['id'];
@@ -41,18 +34,9 @@ class skp_sasaran_kerja_model extends CI_Model {
        
         if (isset($param['id'])) {
             $select_query  = "
-				SELECT skp_sasaran_kerja.*
-				FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
-				WHERE skp_sasaran_kerja.id = '".$param['id']."'
-				LIMIT 1
-			";
-		} else if (isset($param['biodata_id']) && isset($param['tahun'])) {
-			$select_query  = "
-				SELECT skp_sasaran_kerja.*
-				FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
-				WHERE
-					skp_sasaran_kerja.tahun = '".$param['tahun']."'
-					AND skp_sasaran_kerja.biodata_id = '".$param['biodata_id']."'
+				SELECT pejabat.*
+				FROM ".PEJABAT." pejabat
+				WHERE pejabat.id = '".$param['id']."'
 				LIMIT 1
 			";
 		}
@@ -68,24 +52,18 @@ class skp_sasaran_kerja_model extends CI_Model {
     function get_array($param = array()) {
         $array = array();
 		
-		$param['field_replace']['jenis_skp_title'] = 'jenis_skp.title';
-		
-		$string_tahun = (isset($param['tahun'])) ? "AND skp_sasaran_kerja.tahun = '".$param['tahun']."'" : '';
-		$string_biodata = (isset($param['biodata_id'])) ? "AND skp_sasaran_kerja.biodata_id = '".$param['biodata_id']."'" : '';
+		$string_namelike = (isset($param['namelike'])) ? "AND nama LIKE '%".$param['namelike']."%'" : '';
 		$string_filter = GetStringFilter($param, @$param['column']);
-		$string_sorting = GetStringSorting($param, @$param['column'], 'tahun ASC');
+		$string_sorting = GetStringSorting($param, @$param['column'], 'nama ASC');
 		$string_limit = GetStringLimit($param);
 		
 		$select_query = "
-			SELECT SQL_CALC_FOUND_ROWS skp_sasaran_kerja.*,
-				jenis_skp.title jenis_skp_title, jenis_skp.satuan jenis_skp_satuan
-			FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
-			LEFT JOIN ".JENIS_SKP." jenis_skp ON jenis_skp.id = skp_sasaran_kerja.jenis_skp_id
-			WHERE 1 $string_tahun $string_biodata $string_filter
+			SELECT SQL_CALC_FOUND_ROWS pejabat.*
+			FROM ".PEJABAT." pejabat
+			WHERE 1 $string_namelike $string_filter
 			ORDER BY $string_sorting
 			LIMIT $string_limit
 		";
-		
         $select_result = mysql_query($select_query) or die(mysql_error());
 		while ( $row = mysql_fetch_assoc( $select_result ) ) {
 			$array[] = $this->sync($row, $param);
@@ -95,16 +73,16 @@ class skp_sasaran_kerja_model extends CI_Model {
     }
 
     function get_count($param = array()) {
-		$select_query = "SELECT FOUND_ROWS() total";
+		$select_query = "SELECT FOUND_ROWS() TotalRecord";
 		$select_result = mysql_query($select_query) or die(mysql_error());
 		$row = mysql_fetch_assoc($select_result);
-		$total = $row['total'];
+		$TotalRecord = $row['TotalRecord'];
 		
-		return $total;
+		return $TotalRecord;
     }
 	
     function delete($param) {
-		$delete_query  = "DELETE FROM ".SKP_SASARAN_KERJA." WHERE id = '".$param['id']."' LIMIT 1";
+		$delete_query  = "DELETE FROM ".PEJABAT." WHERE id = '".$param['id']."' LIMIT 1";
 		$delete_result = mysql_query($delete_query) or die(mysql_error());
 		
 		$result['status'] = '1';
@@ -115,9 +93,6 @@ class skp_sasaran_kerja_model extends CI_Model {
 	
 	function sync($row, $param = array()) {
 		$row = StripArray($row);
-		
-		// angka kredit
-		$row['ak'] = number_format($row['ak'], 2, ',', '.');
 		
 		if (count(@$param['column']) > 0) {
 			$row = dt_view_set($row, $param);

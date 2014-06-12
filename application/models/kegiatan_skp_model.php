@@ -5,7 +5,7 @@ class kegiatan_skp_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'biodata_id', 'jenis_skp_id', 'jenis_kegiatan_id', 'no_urut', 'tanggal', 'waktu', 'type_row', 'kendala', 'keterangan', 'kual'
+			'id', 'biodata_id', 'jenis_skp_id', 'jenis_kegiatan_id', 'no_urut', 'tanggal', 'waktu', 'type_row', 'kendala', 'keterangan', 'kuan', 'kual', 'validate'
 		);
     }
 
@@ -205,6 +205,19 @@ class kegiatan_skp_model extends CI_Model {
 		$row = StripArray($row);
 		
 		if (count(@$param['column']) > 0) {
+			if (isset($param['view_type']) && $param['view_type'] == 'validate') {
+				// edit button
+				$param['is_custom'] = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
+				
+				// add validate
+				if (isset($row['validate']) == empty($row['validate'])) {
+					$param['is_custom'] .= '<button class="btn btn-xs btn-validate" data-original-title="Validate"><img src="'.base_url('static/img/icons/icon-check.png').'" /></button> ';
+				}
+				
+				// delete button
+				$param['is_custom'] .= '<button class="btn btn-xs btn-delete" data-original-title="Hapus"><img src="'.base_url('static/img/icons/icon-delete.png').'" /></button> ';
+			}
+			
 			$row = dt_view_set($row, $param);
 		}
 		

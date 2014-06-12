@@ -77,7 +77,7 @@ class skp_realisasi_model extends CI_Model {
 		
 		$select_query = "
 			SELECT SQL_CALC_FOUND_ROWS
-				jenis_skp.title jenis_skp_title, jenis_skp.satuan jenis_skp_satuan,
+				jenis_skp.title jenis_skp_title, jenis_skp.satuan jenis_skp_satuan, jenis_skp.point jenis_skp_point,
 				
 				skp_sasaran_kerja.id skp_sasaran_kerja_id,
 				skp_sasaran_kerja.ak target_ak, skp_sasaran_kerja.kuant_nilai target_kuant_nilai, skp_sasaran_kerja.kual target_kual,
@@ -86,10 +86,12 @@ class skp_realisasi_model extends CI_Model {
 				skp_realisasi.id skp_realisasi_id, skp_realisasi.waktu_nilai real_waktu_nilai, skp_realisasi.waktu_satuan real_waktu_satuan,
 				skp_realisasi.biaya real_biaya,
 				
-				(	SELECT SUM(a2.jumlah)
+				(	SELECT SUM(kuan)
 					FROM ".KEGIATAN_SKP." a1
-					LEFT JOIN ".JENIS_SKP." a2 ON a2.id = a1.jenis_skp_id
-					WHERE a1.biodata_id = skp_sasaran_kerja.biodata_id AND YEAR(a1.tanggal) = skp_sasaran_kerja.tahun AND a1.jenis_skp_id = skp_sasaran_kerja.jenis_skp_id
+					WHERE
+						a1.biodata_id = skp_sasaran_kerja.biodata_id
+						AND YEAR(a1.tanggal) = skp_sasaran_kerja.tahun
+						AND a1.jenis_skp_id = skp_sasaran_kerja.jenis_skp_id
 				) real_kuant,
 				(	SELECT AVG(kual)
 					FROM ".KEGIATAN_SKP." b1
@@ -160,6 +162,11 @@ class skp_realisasi_model extends CI_Model {
 			$biaya_persen = (empty($row['target_biaya']) || empty($row['real_biaya'])) ? 0 : 100 - (($row['real_biaya'] / $row['target_biaya']) * 100);
 			$kuan = ($row['real_kuant'] / $row['target_kuant_nilai']) * 100;
 			$kual = ($row['real_kual'] / $row['target_kual']) * 100;
+			
+			// angka kredit
+			$row['target_ak'] = number_format($row['target_ak'], 2, ',', '.');
+			$row['real_angka_kredit'] = $row['real_kuant'] * $row['jenis_skp_point'];
+			$row['real_angka_kredit'] = number_format($row['real_angka_kredit'], 2, ',', '.');
 			
 			// perhitungan
 			$row['perhitungan'] = $waktu + $kuan + $kual;

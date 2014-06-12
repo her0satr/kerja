@@ -13,7 +13,7 @@ cek => Kegiatan PNS
 - jumlah dihilangkan di "Kegiatan PNS" dan "Kegiatan Lain"
 - Point itu datanya bisa float
 
-Agenda Kerja Harian
+cek => Agenda Kerja Harian
 - Tambah input jumlah sebagai penganti jumlah di "Kegiatan PNS" dan "Kegiatan Lain"
 - Tambahkan tombol validasi setiap kegiatan
 - Hanya admin yang bisa melakukan validasi

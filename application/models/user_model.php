@@ -250,6 +250,7 @@ class user_model extends CI_Model {
 					array( 'name' => 'index_surat', 'title' => 'Index Surat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'jenis_kepegawaian', 'title' => 'Jenis Kepegawaian', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'pangkat', 'title' => 'Pangkat', 'user_type_id' => array( 1, 2 ) ),
+					array( 'name' => 'pejabat', 'title' => 'Pejabat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'sifat_arsip', 'title' => 'Sifat Arsip', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'sifat_surat', 'title' => 'Sifat Surat', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'skpd', 'title' => 'SKPD', 'user_type_id' => array( 1, 2 ) ),
