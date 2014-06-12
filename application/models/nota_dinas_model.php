@@ -5,7 +5,7 @@ class nota_dinas_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'no_urut', 'no_surat', 'surat_dari', 'disposisi_kepada', 'perihal', 'posisi', 'tanggal_disposisi', 'tanggal_surat', 'tanggal_terima', 'catatan', 'file_surat'
+			'id', 'no_urut', 'no_surat', 'surat_dari', 'disposisi_kepada', 'perihal', 'posisi', 'tanggal_disposisi', 'tanggal_surat', 'tanggal_terima', 'catatan', 'file_surat', 'create_time'
 		);
     }
 
@@ -98,6 +98,7 @@ class nota_dinas_model extends CI_Model {
 		$select_query  = "
 			SELECT MAX(no_urut) next_no
 			FROM ".NOTA_DINAS." nota_dinas
+			WHERE YEAR(create_time) = '".$this->config->item('current_year')."'
 		";
         $select_result = mysql_query($select_query) or die(mysql_error());
         if (false !== $row = mysql_fetch_assoc($select_result)) {

@@ -5,7 +5,7 @@ class surat_keluar_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'no_urut', 'index_surat_id', 'no_surat', 'pengolah', 'tujuan', 'tanggal_surat', 'lampiran', 'perihal', 'catatan', 'file_surat'
+			'id', 'no_urut', 'index_surat_id', 'no_surat', 'pengolah', 'tujuan', 'tanggal_surat', 'lampiran', 'perihal', 'catatan', 'file_surat', 'create_time'
 		);
     }
 
@@ -100,6 +100,7 @@ class surat_keluar_model extends CI_Model {
 		$select_query  = "
 			SELECT MAX(no_urut) next_no
 			FROM ".SURAT_KELUAR." surat_keluar
+			WHERE YEAR(create_time) = '".$this->config->item('current_year')."'
 		";
         $select_result = mysql_query($select_query) or die(mysql_error());
         if (false !== $row = mysql_fetch_assoc($select_result)) {

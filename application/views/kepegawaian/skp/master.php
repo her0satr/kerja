@@ -47,7 +47,6 @@
 							<thead>
 								<tr>
 									<th>Nama</th>
-									<th>Jumlah</th>
 									<th>Satuan</th>
 									<th>Point</th>
 									<th class="center">Control</th>
@@ -80,7 +79,6 @@
 							<thead>
 								<tr>
 									<th>Nama</th>
-									<th>Jumlah</th>
 									<th>Satuan</th>
 									<th>Point</th>
 									<th class="center">Control</th>
@@ -118,12 +116,6 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-2 control-label">Jumlah</label>
-					<div class="col-lg-10">
-						<input type="text" name="jumlah" class="form-control" placeholder="Jumlah" />
-					</div>
-				</div>
-				<div class="form-group">
 					<label class="col-lg-2 control-label">Satuan</label>
 					<div class="col-lg-10">
 						<input type="text" name="satuan" class="form-control" placeholder="Satuan" />
@@ -158,12 +150,6 @@
 					<label class="col-lg-2 control-label">Nama</label>
 					<div class="col-lg-10">
 						<input type="text" name="title" class="form-control" placeholder="Nama" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Jumlah</label>
-					<div class="col-lg-10">
-						<input type="text" name="jumlah" class="form-control" placeholder="Jumlah" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -206,7 +192,7 @@ $(document).ready(function() {
 	var skp_param = {
 		id: 'dt-skp',
 		source: web.host + 'kepegawaian/skp/master/grid',
-		column: [ { }, { sClass: 'center' }, { sClass: 'center' }, { sClass: 'center' }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { sClass: 'center' }, { sClass: 'center' }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'jenis_skp' },
@@ -239,7 +225,7 @@ $(document).ready(function() {
 	var kegiatan_param = {
 		id: 'dt-kegiatan',
 		source: web.host + 'kepegawaian/skp/master/grid',
-		column: [ { }, { sClass: 'center' }, { sClass: 'center' }, { sClass: 'center' }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { sClass: 'center' }, { sClass: 'center' }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			aoData.push(
 				{ "name": "action", "value": 'jenis_kegiatan' },

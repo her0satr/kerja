@@ -4,7 +4,7 @@ class jenis_kegiatan_model extends CI_Model {
     function __construct() {
         parent::__construct();
 		
-        $this->field = array( 'id', 'biodata_id', 'title', 'jumlah', 'satuan', 'point' );
+        $this->field = array( 'id', 'biodata_id', 'title', 'satuan', 'point' );
     }
 
     function update($param) {

@@ -58,6 +58,11 @@ class home extends SYGAAS_Controller {
 				}
 			}
 			
+			// add create time
+			if (empty($_POST['id'])) {
+				$_POST['create_time'] = $this->config->item('current_datetime');
+			}
+			
 			// update
 			$result = $this->surat_masuk_model->update($_POST);
 			
@@ -105,8 +110,8 @@ class home extends SYGAAS_Controller {
 	}
 	
 	function disposisi() {
-//		header("Content-type: application/vnd.ms-word");
-//		header("Content-Disposition: attachment;Filename=disposisi.doc");
+		header("Content-type: application/vnd.ms-word");
+		header("Content-Disposition: attachment;Filename=disposisi.doc");
 		
 		$content = $this->load->view( 'surat/surat_masuk/disposisi', array(), true );
 		echo $content;

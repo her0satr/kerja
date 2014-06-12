@@ -12,6 +12,7 @@
 	
 	// page data
 	$page_data['biodata'] = $biodata;
+	$page_data['current_date'] = $this->config->item('current_date');
 ?>
 <?php $this->load->view( 'common/meta', array( 'title' => 'Absensi Masuk' ) ); ?>
 
@@ -196,6 +197,7 @@ $(document).ready(function() {
 			var raw = $('.cnt-data').text();
 			eval('var data = ' + raw);
 			page.data = data;
+			page.current_date = true;
 		}
 	}
 	page.init();
@@ -216,6 +218,14 @@ $(document).ready(function() {
 			aoData.push(
 				{ "name": "biodata_id", "value": page.data.biodata.id }
 			)
+			
+			// do it once only
+			if (page.current_date) {
+				page.current_date = false;
+				aoData.push(
+					{ "name": "tanggal", "value": page.data.current_date }
+				)
+			}
 		},
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
@@ -247,6 +257,9 @@ $(document).ready(function() {
 		}
 	}
 	var dt = Func.datatable(param);
+	setTimeout(function() {
+		$('#datatable_filter input').val(page.data.current_date);
+	}, 500);
 	
 	// form biodata
 	$('.btn-add').click(function() {

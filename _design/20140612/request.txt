@@ -1,14 +1,13 @@
-cek => All Module
+All Module
 - Untuk beda tahun nomor urut bisa kembali ke Nomor 1 (reset ke awal)
-- Modul "Surat Masuk", "Surat Keluar" dan "Nota Dinas"
 
-cek => Rekap Agenda Rapat
+Rekap Agenda Rapat
 - Tambahkan informasi "Daftar Undangan" memakai datatable agar support search
 
-cek => Absensi Masuk
+Absensi Masuk
 - Otomatis hanya tampil hari ini saja (datatable search otomatis di set today)
 
-cek => Kegiatan PNS
+Kegiatan PNS
 - link : http://localhost/sygaas/trunk/kepegawaian/skp/master
 - jumlah dihilangkan di "Kegiatan PNS" dan "Kegiatan Lain"
 - Point itu datanya bisa float

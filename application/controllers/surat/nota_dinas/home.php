@@ -46,6 +46,12 @@ class home extends SYGAAS_Controller {
 		
 		// nota dinas
 		if ($action == 'update') {
+			// add create time
+			if (empty($_POST['id'])) {
+				$_POST['create_time'] = $this->config->item('current_datetime');
+			}
+			
+			// execute
 			$result = $this->nota_dinas_model->update($_POST);
 			
 			// create disposisi info

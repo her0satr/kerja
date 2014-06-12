@@ -6,7 +6,7 @@ class surat_masuk_model extends CI_Model {
 		
         $this->field = array(
 			'id', 'sifat_surat_id', 'sifat_arsip_id', 'no_urut', 'no_surat', 'no_agenda', 'surat_dari', 'perihal', 'tanggal_surat', 'tanggal_terima',
-			'catatan', 'file_surat'
+			'catatan', 'file_surat', 'create_time'
 		);
     }
 
@@ -109,6 +109,7 @@ class surat_masuk_model extends CI_Model {
 		$select_query  = "
 			SELECT MAX(no_urut) next_no
 			FROM ".SURAT_MASUK." surat_masuk
+			WHERE YEAR(create_time) = '".$this->config->item('current_year')."'
 		";
         $select_result = mysql_query($select_query) or die(mysql_error());
         if (false !== $row = mysql_fetch_assoc($select_result)) {

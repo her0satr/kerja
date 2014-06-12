@@ -13,6 +13,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	exit;
 }
 
+$config['current_year'] = date("Y");
 $config['current_date'] = date("Y-m-d");
 $config['current_hour'] = date("H");
 $config['current_time'] = date("H:i:s");

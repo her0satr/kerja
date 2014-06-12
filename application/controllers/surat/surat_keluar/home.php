@@ -30,6 +30,12 @@ class home extends SYGAAS_Controller {
 		
 		$result = array();
 		if ($action == 'update') {
+			// add create time
+			if (empty($_POST['id'])) {
+				$_POST['create_time'] = $this->config->item('current_datetime');
+			}
+			
+			// execute
 			$result = $this->surat_keluar_model->update($_POST);
 		} else if ($action == 'get_by_id') {
 			$result = $this->surat_keluar_model->get_by_id(array( 'id' => $_POST['id'] ));
