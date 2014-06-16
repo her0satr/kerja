@@ -195,7 +195,7 @@ class skp_tahunan extends SYGAAS_Controller {
 		$print_type = (isset($_GET['print_type'])) ? $_GET['print_type'] : 'sasaran';
 		
 		// load library
-		ini_set("memory_limit", "124M");
+		ini_set("memory_limit", "1G");
 		$this->load->library('mpdf');
 		
 		if ($print_type == 'sasaran') {
