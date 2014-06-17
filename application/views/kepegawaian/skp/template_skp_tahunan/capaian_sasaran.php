@@ -208,14 +208,14 @@ table.border td,th,caption{background-color:#fff}
 </table>
 </div>
 
-<div style="text-align: center; font-size: 12px; padding: 30px 0 0 0;">
+<div style="text-align: center; font-size: 12px; padding: 10px 0 0 0;">
 	<div style="float: left; width: 70%;">
 		<div>&nbsp;</div>
 	</div>
 	<div style="float: left; width: 25%;">
 		<div>Malang, <?php echo $summary['tanggal_penilaian_text']; ?></div>
 		<div>Pegawai Negeri Sipil Yang Dinilai</div>
-		<div style="padding: 25px 0;">&nbsp;</div>
+		<div style="padding: 15px 0;">&nbsp;</div>
 		<div><?php echo $biodata['nama_gelar']; ?></div>
 		<div><?php echo $biodata['nip']; ?></div>
 	</div>

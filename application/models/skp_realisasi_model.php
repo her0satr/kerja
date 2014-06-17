@@ -173,7 +173,7 @@ class skp_realisasi_model extends CI_Model {
 			$row['perhitungan'] = number_format($row['perhitungan'], 2, ',', '.');
 			
 			// nilai capaian
-			$row['nilai_capaian'] = (empty($row['target_biaya']) || empty($row['real_biaya'])) ? $row['perhitungan'] / 3 : $row['perhitungan'] / 4;
+			$row['nilai_capaian'] = (empty($row['target_biaya']) || empty($row['real_biaya'])) ? ($waktu + $kuan + $kual) / 3 : ($waktu + $kuan + $kual) / 4;
 			$row['nilai_capaian'] = number_format($row['nilai_capaian'], 2, ',', '.');
 		}
 		
@@ -204,7 +204,8 @@ class skp_realisasi_model extends CI_Model {
 		// count realisasi
 		$temp_total = 0;
 		foreach ($realisasi as $key => $row) {
-			$temp_total += $row['nilai_capaian'];
+			$float = floatval(preg_replace('/\,/i', '.', $row['nilai_capaian']));
+			$temp_total += $float;
 		}
 		$nilai_capaian = $temp_total / count($realisasi);
 		
