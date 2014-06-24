@@ -2,6 +2,12 @@
 	// biodata
 	$biodata = $this->biodata_model->get_by_id(array( 'id' => $_GET['biodata_id'] ));
 	
+	// pejabat penilai
+	$param_pejabat_penilai['tahun'] = $_GET['tahun'];
+	$param_pejabat_penilai['biodata_id'] = $_GET['biodata_id'];
+	$param_pejabat_penilai['posisi'] = 'Pejabat Penilai';
+	$pejabat_penilai = $this->skp_pejabat_model->get_by_id($param_pejabat_penilai);
+	
 	// summary
 	$param_summary['tahun'] = $_GET['tahun'];
 	$param_summary['biodata_id'] = $_GET['biodata_id'];
@@ -40,7 +46,13 @@ table.border td,th,caption{background-color:#fff}
 
 <div style="padding: 20px 0 0 20px;">
 <div style="padding: 10px 0; font-size: 12px;">
-	Jangka Waktu Penilaian <?php echo $summary['tanggal_pembuatan_text']; ?> s.d. <?php echo $summary['tanggal_penilaian_text']; ?>
+	<div style="float: left; width: 40%;">
+		Jangka Waktu Penilaian <?php echo $summary['tanggal_pembuatan_text']; ?> s.d. <?php echo $summary['tanggal_penilaian_text']; ?>
+	</div>
+	<div style="float: right; width: 40%; text-align: right; padding: 0 5px 0 0;">
+		<?php echo 'Nama Pegawai Negeri Sipil Yang Dinilai : '.$biodata['nama_gelar']; ?>
+	</div>
+	<div style="clear: both;"></div>
 </div>
 <table class="border" style="font-size: 10px; width: 1000px;">
 	<tr>
@@ -214,10 +226,14 @@ table.border td,th,caption{background-color:#fff}
 	</div>
 	<div style="float: left; width: 25%;">
 		<div>Malang, <?php echo $summary['tanggal_penilaian_text']; ?></div>
-		<div>Pegawai Negeri Sipil Yang Dinilai</div>
+		<div>Pejabat Penilai,</div>
 		<div style="padding: 15px 0;">&nbsp;</div>
-		<div><?php echo $biodata['nama_gelar']; ?></div>
-		<div><?php echo $biodata['nip']; ?></div>
+		<div><?php echo $pejabat_penilai['nama']; ?></div>
+		<?php if (!empty($pejabat_penilai['nip'])) { ?>
+		<div><?php echo 'NIP. '.$pejabat_penilai['nip']; ?></div>
+		<?php } else { ?>
+		<div>-</div>
+		<?php } ?>
 	</div>
 	<div style="clear: both;"></div>
 </div>
