@@ -6,8 +6,12 @@ body{
 	border-top: 0px solid #eee;
 	background-image:url(../img/skyurl.jpg);  
 	padding-top: 43px;
-  font-family:'Open Sans',sans-serif;
+	font-family:'Open Sans',sans-serif;
 	-webkit-font-smoothing: antialiased;
+	
+	min-width: 1000px;			/* suppose you want minimun width of 1000px */
+	width: auto !important;		/* Firefox will set width as auto */
+	width: 1000px;				/* As IE ignores !important it will set width as 1000px; */
 }
 h1,h2,h3,h4,h5,h6{
 	padding: 2px 0px;
@@ -1994,6 +1998,7 @@ footer .copy{
 .morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0;}
 
 /* Responsive */
+/* Disable Responsive 
 
 @media (max-width: 480px){
 	.mainbar .page-head h2{
@@ -2151,6 +2156,8 @@ footer .copy{
 		display: none;
 	}
 }
+
+/*	*/
 
 /* CUSTOM */
 #datatable_processing { display: none; }

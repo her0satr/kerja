@@ -1,24 +1,27 @@
-All Module
-- Untuk beda tahun nomor urut bisa kembali ke Nomor 1 (reset ke awal)
-- Modul "Surat Masuk", "Surat Keluar" dan "Nota Dinas"
+Global
+- Tambah User Penilai
+- Halaman dibuat website static (width : 1024)
+- jika trunk dihapus maka tidak bisa upload
+- tambah 1 file report
 
-Rekap Agenda Rapat
-- Tambahkan informasi "Daftar Undangan" memakai datatable agar support search
+Biodata
+- Gelar depan dan belakang, dihidden saja
+- Upload itu ada text untuk label document dan nama file ditaruh hidden field saja
 
-Absensi Masuk
-- Otomatis hanya tampil hari ini saja (datatable search otomatis di set today)
-
-Kegiatan PNS
-- link : http://localhost/sygaas/trunk/kepegawaian/skp/master
-- jumlah dihilangkan di "Kegiatan PNS" dan "Kegiatan Lain"
-- Point itu datanya bisa float
-
-Agenda Kerja Harian
-- Tambah input jumlah sebagai penganti jumlah di "Kegiatan PNS" dan "Kegiatan Lain"
-- Tambahkan tombol validasi setiap kegiatan
-- Hanya admin yang bisa melakukan validasi
 
 SKP Tahunan
-- Setiap transaksi di "Target" akan merefresh "Realisasi"
-- Modul Pejabat memakai fitur auto complete dari master pejabat (dibuatkan master baru) dengan tanpa relasi
-- Realisasi untuk AK = Kuantitas x point dari "Kegiatan PNS"
+- Capaian Sasaran Kerja salah yang ttd dibawah
+- Capaian Sasaran Kerja tambah nama pegawai dikanan atas
+- pdf diganti dengan word saja
+- ada laporan SKP versi Revisi
+- Realisasi Revisi => Judul ditambah " - Revisi" dan Target bisa direvisi
+
+Agenda Kerja Harian
+- Kual/Mutu di isi oleh TU / User Penilai
+
+List Agenda Kerja
+- Tambah inputan Kual/Mutu
+
+Akhir
+- Program dipisah menjadi 3 bagian (Surat, Pegawai, Gabungan Surat + Pegawai)
+- Tambah Security agar program tidak bisa di copy paste

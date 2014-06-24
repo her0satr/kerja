@@ -17,6 +17,8 @@ var debounce = function(func, wait, immediate) {
 }
 /* Navigation */
 function pagesize(){
+	return;
+	
     if($(window).width() >= 765){
       $("body").removeClass("mobilescreen").addClass("bigscreen");
       $(".sidebar #nav").slideDown(350);
