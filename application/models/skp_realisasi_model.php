@@ -5,7 +5,7 @@ class skp_realisasi_model extends CI_Model {
         parent::__construct();
 		
         $this->field = array(
-			'id', 'skp_sasaran_kerja_id', 'waktu_nilai', 'waktu_satuan', 'biaya'
+			'id', 'skp_sasaran_kerja_id', 'kuant_revisi', 'waktu_nilai', 'waktu_satuan', 'biaya'
 		);
     }
 
@@ -44,7 +44,7 @@ class skp_realisasi_model extends CI_Model {
 		} else if (isset($param['skp_sasaran_kerja_id'])) {
 			$select_query = "
 				SELECT SQL_CALC_FOUND_ROWS
-					skp_realisasi.id, skp_realisasi.waktu_nilai, skp_realisasi.waktu_satuan, skp_realisasi.biaya,
+					skp_realisasi.id, skp_realisasi.kuant_revisi, skp_realisasi.waktu_nilai, skp_realisasi.waktu_satuan, skp_realisasi.biaya,
 					skp_sasaran_kerja.id skp_sasaran_kerja_id
 				FROM ".SKP_SASARAN_KERJA." skp_sasaran_kerja
 				LEFT JOIN ".SKP_REALISASI." skp_realisasi ON skp_realisasi.skp_sasaran_kerja_id = skp_sasaran_kerja.id
@@ -83,7 +83,7 @@ class skp_realisasi_model extends CI_Model {
 				skp_sasaran_kerja.ak target_ak, skp_sasaran_kerja.kuant_nilai target_kuant_nilai, skp_sasaran_kerja.kual target_kual,
 				skp_sasaran_kerja.waktu_nilai target_waktu_nilai, skp_sasaran_kerja.waktu_satuan target_waktu_satuan, skp_sasaran_kerja.biaya target_biaya,
 				
-				skp_realisasi.id skp_realisasi_id, skp_realisasi.waktu_nilai real_waktu_nilai, skp_realisasi.waktu_satuan real_waktu_satuan,
+				skp_realisasi.id skp_realisasi_id, skp_realisasi.kuant_revisi real_kuant_revisi, skp_realisasi.waktu_nilai real_waktu_nilai, skp_realisasi.waktu_satuan real_waktu_satuan,
 				skp_realisasi.biaya real_biaya,
 				
 				(	SELECT SUM(kuan)
@@ -152,6 +152,11 @@ class skp_realisasi_model extends CI_Model {
 		// perhitungan & nilai capaian
 		$row['perhitungan'] = 0;
 		if (!empty($row['target_kuant_nilai']) && !empty($row['real_kuant']) && !empty($row['real_waktu_nilai'])) {
+			$is_revisi = (!empty($_GET['revisi'])) ? $_GET['revisi'] : false;
+			if ($is_revisi && !empty($row['real_kuant_revisi'])) {
+				$row['target_kuant_nilai'] = $row['real_kuant_revisi'];
+			}
+			
 			// kontanta
 			$rw_kecil_24 = (((1.76 * $row['real_waktu_nilai']) - $row['target_waktu_nilai']) / $row['real_waktu_nilai']) * 100;
 			$rw_besar_24 = 76 - (((((1.76 * $row['real_waktu_nilai']) - $row['target_waktu_nilai']) / $row['real_waktu_nilai']) * 100) - 100);

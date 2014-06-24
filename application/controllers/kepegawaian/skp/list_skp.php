@@ -13,12 +13,12 @@ class list_skp extends SYGAAS_Controller {
 		// user
 		$user = $this->user_model->get_session();
 		
-		if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR))) {
+		if (in_array($user['user_type_id'], array(USER_ID_TU, USER_ID_ADMINISTRATOR, USER_ID_PENILAI))) {
 			$_POST['view_type'] = 'validate';
-			$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'keterangan' );
+			$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'kuan', 'kual' );
 		} else {
 			$_POST['is_custom'] = '&nbsp;';
-			$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'keterangan' );
+			$_POST['column'] = array( 'tanggal', 'waktu', 'biodata_text', 'title', 'kuan', 'kual' );
 		}
 		
 		$array = $this->kegiatan_skp_model->get_array($_POST);

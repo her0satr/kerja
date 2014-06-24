@@ -6,7 +6,7 @@ class biodata_model extends CI_Model {
 		
         $this->field = array(
 			'id', 'agama_id', 'skpd_id', 'status_perkawinan_id', 'jenis_kepegawaian_id', 'status_kepegawaian_id', 'nip', 'nama', 'kelamin', 'tempat_lahir',
-			'tanggal_lahir', 'karpeg', 'kartu_nikah', 'gelar_depan', 'gelar_belakang', 'photo'
+			'tanggal_lahir', 'karpeg_no', 'karpeg_file', 'kartu_nikah_no', 'kartu_nikah_file', 'gelar_depan', 'gelar_belakang', 'photo'
 		);
     }
 
@@ -38,13 +38,14 @@ class biodata_model extends CI_Model {
         if (isset($param['id'])) {
             $select_query  = "
 				SELECT
-					biodata.*, skpd.title skpd_title, pangkat.golongan, pangkat.ruang,
+					biodata.*, skpd.title skpd_title, pangkat.golongan, pangkat.ruang, agama.title agama_title,
 					biodata_detail.biodata_id, biodata_detail.jabatan, biodata_detail.golongan_ruang, biodata_detail.tmt_pangkat,
 					biodata_detail.tmt_masa_kerja, biodata_detail.tmt_tahun, biodata_detail.tmt_bulan, biodata_detail.hp, biodata_detail.email,
-					biodata_detail.cpns, biodata_detail.pns, biodata_detail.non_pns, biodata_detail.unit_kerja_id unit_kerja
+					biodata_detail.cpns_no, biodata_detail.pns_no, biodata_detail.non_pns_no, biodata_detail.unit_kerja_id unit_kerja
 				FROM ".BIODATA." biodata
 				LEFT JOIN ".BIODATA_DETAIL." biodata_detail ON biodata_detail.biodata_id = biodata.id
 				LEFT JOIN ".PANGKAT." pangkat ON biodata_detail.pangkat_id = pangkat.id
+				LEFT JOIN ".AGAMA." agama ON agama.id = biodata.agama_id
 				LEFT JOIN ".SKPD." skpd ON skpd.id = biodata.skpd_id
 				LEFT JOIN ".SKPD." unit_kerja ON unit_kerja.id = biodata_detail.unit_kerja_id
 				WHERE biodata.id = '".$param['id']."'
@@ -170,6 +171,7 @@ class biodata_model extends CI_Model {
 				$param['is_custom']  = '<button class="btn btn-xs btn-edit" data-original-title="Edit"><img src="'.base_url('static/img/icons/icon-edit.png').'" /></button> ';
 				$param['is_custom'] .= '<button class="btn btn-xs btn-detail" data-original-title="Riwayat Kepegawaian"><img src="'.base_url('static/img/icons/icon-detail.png').'" /></button> ';
 				$param['is_custom'] .= '<button class="btn btn-xs btn-riwayat" data-original-title="Riwayat"><img src="'.base_url('static/img/icons/icon-book.png').'" /></button> ';
+				$param['is_custom'] .= '<button class="btn btn-xs btn-download-riwayat" data-original-title="Download Riwayat"><img src="'.base_url('static/img/icons/icon-book.png').'" /></button> ';
 				
 				// add create button
 				if (empty($row['user_id'])) {

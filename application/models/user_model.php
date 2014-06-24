@@ -157,28 +157,28 @@ class user_model extends CI_Model {
 			array(
 				'name' => 'kepegawaian',
 				'title' => 'Kepegawaian',
-				'user_type_id' => array( 1, 2, 3 ),
+				'user_type_id' => array( 1, 2, 3, 4 ),
 				'children' => array(
 					array( 'name' => 'biodata', 'title' => 'Biodata', 'user_type_id' => array( 1, 2 ) ),
 					array( 'name' => 'report', 'title' => 'Report', 'user_type_id' => array( 1, 2 ) ),
 					array(
-						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1, 2, 3 ),
+						'name' => 'absensi', 'title' => 'Absensi', 'user_type_id' => array( 1, 2, 3, 4 ),
 						'children' => array(
 							array( 'name' => 'jam_absensi', 'title' => 'Jam Absensi', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1, 2, 3 ), 'biodata' => true ),
-							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1, 2, 3 ), 'biodata' => true ),
+							array( 'name' => 'masuk', 'title' => 'Masuk', 'user_type_id' => array( 1, 2, 3, 4 ), 'biodata' => true ),
+							array( 'name' => 'kosong', 'title' => 'Tidak Masuk', 'user_type_id' => array( 1, 2, 3, 4 ), 'biodata' => true ),
 							array( 'name' => 'list_masuk', 'title' => 'List Masuk', 'user_type_id' => array( 1, 2 ) ),
 							array( 'name' => 'list_kosong', 'title' => 'List Tidak Masuk', 'user_type_id' => array( 1, 2 ) )
 						)
 					),
 					array(
-						'name' => 'skp', 'title' => 'Agenda Kerja', 'user_type_id' => array( 1, 2, 3 ),
+						'name' => 'skp', 'title' => 'Agenda Kerja', 'user_type_id' => array( 1, 2, 3, 4 ),
 						'children' => array(
-							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 2, 3 ) ),
-							array( 'name' => 'home', 'title' => 'Agenda Kerja Harian', 'user_type_id' => array( 1, 2, 3 ) ),
-							array( 'name' => 'list_skp', 'title' => 'List Agenda Kerja', 'user_type_id' => array( 1, 2 ) ),
+							array( 'name' => 'master', 'title' => 'Master', 'user_type_id' => array( 1, 2, 3, 4 ) ),
+							array( 'name' => 'home', 'title' => 'Agenda Kerja Harian', 'user_type_id' => array( 1, 2, 3, 4 ) ),
+							array( 'name' => 'list_skp', 'title' => 'List Agenda Kerja', 'user_type_id' => array( 1, 2, 4 ) ),
 							array( 'name' => 'rekap_agenda', 'title' => 'Rekap Agenda Kerja', 'user_type_id' => array( 1, 2 ) ),
-							array( 'name' => 'skp_tahunan', 'title' => 'SKP Tahunan', 'user_type_id' => array( 1, 2, 3 ) )
+							array( 'name' => 'skp_tahunan', 'title' => 'SKP Tahunan', 'user_type_id' => array( 1, 2, 3, 4 ) )
 						)
 					)
 				)

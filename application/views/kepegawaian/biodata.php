@@ -92,13 +92,13 @@
 									<input type="text" name="nama" class="form-control" placeholder="Nama" />
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group hide">
 								<label class="col-lg-2 control-label">Gelar Depan</label>
 								<div class="col-lg-8">
 									<input type="text" name="gelar_depan" class="form-control" placeholder="Gelar Depan" />
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group hide">
 								<label class="col-lg-2 control-label">Gelar Belakang</label>
 								<div class="col-lg-8">
 									<input type="text" name="gelar_belakang" class="form-control" placeholder="Gelar Belakang" />
@@ -119,7 +119,8 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Karpeg</label>
 								<div class="col-lg-4">
-									<input type="text" name="karpeg" class="form-control" placeholder="Karpeg" />
+									<input type="text" name="karpeg_no" class="form-control" placeholder="Karpeg" />
+									<input type="text" name="karpeg_file" class="hide" />
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-karpeg" value="Browse" />
@@ -184,7 +185,8 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Karis/Karsu</label>
 								<div class="col-lg-4">
-									<input type="text" name="kartu_nikah" class="form-control" placeholder="Karis/Karsu" />
+									<input type="text" name="kartu_nikah_no" class="form-control" placeholder="Karis/Karsu" />
+									<input type="text" name="kartu_nikah_file" class="hide" />
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-kartu-nikah" value="Browse" />
@@ -223,7 +225,8 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label left">CPNS</label>
 								<div class="col-lg-4">
-									<input type="text" name="cpns" class="form-control" placeholder="CPNS" />
+									<input type="text" name="cpns_no" class="form-control" placeholder="CPNS" />
+									<input type="text" name="cpns_file" class="hide" />
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-cpns" value="Browse" />
@@ -233,7 +236,8 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label left">PNS</label>
 								<div class="col-lg-4">
-									<input type="text" name="pns" class="form-control" placeholder="PNS" />
+									<input type="text" name="pns_no" class="form-control" placeholder="PNS" />
+									<input type="text" name="pns_file" class="hide" />
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-pns" value="Browse" />
@@ -243,7 +247,8 @@
 							<div class="form-group">
 								<label class="col-lg-2 control-label left">Non PNS</label>
 								<div class="col-lg-4">
-									<input type="text" name="non_pns" class="form-control" placeholder="Non PNS" />
+									<input type="text" name="non_pns_no" class="form-control" placeholder="Non PNS" />
+									<input type="text" name="non_pns_file" class="hide" />
 								</div>
 								<div class="col-lg-2">
 									<input type="button" class="btn btn-primary btn-browse-non_pns" value="Browse" />
@@ -414,23 +419,23 @@ $(document).ready(function() {
 	}
 	$('.btn-browse-karpeg').click(function() { window.iframe_karpeg.browse() });
 	set_karpeg = function(p) {
-		$('#form-biodata [name="karpeg"]').val(p.file_name);
+		$('#form-biodata [name="karpeg_file"]').val(p.file_name);
 	}
 	$('.btn-browse-kartu-nikah').click(function() { window.iframe_kartu_nikah.browse() });
 	set_kartu_nikah = function(p) {
-		$('#form-biodata [name="kartu_nikah"]').val(p.file_name);
+		$('#form-biodata [name="kartu_nikah_file"]').val(p.file_name);
 	}
 	$('.btn-browse-cpns').click(function() { window.iframe_cpns.browse() });
 	set_cpns = function(p) {
-		$('#form-detail [name="cpns"]').val(p.file_name);
+		$('#form-detail [name="cpns_file"]').val(p.file_name);
 	}
 	$('.btn-browse-pns').click(function() { window.iframe_pns.browse() });
 	set_pns = function(p) {
-		$('#form-detail [name="pns"]').val(p.file_name);
+		$('#form-detail [name="pns_file"]').val(p.file_name);
 	}
 	$('.btn-browse-non_pns').click(function() { window.iframe_non_pns.browse() });
 	set_non_pns = function(p) {
-		$('#form-detail [name="non_pns"]').val(p.file_name);
+		$('#form-detail [name="non_pns_file"]').val(p.file_name);
 	}
 	
 	// grid
@@ -465,6 +470,12 @@ $(document).ready(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);
 				window.open(record.link_riwayat);
+			});
+			
+			$('#datatable .btn-download-riwayat').click(function() {
+				var raw_record = $(this).siblings('.hide').text();
+				eval('var record = ' + raw_record);
+				window.open(web.host + 'kepegawaian/biodata/biography/' + record.id);
 			});
 			
 			$('#datatable .btn-login').click(function() {

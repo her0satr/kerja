@@ -87,4 +87,12 @@ class biodata extends SYGAAS_Controller {
 		
 		echo json_encode($result);
 	}
+	
+	function biography($id = 0) {
+		header("Content-type: application/vnd.ms-word");
+		header("Content-Disposition: attachment;Filename=biography.doc");
+		
+		$template = $this->load->view( 'kepegawaian/biography', array( ), true );
+		echo $template;
+	}
 }

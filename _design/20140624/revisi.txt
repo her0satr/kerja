@@ -1,0 +1,29 @@
+Global
+- Tambah User Penilai
+- Halaman dibuat website static (width : 1024)
+- jika trunk dihapus maka tidak bisa upload
+- tambah 1 file report
+
+Biodata
+- Gelar depan dan belakang, dihidden saja
+- Upload itu ada text untuk label document dan nama file ditaruh hidden field saja
+
+
+SKP Tahunan
+- Capaian Sasaran Kerja salah yang ttd dibawah
+- Capaian Sasaran Kerja tambah nama pegawai dikanan atas
+- pdf diganti dengan word saja
+- ada laporan SKP versi Revisi
+- Realisasi Revisi => Judul ditambah " - Revisi" dan Target bisa direvisi
+
+
+
+Agenda Kerja Harian
+- Kual/Mutu di isi oleh TU / User Penilai
+
+List Agenda Kerja
+- Tambah inputan Kual/Mutu
+
+Akhir
+- Program dipisah menjadi 3 bagian (Surat, Pegawai, Gabungan Surat + Pegawai)
+- Tambah Security agar program tidak bisa di copy paste

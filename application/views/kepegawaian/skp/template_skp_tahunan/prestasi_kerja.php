@@ -21,31 +21,31 @@
 ?>
 
 <style>
+div, table { font-size: 10px; }
 table.border {background-color:#000;}
 table.border td,th,caption{background-color:#fff}
-table.border td{ vertical-align: top; padding: 12px 7px; }
+table.border td{ vertical-align: top; }
 </style>
 
-<div style="padding: 20px 0 0 40px; text-align: center; font-weight: bold; font-size: 14px;">
+<div style="padding: 20px 0 0 40px; text-align: center; font-weight: bold;">
 	<div><img src="<?php echo base_url('static/img/garuda.png'); ?>" /></div>
 	<div>PENILAIAN PRESTASI KERJA</div>
 	<div>PEGAWAI NEGERI SIPIL</div>
-</div>
+</div><br />
 
-<div style="padding: 40px 0 10px 20px; font-size: 12px;">
+<div style="padding: 40px 0 10px 20px;">
 	<div style="float: left; width: 40%;">
 		KEMENTERIAN PEKERJAAN UMUM<br />
 		DIREKTORAT JENDERAL BINA MARGA
 	</div>
 	<div style="float: right; width: 35%;">
 		JANGKA WAKTU PENILAIAN<br />
-		BULAN Januari s/d <?php echo $summary['tanggal_penilaian_text']; ?>
+		BULAN Januari s/d <?php echo @$summary['tanggal_penilaian_text']; ?>
 	</div>
 	<div style="clear: both;"></div>
-</div>
+</div><br />
 
-<div style="padding: 10px 0 0 20px;">
-<table class="border" style="width: 1000px;">
+<table class="border" style="width: 100%;">
 	<tr>
 		<td style="width: 25px; text-align: center;" rowspan="6">1</td>
 		<td style="width: 975px; text-align: left;" colspan="2">YANG DINILAI</td></tr>

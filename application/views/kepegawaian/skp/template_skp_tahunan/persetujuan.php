@@ -23,14 +23,14 @@
 <style>
 table.border {background-color:#000;}
 table.border td,th,caption{background-color:#fff}
-table.border td{vertical-align: top; padding: 7px; }
+table.border td{ vertical-align: top; }
 </style>
 
 <div style="padding: 20px 0 0 20px;">
-<table class="border" style="width: 1000px;">
+<table class="border" style="width: 100%;">
 	<tr><td>
 		8. REKOMENDASI<br /><br />
-		<?php echo $summary['rekomendasi']; ?><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+		<?php echo @$summary['rekomendasi']; ?><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 	</td></tr>
 	<tr><td>
 		<table style="width: 1000px;">

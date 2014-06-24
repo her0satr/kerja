@@ -104,6 +104,7 @@
 						<div class="widget-head">
 							<div class="pull-left">
 								<button class="btn btn-info btn-xs btn-print-skp-realisasi">Cetak</button>
+								<button class="btn btn-info btn-xs btn-print-skp-realisasi-revisi">Cetak (Revisi)</button>
 							</div>
 							<div class="widget-icons pull-right">
 								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
@@ -118,6 +119,7 @@
 										<th>Jenis SKP</th>
 										<th class="center">AK</th>
 										<th class="center">Kuant</th>
+										<th class="center">Kuant<br />(Revisi)</th>
 										<th class="center">Kual</th>
 										<th class="center">Waktu</th>
 										<th class="center">Biaya</th>
@@ -271,6 +273,7 @@
 							<div class="pull-left">
 								<button class="btn btn-info btn-xs btn-add-skp-summary">Tambah</button>
 								<button class="btn btn-info btn-xs btn-print-skp-summary">Cetak</button>
+								<button class="btn btn-info btn-xs btn-print-skp-summary-revisi">Cetak (Revisi)</button>
 							</div>
 							<div class="widget-icons pull-right">
 								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
@@ -570,6 +573,12 @@
 				<input type="hidden" name="action" value="skp_realisasi_update" />
 				<input type="hidden" name="skp_sasaran_kerja_id" value="0" />
 				
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Kuantitas - Revisi</label>
+					<div class="col-lg-8">
+						<input type="text" name="kuant_revisi" class="form-control" placeholder="Hanya diisi jika Kuant Target dan Realisasi selisih lebih dari 25%" />
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label">Waktu Nilai</label>
 					<div class="col-lg-8">
@@ -913,7 +922,7 @@ $(document).ready(function() {
 	var dt_skp_realisasi_param = {
 		id: 'dt-skp-realisasi',
 		source: web.host + 'kepegawaian/skp/skp_tahunan/grid',
-		column: [ { }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" } ],
+		column: [ { }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" }, { bSortable: false, sClass: "center" } ],
 		fnServerParams: function ( aoData ) {
 			var form_search = Func.form.get_value('form-search');
 			aoData.push(
@@ -1152,6 +1161,17 @@ $(document).ready(function() {
 		var link_print = web.host + 'kepegawaian/skp/skp_tahunan/cetak?print_type=penilaian&biodata_id=' + form_search.biodata_id + '&tahun=' + form_search.tahun;
 		window.open(link_print);
 	});
+	$('.btn-print-skp-summary-revisi').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		var link_print = web.host + 'kepegawaian/skp/skp_tahunan/cetak?print_type=penilaian&biodata_id=' + form_search.biodata_id + '&tahun=' + form_search.tahun + '&revisi=1';
+		window.open(link_print);
+	});
 	$('#form-summary form').validate({
 		rules: {
 			tanggal_pembuatan: { required: true }
@@ -1283,6 +1303,17 @@ $(document).ready(function() {
 		// populate data
 		var form_search = Func.form.get_value('form-search');
 		var link_print = web.host + 'kepegawaian/skp/skp_tahunan/cetak?print_type=realisasi&biodata_id=' + form_search.biodata_id + '&tahun=' + form_search.tahun;
+		window.open(link_print);
+	});
+	$('.btn-print-skp-realisasi-revisi').click(function() {
+		var is_valid_search = page.is_valid_search({});
+		if (!is_valid_search) {
+			return;
+		}
+		
+		// populate data
+		var form_search = Func.form.get_value('form-search');
+		var link_print = web.host + 'kepegawaian/skp/skp_tahunan/cetak?print_type=realisasi&biodata_id=' + form_search.biodata_id + '&tahun=' + form_search.tahun + '&revisi=1';
 		window.open(link_print);
 	});
 	$('#form-realisasi form').validate({

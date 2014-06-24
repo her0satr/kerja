@@ -46,11 +46,11 @@
 <style>
 table.border {background-color:#000;}
 table.border td,th,caption{background-color:#fff}
-table.border td{vertical-align: top; padding: 7px; }
+table.border td{ vertical-align: top; }
 </style>
 
 <div style="padding: 20px 0 0 20px;">
-<table class="border" style="width: 1000px;">
+<table class="border" style="width: 100%;">
 	<tr>
 		<td style="width: 25px; text-align: center;" rowspan="<?php echo count($perilaku_kerja_format) + 3; ?>">4.</td>
 		<td style="width: 850px; text-align: left;" colspan="4">UNSUR YANG DINILAI</td>
@@ -95,7 +95,7 @@ table.border td{vertical-align: top; padding: 7px; }
 		<td colspan="6">
 			5. KEBERATAN DARI PEGAWAI NEGERI<br />
 			&nbsp;&nbsp;&nbsp;&nbsp;SIPIL YANG DINILAI (APABILA ADA)<br /><br /><br />
-			<?php echo $summary['keberatan']; ?><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+			<?php echo @$summary['keberatan']; ?><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 			
 			<table style="width: 900; text-align: center;">
 				<tr>

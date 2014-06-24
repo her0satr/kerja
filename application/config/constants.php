@@ -34,6 +34,7 @@ define('ALLOW_EXTENTION',						'jpg,jpeg,gif,png,bmp,pdf,zip,doc,docx,xls,xlsx')
 define('USER_ID_ADMINISTRATOR',					1);
 define('USER_ID_TU',							2);
 define('USER_ID_PEGAWAI',						3);
+define('USER_ID_PENILAI',						4);
 
 define('ABSENSI_MASUK',							'absensi_masuk');
 define('ABSENSI_KOSONG',						'absensi_kosong');

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2014 at 09:04 AM
+-- Generation Time: Jun 24, 2014 at 02:35 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `absensi_masuk` (
   `status_04` varchar(50) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `absensi_masuk`
@@ -87,7 +87,8 @@ INSERT INTO `absensi_masuk` (`id`, `biodata_id`, `tanggal`, `label`, `waktu_01`,
 (30, 5, '2014-06-02', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
 (31, 8, '2014-06-03', 'Tepat Waktu', '08:38:00', '', '09:38:00', '', '10:38:00', '', '11:38:00', '', '-'),
 (37, 5, '2014-06-12', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
-(38, 2, '2014-06-16', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
+(38, 2, '2014-06-16', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', ''),
+(39, 9, '2014-06-24', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -195,19 +196,22 @@ CREATE TABLE IF NOT EXISTS `biodata` (
   `tempat_lahir` varchar(150) NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `photo` varchar(50) NOT NULL,
-  `karpeg` varchar(50) NOT NULL,
-  `kartu_nikah` varchar(50) NOT NULL,
+  `karpeg_no` varchar(50) NOT NULL,
+  `karpeg_file` varchar(50) NOT NULL,
+  `kartu_nikah_no` varchar(50) NOT NULL,
+  `kartu_nikah_file` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `biodata`
 --
 
-INSERT INTO `biodata` (`id`, `skpd_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `gelar_depan`, `gelar_belakang`, `tempat_lahir`, `tanggal_lahir`, `photo`, `karpeg`, `kartu_nikah`) VALUES
-(2, 10, 1, 2, 2, 2, '19580531 199302 1 001', 'TRI BUDI HARTANA, SH', 'Laki Laki', '', '', '4', '1980-06-01', '', '2014/03/11/20140311_190001_1854.png', '2014/03/11/20140311_190055_5799.jpg'),
-(3, 10, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', '123', '987', 'asdasd', '2014-03-12', '2014/04/08/20140408_140727_6639.png', '2014/03/17/20140317_081249_7215.jpg', '2014/03/17/20140317_081256_4679.jpg'),
-(5, 10, 1, 0, 0, 0, '0123456789', 'Ferry Cahyono', 'Laki Laki', '', '', '-', '2014-04-21', '', '', '');
+INSERT INTO `biodata` (`id`, `skpd_id`, `agama_id`, `status_perkawinan_id`, `jenis_kepegawaian_id`, `status_kepegawaian_id`, `nip`, `nama`, `kelamin`, `gelar_depan`, `gelar_belakang`, `tempat_lahir`, `tanggal_lahir`, `photo`, `karpeg_no`, `karpeg_file`, `kartu_nikah_no`, `kartu_nikah_file`) VALUES
+(2, 10, 1, 2, 2, 2, '19580531 199302 1 001', 'TRI BUDI HARTANA, SH', 'Laki Laki', '', '', '4', '1980-06-01', '', '2014/03/11/20140311_190001_1854.png', '', '2014/03/11/20140311_190055_5799.jpg', ''),
+(3, 10, 5, 0, 0, 0, '111', '1asdasd', 'Perempuan', '123', '987', 'asdasd', '2014-03-12', '2014/04/08/20140408_140727_6639.png', '123 1', '2014/06/24/20140624_092330_6830.jpg', '456 2', '2014/06/24/20140624_092333_2215.jpg'),
+(5, 10, 1, 0, 0, 0, '0123456789', 'Ferry Cahyono', 'Laki Laki', '', '', '-', '2014-04-21', '', '', '', '', ''),
+(9, 0, 1, 2, 2, 2, 'penilai', 'Penilai', 'Laki Laki', '', '', 'Malang', '2014-06-24', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -228,9 +232,12 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
   `tmt_bulan` varchar(50) NOT NULL,
   `hp` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `cpns` varchar(50) NOT NULL,
-  `pns` varchar(50) NOT NULL,
-  `non_pns` varchar(50) NOT NULL,
+  `cpns_no` varchar(50) NOT NULL,
+  `cpns_file` varchar(50) NOT NULL,
+  `pns_no` varchar(50) NOT NULL,
+  `pns_file` varchar(50) NOT NULL,
+  `non_pns_no` varchar(50) NOT NULL,
+  `non_pns_file` varchar(50) NOT NULL,
   `gaji` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
@@ -239,12 +246,12 @@ CREATE TABLE IF NOT EXISTS `biodata_detail` (
 -- Dumping data for table `biodata_detail`
 --
 
-INSERT INTO `biodata_detail` (`id`, `biodata_id`, `pangkat_id`, `unit_kerja_id`, `jabatan`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns`, `pns`, `non_pns`, `gaji`) VALUES
-(1, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', 0),
-(2, 3, 1, 9, '', '', '', '', '', '', '-', '', '', '', '', 123456),
-(3, 4, 0, 2014, 'Programmer', 'III/A', '-', '5 Tahun 2 Bulan', '5 Tahun', '2 Bulan', '856355402', 'her0satr@yahoo.com', '2014/03/17/20140317_144553_8586.jpg', '2014/03/17/20140317_144555_4644.jpg', '2014/03/17/20140317_144557_7781.jpg', 1500000),
-(4, 5, 0, 0, '', '', '', '', '', '', '111111', '', '', '', '', 0),
-(5, 8, 5, 57, 'Kepala Sub Bagian Tata Usaha', 'IV / E', '', '', '', '', '-', '', '', '', '', 0);
+INSERT INTO `biodata_detail` (`id`, `biodata_id`, `pangkat_id`, `unit_kerja_id`, `jabatan`, `golongan_ruang`, `tmt_pangkat`, `tmt_masa_kerja`, `tmt_tahun`, `tmt_bulan`, `hp`, `email`, `cpns_no`, `cpns_file`, `pns_no`, `pns_file`, `non_pns_no`, `non_pns_file`, `gaji`) VALUES
+(1, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
+(2, 3, 1, 9, '', '', '', '', '', '', '-', '', '1', '2014/06/24/20140624_092352_9622.jpg', '2', '2014/06/24/20140624_092354_7112.jpg', '3', '2014/06/24/20140624_092355_3174.jpg', 123456),
+(3, 4, 0, 2014, 'Programmer', 'III/A', '-', '5 Tahun 2 Bulan', '5 Tahun', '2 Bulan', '856355402', 'her0satr@yahoo.com', '2014/03/17/20140317_144553_8586.jpg', '', '2014/03/17/20140317_144555_4644.jpg', '', '2014/03/17/20140317_144557_7781.jpg', '', 1500000),
+(4, 5, 0, 0, '', '', '', '', '', '', '111111', '', '', '', '', '', '', '', 0),
+(5, 8, 5, 57, 'Kepala Sub Bagian Tata Usaha', 'IV / E', '', '', '', '', '-', '', '', '', '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1434,6 +1441,7 @@ INSERT INTO `skp_perilaku_kerja` (`id`, `biodata_id`, `perilaku_kerja_id`, `tahu
 CREATE TABLE IF NOT EXISTS `skp_realisasi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `skp_sasaran_kerja_id` int(11) NOT NULL,
+  `kuant_revisi` int(11) NOT NULL,
   `waktu_nilai` int(11) NOT NULL,
   `waktu_satuan` varchar(50) NOT NULL,
   `biaya` int(11) NOT NULL,
@@ -1444,19 +1452,19 @@ CREATE TABLE IF NOT EXISTS `skp_realisasi` (
 -- Dumping data for table `skp_realisasi`
 --
 
-INSERT INTO `skp_realisasi` (`id`, `skp_sasaran_kerja_id`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
-(2, 2, 12, 'Bulan', 0),
-(3, 3, 6, 'Bulan', 0),
-(4, 4, 12, 'bulan', 0),
-(5, 5, 12, 'bulan', 0),
-(6, 8, 12, 'bulan', 0),
-(7, 9, 12, 'bulan', 0),
-(8, 10, 12, 'bulan', 0),
-(9, 11, 12, 'bulan', 0),
-(10, 14, 12, 'bulan', 0),
-(11, 15, 12, 'bulan', 0),
-(12, 12, 12, 'bulan', 0),
-(13, 13, 12, 'bulan', 0);
+INSERT INTO `skp_realisasi` (`id`, `skp_sasaran_kerja_id`, `kuant_revisi`, `waktu_nilai`, `waktu_satuan`, `biaya`) VALUES
+(2, 2, 0, 12, 'Bulan', 0),
+(3, 3, 0, 6, 'Bulan', 0),
+(4, 4, 0, 12, 'bulan', 0),
+(5, 5, 0, 12, 'bulan', 0),
+(6, 8, 0, 12, 'bulan', 0),
+(7, 9, 0, 12, 'bulan', 0),
+(8, 10, 200, 12, 'bulan', 0),
+(9, 11, 0, 12, 'bulan', 0),
+(10, 14, 0, 12, 'bulan', 0),
+(11, 15, 0, 12, 'bulan', 0),
+(12, 12, 0, 12, 'bulan', 0),
+(13, 13, 0, 12, 'bulan', 0);
 
 -- --------------------------------------------------------
 
@@ -3446,7 +3454,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `thumbnail` varchar(255) NOT NULL,
   `is_active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `user`
@@ -3455,7 +3463,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `user_type_id`, `email`, `fullname`, `passwd`, `address`, `thumbnail`, `is_active`) VALUES
 (5, 2, '111', '1asdasd', '5d408d848a029d6d3b333ee32469dda8', '', '', 1),
 (6, 3, '2', 'TRI BUDI HARTANA, SH', 'cb8eed4d556ba533cf5c6941d9eb5991', '', '', 1),
-(10, 1, '0123456789', 'Ferry Cahyono', '705f973c251b7e26e40f855739de2d87', '', '', 1);
+(10, 1, '0123456789', 'Ferry Cahyono', '705f973c251b7e26e40f855739de2d87', '', '', 1),
+(15, 4, 'penilai', 'Penilai', 'a1e4712a295365dea9a65bcf7eb83669', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -3468,7 +3477,7 @@ CREATE TABLE IF NOT EXISTS `user_biodata` (
   `user_id` int(11) NOT NULL,
   `biodata_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `user_biodata`
@@ -3477,7 +3486,8 @@ CREATE TABLE IF NOT EXISTS `user_biodata` (
 INSERT INTO `user_biodata` (`id`, `user_id`, `biodata_id`) VALUES
 (1, 5, 3),
 (2, 6, 2),
-(4, 10, 5);
+(4, 10, 5),
+(8, 15, 9);
 
 -- --------------------------------------------------------
 
@@ -3489,7 +3499,7 @@ CREATE TABLE IF NOT EXISTS `user_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `user_type`
@@ -3498,7 +3508,8 @@ CREATE TABLE IF NOT EXISTS `user_type` (
 INSERT INTO `user_type` (`id`, `title`) VALUES
 (1, 'Administrator'),
 (2, 'Tata Usaha'),
-(3, 'Pegawai');
+(3, 'Pegawai'),
+(4, 'Penilai');
 
 -- --------------------------------------------------------
 

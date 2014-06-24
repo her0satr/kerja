@@ -29,7 +29,7 @@ class skp_tahunan extends SYGAAS_Controller {
 				$_POST['column'] = array( 'nama', 'nip' );
 			} else if ($action == 'skp_realisasi') {
 				$_POST['is_edit_only'] = 1;
-				$_POST['column'] = array( 'jenis_skp_title', 'real_angka_kredit', 'real_kuant', 'real_kual', 'real_waktu', 'real_biaya' );
+				$_POST['column'] = array( 'jenis_skp_title', 'real_angka_kredit', 'real_kuant', 'real_kuant_revisi', 'real_kual', 'real_waktu', 'real_biaya' );
 			} else if ($action == 'skp_tugas_tambahan') {
 				$_POST['is_edit'] = 1;
 				$_POST['column'] = array( 'title', 'perhitungan', 'nilai_capaian' );
@@ -193,53 +193,81 @@ class skp_tahunan extends SYGAAS_Controller {
 	
 	function cetak() {
 		$print_type = (isset($_GET['print_type'])) ? $_GET['print_type'] : 'sasaran';
+		$print_mode = 'word';
 		
 		// load library
-		ini_set("memory_limit", "1G");
-		$this->load->library('mpdf');
-		
-		/*
-			$mpdf = new mPDF(
-			 '',    // mode - default ''
-			 '',    // format - A4, for example, default ''
-			 0,     // font size - default 0
-			 '',    // default font family
-			 15,    // margin_left
-			 15,    // margin right
-			 16,	// margin top
-			 16,	// margin bottom
-			 9,		// margin header
-			 9,		// margin footer
-			 'L'	// L - landscape, P - portrait
-			);
-		/*	*/
-		
-		if ($print_type == 'sasaran') {
-			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/sasaran_kerja', array( ), true );
-			$this->mpdf->WriteHTML($template);
-		} else if ($print_type == 'realisasi') {
-			$this->mpdf = new mPDF( '', 'A4', '', '', 5, 5, 5, 5, 0, 0 );
-			$this->mpdf->AddPage('L');
-			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/capaian_sasaran', array( ), true );
-			$this->mpdf->WriteHTML($template);
-		} else if ($print_type == 'penilaian') {
-			$this->mpdf->AddPage('P');
-			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/prestasi_kerja', array( ), true );
-			$this->mpdf->WriteHTML($template);
+		if ($print_mode == 'word') {
+			header("Content-type: application/vnd.ms-word");
+			header("Content-Disposition: attachment;Filename=cetak.doc");
 			
-			$this->mpdf->AddPage('P');
-			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/perilaku', array( ), true );
-			$this->mpdf->WriteHTML($template);
+			if ($print_type == 'sasaran') {
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/sasaran_kerja', array( ), true );
+			} else if ($print_type == 'realisasi') {
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/capaian_sasaran', array( ), true );
+			} else if ($print_type == 'penilaian') {
+				$template  = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/prestasi_kerja', array( ), true );
+				$template .= '<br /><br /><br /><br />';
+				
+				$template .= $this->load->view( 'kepegawaian/skp/template_skp_tahunan/perilaku', array( ), true );
+				$template .= '<br /><br /><br /><br />';
+				
+				$template .= $this->load->view( 'kepegawaian/skp/template_skp_tahunan/tanggapan', array( ), true );
+				$template .= '<br /><br /><br /><br />';
+				echo $template; exit;
+				
+				$template .= $this->load->view( 'kepegawaian/skp/template_skp_tahunan/persetujuan', array( ), true );
+				$template .= '<br /><br /><br /><br />';
+			}
 			
-			$this->mpdf->AddPage('P');
-			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/tanggapan', array( ), true );
-			$this->mpdf->WriteHTML($template);
-			
-			$this->mpdf->AddPage('P');
-			$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/persetujuan', array( ), true );
-			$this->mpdf->WriteHTML($template);
+			echo $template;
 		}
-		
-		$this->mpdf->Output();
+		else {
+			ini_set("memory_limit", "1G");
+			$this->load->library('mpdf');
+			
+			/*
+				$mpdf = new mPDF(
+				 '',    // mode - default ''
+				 '',    // format - A4, for example, default ''
+				 0,     // font size - default 0
+				 '',    // default font family
+				 15,    // margin_left
+				 15,    // margin right
+				 16,	// margin top
+				 16,	// margin bottom
+				 9,		// margin header
+				 9,		// margin footer
+				 'L'	// L - landscape, P - portrait
+				);
+			/*	*/
+			
+			if ($print_type == 'sasaran') {
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/sasaran_kerja', array( ), true );
+				$this->mpdf->WriteHTML($template);
+			} else if ($print_type == 'realisasi') {
+				$this->mpdf = new mPDF( '', 'A4', '', '', 5, 5, 5, 5, 0, 0 );
+				$this->mpdf->AddPage('L');
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/capaian_sasaran', array( ), true );
+				$this->mpdf->WriteHTML($template);
+			} else if ($print_type == 'penilaian') {
+				$this->mpdf->AddPage('P');
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/prestasi_kerja', array( ), true );
+				$this->mpdf->WriteHTML($template);
+				
+				$this->mpdf->AddPage('P');
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/perilaku', array( ), true );
+				$this->mpdf->WriteHTML($template);
+				
+				$this->mpdf->AddPage('P');
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/tanggapan', array( ), true );
+				$this->mpdf->WriteHTML($template);
+				
+				$this->mpdf->AddPage('P');
+				$template = $this->load->view( 'kepegawaian/skp/template_skp_tahunan/persetujuan', array( ), true );
+				$this->mpdf->WriteHTML($template);
+			}
+			
+			$this->mpdf->Output();
+		}
 	}
 }

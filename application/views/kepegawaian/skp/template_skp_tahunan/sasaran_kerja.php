@@ -20,6 +20,7 @@
 ?>
 
 <style>
+div, table { font-size: 10px; }
 table.border {background-color:#000;}
 table.border td,th,caption{background-color:#fff}
 </style>
@@ -27,10 +28,10 @@ table.border td,th,caption{background-color:#fff}
 <div style="text-align: center; font-weight: bold; font-size: 14px;">
 	<div>FORMULIR SASARAN KERJA</div>
 	<div>PEGAWAI NEGERI SIPIL</div>
-</div>
+</div><br />
 
 <div style="padding: 20px 0 0 40px;">
-<table class="border" style="font-size: 10px; width: 680px;">
+<table class="border" style="width: 680px;">
 	<tr>
 		<td style="width: 30px; text-align: center;">NO</td>
 		<td style="width: 310px;" colspan="2">I. PEJABAT PENILAI</td>
@@ -73,21 +74,20 @@ table.border td,th,caption{background-color:#fff}
 		<td><?php echo $biodata['skpd_title']; ?></td></tr>
 </table>
 </div>
-
-<div style="clear: both; margin: 0pt; padding: 0pt; "></div>
+<div style="clear: both;"></div><br />
 
 <div style="padding: 20px 0 0 40px;">
-<table class="border" style="font-size: 10px; width: 680px;">
+<table class="border" style="width: 680px;">
 	<tr>
 		<td style="width: 30px; text-align: center;" rowspan="2">NO</td>
 		<td style="width: 280px;" rowspan="2">III. KEGIATAN TUGAS JABATAN</td>
 		<td style="width: 60px; text-align: center;" rowspan="2">AK</td>
 		<td style="width: 300px; text-align: center;" colspan="4">TARGET</td></tr>
 	<tr>
-		<td style="font-size: 8px; width: 80px; text-align: center;">KUANT/OUTPUT</td>
-		<td style="font-size: 8px; width: 70px; text-align: center;">KUAL/OUTPUT</td>
-		<td style="font-size: 8px; width: 80px; text-align: center;">WAKTU</td>
-		<td style="font-size: 8px; width: 70px; text-align: center;">BIAYA</td></tr>
+		<td style="width: 80px; text-align: center;">KUANT/OUTPUT</td>
+		<td style="width: 70px; text-align: center;">KUAL/OUTPUT</td>
+		<td style="width: 80px; text-align: center;">WAKTU</td>
+		<td style="width: 70px; text-align: center;">BIAYA</td></tr>
 	<?php $counter = 1; ?>
 	<?php foreach ($sasaran_kerja as $row) { ?>
 	<tr>
@@ -108,24 +108,27 @@ table.border td,th,caption{background-color:#fff}
 	<?php $counter++; ?>
 	<?php } ?>
 </table>
-</div>
+</div><br />
 
 <div style="text-align: center; font-size: 12px; padding: 30px 0 0 0;">
-	<div style="float: left; width: 50%;">
-		<div>&nbsp;</div>
-		<div>Pejabat Penilai,</div>
-		<div style="padding: 25px 0;">&nbsp;</div>
-		<div><?php echo $pejabat_penilai['nama']; ?></div>
-		<div>NIP. <?php echo $pejabat_penilai['nip']; ?></div>
-	</div>
-	<div style="float: left; width: 50%;">
-		<div>Malang, <?php echo $summary['tanggal_pembuatan_text']; ?></div>
-		<div>Pegawai Negeri Sipil Yang Dinilai</div>
-		<div style="padding: 25px 0;">&nbsp;</div>
-		<div><?php echo $biodata['nama']; ?></div>
-		<div>NIP. <?php echo $biodata['nip']; ?></div>
-	</div>
-	<div style="clear: both;"></div>
+	<table style="width: 100%;">
+		<tr>
+			<td style="width: 50%; text-align: center;">
+				<div>&nbsp;</div>
+				<div>Pejabat Penilai,</div>
+				<div style="padding: 25px 0;">&nbsp;</div>
+				<div><?php echo $pejabat_penilai['nama']; ?></div>
+				<div>NIP. <?php echo $pejabat_penilai['nip']; ?></div>
+			</td>
+			<td style="width: 50%; text-align: center;">
+				<div>Malang, <?php echo @$summary['tanggal_pembuatan_text']; ?></div>
+				<div>Pegawai Negeri Sipil Yang Dinilai</div>
+				<div style="padding: 25px 0;">&nbsp;</div>
+				<div><?php echo $biodata['nama']; ?></div>
+				<div>NIP. <?php echo $biodata['nip']; ?></div>
+			</td>
+		</tr>
+	</table>
 	
 	<div style="padding: 25px 0 0 45px; text-align: left;">
 		Catatan :<br />

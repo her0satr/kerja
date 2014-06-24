@@ -6,7 +6,7 @@ class biodata_detail_model extends CI_Model {
 		
         $this->field = array(
 			'id', 'biodata_id', 'jabatan', 'pangkat_id', 'golongan_ruang', 'tmt_pangkat', 'tmt_masa_kerja', 'tmt_tahun', 'tmt_bulan', 'hp', 'email',
-			'cpns', 'pns', 'non_pns', 'unit_kerja_id', 'gaji'
+			'cpns_no', 'cpns_file', 'pns_no', 'pns_file', 'non_pns_no', 'non_pns_file', 'unit_kerja_id', 'gaji'
 		);
     }
 

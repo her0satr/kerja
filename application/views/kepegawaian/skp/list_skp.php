@@ -44,7 +44,8 @@
 									<th class="center">Waktu</th>
 									<th>Nama</th>
 									<th>Kegiatan</th>
-									<th>Keterangan</th>
+									<th>Kuantitas</th>
+									<th>Kualitas</th>
 									<th class="center">Control</th></tr>
 							</thead>
 							<tbody></tbody>
@@ -120,6 +121,18 @@
 									<select class="form-control" name="jenis_kegiatan_id">
 										<option value="">-</option>
 									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Kuantitas</label>
+								<div class="col-lg-10">
+									<input type="text" name="kuan" class="form-control" placeholder="Kuantitas" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">KUAL / Mutu</label>
+								<div class="col-lg-10">
+									<input type="text" name="kual" class="form-control" placeholder="KUAL / Mutu dalam persen" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -205,19 +218,20 @@ $(document).ready(function() {
 	var param = {
 		id: 'datatable', aaSorting: [[0, 'desc']],
 		source: web.host + 'kepegawaian/skp/list_skp/grid',
-		column: [ { sClass: "center" }, { sClass: "center" }, { }, { }, { }, { bSortable: false, sClass: "center" } ],
+		column: [ { sClass: "center" }, { sClass: "center" }, { }, { }, { sClass: "center" }, { sClass: "center" }, { bSortable: false, sClass: "center" } ],
 		callback: function() {
 			$('#datatable .btn-edit').click(function() {
 				var raw_record = $(this).siblings('.hide').text();
 				eval('var record = ' + raw_record);
 				
 				Func.ajax({ url: web.host + 'kepegawaian/skp/list_skp/action', param: { action: 'get_by_id', id: record.id }, callback: function(result) {
+					page.show_form();
 					Func.populate({ cnt: '#form-skp', record: result });
+					$('#form-skp [name="type_row"]').change();
+					
+					// ajax populate
 					combo.jenis_skp({ biodata_id: result.biodata_id, target: $('#form-skp [name="jenis_skp_id"]'), value: result.jenis_skp_id });
 					combo.jenis_kegiatan({ biodata_id: result.biodata_id, target: $('#form-skp [name="jenis_kegiatan_id"]'), value: result.jenis_kegiatan_id });
-					
-					page.show_form();
-					$('#form-skp [name="type_row"]').change();
 				} });
 			});
 			
